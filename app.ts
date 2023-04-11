@@ -70,8 +70,8 @@ async function* makeGoogleProductTypeTextLineIterator(): AsyncGenerator<string> 
 
   let i = 0;
   for await (const line of makeTextFileLineIterator(reader)) {
+    // skip the first line since its a title, not data
     if (i !== 0) {
-      // skip the first line since its a title, not data
       yield line;
     }
     i++;

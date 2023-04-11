@@ -36,7 +36,7 @@ export const createNode = <T>(value: T, children: Vertex<T>[] = []): Vertex<T> =
 });
 
 export const insert = <T>(nodes: Vertices<T>, path: Queue<T>): Vertices<T> => {
-  let rootNodes = nodes;
+  const rootNodes = nodes;
   while (!path.isEmpty()) {
     const token = path.dequeue();
     const node = nodes.find((n) => n.value === token);
@@ -81,7 +81,7 @@ export const maxDepth = <T>(nodes: Vertices<T>): number => {
     if (node.children.length === 0) {
       return currentLevel; // leaf node
     }
-    return aggregateNodes(node.children, currentLevel + 1);
+    return aggregateNodes(node.children, currentLevel + 1); // has children
   };
 
   return aggregateNodes(nodes, 1);

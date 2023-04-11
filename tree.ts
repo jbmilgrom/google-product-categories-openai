@@ -63,7 +63,7 @@ export const traverse = <T>(nodes: Vertices<T>, path: Queue<T>): Vertex<T> | nul
     node = candidate;
     nodes = node.children;
   }
-  return node!; // we no not null because a missing candidate returns early
+  return node!; // we know not null because a missing candidate returns early
 };
 
 export const maxDegree = <T>(nodes: Vertices<T>): [T | null, number] => {

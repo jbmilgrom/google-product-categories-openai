@@ -5,11 +5,18 @@ export type Queue<T> = {
   toString: () => string;
 };
 
-export type Vertex<T> = {
+/**
+ * A node in the tree. We must call it a "Vertex" instead of Node because of a naming collision with NodeJS types.
+ */
+type Vertex<T> = {
   value: T;
   children: Vertices<T>;
 };
 
+/**
+ * The this is the "Tree" type. We represent as a list of nodes instead of a single root node
+ * for more generality.
+ */
 export type Vertices<T> = Vertex<T>[];
 
 export const makeQueue = <T>(): Queue<T> => {

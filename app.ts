@@ -7,11 +7,35 @@ const port = 3003;
 
 const GOOGLE_PRODUCT_TYPES_URL = "https://www.google.com/basepages/producttype/taxonomy.en-US.txt";
 
+const ROUTES = {
+  TEXT: "/text",
+  INTERNAL_REPRESENTATION: "/internal-representation.json",
+  MAX_DEPTH: "/max-depth",
+  MAX_DEGREE: "/max-degree",
+} as const;
+
+type RouteKeys = Array<keyof typeof ROUTES>;
+
 app.get("/", async (req, res) => {
-  res.send("Hello World!");
+  res.set("Content-Type", "text/html");
+  res.send(
+    Buffer.from(`
+    <h2>Explore Google Product Types</h1>
+    <ul>
+      ${(Object.keys(ROUTES) as RouteKeys)
+        .map(
+          (k) =>
+            `<li>
+          <a href=${ROUTES[k]}>${ROUTES[k]}</a>
+        </li>`
+        )
+        .join("")}
+    </ul>
+  `)
+  );
 });
 
-app.get("/text", async (req, res) => {
+app.get(ROUTES.TEXT, async (req, res) => {
   console.log(`fetching google product type...`);
   for await (const line of makeGoogleProductTypeTextLineIterator()) {
     res.write(`${line}\n`);
@@ -19,7 +43,7 @@ app.get("/text", async (req, res) => {
   res.end();
 });
 
-app.get("/internal-representation.json", async (req, res) => {
+app.get(ROUTES.INTERNAL_REPRESENTATION, async (req, res) => {
   console.log(`fetching google product type...`);
   let nodes: Vertices<string> = [];
   for await (const line of makeGoogleProductTypeTextLineIterator()) {
@@ -28,7 +52,7 @@ app.get("/internal-representation.json", async (req, res) => {
   res.send(nodes);
 });
 
-app.get("/max-depth", async (req, res) => {
+app.get(ROUTES.MAX_DEPTH, async (req, res) => {
   console.log("calculating max depth...");
   let max = 0;
   let nodes: Vertices<string> = [];
@@ -38,7 +62,7 @@ app.get("/max-depth", async (req, res) => {
   res.send(`Max depth: ${maxDepth(nodes)}\n`);
 });
 
-app.get("/max-degree", async (req, res) => {
+app.get(ROUTES.MAX_DEGREE, async (req, res) => {
   console.log("calculating max degree...");
   let nodes: Vertices<string> = [];
   for await (const line of makeGoogleProductTypeTextLineIterator()) {

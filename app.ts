@@ -51,7 +51,8 @@ app.get("/max-degree", async (req, res) => {
 
   const [token, max] = maxDegree(nodes);
 
-  res.write(`Max degree: ${max} for token: ${token}\n`);
+  res.write(`Max degree: ${max}\n`);
+  res.write(`Token: "${token}"\n`);
 
   res.end();
 });

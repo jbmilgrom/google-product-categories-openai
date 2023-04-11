@@ -61,11 +61,11 @@ export const maxDegree = <T>(nodes: Vertices<T>): [T | null, number] => {
   let maxValue: T | null = null;
   forEachBreadthFirst(nodes, (node) => {
     const candidate = node.children.length;
-    if (candidate > max) {
-      maxValue = node.value;
-      max = candidate;
+    if (candidate < max) {
       return;
     }
+    maxValue = node.value;
+    max = candidate;
   });
   return [maxValue, max];
 };

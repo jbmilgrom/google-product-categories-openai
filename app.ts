@@ -1,6 +1,6 @@
 import express from 'express';
 import {makeTextFileLineIterator} from './readTxtFile';
-import {makeQueue, insert, Vertices, maxDepth, Queue} from './tree';
+import {makeQueue, insert, Vertices, maxDepth, Queue, maxDegree} from './tree';
 
 const app = express()
 const port = 3003;
@@ -37,7 +37,21 @@ app.get('/max-depth', async (req, res) => {
     insert(nodes, getPath(line));
   }
 
-  res.write(`Based on max text yo: ${maxDepth(nodes)}\n`);
+  res.write(`Max depth: ${maxDepth(nodes)}\n`);
+
+  res.end();
+});
+
+app.get('/max-degree', async (req, res) => {
+  console.log("calculating max degree...");
+  let nodes: Vertices<string> = [];
+  for await (const line of makeGoogleProductTypeTextLineIterator()) {
+    insert(nodes, getPath(line));
+  }
+
+  const [token, max] = maxDegree(nodes);
+
+  res.write(`Max degree: ${max} for token: ${token}\n`);
 
   res.end();
 });

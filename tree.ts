@@ -6,7 +6,7 @@ export type Queue<T> = {
 }
 
 export type Vertex<T> = {
-    token: T,
+    value: T,
     children: Vertices<T>,
 }
 
@@ -30,8 +30,8 @@ export const makeQueue = <T>(): Queue<T> => {
     };
 }
 
-export const createNode = <T>(token: T, children: Vertex<T>[] = []): Vertex<T> => ({
-    token,
+export const createNode = <T>(value: T, children: Vertex<T>[] = []): Vertex<T> => ({
+    value,
     children,
 });
 
@@ -39,7 +39,7 @@ export const insert = <T>(nodes: Vertices<T>, path: Queue<T>): Vertices<T> => {
     let rootNodes = nodes;
     while (!path.isEmpty()) {
         const token = path.dequeue();
-        const node = nodes.find(n => n.token === token);
+        const node = nodes.find(n => n.value === token);
         if (!node) {
             nodes.push(createNode(token)); // build out new path
             continue; 
@@ -56,13 +56,19 @@ export const forEachBreadthFirst = <T>(nodes: Vertices<T>, cb: (node: Vertex<T>)
     });
 }
 
-export const maxDegree = <T>(nodes: Vertices<T>): number => {
-    let degree = 0;
+export const maxDegree = <T>(nodes: Vertices<T>): [T | null, number] => {
+    let max = 0;
+    let maxValue: T | null = null;
     forEachBreadthFirst(nodes, node => {
         const candidate = node.children.length;
-        degree = candidate > degree ? candidate : degree;
+        if (candidate > max) {
+            maxValue = node.value;
+            max = candidate;
+            return;
+        }
+
     });
-    return degree;
+    return [maxValue, max];
 };
 
 export const maxDepth = <T>(nodes: Vertices<T>): number => {

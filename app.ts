@@ -22,14 +22,7 @@ app.get("/", async (req, res) => {
     Buffer.from(`
     <h2>Explore Google Product Types</h1>
     <ul>
-      ${(Object.keys(ROUTES) as RouteKeys)
-        .map(
-          (k) =>
-            `<li>
-          <a href=${ROUTES[k]}>${ROUTES[k]}</a>
-        </li>`
-        )
-        .join("")}
+      ${(Object.keys(ROUTES) as RouteKeys).map((k) => `<li><a href=${ROUTES[k]}>${ROUTES[k]}</a></li>`).join("")}
     </ul>
   `)
   );

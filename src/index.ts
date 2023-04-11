@@ -1,6 +1,6 @@
 import express from "express";
-import { makeTextFileLineIterator } from "./src/readTxtFile";
-import { makeQueue, insert, Vertices, maxDepth, Queue, maxDegree } from "./src/tree";
+import { makeTextFileLineIterator } from "./readTxtFile";
+import { makeQueue, insert, Vertices, maxDepth, Queue, maxDegree } from "./tree";
 import { parse } from "node-html-parser";
 
 const app = express();

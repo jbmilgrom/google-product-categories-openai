@@ -52,6 +52,20 @@ export const insert = <T>(nodes: Vertices<T>, path: Queue<T>): Vertices<T> => {
   return rootNodes;
 };
 
+export const traverse = <T>(nodes: Vertices<T>, path: Queue<T>): Vertex<T> | null => {
+  let node: Vertex<T> | null = null;
+  while (!path.isEmpty()) {
+    const value = path.dequeue();
+    const candidate = nodes.find((n) => n.value === value);
+    if (!candidate) {
+      return null;
+    }
+    node = candidate;
+    nodes = node.children;
+  }
+  return node;
+};
+
 export const maxDegree = <T>(nodes: Vertices<T>): [T | null, number] => {
   let max = 0;
   let maxValue: T | null = null;

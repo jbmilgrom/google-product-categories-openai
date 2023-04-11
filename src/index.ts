@@ -2,9 +2,20 @@ import express from "express";
 import { makeTextFileLineIterator } from "./readTxtFile";
 import { makeQueue, insert, Vertices, maxDepth, Queue, maxDegree } from "./tree";
 import { parse } from "node-html-parser";
+import { getMetaTags, escapeHtml } from "./getMetaTags";
 
 const app = express();
-const port = 3003;
+
+/**
+ * These configurations are needed to be receive form data in POST methods
+ *
+ * @see https://stackoverflow.com/a/12008719/3645851
+ * @see https://stackoverflow.com/questions/25471856/express-throws-error-as-body-parser-deprecated-undefined-extended
+ */
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+const PORT = 3003;
 
 const GOOGLE_PRODUCT_TYPES_URL = "https://www.google.com/basepages/producttype/taxonomy.en-US.txt";
 
@@ -13,6 +24,7 @@ const ROUTES = {
   INTERNAL_REPRESENTATION: "/internal-representation.json",
   MAX_DEPTH: "/max-depth",
   MAX_DEGREE: "/max-degree",
+  URL: "/url",
 } as const;
 
 type RouteKeys = Array<keyof typeof ROUTES>;
@@ -70,8 +82,42 @@ app.get(ROUTES.MAX_DEGREE, async (req, res) => {
   res.end();
 });
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+app
+  .route(ROUTES.URL)
+  .get(async (req, res) => {
+    res.set("Content-Type", "text/html");
+    res.send(
+      Buffer.from(`
+      <form action=${ROUTES.URL} method="post">
+        <label for="url">URL:</label>
+        <input type="url" name="url" id="url"
+              placeholder="https://example.com"
+              pattern="https?://.*" 
+              required>
+        <input type="submit" value="Submit">
+      </form>
+    `)
+    );
+  })
+  .post(async (req, res) => {
+    const url: string | undefined = req.body.url;
+    if (!url) {
+      res.send("No URL received");
+      return;
+    }
+
+    const metaTags = await getMetaTags(url);
+
+    res.set("Content-Type", "text/html");
+    res.send(
+      Buffer.from(`
+     <pre><code>${escapeHtml(metaTags)}</code></pre>
+    `)
+    );
+  });
+
+app.listen(PORT, () => {
+  console.log(`Example app listening on port ${PORT}`);
 });
 
 async function* makeGoogleProductTypeTextLineIterator(): AsyncGenerator<string> {

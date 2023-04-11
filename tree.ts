@@ -2,7 +2,7 @@ export type Queue<T> = {
   enqueue: (i: T) => void;
   dequeue: () => T;
   isEmpty: () => boolean;
-  print: () => void;
+  toString: () => string;
 };
 
 export type Vertex<T> = {
@@ -26,14 +26,9 @@ export const makeQueue = <T>(): Queue<T> => {
       return q.shift()!;
     },
     isEmpty,
-    print: () => console.log(q.join(", ")),
+    toString: () => q.join(", "),
   };
 };
-
-export const createNode = <T>(value: T, children: Vertex<T>[] = []): Vertex<T> => ({
-  value,
-  children,
-});
 
 export const insert = <T>(nodes: Vertices<T>, path: Queue<T>): Vertices<T> => {
   const rootNodes = nodes;
@@ -47,13 +42,6 @@ export const insert = <T>(nodes: Vertices<T>, path: Queue<T>): Vertices<T> => {
     nodes = node.children;
   }
   return rootNodes;
-};
-
-export const forEachBreadthFirst = <T>(nodes: Vertices<T>, cb: (node: Vertex<T>) => void): void => {
-  nodes.forEach((n) => {
-    cb(n);
-    forEachBreadthFirst(n.children, cb);
-  });
 };
 
 export const maxDegree = <T>(nodes: Vertices<T>): [T | null, number] => {
@@ -86,3 +74,15 @@ export const maxDepth = <T>(nodes: Vertices<T>): number => {
 
   return aggregateNodes(nodes, 1);
 };
+
+const forEachBreadthFirst = <T>(nodes: Vertices<T>, cb: (node: Vertex<T>) => void): void => {
+  nodes.forEach((n) => {
+    cb(n);
+    forEachBreadthFirst(n.children, cb);
+  });
+};
+
+const createNode = <T>(value: T, children: Vertex<T>[] = []): Vertex<T> => ({
+  value,
+  children,
+});

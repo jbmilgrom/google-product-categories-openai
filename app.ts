@@ -16,7 +16,6 @@ app.get("/text", async (req, res) => {
   for await (const line of makeGoogleProductTypeTextLineIterator()) {
     res.write(`${line}\n`);
   }
-
   res.end();
 });
 
@@ -36,10 +35,7 @@ app.get("/max-depth", async (req, res) => {
   for await (const line of makeGoogleProductTypeTextLineIterator()) {
     insert(nodes, getPath(line));
   }
-
-  res.write(`Max depth: ${maxDepth(nodes)}\n`);
-
-  res.end();
+  res.send(`Max depth: ${maxDepth(nodes)}\n`);
 });
 
 app.get("/max-degree", async (req, res) => {
@@ -53,7 +49,6 @@ app.get("/max-degree", async (req, res) => {
 
   res.write(`Max degree: ${max}\n`);
   res.write(`Token: "${token}"\n`);
-
   res.end();
 });
 

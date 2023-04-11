@@ -78,6 +78,15 @@ async function* makeGoogleProductTypeTextLineIterator(): AsyncGenerator<string> 
   }
 }
 
+/**
+ * Parse a text line e.g.
+ *   "Animals & Pet Supplies > Pet Supplies > Bird Supplies > Bird Cage Accessories"
+ *
+ * Using the ">" character to indicate level, and turn into a Queue<string> data structure.
+ *
+ * @param line
+ * @returns
+ */
 const getPath = (line: string): Queue<string> => {
   const list = line.split(">").map((token) => token.trim());
   const queue = makeQueue<string>();

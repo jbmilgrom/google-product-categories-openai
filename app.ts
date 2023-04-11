@@ -79,8 +79,8 @@ async function* makeGoogleProductTypeTextLineIterator(): AsyncGenerator<string> 
 }
 
 const getPath = (line: string): Queue<string> => {
-  const path = line.split(">").map((token) => token.trim());
+  const list = line.split(">").map((token) => token.trim());
   const queue = makeQueue<string>();
-  path.forEach((token) => queue.enqueue(token));
+  list.forEach((token) => queue.enqueue(token));
   return queue;
 };

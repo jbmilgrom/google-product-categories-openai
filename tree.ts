@@ -53,7 +53,7 @@ export const insert = <T>(nodes: Vertices<T>, path: Queue<T>): Vertices<T> => {
 };
 
 export const traverse = <T>(nodes: Vertices<T>, path: Queue<T>): Vertex<T> | null => {
-  let node: Vertex<T> | null = null;
+  let node: Vertex<T>;
   while (!path.isEmpty()) {
     const value = path.dequeue();
     const candidate = nodes.find((n) => n.value === value);
@@ -63,7 +63,7 @@ export const traverse = <T>(nodes: Vertices<T>, path: Queue<T>): Vertex<T> | nul
     node = candidate;
     nodes = node.children;
   }
-  return node;
+  return node!; // we no not null because a missing candidate returns early
 };
 
 export const maxDegree = <T>(nodes: Vertices<T>): [T | null, number] => {

@@ -33,11 +33,12 @@ export const makeQueue = <T>(): Queue<T> => {
 export const insert = <T>(nodes: Vertices<T>, path: Queue<T>): Vertices<T> => {
   const rootNodes = nodes;
   while (!path.isEmpty()) {
-    const token = path.dequeue();
-    const node = nodes.find((n) => n.value === token);
+    const value = path.dequeue();
+    let node = nodes.find((n) => n.value === value);
     if (!node) {
-      nodes.push(createNode(token)); // build out new path
-      continue;
+      // if no node already exists, build out path with new root
+      node = createNode(value);
+      nodes.push(node);
     }
     nodes = node.children;
   }

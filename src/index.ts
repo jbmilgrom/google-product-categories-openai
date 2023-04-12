@@ -170,17 +170,17 @@ app
        */
       let choices: Vertices<string> = nodes;
       const categories = makeQueue<string>();
-      const script = makeQueue<string>();
+      const transcript = makeQueue<{ prompt: string; response: string }>();
       while (choices.length) {
-        const { category, transcript } = await selectFromMultipleChoices(apiKey, toList(choices), metaTags);
+        const { category, prompt } = await selectFromMultipleChoices(apiKey, toList(choices), metaTags);
         categories.enqueue(category);
-        script.enqueue(transcript);
+        transcript.enqueue({ prompt, response: category });
 
         const node = traverse(nodes, categories.copy());
         if (!node) {
           res.write(`Node not found for category "${category}"\n`);
           res.write("Transcript\n");
-          res.write(script.toString("#### Next Chat ####\n"));
+          res.write(transcript.toString("#### Next Chat ####\n"));
           res.end();
           return;
         }
@@ -191,10 +191,19 @@ app
       res.send(
         Buffer.from(`
           <h1>Results</h1>
+          <div>URL: ${url}</div>
           <h2>Product Categories</h2>
           <div>${categories.toString(" > ")}</div>
           <h2>Transcript with Openai</h2>
-          <p>${script.toString("<br/>")}<p>
+          ${transcript
+            .toList()
+            .map(
+              ({ prompt, response }) => `
+            <p>prompt: ${prompt}</p>
+            <p>openai: ${response}</p>
+          `
+            )
+            .join("</br>")}
         `)
       );
     } catch (e) {

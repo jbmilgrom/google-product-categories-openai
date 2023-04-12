@@ -16,7 +16,7 @@ Then run
 ```
 npm i
 nvm use 18
-npm start
+npm run start
 ```
 
 And navigate to `localhost:3003/url`, put in a URL and hit enter.
@@ -24,3 +24,13 @@ And navigate to `localhost:3003/url`, put in a URL and hit enter.
 ## Other Features
 
 `localhost:3003` provides an index of other features including `/traverse` which facilitates an exploration of the Google Product Category taxonomy
+
+## Contributing
+
+In order to avail yourself of the prettier pre commit hook by running
+
+```
+npm run setup
+```
+
+Then you're good to go

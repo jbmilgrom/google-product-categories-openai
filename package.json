@@ -22,7 +22,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "nodemon ./src/index.ts",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "setup": "npx husky-init & npx husky set .husky/pre-commit 'npx pretty-quick --staged'"
   },
   "author": "",
   "license": "ISC"

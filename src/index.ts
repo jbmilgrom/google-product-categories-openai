@@ -79,11 +79,13 @@ app.get(ROUTES.MAX_DEGREE, async (req, res) => {
 
 app.get(ROUTES.TRAVERSE, async (req, res) => {
   console.log("calculating children...");
-  const nodes = await getGoogleProductCategoriesTaxonomy();
+  // this needs to be a character that does not appear in google product categories (e.g. "," won't work properly)
+  const QUERY_PARAM_DELIMITER = ">";
 
+  const nodes = await getGoogleProductCategoriesTaxonomy();
   try {
     const pathString = (req.query.path as string) ?? null;
-    const path = pathString ? getPath(pathString, { delimitingChar: "," }) : makeQueue<string>();
+    const path = pathString ? getPath(pathString, { delimitingChar: QUERY_PARAM_DELIMITER }) : makeQueue<string>();
     const node = traverse(nodes, path.copy());
     const children = node?.children ?? nodes;
 
@@ -97,7 +99,9 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
             (value) =>
               `<li>
                 <a 
-                  href="${ROUTES.TRAVERSE}?path=${[...path.toList(), value].map(encodeURIComponent).join(",")}"
+                  href="${ROUTES.TRAVERSE}?path=${[...path.toList(), value]
+                .map(encodeURIComponent)
+                .join(QUERY_PARAM_DELIMITER)}"
                 >
                   ${value}
                 </a>
@@ -162,7 +166,6 @@ app
             ${templateTrascript(result.transcript)}
           `)
         );
-        res.end();
         return;
       }
 

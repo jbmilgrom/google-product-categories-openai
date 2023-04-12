@@ -1,6 +1,6 @@
 # google-product-types
 
-google product types POC
+Service that can categorize any website with just a URL, using OpenAI and the Google Product Category taxonomy.
 
 ## Getting Started
 
@@ -19,4 +19,8 @@ nvm use 18
 npm start
 ```
 
-And navigate to `localhost:3003`
+And navigate to `localhost:3003/url`, put in a URL and hit enter.
+
+## Other Features
+
+`localhost:3003` provides an index of other features including `/traverse` which facilitates an exploration of the Google Product Category taxonomy

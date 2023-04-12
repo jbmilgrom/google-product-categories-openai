@@ -11,10 +11,12 @@ Create an `.env` file in the root directory that includes your openai api key e.
 OPENAI_API_KEY=sk-wKob3QlGq9R...
 ```
 
+Then run
+
 ```
 npm i
 nvm use 18
 npm start
 ```
 
-navigate to `localhost:3003`
+And navigate to `localhost:3003`

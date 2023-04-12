@@ -120,6 +120,7 @@ app
     res.set("Content-Type", "text/html");
     res.send(
       Buffer.from(`
+      <h1>Find the Google Product Categories</h1>
       <form action=${ROUTES.URL} method="post">
         <label for="url">URL:</label>
         <input type="url" name="url" id="url"
@@ -132,6 +133,7 @@ app
                required>
         <input type="submit" value="Submit">
       </form>
+      <p>Only submit the form once to avoid multiple submissions. It will take a moment!</p>
     `)
     );
   })

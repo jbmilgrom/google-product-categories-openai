@@ -6,6 +6,7 @@ import { generatePrompt } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import { templateTrascript } from "./templates";
+import { ROUTES, RouteKeys } from "./routes";
 
 const app = express();
 
@@ -19,19 +20,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const PORT = 3003;
-
-export const GOOGLE_PRODUCT_TYPES_URL = "https://www.google.com/basepages/producttype/taxonomy.en-US.txt";
-
-const ROUTES = {
-  TEXT: "/text",
-  INTERNAL_REPRESENTATION: "/internal-representation.json",
-  MAX_DEPTH: "/max-depth",
-  MAX_DEGREE: "/max-degree",
-  TRAVERSE: "/traverse",
-  URL: "/url",
-} as const;
-
-type RouteKeys = Array<keyof typeof ROUTES>;
 
 app.get("/", async (req, res) => {
   res.set("Content-Type", "text/html");
@@ -91,12 +79,12 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
 
     res.set("Content-Type", "text/html");
     res.send(
-      Buffer.from(`
+      Buffer.from(/*html*/ `
       <h1>${node ? path.toString(" > ") : "Root Nodes"}</h1>
       <ul>
         ${toList(children)
           .map(
-            (value) =>
+            (value /*html*/) =>
               `<li>
                 <a 
                   href="${ROUTES.TRAVERSE}?path=${[...path.toList(), value]
@@ -121,7 +109,7 @@ app
   .get(async (req, res) => {
     res.set("Content-Type", "text/html");
     res.send(
-      Buffer.from(`
+      Buffer.from(/*html*/ `
       <h1>Find the Google Product Categories</h1>
       <form action=${ROUTES.URL} method="post">
         <label for="url">URL:</label>
@@ -145,14 +133,13 @@ app
     try {
       const metaTags = await getMetaTags(url);
       const nodes = await getGoogleProductCategoriesTaxonomy();
-
       const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags);
 
       res.set("Content-Type", "text/html");
 
       if (result.type === "error") {
         res.send(
-          Buffer.from(`
+          Buffer.from(/*html*/ `
             <h1>Results</h1>
             <div>${url}</div>
             <h2>Error Retrieving Product Categories</h2>
@@ -172,7 +159,7 @@ app
       const { categories, transcript } = result;
 
       res.send(
-        Buffer.from(`
+        Buffer.from(/*html*/ `
           <h1>Results</h1>
           <div>${url}</div>
           <h2>Product Categories</h2>

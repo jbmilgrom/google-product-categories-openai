@@ -1,9 +1,10 @@
 import express from "express";
-import { makeQueue, insert, Vertices, maxDepth, Queue, maxDegree, traverse, toList, Vertex } from "./utils/tree";
+import { makeQueue, insert, maxDepth, maxDegree, traverse, toList, Vertex } from "./utils/tree";
 import { parse } from "node-html-parser";
 import { getMetaTags, escapeHtml } from "./crawl";
-import { askOpenai, generatePrompt, selectFromMultipleChoices } from "./openai";
+import { askOpenai, generatePrompt } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
+import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 
 const app = express();
 
@@ -194,40 +195,3 @@ app
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
-
-/**
- *
- * @param openaiApiKey
- * @param productTaxonomy
- * @param webPageMetaData
- * @returns
- */
-const chatOpenaiAboutGoogleProducts = async (
-  openaiApiKey: string,
-  productTaxonomy: Vertices<string>,
-  webPageMetaData: string
-): Promise<
-  | { type: "success"; categories: Queue<string>; transcript: Queue<{ prompt: string; response: string }> }
-  | { type: "error"; category: string; transcript: Queue<{ prompt: string; response: string }> }
-> => {
-  /**
-   * 1. Get next choices (from node or default)
-   * 2. Select token from multiple choices
-   * 3. Find node from token, go to 1.
-   */
-  let choices: Vertices<string> = productTaxonomy;
-  const categories = makeQueue<string>();
-  const transcript = makeQueue<{ prompt: string; response: string }>();
-  while (choices.length) {
-    const { category, prompt } = await selectFromMultipleChoices(openaiApiKey, toList(choices), webPageMetaData);
-    categories.enqueue(category);
-    transcript.enqueue({ prompt, response: category });
-
-    const node = traverse(productTaxonomy, categories.copy());
-    if (!node) {
-      return { type: "error", category, transcript };
-    }
-    choices = node.children;
-  }
-  return { type: "success", categories, transcript };
-};

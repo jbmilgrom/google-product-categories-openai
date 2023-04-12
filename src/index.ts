@@ -84,12 +84,11 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
       <ul>
         ${toList(children)
           .map(
-            (value /*html*/) =>
-              `<li>
+            (value) => /*html*/ `<li>
                 <a 
                   href="${ROUTES.TRAVERSE}?path=${[...path.toList(), value]
-                .map(encodeURIComponent)
-                .join(QUERY_PARAM_DELIMITER)}"
+              .map(encodeURIComponent)
+              .join(QUERY_PARAM_DELIMITER)}"
                 >
                   ${value}
                 </a>

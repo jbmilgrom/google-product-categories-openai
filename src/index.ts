@@ -1,9 +1,13 @@
 import express from "express";
-import { makeTextFileLineIterator } from "./readTxtFile";
 import { makeQueue, insert, Vertices, maxDepth, Queue, maxDegree, traverse, toList, Vertex } from "./tree";
 import { parse } from "node-html-parser";
 import { getMetaTags, escapeHtml } from "./getMetaTags";
 import { askOpenai, generatePrompt, selectFromMultipleChoices } from "./openaiGetNode";
+import {
+  getGoogleProductCategoriesTaxonomy,
+  getPath,
+  makeGoogleProductTypeTextLineIterator,
+} from "./googleProductCategories";
 
 const app = express();
 
@@ -18,7 +22,7 @@ app.use(express.urlencoded({ extended: true }));
 
 const PORT = 3003;
 
-const GOOGLE_PRODUCT_TYPES_URL = "https://www.google.com/basepages/producttype/taxonomy.en-US.txt";
+export const GOOGLE_PRODUCT_TYPES_URL = "https://www.google.com/basepages/producttype/taxonomy.en-US.txt";
 
 const ROUTES = {
   TEXT: "/text",
@@ -53,29 +57,20 @@ app.get(ROUTES.TEXT, async (req, res) => {
 
 app.get(ROUTES.INTERNAL_REPRESENTATION, async (req, res) => {
   console.log(`fetching google product type...`);
-  let nodes: Vertices<string> = [];
-  for await (const line of makeGoogleProductTypeTextLineIterator()) {
-    insert(nodes, getPath(line));
-  }
+  const nodes = await getGoogleProductCategoriesTaxonomy();
   res.send(nodes);
 });
 
 app.get(ROUTES.MAX_DEPTH, async (req, res) => {
   console.log("calculating max depth...");
   let max = 0;
-  let nodes: Vertices<string> = [];
-  for await (const line of makeGoogleProductTypeTextLineIterator()) {
-    insert(nodes, getPath(line));
-  }
+  const nodes = await getGoogleProductCategoriesTaxonomy();
   res.send(`Max depth: ${maxDepth(nodes)}\n`);
 });
 
 app.get(ROUTES.MAX_DEGREE, async (req, res) => {
   console.log("calculating max degree...");
-  let nodes: Vertices<string> = [];
-  for await (const line of makeGoogleProductTypeTextLineIterator()) {
-    insert(nodes, getPath(line));
-  }
+  const nodes = await getGoogleProductCategoriesTaxonomy();
 
   const [token, max] = maxDegree(nodes);
 
@@ -86,10 +81,7 @@ app.get(ROUTES.MAX_DEGREE, async (req, res) => {
 
 app.get(ROUTES.TRAVERSE, async (req, res) => {
   console.log("calculating children...");
-  let nodes: Vertices<string> = [];
-  for await (const line of makeGoogleProductTypeTextLineIterator()) {
-    insert(nodes, getPath(line));
-  }
+  const nodes = await getGoogleProductCategoriesTaxonomy();
 
   try {
     const pathString = (req.query.path as string) ?? null;
@@ -158,10 +150,7 @@ app
 
     try {
       const metaTags = await getMetaTags(url);
-      let nodes: Vertices<string> = [];
-      for await (const line of makeGoogleProductTypeTextLineIterator()) {
-        insert(nodes, getPath(line));
-      }
+      const nodes = await getGoogleProductCategoriesTaxonomy();
 
       /**
        * 1. Get next choices (from node or default)
@@ -191,19 +180,24 @@ app
       res.send(
         Buffer.from(`
           <h1>Results</h1>
-          <div>URL: ${url}</div>
+          <div>${url}</div>
           <h2>Product Categories</h2>
           <div>${categories.toString(" > ")}</div>
+          <h2>Scraped Meta Tags</h2>
+          <pre><code>${escapeHtml(metaTags)}</code></pre>
           <h2>Transcript with Openai</h2>
+          <h3>Prompt Template</h3>
+          <p>${generatePrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")}</p>
+          <h3>Trascript (Verbatum)</h3>
           ${transcript
             .toList()
             .map(
               ({ prompt, response }) => `
-            <p>prompt: ${prompt}</p>
+            <p>prompt: ${escapeHtml(prompt)}</p>
             <p>openai: ${response}</p>
           `
             )
-            .join("</br>")}
+            .join("")}
         `)
       );
     } catch (e) {
@@ -214,36 +208,3 @@ app
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
-
-async function* makeGoogleProductTypeTextLineIterator(): AsyncGenerator<string> {
-  const response = await fetch(GOOGLE_PRODUCT_TYPES_URL);
-  const reader = response.body?.getReader();
-  if (!reader) {
-    throw new Error("Error fetching. Please try again");
-  }
-
-  let i = 0;
-  for await (const line of makeTextFileLineIterator(reader)) {
-    // skip the first line since its a title, not data
-    if (i !== 0) {
-      yield line;
-    }
-    i++;
-  }
-}
-
-/**
- * Parse a text line e.g.
- *   "Animals & Pet Supplies > Pet Supplies > Bird Supplies > Bird Cage Accessories"
- *
- * Leveraging the ">" character to indicate level, and turn into a Queue<string> data structure.
- *
- * @param line
- * @returns
- */
-const getPath = (line: string, { delimitingChar = ">" }: { delimitingChar?: string } = {}): Queue<string> => {
-  const list = line.split(delimitingChar).map((token) => token.trim());
-  const queue = makeQueue<string>();
-  list.forEach((token) => queue.enqueue(token));
-  return queue;
-};

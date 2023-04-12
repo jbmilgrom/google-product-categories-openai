@@ -84,7 +84,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
       <ul>
         ${toList(children)
           .map(
-            (value /*html*/) =>
+            (value) =>
               `<li>
                 <a 
                   href="${ROUTES.TRAVERSE}?path=${[...path.toList(), value]

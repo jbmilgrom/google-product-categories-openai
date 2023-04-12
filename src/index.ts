@@ -79,7 +79,7 @@ app.get(ROUTES.MAX_DEGREE, async (req, res) => {
 
 app.get(ROUTES.TRAVERSE, async (req, res) => {
   console.log("calculating children...");
-  // this needs to be a character that does not appear in google product categories (e.g. "," won't work properly)
+  // this needs to be a character that does not appear in a google product category name (e.g. "," won't work properly)
   const QUERY_PARAM_DELIMITER = ">";
 
   const nodes = await getGoogleProductCategoriesTaxonomy();

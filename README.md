@@ -6,4 +6,4 @@ npm i
 nvm use 18
 npm start
 ```
-navigate to localhost:3003
+navigate to `localhost:3003`

@@ -105,9 +105,13 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
         ${toList(children)
           .map(
             (value) =>
-              `<li><a href="${ROUTES.TRAVERSE}?path=${[...path.toList(), value]
-                .map(encodeURIComponent)
-                .join(",")}">${value}</a></li>`
+              `<li>
+                <a 
+                  href="${ROUTES.TRAVERSE}?path=${[...path.toList(), value].map(encodeURIComponent).join(",")}"
+                >
+                  ${value}
+                </a>
+              </li>`
           )
           .join("")}
       </ul>

@@ -1,5 +1,5 @@
 import { Configuration, OpenAIApi } from "openai";
-import { Vertices } from "./tree";
+import { Vertices } from "../utils/tree";
 
 export const askOpenai = async (
   apiKey: string,

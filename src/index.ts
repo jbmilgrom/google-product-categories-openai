@@ -1,13 +1,9 @@
 import express from "express";
-import { makeQueue, insert, Vertices, maxDepth, Queue, maxDegree, traverse, toList, Vertex } from "./tree";
+import { makeQueue, insert, Vertices, maxDepth, Queue, maxDegree, traverse, toList, Vertex } from "./utils/tree";
 import { parse } from "node-html-parser";
-import { getMetaTags, escapeHtml } from "./getMetaTags";
-import { askOpenai, generatePrompt, selectFromMultipleChoices } from "./openaiGetNode";
-import {
-  getGoogleProductCategoriesTaxonomy,
-  getPath,
-  makeGoogleProductTypeTextLineIterator,
-} from "./googleProductCategories";
+import { getMetaTags, escapeHtml } from "./crawl";
+import { askOpenai, generatePrompt, selectFromMultipleChoices } from "./openai";
+import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 
 const app = express();
 
@@ -154,29 +150,17 @@ app
       const metaTags = await getMetaTags(url);
       const nodes = await getGoogleProductCategoriesTaxonomy();
 
-      /**
-       * 1. Get next choices (from node or default)
-       * 2. Select token from multiple choices
-       * 3. Find node from token, go to 1.
-       */
-      let choices: Vertices<string> = nodes;
-      const categories = makeQueue<string>();
-      const transcript = makeQueue<{ prompt: string; response: string }>();
-      while (choices.length) {
-        const { category, prompt } = await selectFromMultipleChoices(apiKey, toList(choices), metaTags);
-        categories.enqueue(category);
-        transcript.enqueue({ prompt, response: category });
+      const result = await chatOpenaiAboutGoogleProducts(apiKey, nodes, metaTags);
 
-        const node = traverse(nodes, categories.copy());
-        if (!node) {
-          res.write(`Node not found for category "${category}"\n`);
-          res.write("Transcript\n");
-          res.write(transcript.toString("#### Next Chat ####\n"));
-          res.end();
-          return;
-        }
-        choices = node.children;
+      if (result.type === "error") {
+        res.write(`Node not found for category "${result.category}"\n`);
+        res.write("Transcript\n");
+        res.write(result.transcript.toString("#### Next Chat ####\n"));
+        res.end();
+        return;
       }
+
+      const { categories, transcript } = result;
 
       res.set("Content-Type", "text/html");
       res.send(
@@ -210,3 +194,40 @@ app
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);
 });
+
+/**
+ *
+ * @param openaiApiKey
+ * @param productTaxonomy
+ * @param webPageMetaData
+ * @returns
+ */
+const chatOpenaiAboutGoogleProducts = async (
+  openaiApiKey: string,
+  productTaxonomy: Vertices<string>,
+  webPageMetaData: string
+): Promise<
+  | { type: "success"; categories: Queue<string>; transcript: Queue<{ prompt: string; response: string }> }
+  | { type: "error"; category: string; transcript: Queue<{ prompt: string; response: string }> }
+> => {
+  /**
+   * 1. Get next choices (from node or default)
+   * 2. Select token from multiple choices
+   * 3. Find node from token, go to 1.
+   */
+  let choices: Vertices<string> = productTaxonomy;
+  const categories = makeQueue<string>();
+  const transcript = makeQueue<{ prompt: string; response: string }>();
+  while (choices.length) {
+    const { category, prompt } = await selectFromMultipleChoices(openaiApiKey, toList(choices), webPageMetaData);
+    categories.enqueue(category);
+    transcript.enqueue({ prompt, response: category });
+
+    const node = traverse(productTaxonomy, categories.copy());
+    if (!node) {
+      return { type: "error", category, transcript };
+    }
+    choices = node.children;
+  }
+  return { type: "success", categories, transcript };
+};

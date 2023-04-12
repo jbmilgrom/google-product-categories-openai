@@ -1,6 +1,6 @@
-import { makeTextFileLineIterator } from "./readTxtFile";
-import { GOOGLE_PRODUCT_TYPES_URL } from ".";
-import { Queue, Vertices, insert, makeQueue } from "./tree";
+import { makeTextFileLineIterator } from "../utils/readTxtFile";
+import { GOOGLE_PRODUCT_TYPES_URL } from "..";
+import { Queue, Vertices, insert, makeQueue } from "../utils/tree";
 
 export const getGoogleProductCategoriesTaxonomy = async (): Promise<Vertices<string>> => {
   let nodes: Vertices<string> = [];

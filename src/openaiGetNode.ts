@@ -38,8 +38,9 @@ export const selectFromMultipleChoices = async (
 ): Promise<{ category: string; transcript: string }> => {
   const prompt = await generatePrompt(choices, metaTags);
   const category = (await askOpenai(apiKey, prompt)) ?? "";
+  console.log("category", category);
   return {
-    category: category.trim().replace(/"'`/g, ""),
+    category: category.trim().replace(/"'`\n/g, ""),
     transcript: `
         prompt: ${prompt}
 

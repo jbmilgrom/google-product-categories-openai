@@ -100,7 +100,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
     res.set("Content-Type", "text/html");
     res.send(
       Buffer.from(`
-      <h1>${node ? `Path: ${path.toString(" > ")}` : `Root Nodes`}</h1>
+      <h1>${node ? path.toString(" > ") : "Root Nodes"}</h1>
       <ul>
         ${toList(children)
           .map(
@@ -175,7 +175,8 @@ app
         const { category, transcript } = await selectFromMultipleChoices(apiKey, toList(choices), metaTags);
         categories.enqueue(category);
         script.enqueue(transcript);
-        const node = traverse(choices, categories.copy());
+
+        const node = traverse(nodes, categories.copy());
         if (!node) {
           res.write(`Node not found for category "${category}"\n`);
           res.write("Transcript\n");
@@ -193,7 +194,7 @@ app
           <h2>Product Categories</h2>
           <div>${categories.toString(" > ")}</div>
           <h2>Transcript with Openai</h2>
-          <p>${script.toString("\n")}<p>
+          <p>${script.toString("<br/>")}<p>
         `)
       );
     } catch (e) {

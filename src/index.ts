@@ -1,10 +1,12 @@
 import express from "express";
 import { makeQueue, insert, maxDepth, maxDegree, traverse, toList, Vertex } from "./utils/tree";
 import { parse } from "node-html-parser";
-import { getMetaTags, escapeHtml } from "./crawl";
+import { getMetaTags } from "./crawl";
+import { escapeHtml } from "./utils/escapeHtml";
 import { askOpenai, generatePrompt } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
+import { templateTrascript } from "./templates";
 
 const app = express();
 
@@ -153,17 +155,30 @@ app
 
       const result = await chatOpenaiAboutGoogleProducts(apiKey, nodes, metaTags);
 
+      res.set("Content-Type", "text/html");
+
       if (result.type === "error") {
-        res.write(`Node not found for category "${result.category}"\n`);
-        res.write("Transcript\n");
-        res.write(result.transcript.toString("#### Next Chat ####\n"));
+        res.send(
+          Buffer.from(`
+            <h1>Results</h1>
+            <div>${url}</div>
+            <h2>Error Retrieving Product Categories</h2>
+            <div>Node not found for category "${result.category}"</div>
+            <h2>Scraped Meta Tags</h2>
+            <pre><code>${escapeHtml(metaTags)}</code></pre>
+            <h2>Transcript with Openai</h2>
+            <h3>Prompt Template</h3>
+            <p>${generatePrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")}</p>
+            <h3>Trascript (Verbatum)</h3>
+            ${templateTrascript(result.transcript)}
+          `)
+        );
         res.end();
         return;
       }
 
       const { categories, transcript } = result;
 
-      res.set("Content-Type", "text/html");
       res.send(
         Buffer.from(`
           <h1>Results</h1>
@@ -176,15 +191,7 @@ app
           <h3>Prompt Template</h3>
           <p>${generatePrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")}</p>
           <h3>Trascript (Verbatum)</h3>
-          ${transcript
-            .toList()
-            .map(
-              ({ prompt, response }) => `
-            <p>prompt: ${escapeHtml(prompt)}</p>
-            <p>openai: ${response}</p>
-          `
-            )
-            .join("")}
+          ${templateTrascript(transcript)}
         `)
       );
     } catch (e) {

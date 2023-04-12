@@ -7,6 +7,3 @@ export const getMetaTags = async (url: string): Promise<string> => {
   const metaTags = root.querySelectorAll("meta");
   return metaTags.map((e) => e.toString()).join("\n");
 };
-
-export const escapeHtml = (html: string): string =>
-  html.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");

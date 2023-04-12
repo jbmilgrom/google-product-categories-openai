@@ -28,7 +28,7 @@ export const chatOpenaiAboutGoogleProducts = async (
   const categories = makeQueue<string>();
   const transcript = makeQueue<Transcript>();
   while (choices.length) {
-    const { category, prompt } = await selectFromMultipleChoices(openaiApiKey, toList(choices), webPageMetaData);
+    const { category, prompt } = await selectFromMultipleChoices(toList(choices), webPageMetaData);
     categories.enqueue(category);
     transcript.enqueue({ prompt, response: category });
 

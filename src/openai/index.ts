@@ -1,15 +1,15 @@
 import { Configuration, OpenAIApi } from "openai";
 import { Vertices } from "../utils/tree";
 
+const configuration = new Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new OpenAIApi(configuration);
+
 export const askOpenai = async (
-  apiKey: string,
   prompt: string,
   { model = "text-davinci-003", temperature = 0.6 }: { model?: string; temperature?: number } = {}
 ) => {
-  const configuration = new Configuration({
-    apiKey,
-  });
-  const openai = new OpenAIApi(configuration);
   const completion = await openai.createCompletion({
     model,
     prompt,
@@ -32,12 +32,11 @@ export const generatePrompt = (choices: string[], metaTags: string) => `
 `;
 
 export const selectFromMultipleChoices = async (
-  apiKey: string,
   choices: string[],
   metaTags: string
 ): Promise<{ category: string; prompt: string }> => {
   const prompt = generatePrompt(choices, metaTags);
-  const category = (await askOpenai(apiKey, prompt)) ?? "";
+  const category = (await askOpenai(prompt)) ?? "";
   console.log("category", category);
   return {
     category: category.trim(),

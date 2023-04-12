@@ -12,7 +12,6 @@ type Transcript = { prompt: string; response: string };
  * @returns
  */
 export const chatOpenaiAboutGoogleProducts = async (
-  openaiApiKey: string,
   productTaxonomy: Vertices<string>,
   webPageMetaData: string
 ): Promise<

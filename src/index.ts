@@ -1,9 +1,8 @@
 import express from "express";
-import { makeQueue, insert, maxDepth, maxDegree, traverse, toList, Vertex } from "./utils/tree";
-import { parse } from "node-html-parser";
+import { makeQueue, maxDepth, maxDegree, traverse, toList } from "./utils/tree";
 import { getMetaTags } from "./crawl";
 import { escapeHtml } from "./utils/escapeHtml";
-import { askOpenai, generatePrompt } from "./openai";
+import { generatePrompt } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import { templateTrascript } from "./templates";
@@ -126,10 +125,6 @@ app
               placeholder="https://example.com"
               pattern="https?://.*" 
               required>
-        <label for="url">Your openai token:</label>
-        <input type="texty" name="apiKey" id="apiKey"
-               placeholder="k-wKob3..."
-               required>
         <input type="submit" value="Submit">
       </form>
       <p>Only submit the form once to avoid multiple submissions. It will take a moment!</p>
@@ -138,14 +133,8 @@ app
   })
   .post(async (req, res) => {
     const url: string | undefined = req.body.url;
-    const apiKey: string | undefined = req.body.apiKey;
     if (!url) {
       res.send("No URL received");
-      return;
-    }
-
-    if (!apiKey) {
-      res.send("No Api Key received");
       return;
     }
 
@@ -153,7 +142,7 @@ app
       const metaTags = await getMetaTags(url);
       const nodes = await getGoogleProductCategoriesTaxonomy();
 
-      const result = await chatOpenaiAboutGoogleProducts(apiKey, nodes, metaTags);
+      const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags);
 
       res.set("Content-Type", "text/html");
 

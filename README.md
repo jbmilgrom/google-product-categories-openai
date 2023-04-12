@@ -33,4 +33,4 @@ In order to avail yourself of the prettier pre commit hook by running
 npm run setup
 ```
 
-Then you're good to go
+Then you're good to goooooo

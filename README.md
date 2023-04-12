@@ -1,6 +1,6 @@
 # google-product-types
 
-Service that can categorize any website with just a URL, using OpenAI and the Google Product Category taxonomy.
+Service that can categorize any website with just a URL, using OpenAI and the Google Product Category taxonomy under the hood.
 
 ## Getting Started
 

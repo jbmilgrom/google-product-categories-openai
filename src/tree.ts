@@ -2,13 +2,15 @@ export type Queue<T> = {
   enqueue: (i: T) => void;
   dequeue: () => T;
   isEmpty: () => boolean;
-  toString: () => string;
+  toString: (delimiter?: string) => string;
+  toList: () => T[];
+  copy: () => Queue<T>;
 };
 
 /**
  * A node in the tree. We must call it a "Vertex" instead of Node because of a naming collision with NodeJS types.
  */
-type Vertex<T> = {
+export type Vertex<T> = {
   value: T;
   children: Vertices<T>;
 };
@@ -19,9 +21,7 @@ type Vertex<T> = {
  */
 export type Vertices<T> = Vertex<T>[];
 
-export const makeQueue = <T>(): Queue<T> => {
-  const q: T[] = [];
-
+export const makeQueue = <T>(q: T[] = []): Queue<T> => {
   const isEmpty = () => q.length === 0;
 
   return {
@@ -33,7 +33,9 @@ export const makeQueue = <T>(): Queue<T> => {
       return q.shift()!;
     },
     isEmpty,
-    toString: () => q.join(", "),
+    toString: (delimiter = ",") => q.join(delimiter),
+    copy: () => makeQueue([...q]),
+    toList: () => [...q],
   };
 };
 
@@ -96,6 +98,8 @@ export const maxDepth = <T>(nodes: Vertices<T>): number => {
 
   return aggregateNodes(nodes, 1);
 };
+
+export const toList = <T>(nodes: Vertices<T>): T[] => nodes.map((n) => n.value);
 
 const forEachBreadthFirst = <T>(nodes: Vertices<T>, cb: (node: Vertex<T>) => void): void => {
   nodes.forEach((n) => {

@@ -2,10 +2,10 @@ import express from "express";
 import { makeQueue, maxDepth, maxDegree, traverse, toList } from "./utils/tree";
 import { getMetaTags } from "./crawl";
 import { escapeHtml } from "./utils/escapeHtml";
-import { generatePrompt } from "./openai";
+import { generatePrompt, listModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
-import { templateTrascript } from "./templates";
+import { templateTrascript, urlFormTemplate } from "./templates";
 import { ROUTES, RouteKeys } from "./routes";
 
 const app = express();
@@ -107,33 +107,24 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
 app
   .route(ROUTES.URL)
   .get(async (req, res) => {
+    const models = await listModels();
+
     res.set("Content-Type", "text/html");
-    res.send(
-      Buffer.from(/*html*/ `
-      <h1>Find the Google Product Categories</h1>
-      <form action=${ROUTES.URL} method="post">
-        <label for="url">URL:</label>
-        <input type="url" name="url" id="url"
-              placeholder="https://example.com"
-              pattern="https?://.*" 
-              required>
-        <input type="submit" value="Submit">
-      </form>
-      <p>Only submit the form once to avoid multiple submissions. It will take a moment!</p>
-    `)
-    );
+    res.send(Buffer.from(urlFormTemplate(ROUTES.URL, models)));
   })
   .post(async (req, res) => {
+    const model: string | undefined = req.body.model;
     const url: string | undefined = req.body.url;
     if (!url) {
       res.send("No URL received");
       return;
     }
 
+    console.log(`Initiating openai chat with model "${model}"`);
     try {
       const metaTags = await getMetaTags(url);
       const nodes = await getGoogleProductCategoriesTaxonomy();
-      const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags);
+      const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, { model });
 
       res.set("Content-Type", "text/html");
 

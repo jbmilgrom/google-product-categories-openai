@@ -1,5 +1,5 @@
 import { makeQueue, Vertices, Queue, traverse, toList } from "./utils/tree";
-import { selectFromMultipleChoices } from "./openai";
+import { selectProductCategoryFromChoices } from "./openai";
 
 type Transcript = { prompt: string; response: string };
 
@@ -13,7 +13,8 @@ type Transcript = { prompt: string; response: string };
  */
 export const chatOpenaiAboutGoogleProducts = async (
   productTaxonomy: Vertices<string>,
-  webPageMetaData: string
+  webPageMetaData: string,
+  { model, temperature }: { model?: string; temperature?: number } = {}
 ): Promise<
   | { type: "success"; categories: Queue<string>; transcript: Queue<Transcript> }
   | { type: "error"; category: string; transcript: Queue<Transcript> }
@@ -27,7 +28,10 @@ export const chatOpenaiAboutGoogleProducts = async (
   const categories = makeQueue<string>();
   const transcript = makeQueue<Transcript>();
   while (choices.length) {
-    const { category, prompt } = await selectFromMultipleChoices(toList(choices), webPageMetaData);
+    const { category, prompt } = await selectProductCategoryFromChoices(toList(choices), webPageMetaData, {
+      model,
+      temperature,
+    });
     categories.enqueue(category);
     transcript.enqueue({ prompt, response: category });
 

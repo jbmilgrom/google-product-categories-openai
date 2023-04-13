@@ -21,6 +21,12 @@ export const askOpenai = async (
   return completion.data.choices[0].text;
 };
 
+export const listModels = async () => {
+  const models = await openai.listModels();
+
+  return models.data.data.map((model) => model.id);
+};
+
 export const generatePrompt = (choices: string[], metaTags: string) => `
     Select a category from the follow string delimited list 
       
@@ -33,12 +39,13 @@ export const generatePrompt = (choices: string[], metaTags: string) => `
     Respond only with the selected category or an empty response if none are relevant.
 `;
 
-export const selectFromMultipleChoices = async (
+export const selectProductCategoryFromChoices = async (
   choices: string[],
-  metaTags: string
+  metaTags: string,
+  { model, temperature }: { model?: string; temperature?: number } = {}
 ): Promise<{ category: string; prompt: string }> => {
   const prompt = generatePrompt(choices, metaTags);
-  const category = (await askOpenai(prompt)) ?? "";
+  const category = (await askOpenai(prompt, { model, temperature })) ?? "";
   console.log("category", category);
   return {
     category: category.trim(),

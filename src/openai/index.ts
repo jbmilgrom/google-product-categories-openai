@@ -12,6 +12,7 @@ export const askOpenai = async (
   prompt: string,
   { model = "text-davinci-003", temperature = 0.6 }: { model?: string; temperature?: number } = {}
 ) => {
+  console.log(`Calling OpenAI with model: "${model}"`);
   const completion = await openai.createCompletion({
     model,
     prompt,

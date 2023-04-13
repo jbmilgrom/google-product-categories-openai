@@ -77,19 +77,23 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
     const path = pathString ? getPath(pathString, { delimitingChar: QUERY_PARAM_DELIMITER }) : makeQueue<string>();
     const node = traverse(nodes, path.copy());
     const children = node?.children ?? nodes;
+    const pathList = path.toList();
 
     res.set("Content-Type", "text/html");
     res.send(
       Buffer.from(/*html*/ `
-      <h1>${
-        node ? cookieTrailTemplate(ROUTES.TRAVERSE, path.toList(), { delimiter: QUERY_PARAM_DELIMITER }) : "Root Nodes"
-      }</h1>
+      <h2>Path</h2>
+      <div>
+        <span>${pathList.length ? `<a href=${ROUTES.TRAVERSE}>Root</a><span> > </span>` : "Root"}</span>
+        ${cookieTrailTemplate(ROUTES.TRAVERSE, pathList, { delimiter: QUERY_PARAM_DELIMITER })}
+      </div>
+      <h2>Next</h2>
       <ul>
         ${toList(children)
           .map(
             (value) =>
               `<li>
-                ${linkTemplate(ROUTES.TRAVERSE, [...path.toList(), value], {
+                ${linkTemplate(ROUTES.TRAVERSE, [...pathList, value], {
                   delimiter: QUERY_PARAM_DELIMITER,
                 })}
               </li>`
@@ -119,11 +123,10 @@ app
       return;
     }
 
-    console.log(`Initiating openai chat with model "${model}"`);
     try {
       const metaTags = await getMetaTags(url);
       const nodes = await getGoogleProductCategoriesTaxonomy();
-      const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, { model });
+      const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, { model: model === "" ? undefined : model });
 
       res.set("Content-Type", "text/html");
 

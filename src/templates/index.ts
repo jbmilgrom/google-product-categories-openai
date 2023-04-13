@@ -3,10 +3,18 @@ import { Queue } from "../utils/tree";
 
 type Transcript = { prompt: string; response: string };
 
+export const linkTemplate = (base: string, params: string[]) => /*html*/ `
+  <a href=${`${base}?getQue`}></a>
+`;
+
 export const templateTrascript = (transcript: Queue<Transcript>): string => {
   const template = ({ prompt, response }: Transcript) => /*html*/ `
-    <p>prompt: ${escapeHtml(prompt)}</p>
-    <p>openai: ${response}</p>
+    <p>  
+      <span><b>prompt: </b></span>
+      <code><pre>${escapeHtml(prompt)}</pre><code>
+      <span><b>openai: </b></span>
+      <code><pre>${response}</pre><code>
+    </p>
   `;
   return transcript.toList().map(template).join("");
 };
@@ -21,7 +29,7 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
           pattern="https?://.*" 
           required>
     <label for="ai-models">OpenAI Model:</label>
-    <input list="ai-models" placeholder="Start typing..." name="model" value="text-davinci-003">
+    <input list="ai-models" placeholder="Start typing..." name="model">
     <datalist id="ai-models">
       ${aiModels
         .map(

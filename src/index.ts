@@ -7,6 +7,7 @@ import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextL
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import { templateTrascript, urlFormTemplate } from "./templates";
 import { ROUTES, RouteKeys } from "./routes";
+import { makeQueryParams } from "./utils/makeQueyParams";
 
 const app = express();
 
@@ -87,9 +88,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
             (value) =>
               `<li>
                 <a 
-                  href="${ROUTES.TRAVERSE}?path=${[...path.toList(), value]
-                .map(encodeURIComponent)
-                .join(QUERY_PARAM_DELIMITER)}"
+                  href="${ROUTES.TRAVERSE}?path=${makeQueryParams([...path.toList(), value], QUERY_PARAM_DELIMITER)}"
                 >
                   ${value}
                 </a>

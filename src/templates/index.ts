@@ -1,11 +1,18 @@
 import { escapeHtml } from "../utils/escapeHtml";
+import { makeQueryParams } from "../utils/makeQueyParams";
 import { Queue } from "../utils/tree";
 
 type Transcript = { prompt: string; response: string };
 
-export const linkTemplate = (base: string, params: string[]) => /*html*/ `
-  <a href=${`${base}?getQue`}></a>
-`;
+export const pathLinkCookieTailTemplate = (
+  base: string,
+  trail: string[],
+  item: string,
+  { delimiter }: { delimiter?: string } = {}
+) => {
+  const path = makeQueryParams([...trail, item], delimiter);
+  return /*html*/ `<a href=${`${base}?path=${path}`}>${item}</a>`;
+};
 
 export const templateTrascript = (transcript: Queue<Transcript>): string => {
   const template = ({ prompt, response }: Transcript) => /*html*/ `

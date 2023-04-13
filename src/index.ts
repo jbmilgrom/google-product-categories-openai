@@ -5,7 +5,7 @@ import { escapeHtml } from "./utils/escapeHtml";
 import { generatePrompt, listModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
-import { templateTrascript, urlFormTemplate } from "./templates";
+import { pathLinkCookieTailTemplate, templateTrascript, urlFormTemplate } from "./templates";
 import { ROUTES, RouteKeys } from "./routes";
 import { makeQueryParams } from "./utils/makeQueyParams";
 
@@ -69,7 +69,7 @@ app.get(ROUTES.MAX_DEGREE, async (req, res) => {
 app.get(ROUTES.TRAVERSE, async (req, res) => {
   console.log("calculating children...");
   // this needs to be a character that does not appear in a google product category name (e.g. "," won't work properly)
-  const QUERY_PARAM_DELIMITER = ">";
+  const QUERY_PARAM_DELIMITER = "_";
 
   const nodes = await getGoogleProductCategoriesTaxonomy();
   try {
@@ -87,11 +87,9 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
           .map(
             (value) =>
               `<li>
-                <a 
-                  href="${ROUTES.TRAVERSE}?path=${makeQueryParams([...path.toList(), value], QUERY_PARAM_DELIMITER)}"
-                >
-                  ${value}
-                </a>
+                ${pathLinkCookieTailTemplate(ROUTES.TRAVERSE, path.toList(), value, {
+                  delimiter: QUERY_PARAM_DELIMITER,
+                })}
               </li>`
           )
           .join("")}

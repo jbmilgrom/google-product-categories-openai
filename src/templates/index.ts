@@ -16,8 +16,8 @@ export const cookieTrailTemplate = (
 ): string => {
   return categories
     .map((_, i) => {
-      const trail = categories.slice(0, i + 1);
-      return linkTemplate(base, trail, { delimiter });
+      const path = categories.slice(0, i + 1);
+      return linkTemplate(base, path, { delimiter });
     })
     .join(" > ");
 };
@@ -57,6 +57,6 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
     <input type="submit" value="Submit">
   </form>
   <p>Only submit the form <b>once</b> to avoid multiple submissions. It will take a moment!</p>
-  <p>Use the model <b>"text-davinci-003"</b> for best results it appears.</p>
+  <p>Model <b>"text-davinci-003"</b> is used by default for best results.</p>
 `;
 };

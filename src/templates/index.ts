@@ -6,12 +6,14 @@ type Transcript = { prompt: string; response: string };
 
 export const pathLinkCookieTailTemplate = (
   base: string,
-  trail: string[],
-  item: string,
+  path: string[],
   { delimiter }: { delimiter?: string } = {}
 ) => {
-  const path = makeQueryParams([...trail, item], delimiter);
-  return /*html*/ `<a href=${`${base}?path=${path}`}>${item}</a>`;
+  if (path.length === 0) {
+    return `<a href=${base}>Root Nodes</a>`;
+  }
+  const queryParams = makeQueryParams(path, delimiter);
+  return /*html*/ `<a href=${`${base}?path=${queryParams}`}>${path[path.length - 1]}</a>`;
 };
 
 export const templateTrascript = (transcript: Queue<Transcript>): string => {

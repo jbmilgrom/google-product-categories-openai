@@ -21,6 +21,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 const PORT = 3003;
+// this needs to be a character that does not appear in a google product category name (e.g. "," won't work properly)
+const QUERY_PARAM_DELIMITER = "_";
 
 app.get("/", async (req, res) => {
   res.set("Content-Type", "text/html");
@@ -68,8 +70,6 @@ app.get(ROUTES.MAX_DEGREE, async (req, res) => {
 
 app.get(ROUTES.TRAVERSE, async (req, res) => {
   console.log("calculating children...");
-  // this needs to be a character that does not appear in a google product category name (e.g. "," won't work properly)
-  const QUERY_PARAM_DELIMITER = "_";
 
   const nodes = await getGoogleProductCategoriesTaxonomy();
   try {
@@ -87,7 +87,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
           .map(
             (value) =>
               `<li>
-                ${pathLinkCookieTailTemplate(ROUTES.TRAVERSE, path.toList(), value, {
+                ${pathLinkCookieTailTemplate(ROUTES.TRAVERSE, [...path.toList(), value], {
                   delimiter: QUERY_PARAM_DELIMITER,
                 })}
               </li>`
@@ -145,13 +145,20 @@ app
       }
 
       const { categories, transcript } = result;
-
+      const list = categories.toList();
       res.send(
         Buffer.from(/*html*/ `
           <h1>Results</h1>
           <div>${url}</div>
           <h2>Product Categories</h2>
-          <div>${categories.toString(" > ")}</div>
+          <div>
+            ${list
+              .map((category, i) => {
+                const trail = list.slice(0, i + 1);
+                return pathLinkCookieTailTemplate(ROUTES.TRAVERSE, trail, { delimiter: QUERY_PARAM_DELIMITER });
+              })
+              .join(" > ")}
+            </div>
           <h2>Scraped Meta Tags</h2>
           <pre><code>${escapeHtml(metaTags)}</code></pre>
           <h2>Transcript with Openai</h2>

@@ -15,7 +15,7 @@ export const cookieTrailTemplate = (
   { delimiter }: { delimiter?: string } = {}
 ): string => {
   return categories
-    .map((category, i) => {
+    .map((_, i) => {
       const trail = categories.slice(0, i + 1);
       return linkTemplate(base, trail, { delimiter });
     })

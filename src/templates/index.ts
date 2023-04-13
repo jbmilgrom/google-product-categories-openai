@@ -4,16 +4,22 @@ import { Queue } from "../utils/tree";
 
 type Transcript = { prompt: string; response: string };
 
-export const pathLinkCookieTailTemplate = (
-  base: string,
-  path: string[],
-  { delimiter }: { delimiter?: string } = {}
-) => {
-  if (path.length === 0) {
-    return `<a href=${base}>Root Nodes</a>`;
-  }
+export const linkTemplate = (base: string, path: string[], { delimiter }: { delimiter?: string } = {}) => {
   const queryParams = makeQueryParams(path, delimiter);
   return /*html*/ `<a href=${`${base}?path=${queryParams}`}>${path[path.length - 1]}</a>`;
+};
+
+export const cookieTrailTemplate = (
+  base: string,
+  categories: string[],
+  { delimiter }: { delimiter?: string } = {}
+): string => {
+  return categories
+    .map((category, i) => {
+      const trail = categories.slice(0, i + 1);
+      return linkTemplate(base, trail, { delimiter });
+    })
+    .join(" > ");
 };
 
 export const templateTrascript = (transcript: Queue<Transcript>): string => {

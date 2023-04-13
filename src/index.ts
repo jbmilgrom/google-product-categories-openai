@@ -5,7 +5,7 @@ import { escapeHtml } from "./utils/escapeHtml";
 import { generatePrompt, listModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
-import { pathLinkCookieTailTemplate, templateTrascript, urlFormTemplate } from "./templates";
+import { cookieTrailTemplate, linkTemplate, templateTrascript, urlFormTemplate } from "./templates";
 import { ROUTES, RouteKeys } from "./routes";
 import { makeQueryParams } from "./utils/makeQueyParams";
 
@@ -81,13 +81,15 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
     res.set("Content-Type", "text/html");
     res.send(
       Buffer.from(/*html*/ `
-      <h1>${node ? path.toString(" > ") : "Root Nodes"}</h1>
+      <h1>${
+        node ? cookieTrailTemplate(ROUTES.TRAVERSE, path.toList(), { delimiter: QUERY_PARAM_DELIMITER }) : "Root Nodes"
+      }</h1>
       <ul>
         ${toList(children)
           .map(
             (value) =>
               `<li>
-                ${pathLinkCookieTailTemplate(ROUTES.TRAVERSE, [...path.toList(), value], {
+                ${linkTemplate(ROUTES.TRAVERSE, [...path.toList(), value], {
                   delimiter: QUERY_PARAM_DELIMITER,
                 })}
               </li>`
@@ -145,19 +147,14 @@ app
       }
 
       const { categories, transcript } = result;
-      const list = categories.toList();
+
       res.send(
         Buffer.from(/*html*/ `
           <h1>Results</h1>
           <div>${url}</div>
           <h2>Product Categories</h2>
           <div>
-            ${list
-              .map((category, i) => {
-                const trail = list.slice(0, i + 1);
-                return pathLinkCookieTailTemplate(ROUTES.TRAVERSE, trail, { delimiter: QUERY_PARAM_DELIMITER });
-              })
-              .join(" > ")}
+            ${cookieTrailTemplate(ROUTES.TRAVERSE, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
             </div>
           <h2>Scraped Meta Tags</h2>
           <pre><code>${escapeHtml(metaTags)}</code></pre>

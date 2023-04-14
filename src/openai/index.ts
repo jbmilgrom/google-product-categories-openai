@@ -40,7 +40,7 @@ export const generatePrompt = (choices: string[], metaTags: string) => `
     Respond only with the selected category or an empty response if none are relevant.
 `;
 
-export const selectProductCategoryFromChoices = async (
+export const openAiSelectCategoryFromChoices = async (
   choices: string[],
   metaTags: string,
   { model, temperature }: { model?: string; temperature?: number } = {}

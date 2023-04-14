@@ -1,5 +1,5 @@
 import { makeQueue, Vertices, Queue, traverse, toList } from "./utils/tree";
-import { selectProductCategoryFromChoices } from "./openai";
+import { openAiSelectCategoryFromChoices } from "./openai";
 
 type Transcript = { prompt: string; response: string };
 
@@ -28,7 +28,7 @@ export const chatOpenaiAboutGoogleProducts = async (
   const categories = makeQueue<string>();
   const transcript = makeQueue<Transcript>();
   while (choices.length) {
-    const { category, prompt } = await selectProductCategoryFromChoices(toList(choices), webPageMetaData, {
+    const { category, prompt } = await openAiSelectCategoryFromChoices(toList(choices), webPageMetaData, {
       model,
       temperature,
     });

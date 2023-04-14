@@ -90,7 +90,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
         ${cookieTrailTemplate(ROUTES.TRAVERSE, pathList, { delimiter: QUERY_PARAM_DELIMITER })}
       </div>
       <h2>Next</h2>
-      ${childrenList.length === 0 && `<div>Leaf Node</div>`}
+      ${childrenList.length === 0 && `<div><span>Leaf Node &#127809;</span></div>`}
       <ul>
         ${childrenList
           .map(

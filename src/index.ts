@@ -79,6 +79,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
     const node = traverse(nodes, path.copy());
     const children = node?.children ?? nodes;
     const pathList = path.toList();
+    const childrenList = toList(children);
 
     res.set("Content-Type", "text/html");
     res.send(
@@ -89,8 +90,9 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
         ${cookieTrailTemplate(ROUTES.TRAVERSE, pathList, { delimiter: QUERY_PARAM_DELIMITER })}
       </div>
       <h2>Next</h2>
+      ${childrenList.length === 0 && `<div>Leaf Node</div>`}
       <ul>
-        ${toList(children)
+        ${childrenList
           .map(
             (value) =>
               `<li>

@@ -125,9 +125,11 @@ app
     }
 
     try {
+      console.log("scraping meta tags...");
       const metaTags = await getMetaTags(url);
-      console.log("meta tags", metaTags);
+      console.log("parsing google product categories into tree...");
       const nodes = await getGoogleProductCategoriesTaxonomy();
+      console.log("chating openai...");
       const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, { model: model === "" ? undefined : model });
 
       res.set("Content-Type", "text/html");

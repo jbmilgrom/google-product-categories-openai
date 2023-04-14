@@ -176,6 +176,10 @@ app
       );
     } catch (e) {
       console.log("error", e);
+      if (e instanceof Error) {
+        res.send(JSON.stringify(e));
+        return;
+      }
       res.send(e);
     }
   });

@@ -177,7 +177,7 @@ app
     } catch (e) {
       console.log("error", e);
       if (e instanceof Error) {
-        res.send(JSON.stringify(e));
+        res.send(`${e.name}: ${e.message}`);
         return;
       }
       res.send(e);

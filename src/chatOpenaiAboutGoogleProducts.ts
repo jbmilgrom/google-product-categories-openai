@@ -6,9 +6,9 @@ type Transcript = { prompt: string; response: string };
 /**
  * Converse with openai traversing the product taxonomy tree for the next multiple choice question
  *
- * @param productTaxonomy The Google Products Category Taxonomy
- * @param webPageMetaData Metadata scraped from a web page
- * @param openaiConfig Configurations for openai client
+ * @param productTaxonomy
+ * @param webPageMetaData
+ * @param openaiConfig
  * @returns
  */
 export const chatOpenaiAboutGoogleProducts = async (

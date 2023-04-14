@@ -8,6 +8,11 @@ import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import { cookieTrailTemplate, linkTemplate, templateTrascript, urlFormTemplate } from "./templates";
 import { ROUTES, RouteKeys } from "./routes";
 import { makeQueryParams } from "./utils/makeQueyParams";
+import minimist from "minimist";
+
+const args = minimist(process.argv.slice(2));
+
+console.log("args", args);
 
 const app = express();
 
@@ -125,6 +130,7 @@ app
 
     try {
       const metaTags = await getMetaTags(url);
+      console.log("meta tags", metaTags);
       const nodes = await getGoogleProductCategoriesTaxonomy();
       const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, { model: model === "" ? undefined : model });
 

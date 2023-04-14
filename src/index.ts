@@ -8,11 +8,6 @@ import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import { cookieTrailTemplate, linkTemplate, templateTrascript, urlFormTemplate } from "./templates";
 import { ROUTES, RouteKeys } from "./routes";
 import { makeQueryParams } from "./utils/makeQueyParams";
-import minimist from "minimist";
-
-const args = minimist(process.argv.slice(2));
-
-console.log("args", args);
 
 const app = express();
 
@@ -25,7 +20,8 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-const PORT = 3003;
+const PORT = process.env.PORT /* needed for Heroku deployment */ ?? 3003;
+
 // this needs to be a character that does not appear in a google product category name (e.g. "," won't work properly)
 const QUERY_PARAM_DELIMITER = "_";
 

@@ -1,7 +1,7 @@
 import { makeQueue, Vertices, Queue, traverse, toList } from "./utils/tree";
 import { openAiSelectCategoryFromChoices } from "./openai";
 
-type Transcript = { prompt: string; response: string };
+type Chat = { prompt: string; response: string };
 
 /**
  * Converse with openai traversing the product taxonomy tree for the next multiple choice question
@@ -16,8 +16,8 @@ export const chatOpenaiAboutGoogleProducts = async (
   webPageMetaData: string,
   { model, temperature }: { model?: string; temperature?: number } = {}
 ): Promise<
-  | { type: "success"; categories: Queue<string>; transcript: Queue<Transcript> }
-  | { type: "error"; category: string; transcript: Queue<Transcript> }
+  | { type: "success"; categories: Queue<string>; transcript: Queue<Chat> }
+  | { type: "error"; category: string; transcript: Queue<Chat> }
 > => {
   /**
    * 1. Get next choices (from node or default)
@@ -26,7 +26,7 @@ export const chatOpenaiAboutGoogleProducts = async (
    */
   let choices: Vertices<string> = productTaxonomy;
   const categories = makeQueue<string>();
-  const transcript = makeQueue<Transcript>();
+  const transcript = makeQueue<Chat>();
   while (choices.length) {
     const { category, prompt } = await openAiSelectCategoryFromChoices(toList(choices), webPageMetaData, {
       model,

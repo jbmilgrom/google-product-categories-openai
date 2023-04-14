@@ -42,7 +42,7 @@ const timeoutPromise = async <T>(
  */
 export const getMetaTags = async (url: string): Promise<string> => {
   const response = await timeoutPromise(fetch(url), {
-    errorMessage: "Advertiser Server Capitulated",
+    errorMessage: `Advertiser Server Capitulated: ${url}`,
     milliseconds: 10000 /* 10 seconds */,
   });
   const html = await response.text();

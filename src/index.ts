@@ -145,7 +145,7 @@ app
             <div>Node not found for category "${result.category}"</div>
             <h2>Scraped Meta Tags</h2>
             <pre><code>${escapeHtml(metaTags)}</code></pre>
-            <h2>Transcript with Openai</h2>
+            <h2>OpenAI</h2>
             <h3>Prompt Template</h3>
             <p>${generatePrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")}</p>
             <h3>Trascript (Verbatum)</h3>
@@ -167,7 +167,7 @@ app
             </div>
           <h2>Scraped Meta Tags</h2>
           <pre><code>${escapeHtml(metaTags)}</code></pre>
-          <h2>Transcript with Openai</h2>
+          <h2>OpenAI</h2>
           <h3>Prompt Template</h3>
           <p>${generatePrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")}</p>
           <h3>Trascript (Verbatum)</h3>

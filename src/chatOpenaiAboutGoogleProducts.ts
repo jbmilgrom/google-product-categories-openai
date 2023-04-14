@@ -35,7 +35,7 @@ export const chatOpenaiAboutGoogleProducts = async (
     categories.enqueue(category);
     transcript.enqueue({ prompt, response: category });
 
-    const node = traverse(productTaxonomy, categories.copy());
+    const node = traverse(productTaxonomy, { path: categories.copy() });
     if (!node) {
       return { type: "error", category, transcript };
     }

@@ -54,7 +54,7 @@ export const insert = <T>(nodes: Vertices<T>, path: Queue<T>): Vertices<T> => {
   return rootNodes;
 };
 
-export const traverse = <T>(nodes: Vertices<T>, path: Queue<T>): Vertex<T> | null => {
+export const traverse = <T>(nodes: Vertices<T>, { path }: { path: Queue<T> }): Vertex<T> | null => {
   let node: Vertex<T>;
   while (!path.isEmpty()) {
     const value = path.dequeue();

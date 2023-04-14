@@ -76,7 +76,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
   try {
     const pathString = (req.query.path as string) ?? null;
     const path = pathString ? getPath(pathString, { delimitingChar: QUERY_PARAM_DELIMITER }) : makeQueue<string>();
-    const node = traverse(nodes, path.copy());
+    const node = traverse(nodes, { path: path.copy() });
     const children = node?.children ?? nodes;
     const pathList = path.toList();
     const childrenList = toList(children);

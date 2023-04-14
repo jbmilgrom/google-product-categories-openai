@@ -175,6 +175,7 @@ app
         `)
       );
     } catch (e) {
+      console.log("error", e);
       res.send(e);
     }
   });

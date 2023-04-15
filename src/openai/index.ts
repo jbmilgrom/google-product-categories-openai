@@ -27,6 +27,9 @@ const COMPLETION_MODELS = [
 ] as const;
 type CompletionModel = (typeof COMPLETION_MODELS)[number];
 
+const CHAT_AND_COMPlETION_MODELS = [...CHAT_COMPLETION_MODELS, ...COMPLETION_MODELS] as const;
+type ChatOrCompletionModel = (typeof CHAT_AND_COMPlETION_MODELS)[number];
+
 function inList<T extends string>(list: Readonly<T[]>, s: string): s is T {
   return list.includes(s as T);
 }
@@ -64,10 +67,13 @@ export const chatOpenai = async (
   return completion.data.choices[0].message?.content;
 };
 
-export const listModels = async () => {
+export const listSupportedModels = async (): Promise<string[]> => {
   const models = await openai.listModels();
+  const chatOrCompletionModel = new Set(CHAT_AND_COMPlETION_MODELS);
 
-  return models.data.data.map((model) => model.id);
+  return models.data.data
+    .map((model) => model.id)
+    .filter((id) => chatOrCompletionModel.has(id as ChatOrCompletionModel));
 };
 
 export const generateInstructivePrompt = (choices: string[], metaTags: string) => `

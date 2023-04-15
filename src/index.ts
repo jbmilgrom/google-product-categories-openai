@@ -2,7 +2,7 @@ import express from "express";
 import { makeQueue, maxDepth, maxDegree, traverse, toList } from "./utils/tree";
 import { getMetaTags } from "./crawl";
 import { escapeHtml } from "./utils/escapeHtml";
-import { generateCompletionPrompt, listModels } from "./openai";
+import { generateCompletionPrompt, listSupportedModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import { cookieTrailTemplate, linkTemplate, templateTrascript, urlFormTemplate } from "./templates";
@@ -115,7 +115,7 @@ app
   .get(async (req, res) => {
     let models: string[];
     try {
-      models = await listModels();
+      models = await listSupportedModels();
     } catch (e) {
       console.log(e);
       res.send("Failed to fetch open ai models. Try again.");

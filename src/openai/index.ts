@@ -132,5 +132,5 @@ export const openAiSelectCategoryFromChoices = async (
     };
   }
 
-  throw new Error(`Select one of these models ${CHAT_COMPLETION_MODELS.join(", ")}, ${COMPLETION_MODELS.join(", ")}`);
+  throw new Error(`Select one of these models {${CHAT_AND_COMPlETION_MODELS.join(", ")}}`);
 };

@@ -77,37 +77,37 @@ export const listSupportedModels = async (): Promise<string[]> => {
 };
 
 export const generateInstructivePrompt = (choices: string[], metaTags: string) => `
-Select a category from the follow string delimited list 
-      
-${choices.join(", ")}
+  Select a category from the follow string delimited list 
+        
+  ${choices.join(", ")}
 
-that best describes the website represented by these meta tags
+  that best describes the website represented by these meta tags
 
-${metaTags}
+  ${metaTags}
 
-Respond only with the selected category or an empty response if none are relevant.
-`;
+  Respond only with the selected category or an empty response if none are relevant.
+  `;
 
 export const generateCompletionPrompt = (choices: string[], metaTags: string) => `
-Please select category that best describes the metadata or the word "none" if none of the categories are relevant.
+  Please select category that best describes the metadata or the word "none" if none of the categories are relevant.
 
-metadata:
-<meta charset="utf-8">
-<meta http-equiv="x-dns-prefetch-control" content="on">
-<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
-<meta name="description" content="Buy Kitchen Torch,Cooking Propane Blow Torch Lighter,700,000BTU Flamethrower Fire Gun,Food Culinary Torch with Safety Lock,Campfire Starter Grill Torch,BBQ Torch for Steak &amp; Creme Brulee: Cooking Torches - Amazon.com ✓ FREE DELIVERY possible on eligible purchases">
-<meta name="title" content="Amazon.com: Kitchen Torch,Cooking Propane Blow Torch Lighter,700,000BTU Flamethrower Fire Gun,Food Culinary Torch with Safety Lock,Campfire Starter Grill Torch,BBQ Torch for Steak &amp; Creme Brulee : Home &amp; Kitchen">
+  metadata:
+  <meta charset="utf-8">
+  <meta http-equiv="x-dns-prefetch-control" content="on">
+  <meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+  <meta name="description" content="Buy Kitchen Torch,Cooking Propane Blow Torch Lighter,700,000BTU Flamethrower Fire Gun,Food Culinary Torch with Safety Lock,Campfire Starter Grill Torch,BBQ Torch for Steak &amp; Creme Brulee: Cooking Torches - Amazon.com ✓ FREE DELIVERY possible on eligible purchases">
+  <meta name="title" content="Amazon.com: Kitchen Torch,Cooking Propane Blow Torch Lighter,700,000BTU Flamethrower Fire Gun,Food Culinary Torch with Safety Lock,Campfire Starter Grill Torch,BBQ Torch for Steak &amp; Creme Brulee : Home &amp; Kitchen">
 
-categories: Bathroom Accessories, Business & Home Security, Decor, Emergency Preparedness, Fireplace & Wood Stove Accessories, Fireplaces, Flood, Fire & Gas Safety, Household Appliance Accessories, Household Appliances, Household Supplies, Kitchen & Dining, Lawn & Garden, Lighting, Lighting Accessories, Linens & Bedding, Parasols & Rain Umbrellas, Plants, Pool & Spa, Smoking Accessories, Umbrella Sleeves & Cases, Wood Stoves
+  categories: Bathroom Accessories, Business & Home Security, Decor, Emergency Preparedness, Fireplace & Wood Stove Accessories, Fireplaces, Flood, Fire & Gas Safety, Household Appliance Accessories, Household Appliances, Household Supplies, Kitchen & Dining, Lawn & Garden, Lighting, Lighting Accessories, Linens & Bedding, Parasols & Rain Umbrellas, Plants, Pool & Spa, Smoking Accessories, Umbrella Sleeves & Cases, Wood Stoves
 
-answer: Kitchen & Dining
+  answer: Kitchen & Dining
 
-metadata:
-${metaTags}
+  metadata:
+  ${metaTags}
 
-categories: ${choices.join(", ")}
+  categories: ${choices.join(", ")}
 
-answer:`;
+  answer:`;
 
 export const openAiSelectCategoryFromChoices = async (
   choices: string[],

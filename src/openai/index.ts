@@ -28,6 +28,7 @@ const COMPLETION_MODELS = [
 type CompletionModel = (typeof COMPLETION_MODELS)[number];
 const CHAT_AND_COMPlETION_MODELS = [...CHAT_COMPLETION_MODELS, ...COMPLETION_MODELS] as const;
 type ChatOrCompletionModel = (typeof CHAT_AND_COMPlETION_MODELS)[number];
+const chatOrCompletionModel = new Set(CHAT_AND_COMPlETION_MODELS);
 function inList<T extends string>(list: Readonly<T[]>, s: string): s is T {
   return list.includes(s as T);
 }
@@ -67,7 +68,6 @@ export const chatOpenai = async (
 
 export const listSupportedModels = async (): Promise<string[]> => {
   const models = await openai.listModels();
-  const chatOrCompletionModel = new Set(CHAT_AND_COMPlETION_MODELS);
 
   return models.data.data
     .map((model) => model.id)

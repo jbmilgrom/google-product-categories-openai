@@ -124,7 +124,7 @@ export const openAiSelectCategoryFromChoices = async (
 
   if (inList(CHAT_COMPLETION_MODELS, model)) {
     const prompt = generateCompletionPrompt(choices, metaTags);
-    const category = (await chatOpenai(prompt, { model })) ?? "";
+    const category = (await chatOpenai(prompt, { model, temperature })) ?? "";
     console.log("category", category);
     return {
       category: category.trim(),

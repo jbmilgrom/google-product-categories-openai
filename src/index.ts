@@ -168,15 +168,13 @@ app
         return;
       }
 
-      const { categories } = result;
-
       res.send(
         Buffer.from(/*html*/ `
           <h1>Results</h1>
           <div>${url}</div>
           <h2>Product Categories</h2>
           <div>
-            ${cookieTrailTemplate(ROUTES.TRAVERSE, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
+            ${cookieTrailTemplate(ROUTES.TRAVERSE, result.categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
             </div>
           <h2>Scraped Meta Tags</h2>
           <pre><code>${escapeHtml(metaTags)}</code></pre>

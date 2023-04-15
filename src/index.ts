@@ -171,6 +171,7 @@ app
       res.send(
         Buffer.from(/*html*/ `
           <h1>Results</h1>
+          <h2>URL</h2>
           <div>${url}</div>
           <h2>Product Categories</h2>
           <div>

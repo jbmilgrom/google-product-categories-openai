@@ -2,7 +2,7 @@ import express from "express";
 import { makeQueue, maxDepth, maxDegree, traverse, toList } from "./utils/tree";
 import { getMetaTags } from "./crawl";
 import { escapeHtml } from "./utils/escapeHtml";
-import { generatePrompt, listModels } from "./openai";
+import { generateCompletionPrompt, listModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import { cookieTrailTemplate, linkTemplate, templateTrascript, urlFormTemplate } from "./templates";
@@ -113,7 +113,14 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
 app
   .route(ROUTES.URL)
   .get(async (req, res) => {
-    const models = await listModels();
+    let models: string[];
+    try {
+      models = await listModels();
+    } catch (e) {
+      console.log(e);
+      res.send("Failed to fetch open ai models. Try again.");
+      return;
+    }
 
     res.set("Content-Type", "text/html");
     res.send(Buffer.from(urlFormTemplate(ROUTES.URL, models)));
@@ -149,7 +156,9 @@ app
             <pre><code>${escapeHtml(metaTags)}</code></pre>
             <h2>OpenAI</h2>
             <h3>Prompt Template</h3>
-            <p>${generatePrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")}</p>
+              <pre><code>${escapeHtml(
+                generateCompletionPrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")
+              )}</code></pre>
             <h3>Trascript (Verbatum)</h3>
             ${templateTrascript(result.transcript)}
           `)
@@ -171,7 +180,11 @@ app
           <pre><code>${escapeHtml(metaTags)}</code></pre>
           <h2>OpenAI</h2>
           <h3>Prompt Template</h3>
-          <p>${generatePrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")}</p>
+          <p>
+            <pre><code>${escapeHtml(
+              generateCompletionPrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")
+            )}</code></pre>
+          </p>
           <h3>Trascript (Verbatum)</h3>
           ${templateTrascript(transcript)}
         `)

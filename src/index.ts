@@ -141,7 +141,9 @@ app
       const nodes = await getGoogleProductCategoriesTaxonomy();
 
       console.log("chating openai...");
-      const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, { model: model === "" ? undefined : model });
+      const { metadata, ...result } = await chatOpenaiAboutGoogleProducts(nodes, metaTags, {
+        model: model === "" ? undefined : model,
+      });
 
       res.set("Content-Type", "text/html");
 
@@ -155,18 +157,18 @@ app
             <h2>Scraped Meta Tags</h2>
             <pre><code>${escapeHtml(metaTags)}</code></pre>
             <h2>OpenAI</h2>
-            <h3>Prompt Template</h3>
-              <pre><code>${escapeHtml(
-                generateCompletionPrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")
-              )}</code></pre>
+            <h3>Model</h3>
+            <p>${metadata.model}</p>
+            <h3>Temperature</h3>
+            <p>${metadata.temperature}</p>
             <h3>Trascript (Verbatum)</h3>
-            ${templateTrascript(result.transcript)}
+            ${templateTrascript(metadata.transcript)}
           `)
         );
         return;
       }
 
-      const { categories, transcript } = result;
+      const { categories } = result;
 
       res.send(
         Buffer.from(/*html*/ `
@@ -179,14 +181,12 @@ app
           <h2>Scraped Meta Tags</h2>
           <pre><code>${escapeHtml(metaTags)}</code></pre>
           <h2>OpenAI</h2>
-          <h3>Prompt Template</h3>
-          <p>
-            <pre><code>${escapeHtml(
-              generateCompletionPrompt(["CHOICE_1", "CHOICE_2", "CHOICE_3"], "SOME_META_TAGS")
-            )}</code></pre>
-          </p>
+          <h3>Model</h3>
+          <p>${metadata.model}</p>
+          <h3>Temperature</h3>
+          <p>${metadata.temperature}</p>
           <h3>Trascript (Verbatum)</h3>
-          ${templateTrascript(transcript)}
+          ${templateTrascript(metadata.transcript)}
         `)
       );
     } catch (e) {

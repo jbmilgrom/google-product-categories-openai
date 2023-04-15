@@ -2,6 +2,7 @@ import { makeQueue, Vertices, Queue, traverse, toList } from "./utils/tree";
 import { openAiSelectCategoryFromChoices } from "./openai";
 
 type Chat = { prompt: string; response: string };
+type Metadata = { transcript: Queue<Chat>; model: string; temperature: number };
 
 /**
  * Converse with openai traversing the product taxonomy tree for the next multiple choice question
@@ -14,10 +15,10 @@ type Chat = { prompt: string; response: string };
 export const chatOpenaiAboutGoogleProducts = async (
   productTaxonomy: Vertices<string>,
   webPageMetaData: string,
-  { model, temperature }: { model?: string; temperature?: number } = {}
+  { model = "text-davinci-003", temperature = 0.6 }: { model?: string; temperature?: number } = {}
 ): Promise<
-  | { type: "success"; categories: Queue<string>; transcript: Queue<Chat> }
-  | { type: "error"; category: string; transcript: Queue<Chat> }
+  | { type: "success"; categories: Queue<string>; metadata: Metadata }
+  | { type: "error"; category: string; metadata: Metadata }
 > => {
   /**
    * 1. Get next choices (from node or default)
@@ -37,9 +38,9 @@ export const chatOpenaiAboutGoogleProducts = async (
 
     const node = traverse(productTaxonomy, { path: categories.copy() });
     if (!node) {
-      return { type: "error", category, transcript };
+      return { type: "error", category, metadata: { transcript, model, temperature } };
     }
     choices = node.children;
   }
-  return { type: "success", categories, transcript };
+  return { type: "success", categories, metadata: { transcript, model, temperature } };
 };

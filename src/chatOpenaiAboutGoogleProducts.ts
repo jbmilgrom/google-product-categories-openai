@@ -64,7 +64,7 @@ export const chatOpenaiAboutGoogleProducts = async (
      * This means that either the website is not really a product or that the openai model we chose failed to categorize
      * the metadata we scraped.
      */
-    if (retries > 0) {
+    if (!retries) {
       return { type: "error:chat", category, metadata: { transcript, model, temperature } };
     }
 

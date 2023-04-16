@@ -60,6 +60,12 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
 `;
 };
 
+export const resultsHeaderTemplate = (url: string) => /*html*/ `
+  <h1>Results</h1>
+  <h2>URL</h2>
+  <div>${url}</div>
+`;
+
 export const scrapedMetaTagsTemplate = (metaTags: string) => /*html*/ `
   <h2>Scraped Meta Tags</h2>
   <pre><code>${escapeHtml(metaTags)}</code></pre>

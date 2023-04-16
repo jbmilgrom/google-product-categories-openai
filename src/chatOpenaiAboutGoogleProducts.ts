@@ -1,4 +1,4 @@
-import { makeQueue, Vertices, Queue, traverse, toList } from "./utils/tree";
+import { makeQueue, Vertices, Queue, find, toList } from "./utils/tree";
 import { openAiSelectCategoryFromChoices } from "./openai";
 
 type Chat = { prompt: string; response: string };
@@ -36,7 +36,7 @@ export const chatOpenaiAboutGoogleProducts = async (
     categories.enqueue(category);
     transcript.enqueue({ prompt, response: category });
 
-    const node = traverse(productTaxonomy, { path: categories.copy() });
+    const node = find(choices, { path: makeQueue([category]) });
     if (!node) {
       return { type: "error", category, metadata: { transcript, model, temperature } };
     }

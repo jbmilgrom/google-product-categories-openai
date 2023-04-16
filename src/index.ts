@@ -1,13 +1,12 @@
 import express from "express";
-import { makeQueue, maxDepth, maxDegree, traverse, toList } from "./utils/tree";
+import { makeQueue, maxDepth, maxDegree, find, toList } from "./utils/tree";
 import { getMetaTags } from "./crawl";
 import { escapeHtml } from "./utils/escapeHtml";
-import { generateCompletionPrompt, listSupportedModels } from "./openai";
+import { listSupportedModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import { cookieTrailTemplate, linkTemplate, templateTrascript, urlFormTemplate } from "./templates";
 import { ROUTES, RouteKeys } from "./routes";
-import { makeQueryParams } from "./utils/makeQueyParams";
 
 const app = express();
 
@@ -76,7 +75,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
   try {
     const pathString = (req.query.path as string) ?? null;
     const path = pathString ? getPath(pathString, { delimitingChar: QUERY_PARAM_DELIMITER }) : makeQueue<string>();
-    const node = traverse(nodes, { path: path.copy() });
+    const node = find(nodes, { path: path.copy() });
     const children = node?.children ?? nodes;
     const pathList = path.toList();
     const childrenList = toList(children);

@@ -8,6 +8,7 @@ import {
   cookieTrailTemplate,
   linkTemplate,
   openAiTemplate,
+  resultsHeaderTemplate,
   scrapedMetaTagsTemplate,
   urlFormTemplate,
 } from "./templates";
@@ -157,9 +158,7 @@ app
         const incorrectResult = metadata.transcript.peakLast();
         res.send(
           Buffer.from(/*html*/ `
-            <h1>Results</h1>
-            <h2>URL</h2>
-            <div>${url}</div>
+            ${resultsHeaderTemplate(url)}
             <h2>Error Retrieving Product Categories</h2>
             <div>Node not found for response "${incorrectResult.response}"</div>
             ${scrapedMetaTagsTemplate(metaTags)}
@@ -173,9 +172,7 @@ app
         const { categories, metadata } = result;
         res.send(
           Buffer.from(/*html*/ `
-            <h1>Results</h1>
-            <h2>URL</h2>
-            <div>${url}</div>
+            ${resultsHeaderTemplate(url)}
             <h2>Error Purging Product Categories</h2>
             <div>Purged path: "${categories.toList().join(" > ")}"</div>
             ${scrapedMetaTagsTemplate(metaTags)}
@@ -188,9 +185,7 @@ app
       const { categories, metadata } = result;
       res.send(
         Buffer.from(/*html*/ `
-          <h1>Results</h1>
-          <h2>URL</h2>
-          <div>${url}</div>
+          ${resultsHeaderTemplate(url)}
           <h2>Product Categories</h2>
           <div>
             ${cookieTrailTemplate(ROUTES.TRAVERSE, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}

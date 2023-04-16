@@ -15,7 +15,7 @@ export async function* makeGoogleProductTypeTextLineIterator(): AsyncGenerator<s
   const response = await fetch(GOOGLE_PRODUCT_TYPES_URL);
   const reader = response.body?.getReader();
   if (!reader) {
-    throw new Error("Error fetching. Please try again");
+    throw new Error("Error fetching Google Products. Please try again");
   }
 
   let i = 0;

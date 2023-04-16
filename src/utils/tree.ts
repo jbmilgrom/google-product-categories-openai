@@ -1,6 +1,7 @@
 export type Queue<T> = {
   enqueue: (i: T) => void;
   dequeue: () => T;
+  last: () => T;
   isEmpty: () => boolean;
   toString: (delimiter?: string) => string;
   toList: () => T[];
@@ -32,6 +33,7 @@ export const makeQueue = <T>(q: T[] = []): Queue<T> => {
       }
       return q.shift()!;
     },
+    last: () => q[q.length - 1],
     isEmpty,
     toString: (delimiter = ",") => q.join(delimiter),
     copy: () => makeQueue([...q]),
@@ -66,6 +68,21 @@ export const find = <T>(nodes: Vertices<T>, { path }: { path: Queue<T> }): Verte
     nodes = node.children;
   }
   return node!; // we know not null because a missing candidate returns early
+};
+
+export const purge = <T>(nodes: Vertices<T>, { path }: { path: Queue<T> }): boolean => {
+  let children = nodes;
+  while (!path.isEmpty()) {
+    const value = path.dequeue();
+    const node = children.find((n) => n.value === value);
+    const index = children.findIndex((n) => n.value === value);
+    if (!node) {
+      return false;
+    }
+    children.splice(index, 1);
+    children = node.children;
+  }
+  return true;
 };
 
 export const maxDegree = <T>(nodes: Vertices<T>): [T | null, number] => {

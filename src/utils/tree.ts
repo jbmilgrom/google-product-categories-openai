@@ -91,6 +91,13 @@ export const find = <T>(nodes: Vertices<T>, { path }: { path: Queue<T> }): Verte
   return node!; // we know not null because a missing candidate returns early
 };
 
+/**
+ * Purge/remove a path from a tree.
+ *
+ * @param nodes
+ * @param param1
+ * @returns
+ */
 export const purge = <T>(nodes: Vertices<T>, { path }: { path: Queue<T> }): boolean => {
   let children = nodes;
   while (!path.isEmpty()) {

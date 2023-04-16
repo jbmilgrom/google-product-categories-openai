@@ -26,9 +26,13 @@ export const chatOpenaiAboutGoogleProducts = async (
   | { type: "error:purge"; categories: Queue<string>; metadata: ChatMetadata }
 > => {
   /**
-   * 1. Get next choices (from node or default)
-   * 2. Select token from multiple choices
-   * 3. Find node from token, go to 1.
+   * (No choices left? We're done! We've found the product category heirarchy.)
+   *  1. Get next choices (from found node's children or root product taxonomy)
+   *  2. Select token from choices
+   *  3. Find node from token, go to 1.
+   *  4. Can't find node
+   *  5. Retries > 0, go to 1 and try again w/o the failed path in the product taxonomy
+   *  6. No retries left, we're done, and we haven't found the product category heirarchy
    */
   let choices: Vertices<string> = productTaxonomy;
   const categories = makeQueue<string>();
@@ -60,7 +64,7 @@ export const chatOpenaiAboutGoogleProducts = async (
      * This means that either the website is not really a product or that the openai model we chose failed to categorize
      * the metadata we scraped.
      */
-    if (!retries) {
+    if (retries > 0) {
       return { type: "error:chat", category, metadata: { transcript, model, temperature } };
     }
 

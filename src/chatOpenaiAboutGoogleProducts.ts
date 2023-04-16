@@ -57,8 +57,6 @@ export const chatOpenaiAboutGoogleProducts = async (
       continue;
     }
 
-    console.log("Attempting a different path entirely");
-
     /**
      * No retries left and we haven't been able to find an appropriate product category.
      * This means that either the website is not really a product or that the openai model we chose failed to categorize
@@ -67,6 +65,8 @@ export const chatOpenaiAboutGoogleProducts = async (
     if (!retries) {
       return { type: "error:chat", category, metadata: { transcript, model, temperature } };
     }
+
+    console.log("Attempting a different path entirely");
 
     /**
      * last node not found and we have some retries left, so we pop it out and purge the product taxonomy of the whole

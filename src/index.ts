@@ -192,7 +192,7 @@ app
           <h2>Product Categories</h2>
           <div>
             ${cookieTrailTemplate(ROUTES.TRAVERSE, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
-            </div>
+          </div>
           ${scrapedMetaTagsTemplate(metaTags)}
           ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
         `)

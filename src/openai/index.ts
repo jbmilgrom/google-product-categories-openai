@@ -90,7 +90,7 @@ export const generateChatPrompt = (choices: string[], metaTags: string): ChatCom
   {
     role: "system",
     content:
-      "You are multiple-choice test taker; you may select one of the choices the best apply or with an empty response of none are relevant.",
+      "You are multiple-choice test taker; you may select one of the choices that best apply or an empty response if none are relevant.",
   },
   {
     role: "user",

@@ -140,19 +140,22 @@ app
       const nodes = await getGoogleProductCategoriesTaxonomy();
 
       console.log("chating openai...");
-      const { metadata, ...result } = await chatOpenaiAboutGoogleProducts(nodes, metaTags, {
+      const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, {
+        retries: 1,
         model: model === "" ? undefined : model,
       });
 
       res.set("Content-Type", "text/html");
 
-      if (result.type === "error") {
+      if (result.type === "error:chat") {
+        const { metadata } = result;
+        const incorrectResult = metadata.transcript.peakLast();
         res.send(
           Buffer.from(/*html*/ `
             <h1>Results</h1>
             <div>${url}</div>
             <h2>Error Retrieving Product Categories</h2>
-            <div>Node not found for category "${result.category}"</div>
+            <div>Node not found for response "${incorrectResult.response}"</div>
             <h2>Scraped Meta Tags</h2>
             <pre><code>${escapeHtml(metaTags)}</code></pre>
             <h2>OpenAI</h2>
@@ -167,6 +170,29 @@ app
         return;
       }
 
+      if (result.type === "error:purge") {
+        const { categories, metadata } = result;
+        res.send(
+          Buffer.from(/*html*/ `
+            <h1>Results</h1>
+            <div>${url}</div>
+            <h2>Error Purging Product Categories</h2>
+            <div>Purged path: "${categories.toList().join(" > ")}"</div>
+            <h2>Scraped Meta Tags</h2>
+            <pre><code>${escapeHtml(metaTags)}</code></pre>
+            <h2>OpenAI</h2>
+            <h3>Model</h3>
+            <p>${metadata.model}</p>
+            <h3>Temperature</h3>
+            <p>${metadata.temperature}</p>
+            <h3>Trascript (Verbatum)</h3>
+            ${templateTrascript(metadata.transcript)}
+          `)
+        );
+        return;
+      }
+
+      const { categories, metadata } = result;
       res.send(
         Buffer.from(/*html*/ `
           <h1>Results</h1>
@@ -174,7 +200,7 @@ app
           <div>${url}</div>
           <h2>Product Categories</h2>
           <div>
-            ${cookieTrailTemplate(ROUTES.TRAVERSE, result.categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
+            ${cookieTrailTemplate(ROUTES.TRAVERSE, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
             </div>
           <h2>Scraped Meta Tags</h2>
           <pre><code>${escapeHtml(metaTags)}</code></pre>

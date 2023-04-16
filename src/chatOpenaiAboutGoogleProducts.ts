@@ -1,4 +1,4 @@
-import { makeQueue, Vertices, Queue, find, toList } from "./utils/tree";
+import { makeQueue, Vertices, Queue, find, toList, makeStack, Stack, purge } from "./utils/tree";
 import { openAiSelectCategoryFromChoices } from "./openai";
 
 type Chat = { prompt: string; response: string };
@@ -15,10 +15,15 @@ type ChatMetadata = { transcript: Queue<Chat>; model: string; temperature: numbe
 export const chatOpenaiAboutGoogleProducts = async (
   productTaxonomy: Vertices<string>,
   webPageMetaData: string,
-  { model = "text-davinci-003", temperature = 0.6 }: { model?: string; temperature?: number } = {}
+  {
+    retries = 0,
+    model = "text-davinci-003",
+    temperature = 0.6,
+  }: { retries?: number; model?: string; temperature?: number } = {}
 ): Promise<
   | { type: "success"; categories: Queue<string>; metadata: ChatMetadata }
-  | { type: "error"; category: string; metadata: ChatMetadata }
+  | { type: "error:chat"; category: string; metadata: ChatMetadata }
+  | { type: "error:purge"; categories: Queue<string>; metadata: ChatMetadata }
 > => {
   /**
    * 1. Get next choices (from node or default)
@@ -27,20 +32,57 @@ export const chatOpenaiAboutGoogleProducts = async (
    */
   let choices: Vertices<string> = productTaxonomy;
   const categories = makeQueue<string>();
+  const backtrackablePath = makeStack<string>();
   const transcript = makeQueue<Chat>();
   while (choices.length) {
-    const { category, prompt } = await openAiSelectCategoryFromChoices(toList(choices), webPageMetaData, {
+    const {
+      category,
+      metadata: { prompt, response },
+    } = await openAiSelectCategoryFromChoices(toList(choices), webPageMetaData, {
       model,
       temperature,
     });
     categories.enqueue(category);
-    transcript.enqueue({ prompt, response: category });
+    backtrackablePath.push(category);
+    transcript.enqueue({ prompt, response });
 
     const node = find(choices, { path: makeQueue([category]) });
-    if (!node) {
-      return { type: "error", category, metadata: { transcript, model, temperature } };
+
+    if (node) {
+      choices = node.children;
+      continue;
     }
-    choices = node.children;
+
+    console.log("Attempting a different path entirely");
+
+    /**
+     * No retries left. We haven't been able to find an appropriate product category.
+     * This means that either the website is not really a product or that the openai model we chose failed to categorize.
+     * the metadata we scraped.
+     */
+    if (!retries) {
+      return { type: "error:chat", category, metadata: { transcript, model, temperature } };
+    }
+
+    /**
+     * last node not found and we have some retries left, so we pop it out and purge the product taxonomy of the whole
+     * path and try again.
+     * */
+    backtrackablePath.pop();
+    const ok = purge(productTaxonomy, { path: makeQueue(backtrackablePath.toList()) });
+
+    /**
+     * Something went wrong with the purge util above. This is likely a developer error.
+     */
+    if (!ok) {
+      return { type: "error:purge", categories, metadata: { transcript, model, temperature } };
+    }
+
+    return chatOpenaiAboutGoogleProducts(productTaxonomy, webPageMetaData, {
+      retries: retries - 1,
+      model,
+      temperature,
+    });
   }
   return { type: "success", categories, metadata: { transcript, model, temperature } };
 };

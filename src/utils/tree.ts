@@ -1,10 +1,17 @@
 export type Queue<T> = {
   enqueue: (i: T) => void;
   dequeue: () => T;
+  peakLast: () => T;
   isEmpty: () => boolean;
   toString: (delimiter?: string) => string;
   toList: () => T[];
   copy: () => Queue<T>;
+};
+
+export type Stack<T> = {
+  push: (i: T) => void;
+  pop: () => T;
+  toList: () => T[];
 };
 
 /**
@@ -32,10 +39,26 @@ export const makeQueue = <T>(q: T[] = []): Queue<T> => {
       }
       return q.shift()!;
     },
+    peakLast: () => q[q.length - 1],
     isEmpty,
     toString: (delimiter = ",") => q.join(delimiter),
     copy: () => makeQueue([...q]),
     toList: () => [...q],
+  };
+};
+
+export const makeStack = <T>(s: T[] = []): Stack<T> => {
+  const isEmpty = () => s.length === 0;
+
+  return {
+    push: (i: T) => s.push(i),
+    pop: () => {
+      if (isEmpty()) {
+        throw new Error("Nothing to pop");
+      }
+      return s.pop()!;
+    },
+    toList: () => [...s],
   };
 };
 
@@ -66,6 +89,28 @@ export const find = <T>(nodes: Vertices<T>, { path }: { path: Queue<T> }): Verte
     nodes = node.children;
   }
   return node!; // we know not null because a missing candidate returns early
+};
+
+/**
+ * Purge/remove a path from a tree.
+ *
+ * @param nodes
+ * @param param1
+ * @returns
+ */
+export const purge = <T>(nodes: Vertices<T>, { path }: { path: Queue<T> }): boolean => {
+  let children = nodes;
+  while (!path.isEmpty()) {
+    const value = path.dequeue();
+    const node = children.find((n) => n.value === value);
+    const index = children.findIndex((n) => n.value === value);
+    if (!node) {
+      return false;
+    }
+    children.splice(index, 1);
+    children = node.children;
+  }
+  return true;
 };
 
 export const maxDegree = <T>(nodes: Vertices<T>): [T | null, number] => {

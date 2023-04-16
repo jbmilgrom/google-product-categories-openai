@@ -1,11 +1,16 @@
 import express from "express";
 import { makeQueue, maxDepth, maxDegree, find, toList } from "./utils/tree";
 import { getMetaTags } from "./crawl";
-import { escapeHtml } from "./utils/escapeHtml";
 import { listSupportedModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
-import { cookieTrailTemplate, linkTemplate, templateTrascript, urlFormTemplate } from "./templates";
+import {
+  cookieTrailTemplate,
+  linkTemplate,
+  openAiTemplate,
+  scrapedMetaTagsTemplate,
+  urlFormTemplate,
+} from "./templates";
 import { ROUTES, RouteKeys } from "./routes";
 
 const app = express();
@@ -156,15 +161,8 @@ app
             <div>${url}</div>
             <h2>Error Retrieving Product Categories</h2>
             <div>Node not found for response "${incorrectResult.response}"</div>
-            <h2>Scraped Meta Tags</h2>
-            <pre><code>${escapeHtml(metaTags)}</code></pre>
-            <h2>OpenAI</h2>
-            <h3>Model</h3>
-            <p>${metadata.model}</p>
-            <h3>Temperature</h3>
-            <p>${metadata.temperature}</p>
-            <h3>Trascript (Verbatum)</h3>
-            ${templateTrascript(metadata.transcript)}
+            ${scrapedMetaTagsTemplate(metaTags)}
+            ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
           `)
         );
         return;
@@ -178,15 +176,8 @@ app
             <div>${url}</div>
             <h2>Error Purging Product Categories</h2>
             <div>Purged path: "${categories.toList().join(" > ")}"</div>
-            <h2>Scraped Meta Tags</h2>
-            <pre><code>${escapeHtml(metaTags)}</code></pre>
-            <h2>OpenAI</h2>
-            <h3>Model</h3>
-            <p>${metadata.model}</p>
-            <h3>Temperature</h3>
-            <p>${metadata.temperature}</p>
-            <h3>Trascript (Verbatum)</h3>
-            ${templateTrascript(metadata.transcript)}
+            ${scrapedMetaTagsTemplate(metaTags)}
+            ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
           `)
         );
         return;
@@ -202,15 +193,8 @@ app
           <div>
             ${cookieTrailTemplate(ROUTES.TRAVERSE, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
             </div>
-          <h2>Scraped Meta Tags</h2>
-          <pre><code>${escapeHtml(metaTags)}</code></pre>
-          <h2>OpenAI</h2>
-          <h3>Model</h3>
-          <p>${metadata.model}</p>
-          <h3>Temperature</h3>
-          <p>${metadata.temperature}</p>
-          <h3>Trascript (Verbatum)</h3>
-          ${templateTrascript(metadata.transcript)}
+          ${scrapedMetaTagsTemplate(metaTags)}
+          ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
         `)
       );
     } catch (e) {

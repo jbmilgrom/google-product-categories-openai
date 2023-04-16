@@ -1,8 +1,7 @@
 import { escapeHtml } from "../utils/escapeHtml";
 import { makeQueryParams } from "../utils/makeQueyParams";
-import { Queue } from "../utils/tree";
 
-type Transcript = { prompt: string; response: string };
+type Chat = { prompt: string; response: string };
 
 export const linkTemplate = (base: string, path: string[], { delimiter }: { delimiter?: string } = {}) => {
   const queryParams = makeQueryParams(path, delimiter);
@@ -22,8 +21,8 @@ export const cookieTrailTemplate = (
     .join(" > ");
 };
 
-export const templateTrascript = (transcript: Queue<Transcript>): string => {
-  const template = ({ prompt, response }: Transcript) => /*html*/ `
+export const templateTrascript = (transcript: Chat[]): string => {
+  const template = ({ prompt, response }: Chat) => /*html*/ `
     <p>  
       <span><b>prompt: </b></span>
       <code><pre>${escapeHtml(prompt)}</pre><code>
@@ -31,7 +30,7 @@ export const templateTrascript = (transcript: Queue<Transcript>): string => {
       <code><pre>${response}</pre><code>
     </p>
   `;
-  return transcript.toList().map(template).join("");
+  return transcript.map(template).join("");
 };
 
 export const urlFormTemplate = (url: string, aiModels: string[]): string => {
@@ -60,3 +59,18 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
   <p>Model <b>"text-davinci-003"</b> is used by default for best results.</p>
 `;
 };
+
+export const scrapedMetaTagsTemplate = (metaTags: string) => /*html*/ `
+  <h2>Scraped Meta Tags</h2>
+  <pre><code>${escapeHtml(metaTags)}</code></pre>
+`;
+
+export const openAiTemplate = (model: string, temperature: number, transcript: Chat[]) => /*html*/ `
+  <h2>OpenAI</h2>
+  <h3>Model</h3>
+  <p>${model}</p>
+  <h3>Temperature</h3>
+  <p>${temperature}</p>
+  <h3>Trascript (Verbatum)</h3>
+  ${templateTrascript(transcript)}
+`;

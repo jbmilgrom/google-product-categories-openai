@@ -56,8 +56,8 @@ export const chatOpenaiAboutGoogleProducts = async (
     console.log("Attempting a different path entirely");
 
     /**
-     * No retries left. We haven't been able to find an appropriate product category.
-     * This means that either the website is not really a product or that the openai model we chose failed to categorize.
+     * No retries left and we haven't been able to find an appropriate product category.
+     * This means that either the website is not really a product or that the openai model we chose failed to categorize
      * the metadata we scraped.
      */
     if (!retries) {

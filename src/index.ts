@@ -140,14 +140,16 @@ app
       const nodes = await getGoogleProductCategoriesTaxonomy();
 
       console.log("chating openai...");
-      const { metadata, ...result } = await chatOpenaiAboutGoogleProducts(nodes, metaTags, 1, {
+      const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, {
+        retries: 1,
         model: model === "" ? undefined : model,
       });
 
       res.set("Content-Type", "text/html");
 
       if (result.type === "error:chat") {
-        const incorrectResult = metadata.transcript.last();
+        const { metadata } = result;
+        const incorrectResult = metadata.transcript.peakLast();
         res.send(
           Buffer.from(/*html*/ `
             <h1>Results</h1>
@@ -169,13 +171,13 @@ app
       }
 
       if (result.type === "error:purge") {
-        const incorrectResult = metadata.transcript.last();
+        const { categories, metadata } = result;
         res.send(
           Buffer.from(/*html*/ `
             <h1>Results</h1>
             <div>${url}</div>
             <h2>Error Purging Product Categories</h2>
-            <div>Purged path "${metadata.backtrackablePath}"</div>
+            <div>Purged path: "${categories.toList().join(" > ")}"</div>
             <h2>Scraped Meta Tags</h2>
             <pre><code>${escapeHtml(metaTags)}</code></pre>
             <h2>OpenAI</h2>
@@ -190,6 +192,7 @@ app
         return;
       }
 
+      const { categories, metadata } = result;
       res.send(
         Buffer.from(/*html*/ `
           <h1>Results</h1>
@@ -197,7 +200,7 @@ app
           <div>${url}</div>
           <h2>Product Categories</h2>
           <div>
-            ${cookieTrailTemplate(ROUTES.TRAVERSE, result.categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
+            ${cookieTrailTemplate(ROUTES.TRAVERSE, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
             </div>
           <h2>Scraped Meta Tags</h2>
           <pre><code>${escapeHtml(metaTags)}</code></pre>

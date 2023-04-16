@@ -1,11 +1,17 @@
 export type Queue<T> = {
   enqueue: (i: T) => void;
   dequeue: () => T;
-  last: () => T;
+  peakLast: () => T;
   isEmpty: () => boolean;
   toString: (delimiter?: string) => string;
   toList: () => T[];
   copy: () => Queue<T>;
+};
+
+export type Stack<T> = {
+  push: (i: T) => void;
+  pop: () => T;
+  toList: () => T[];
 };
 
 /**
@@ -33,11 +39,26 @@ export const makeQueue = <T>(q: T[] = []): Queue<T> => {
       }
       return q.shift()!;
     },
-    last: () => q[q.length - 1],
+    peakLast: () => q[q.length - 1],
     isEmpty,
     toString: (delimiter = ",") => q.join(delimiter),
     copy: () => makeQueue([...q]),
     toList: () => [...q],
+  };
+};
+
+export const makeStack = <T>(s: T[] = []): Stack<T> => {
+  const isEmpty = () => s.length === 0;
+
+  return {
+    push: (i: T) => s.push(i),
+    pop: () => {
+      if (isEmpty()) {
+        throw new Error("Nothing to pop");
+      }
+      return s.pop()!;
+    },
+    toList: () => [...s],
   };
 };
 

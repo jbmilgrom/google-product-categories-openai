@@ -56,7 +56,7 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
     <input type="submit" value="Submit">
   </form>
   <p>Only submit the form <b>once</b> to avoid multiple submissions. It will take a moment!</p>
-  <p>The prompts in this application have been optimized for the model <b>"gpt-3.5-turbo"</b> (since it is the much cheaper option), so it is used by default.</p>
+  <p>The model <b>"gpt-3.5-turbo"</b> is used by default because it is significantly less expensive. Also, more time has been invested optimizing the turbo prompts.</p>
 `;
 };
 

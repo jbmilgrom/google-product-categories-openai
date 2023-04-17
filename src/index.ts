@@ -180,7 +180,7 @@ app
         Buffer.from(/*html*/ `
           ${resultsHeaderTemplate(url)}
           <h2>No Product Category Found</h2>
-          <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, please slack @jmilgrom the url. Thank you!</p>
+          <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
           ${scrapedMetaTagsTemplate(metaTags)}
           ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
         `)

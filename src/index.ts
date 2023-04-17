@@ -1,5 +1,5 @@
 import express from "express";
-import { makeQueue, maxDepth, maxDegree, find, toList } from "./utils/tree";
+import { makeQueue, maxDepth, maxDegree, find, toList, Vertices } from "./utils/tree";
 import { getMetaTags } from "./crawl";
 import { listSupportedModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
@@ -138,70 +138,82 @@ app
       return;
     }
 
+    let metaTags: string;
     try {
       console.log("scraping meta tags...");
-      const metaTags = await getMetaTags(url);
+      metaTags = await getMetaTags(url);
+    } catch (e) {
+      console.log("error", e);
+      res.send(`Error Fetching ${url}. Likely an issue with the advertiser web server.`);
+      return;
+    }
 
+    let nodes: Vertices<string>;
+    try {
       console.log("parsing google product categories into tree...");
-      const nodes = await getGoogleProductCategoriesTaxonomy();
+      nodes = await getGoogleProductCategoriesTaxonomy();
+    } catch (e) {
+      console.log("error", e);
+      res.send("Error fetching Google Product Categories. Try again.");
+      return;
+    }
 
+    let result: Awaited<ReturnType<typeof chatOpenaiAboutGoogleProducts>>;
+    try {
       console.log("chating openai...");
-      const result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, {
+      result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, {
         retries: 1,
         model: model === "" ? undefined : model,
       });
+    } catch (e) {
+      console.log("error", e);
+      res.send("OpenAI Error. Try again.");
+      return;
+    }
 
-      res.set("Content-Type", "text/html");
+    res.set("Content-Type", "text/html");
 
-      if (result.type === "error:chat") {
-        const { metadata } = result;
-        const incorrectResult = metadata.transcript.peakLast();
-        res.send(
-          Buffer.from(/*html*/ `
-            ${resultsHeaderTemplate(url)}
-            <h2>Error Retrieving Product Categories</h2>
-            <div>Node not found for response "${incorrectResult.response}"</div>
-            ${scrapedMetaTagsTemplate(metaTags)}
-            ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
-          `)
-        );
-        return;
-      }
-
-      if (result.type === "error:purge") {
-        const { categories, metadata } = result;
-        res.send(
-          Buffer.from(/*html*/ `
-            ${resultsHeaderTemplate(url)}
-            <h2>Error Purging Product Categories</h2>
-            <div>Purged path: "${categories.toList().join(" > ")}"</div>
-            ${scrapedMetaTagsTemplate(metaTags)}
-            ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
-          `)
-        );
-        return;
-      }
-
-      const { categories, metadata } = result;
+    if (result.type === "error:chat") {
+      const { metadata } = result;
+      const incorrectResult = metadata.transcript.peakLast();
       res.send(
         Buffer.from(/*html*/ `
           ${resultsHeaderTemplate(url)}
-          <h2>Product Categories</h2>
-          <div>
-            ${cookieTrailTemplate(ROUTES.TRAVERSE, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
-          </div>
+          <h2>Error Retrieving Product Categories</h2>
+          <div>Node not found for response "${incorrectResult.response}"</div>
           ${scrapedMetaTagsTemplate(metaTags)}
           ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
         `)
       );
-    } catch (e) {
-      console.log("error", e);
-      if (e instanceof Error) {
-        res.send(`${e.name}: ${e.message}`);
-        return;
-      }
-      res.send(e);
+      return;
     }
+
+    if (result.type === "error:purge") {
+      const { categories, metadata } = result;
+      res.send(
+        Buffer.from(/*html*/ `
+          ${resultsHeaderTemplate(url)}
+          <h2>Error Purging Product Categories</h2>
+          <div>Purged path: "${categories.toList().join(" > ")}"</div>
+          ${scrapedMetaTagsTemplate(metaTags)}
+          ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
+        `)
+      );
+      return;
+    }
+
+    const { categories, metadata } = result;
+    res.send(
+      Buffer.from(/*html*/ `
+        ${resultsHeaderTemplate(url)}
+        <h2>Product Categories</h2>
+        <div>
+          ${cookieTrailTemplate(ROUTES.TRAVERSE, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
+        </div>
+        ${scrapedMetaTagsTemplate(metaTags)}
+        ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
+      `)
+    );
   });
 
 app.listen(PORT, () => {

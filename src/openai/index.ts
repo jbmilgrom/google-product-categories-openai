@@ -141,7 +141,7 @@ export const generateChatPrompt = (choices: string[], metaTags: string): ChatCom
 export const openAiSelectCategoryFromChoices = async (
   choices: string[],
   metaTags: string,
-  { model = "text-davinci-003", temperature }: { model?: string; temperature?: number }
+  { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
 ): Promise<{ category: string; metadata: { prompt: string; response: string } }> => {
   if (inList(INSTRUCTION_MODELS, model)) {
     const prompt = generateInstructivePrompt(choices, metaTags);

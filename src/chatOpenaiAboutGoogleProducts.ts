@@ -22,7 +22,7 @@ export const chatOpenaiAboutGoogleProducts = async (
   webPageMetaData: string,
   {
     retries = 0,
-    model = "text-davinci-003",
+    model = "gpt-3.5-turbo",
     temperature = 0.6,
   }: { retries?: number; model?: string; temperature?: number } = {}
 ): Promise<Result> => {

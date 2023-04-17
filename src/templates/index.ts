@@ -23,12 +23,10 @@ export const cookieTrailTemplate = (
 
 export const templateTrascript = (transcript: Chat[]): string => {
   const template = ({ prompt, response }: Chat) => /*html*/ `
-    <p>  
-      <span><b>prompt: </b></span>
-      <code><pre>${escapeHtml(prompt)}</pre><code>
-      <span><b>openai: </b></span>
-      <code><pre>${response}</pre><code>
-    </p>
+    <h4>Prompt</h4>
+    <code><pre>${escapeHtml(prompt)}</pre><code>
+    <h4>OpenAI</h4>
+    <code><pre>${response}</pre><code>
   `;
   return transcript.map(template).join("");
 };

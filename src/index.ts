@@ -6,6 +6,7 @@ import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextL
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import {
   cookieTrailTemplate,
+  homeTemplate,
   linkTemplate,
   openAiTemplate,
   resultsHeaderTemplate,
@@ -36,34 +37,43 @@ app.get("/", async (req, res) => {
     Buffer.from(`
     <h1>Explore Google Product Types</h1>
     <ul>
-      ${(Object.keys(ROUTES) as RouteKeys).map((k) => `<li><a href=${ROUTES[k]}>${ROUTES[k]}</a></li>`).join("")}
+      ${(Object.keys(ROUTES) as RouteKeys)
+        .map((k) => `<li><a href=${ROUTES[k].url}>${ROUTES[k].description}</a></li>`)
+        .join("")}
     </ul>
   `)
   );
 });
 
-app.get(ROUTES.TEXT, async (req, res) => {
+app.get(ROUTES.TEXT.url, async (req, res) => {
   console.log(`fetching google product type...`);
+  let lineCount = 0;
+  let characterCount = 0;
+  res.write(homeTemplate());
   for await (const line of makeGoogleProductTypeTextLineIterator()) {
+    lineCount++;
+    characterCount += line.length;
     res.write(`${line}\n`);
   }
+  console.log(`Line/Path Count: ${lineCount}`);
+  console.log(`Avg line length: ${characterCount / lineCount}`);
   res.end();
 });
 
-app.get(ROUTES.INTERNAL_REPRESENTATION, async (req, res) => {
+app.get(ROUTES.INTERNAL_REPRESENTATION.url, async (req, res) => {
   console.log(`fetching google product type...`);
   const nodes = await getGoogleProductCategoriesTaxonomy();
   res.send(nodes);
 });
 
-app.get(ROUTES.MAX_DEPTH, async (req, res) => {
+app.get(ROUTES.MAX_DEPTH.url, async (req, res) => {
   console.log("calculating max depth...");
   let max = 0;
   const nodes = await getGoogleProductCategoriesTaxonomy();
   res.send(`Max depth: ${maxDepth(nodes)}\n`);
 });
 
-app.get(ROUTES.MAX_DEGREE, async (req, res) => {
+app.get(ROUTES.MAX_DEGREE.url, async (req, res) => {
   console.log("calculating max degree...");
   const nodes = await getGoogleProductCategoriesTaxonomy();
 
@@ -74,7 +84,7 @@ app.get(ROUTES.MAX_DEGREE, async (req, res) => {
   res.end();
 });
 
-app.get(ROUTES.TRAVERSE, async (req, res) => {
+app.get(ROUTES.TRAVERSE.url, async (req, res) => {
   console.log("calculating children...");
 
   const nodes = await getGoogleProductCategoriesTaxonomy();
@@ -88,11 +98,12 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
 
     res.set("Content-Type", "text/html");
     res.send(
-      Buffer.from(/*html*/ `
+      Buffer.from(
+        homeTemplate(/*html*/ `
       <h2>Path</h2>
       <div>
         <span>${pathList.length ? `<a href=${ROUTES.TRAVERSE}>Root</a><span> > </span>` : "Root"}</span>
-        ${cookieTrailTemplate(ROUTES.TRAVERSE, pathList, { delimiter: QUERY_PARAM_DELIMITER })}
+        ${cookieTrailTemplate(ROUTES.TRAVERSE.url, pathList, { delimiter: QUERY_PARAM_DELIMITER })}
       </div>
       <h2>Next</h2>
       ${childrenList.length === 0 ? `<div><span>Leaf Node &#127809;</span></div>` : ""}
@@ -101,7 +112,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
           .map(
             (value) =>
               `<li>
-                ${linkTemplate(ROUTES.TRAVERSE, [...pathList, value], {
+                ${linkTemplate(ROUTES.TRAVERSE.url, [...pathList, value], {
                   delimiter: QUERY_PARAM_DELIMITER,
                 })}
               </li>`
@@ -109,6 +120,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
           .join("")}
       </ul>
     `)
+      )
     );
   } catch {
     res.send("error parsing path. Make sure path is comma delimited");
@@ -116,7 +128,7 @@ app.get(ROUTES.TRAVERSE, async (req, res) => {
 });
 
 app
-  .route(ROUTES.URL)
+  .route(ROUTES.URL.url)
   .get(async (req, res) => {
     let models: string[];
     try {
@@ -128,7 +140,7 @@ app
     }
 
     res.set("Content-Type", "text/html");
-    res.send(Buffer.from(urlFormTemplate(ROUTES.URL, models)));
+    res.send(Buffer.from(homeTemplate(urlFormTemplate(ROUTES.URL.url, models))));
   })
   .post(async (req, res) => {
     const model: string | undefined = req.body.model;
@@ -177,13 +189,15 @@ app
       const { metadata } = result;
       const incorrectResult = metadata.transcript.peakLast();
       res.send(
-        Buffer.from(/*html*/ `
+        Buffer.from(
+          homeTemplate(/*html*/ `
           ${resultsHeaderTemplate(url)}
           <h2>No Product Category Found</h2>
           <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
           ${scrapedMetaTagsTemplate(metaTags)}
           ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
         `)
+        )
       );
       return;
     }
@@ -191,28 +205,32 @@ app
     if (result.type === "error:purge") {
       const { categories, metadata } = result;
       res.send(
-        Buffer.from(/*html*/ `
+        Buffer.from(
+          homeTemplate(/*html*/ `
           ${resultsHeaderTemplate(url)}
           <h2>Error Purging Product Categories</h2>
           <div>Purged path: "${categories.toList().join(" > ")}"</div>
           ${scrapedMetaTagsTemplate(metaTags)}
           ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
         `)
+        )
       );
       return;
     }
 
     const { categories, metadata } = result;
     res.send(
-      Buffer.from(/*html*/ `
+      Buffer.from(
+        homeTemplate(/*html*/ `
         ${resultsHeaderTemplate(url)}
         <h2>Product Categories</h2>
         <div>
-          ${cookieTrailTemplate(ROUTES.TRAVERSE, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
+          ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
         </div>
         ${scrapedMetaTagsTemplate(metaTags)}
         ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
       `)
+      )
     );
   });
 

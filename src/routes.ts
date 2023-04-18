@@ -1,10 +1,13 @@
 export const ROUTES = {
-  TEXT: "/text",
-  INTERNAL_REPRESENTATION: "/internal-representation.json",
-  MAX_DEPTH: "/max-depth",
-  MAX_DEGREE: "/max-degree",
-  TRAVERSE: "/traverse",
-  URL: "/url",
+  TEXT: { url: "/text", description: "The Google Product Categories (Text File)" },
+  INTERNAL_REPRESENTATION: {
+    url: "/internal-representation.json",
+    description: "The Google Product Categories (Intenral Representation/JSON)",
+  },
+  MAX_DEPTH: { url: "/max-depth", description: "Calculate Max Depth" },
+  MAX_DEGREE: { url: "/max-degree", description: "Calculate Max Degree" },
+  TRAVERSE: { url: "/traverse", description: "Explore the Graph of Google Product Categories" },
+  URL: { url: "/url", description: "Categorize a URL using Google Product Categories" },
 } as const;
 
 export type RouteKeys = Array<keyof typeof ROUTES>;

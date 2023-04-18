@@ -3,6 +3,15 @@ import { makeQueryParams } from "../utils/makeQueyParams";
 
 type Chat = { prompt: string; response: string };
 
+export const homeTemplate = (children?: string): string => {
+  return /*html*/ `
+    <div>
+      <a href="/">Home</a>
+    <div>
+    ${children}
+  `;
+};
+
 export const linkTemplate = (base: string, path: string[], { delimiter }: { delimiter?: string } = {}) => {
   const queryParams = makeQueryParams(path, delimiter);
   return /*html*/ `<a href=${`${base}?path=${queryParams}`}>${path[path.length - 1]}</a>`;

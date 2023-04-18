@@ -102,7 +102,7 @@ app.get(ROUTES.TRAVERSE.url, async (req, res) => {
         homeTemplate(/*html*/ `
       <h2>Path</h2>
       <div>
-        <span>${pathList.length ? `<a href=${ROUTES.TRAVERSE}>Root</a><span> > </span>` : "Root"}</span>
+        <span>${pathList.length ? `<a href=${ROUTES.TRAVERSE.url}>Root</a><span> > </span>` : "Root"}</span>
         ${cookieTrailTemplate(ROUTES.TRAVERSE.url, pathList, { delimiter: QUERY_PARAM_DELIMITER })}
       </div>
       <h2>Next</h2>

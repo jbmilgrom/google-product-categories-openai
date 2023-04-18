@@ -75,7 +75,7 @@ export const listSupportedModels = async (): Promise<string[]> => {
 };
 
 export const generateInstructivePrompt = (choices: string[], metaTags: string) => `
-  Select a category from the follow string delimited list 
+  Select a category from the following list 
         
   ${choices.join(", ")}
 

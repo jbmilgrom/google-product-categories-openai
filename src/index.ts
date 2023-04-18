@@ -1,7 +1,7 @@
 import express from "express";
 import { makeQueue, maxDepth, maxDegree, find, toList, Vertices } from "./utils/tree";
 import { getMetaTags } from "./crawl";
-import { listSupportedModels } from "./openai";
+import { CHAT_AND_COMPlETION_MODELS, inList, listSupportedModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import {
@@ -14,6 +14,7 @@ import {
   urlFormTemplate,
 } from "./templates";
 import { ROUTES, RouteKeys } from "./routes";
+import { isValidHttpUrl } from "./utils/isValidHttpUrl";
 
 const app = express();
 
@@ -130,22 +131,20 @@ app
   .route(ROUTES.URL.url)
   .get(async (req, res) => {
     let models: string[];
-    try {
-      models = await listSupportedModels();
-    } catch (e) {
-      console.log(e);
-      res.send("Failed to fetch open ai models. Try again.");
-      return;
-    }
+    const url = (req.query.url as string) ?? null;
+    const model = (req.query.model as string) ?? null;
 
-    res.set("Content-Type", "text/html");
-    res.send(Buffer.from(homeTemplate(urlFormTemplate(ROUTES.URL.url, models))));
-  })
-  .post(async (req, res) => {
-    const model: string | undefined = req.body.model;
-    const url: string | undefined = req.body.url;
-    if (!url) {
-      res.send("No URL received");
+    if (!isValidHttpUrl(url)) {
+      try {
+        models = await listSupportedModels();
+      } catch (e) {
+        console.log(e);
+        res.send("Failed to fetch open ai models. Try again.");
+        return;
+      }
+
+      res.set("Content-Type", "text/html");
+      res.send(Buffer.from(homeTemplate(urlFormTemplate(ROUTES.URL.url, models))));
       return;
     }
 
@@ -174,7 +173,7 @@ app
       console.log("chating openai...");
       result = await chatOpenaiAboutGoogleProducts(nodes, metaTags, {
         retries: 1,
-        model: model === "" ? undefined : model,
+        model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
       });
     } catch (e) {
       console.log("error", e);
@@ -230,6 +229,18 @@ app
         ${openAiTemplate(metadata.model, metadata.temperature, metadata.transcript.toList())}
       `)
       )
+    );
+  })
+  .post(async (req, res) => {
+    const model: string | undefined = req.body.model;
+    const url: string | undefined = req.body.url;
+    if (!url) {
+      res.send("No URL received");
+      return;
+    }
+
+    res.redirect(
+      ROUTES.URL.url + `?url=${encodeURIComponent(url)}&model=${encodeURIComponent(model ? model : "default")}`
     );
   });
 

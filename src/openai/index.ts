@@ -26,10 +26,10 @@ const INSTRUCTION_MODELS = [
   "text-ada-001",
 ] as const;
 type CompletionModel = (typeof INSTRUCTION_MODELS)[number];
-const CHAT_AND_COMPlETION_MODELS = [...CHAT_COMPLETION_MODELS, ...INSTRUCTION_MODELS] as const;
+export const CHAT_AND_COMPlETION_MODELS = [...CHAT_COMPLETION_MODELS, ...INSTRUCTION_MODELS] as const;
 type ChatOrCompletionModel = (typeof CHAT_AND_COMPlETION_MODELS)[number];
 const chatOrCompletionModel = new Set(CHAT_AND_COMPlETION_MODELS);
-function inList<T extends string>(list: Readonly<T[]>, s: string): s is T {
+export function inList<T extends string>(list: Readonly<T[]>, s: string): s is T {
   return list.includes(s as T);
 }
 

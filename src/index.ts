@@ -130,11 +130,11 @@ app.get(ROUTES.TRAVERSE.url, async (req, res) => {
 app
   .route(ROUTES.URL.url)
   .get(async (req, res) => {
-    let models: string[];
     const url = (req.query.url as string) ?? null;
     const model = (req.query.model as string) ?? null;
 
     if (!isValidHttpUrl(url)) {
+      let models: string[];
       try {
         models = await listSupportedModels();
       } catch (e) {

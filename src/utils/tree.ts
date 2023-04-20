@@ -3,7 +3,6 @@ export type Queue<T> = {
   dequeue: () => T;
   peakLast: () => T;
   isEmpty: () => boolean;
-  toString: (delimiter?: string) => string;
   toList: () => T[];
   copy: () => Queue<T>;
 };
@@ -41,7 +40,6 @@ export const makeQueue = <T>(q: T[] = []): Queue<T> => {
     },
     peakLast: () => q[q.length - 1],
     isEmpty,
-    toString: (delimiter = ",") => q.join(delimiter),
     copy: () => makeQueue([...q]),
     toList: () => [...q],
   };

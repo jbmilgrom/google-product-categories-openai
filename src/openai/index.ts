@@ -309,7 +309,7 @@ export const openAiSelectCategoryFromChoices = async (
   throw new Error(`Select one of these models {${CHAT_AND_COMPlETION_MODELS.join(", ")}}`);
 };
 
-export const openAiNextStepsFollowingDeadend = async (
+export const openAiNextStepFollowingDeadend = async (
   parentCategory: string,
   choices: string[],
   metaTags: string,

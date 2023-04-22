@@ -1,5 +1,5 @@
 import { makeQueue, Vertices, Queue, find, toList, makeStack, purge } from "./utils/tree";
-import { GoOneLevelUp, openAiNextStepsFollowingDeadend, openAiSelectCategoryFromChoices } from "./openai";
+import { GoOneLevelUp, openAiNextStepFollowingDeadend, openAiSelectCategoryFromChoices } from "./openai";
 
 type Chat = { prompt: string; response: string };
 type ChatMetadata = { transcript: Queue<Chat>; model: string; temperature: number };
@@ -65,7 +65,7 @@ export const chatOpenaiAboutGoogleProducts = async (
        * */
       backtrackablePath.pop();
 
-      const { nextStep, metadata } = await openAiNextStepsFollowingDeadend(
+      const { nextStep, metadata } = await openAiNextStepFollowingDeadend(
         backtrackablePath.peak(),
         toList(choices),
         webPageMetaData,

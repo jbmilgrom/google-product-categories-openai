@@ -10,6 +10,8 @@ export type Queue<T> = {
 export type Stack<T> = {
   push: (i: T) => void;
   pop: () => T;
+  peak: () => T;
+  isEmpty: () => boolean;
   toList: () => T[];
 };
 
@@ -56,7 +58,14 @@ export const makeStack = <T>(s: T[] = []): Stack<T> => {
       }
       return s.pop()!;
     },
+    peak: () => {
+      if (isEmpty()) {
+        throw new Error("Nothing to peak");
+      }
+      return s[s.length - 1];
+    },
     toList: () => [...s],
+    isEmpty,
   };
 };
 
@@ -108,6 +117,22 @@ export const purge = <T>(nodes: Vertices<T>, { path }: { path: Queue<T> }): bool
     children.splice(index, 1);
     children = node.children;
   }
+  return true;
+};
+
+/**
+ * Remove a node's children at certain paths
+ *
+ * @param nodes
+ * @param param1
+ * @returns
+ */
+export const removeChildren = <T>(nodes: Vertices<T>, { path }: { path: Queue<T> }): boolean => {
+  const node = find(nodes, { path });
+  if (!node) {
+    return false;
+  }
+  node.children = [];
   return true;
 };
 

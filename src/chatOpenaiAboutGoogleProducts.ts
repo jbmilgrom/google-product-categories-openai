@@ -31,11 +31,12 @@ export const chatOpenaiAboutGoogleProducts = async (
   /**
    * (No choices left? We're done! We've found the product category heirarchy.)
    *  1. Get next choices (from found node's children or root product taxonomy)
-   *  2. Select token from choices
+   *  2. Select token from choices (OpenAI)
    *  3. Find node from token, go to 1.
    *  4. Can't find node
-   *  5. Retries > 0, go to 1 and try again w/o the failed path in the product taxonomy
-   *  6. No retries left, we're done, and we haven't found the product category heirarchy
+   *  5. Determine whether the parent category is sufficient (OpenAI)
+   *  6. If not and Retries > 0, go to 1 and try again w/o the failed path in the product taxonomy
+   *  7. No retries left, we're done, and we haven't found the product category heirarchy
    */
   const orchestrate = async (retries: number): Promise<Result> => {
     let choices: Vertices<string> = productTaxonomy;
@@ -80,6 +81,9 @@ export const chatOpenaiAboutGoogleProducts = async (
         return { type: "error:chat", category, metadata: { transcript, model, temperature } };
       }
 
+      /**
+       * Node may not have been found about, but the parent category seems on point according to OpenAI. So finish successfully with the broader parent category as the leafiest node.
+       */
       if (state === Correct) {
         return {
           type: "success",

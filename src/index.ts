@@ -156,7 +156,9 @@ app
       metaTags = await getMetaTags(url);
     } catch (e) {
       console.log("error", e);
-      res.send(`Error Fetching ${url}. Likely an issue with the advertiser web server.`);
+      res.send(
+        `Error Fetching ${url}. \n\nMost likely we failed the advertiser bot check. I would try a different advertiser in the same product category and try again.`
+      );
       return;
     }
 

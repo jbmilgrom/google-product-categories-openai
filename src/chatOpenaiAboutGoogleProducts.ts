@@ -1,5 +1,5 @@
 import { makeQueue, Vertices, Queue, find, toList, makeStack, purge } from "./utils/tree";
-import { GoOneLevelUp, openAiNextStepFollowingDeadend, openAiSelectCategoryFromChoices } from "./openai";
+import { Correct, openAiAssessStateOfDeadend, openAiSelectCategoryFromChoices } from "./openai";
 
 type Chat = { prompt: string; response: string };
 type ChatMetadata = { transcript: Queue<Chat>; model: string; temperature: number };
@@ -65,7 +65,7 @@ export const chatOpenaiAboutGoogleProducts = async (
        * */
       backtrackablePath.pop();
 
-      const { nextStep, metadata } = await openAiNextStepFollowingDeadend(
+      const { state, metadata } = await openAiAssessStateOfDeadend(
         backtrackablePath.peak(),
         toList(choices),
         webPageMetaData,
@@ -76,11 +76,11 @@ export const chatOpenaiAboutGoogleProducts = async (
       );
       transcript.enqueue({ prompt: metadata.prompt, response: metadata.response });
 
-      if (nextStep === null) {
+      if (state === null) {
         return { type: "error:chat", category, metadata: { transcript, model, temperature } };
       }
 
-      if (nextStep === GoOneLevelUp) {
+      if (state === Correct) {
         return {
           type: "success",
           categories: makeQueue(backtrackablePath.toList()),
@@ -89,7 +89,7 @@ export const chatOpenaiAboutGoogleProducts = async (
       }
 
       /**
-       * Everything below is for nextStep === StartOver
+       * Everything below is for state === Incorrect
        */
 
       /**

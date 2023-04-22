@@ -148,6 +148,8 @@ app
       return;
     }
 
+    console.log(`Received request for URL: ${url}, model: ${model}`);
+
     let metaTags: string;
     try {
       console.log("scraping meta tags...");

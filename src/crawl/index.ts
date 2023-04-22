@@ -47,8 +47,16 @@ export const getMetaTags = async (url: string): Promise<string> => {
   });
   const html = await response.text();
   const { window } = new JSDOM(html);
-  const metaTags = window.document.querySelectorAll("meta");
-  return Array.from(metaTags)
+  const metaTagsDescription = window.document.querySelectorAll("meta[name='description']");
+  const metaTagsTitle = window.document.querySelectorAll("meta[name='title']");
+  const ogTitle = window.document.querySelectorAll("meta[property='og:title']");
+  const ogDescription = window.document.querySelectorAll("meta[property='og:description']");
+  return [
+    ...Array.from(metaTagsDescription),
+    ...Array.from(metaTagsTitle),
+    ...Array.from(ogTitle),
+    ...Array.from(ogDescription),
+  ]
     .map((tag) => tag.outerHTML)
     .join("\n");
 };

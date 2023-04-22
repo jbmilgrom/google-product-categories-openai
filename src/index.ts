@@ -188,12 +188,13 @@ app
 
     res.set("Content-Type", "text/html");
 
-    const tokens = encode(
-      result.metadata.transcript
-        .toList()
-        .map(({ prompt, response }) => prompt + response)
-        .join()
-    );
+    const transcript = result.metadata.transcript
+      .toList()
+      .map(({ prompt, response }) => `${prompt} ${response}`)
+      .join(" ");
+
+    const words = transcript.match(/\S+/g)?.length ?? 0;
+    const tokens = encode(transcript);
 
     if (result.type === "error:chat") {
       const { metadata } = result;
@@ -205,7 +206,13 @@ app
           <h2>No Product Category Found</h2>
           <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
           ${scrapedMetaTagsTemplate(metaTags)}
-          ${openAiTemplate(metadata.model, metadata.temperature, tokens.length, metadata.transcript.toList())}
+          ${openAiTemplate({
+            model: metadata.model,
+            temperature: metadata.temperature,
+            tokens: tokens.length,
+            words,
+            transcript: metadata.transcript.toList(),
+          })}
         `)
         )
       );
@@ -221,7 +228,13 @@ app
           <h2>Error Purging Product Categories</h2>
           <div>Purged path: "${categories.toList().join(" > ")}"</div>
           ${scrapedMetaTagsTemplate(metaTags)}
-          ${openAiTemplate(metadata.model, metadata.temperature, tokens.length, metadata.transcript.toList())}
+          ${openAiTemplate({
+            model: metadata.model,
+            temperature: metadata.temperature,
+            tokens: tokens.length,
+            words,
+            transcript: metadata.transcript.toList(),
+          })}
         `)
         )
       );
@@ -238,7 +251,13 @@ app
           ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
         </div>
         ${scrapedMetaTagsTemplate(metaTags)}
-        ${openAiTemplate(metadata.model, metadata.temperature, tokens.length, metadata.transcript.toList())}
+        ${openAiTemplate({
+          model: metadata.model,
+          temperature: metadata.temperature,
+          tokens: tokens.length,
+          words,
+          transcript: metadata.transcript.toList(),
+        })}
       `)
       )
     );

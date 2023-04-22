@@ -77,6 +77,7 @@ export const chatOpenaiAboutGoogleProducts = async (
       );
       transcript.enqueue({ prompt: metadata.prompt, response: metadata.response });
 
+      // The assessment failed. Give Up.
       if (state === null) {
         return { type: "error:chat", category, metadata: { transcript, model, temperature } };
       }

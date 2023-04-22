@@ -1,11 +1,5 @@
-import { makeQueue, Vertices, Queue, find, toList, makeStack, Stack, purge } from "./utils/tree";
-import {
-  FailerModeNextStep,
-  GoOneLevelUp,
-  StartOver,
-  openAiHandleForkInRoad,
-  openAiSelectCategoryFromChoices,
-} from "./openai";
+import { makeQueue, Vertices, Queue, find, toList, makeStack, purge } from "./utils/tree";
+import { GoOneLevelUp, openAiNextStepsFollowingDeadend, openAiSelectCategoryFromChoices } from "./openai";
 
 type Chat = { prompt: string; response: string };
 type ChatMetadata = { transcript: Queue<Chat>; model: string; temperature: number };
@@ -71,17 +65,20 @@ export const chatOpenaiAboutGoogleProducts = async (
        * */
       backtrackablePath.pop();
 
-      const { nextStep, metadata } = await openAiHandleForkInRoad(
-        makeStack(backtrackablePath.toList()).pop(),
+      const { nextStep, metadata } = await openAiNextStepsFollowingDeadend(
+        backtrackablePath.peak(),
         toList(choices),
         webPageMetaData,
         {
-          defaultFailureMode: "Go One Level Up",
           model,
           temperature,
         }
       );
       transcript.enqueue({ prompt: metadata.prompt, response: metadata.response });
+
+      if (nextStep === null) {
+        return { type: "error:chat", category, metadata: { transcript, model, temperature } };
+      }
 
       if (nextStep === GoOneLevelUp) {
         return {

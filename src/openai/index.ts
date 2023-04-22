@@ -309,31 +309,28 @@ export const openAiSelectCategoryFromChoices = async (
   throw new Error(`Select one of these models {${CHAT_AND_COMPlETION_MODELS.join(", ")}}`);
 };
 
-export const openAiHandleForkInRoad = async (
+export const openAiNextStepsFollowingDeadend = async (
   parentCategory: string,
   choices: string[],
   metaTags: string,
-  {
-    defaultFailureMode = "Start Over",
-    model = "gpt-3.5-turbo",
-    temperature,
-  }: { defaultFailureMode?: FailerModeNextStep; model?: string; temperature?: number }
-): Promise<{ nextStep: FailerModeNextStep; metadata: { prompt: string; response: string } }> => {
+  { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
+): Promise<{ nextStep: FailerModeNextStep | null; metadata: { prompt: string; response: string } }> => {
+  console.log("Asking OpenAI for help with deadend.");
   if (inList(INSTRUCTION_MODELS, model)) {
-    return { nextStep: defaultFailureMode, metadata: { prompt: "None", response: "None" } };
+    return { nextStep: GoOneLevelUp, metadata: { prompt: "None", response: "None" } };
   }
 
   if (inList(CHAT_COMPLETION_MODELS, model)) {
     const messages = generateMetaPathTraversalChatPrompt(parentCategory, choices, metaTags);
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
     console.log("response", response);
-
     const nextStep = response.trim();
+    const prompt = messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");
     if (!isValidNextStep(nextStep)) {
       return {
-        nextStep: defaultFailureMode,
+        nextStep: null,
         metadata: {
-          prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
+          prompt,
           response,
         },
       };
@@ -341,7 +338,7 @@ export const openAiHandleForkInRoad = async (
     return {
       nextStep,
       metadata: {
-        prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
+        prompt,
         response,
       },
     };

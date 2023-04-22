@@ -1,5 +1,11 @@
 import { makeQueue, Vertices, Queue, find, toList, makeStack, Stack, purge } from "./utils/tree";
-import { openAiSelectCategoryFromChoices } from "./openai";
+import {
+  FailerModeNextStep,
+  GoOneLevelUp,
+  StartOver,
+  openAiHandleForkInRoad,
+  openAiSelectCategoryFromChoices,
+} from "./openai";
 
 type Chat = { prompt: string; response: string };
 type ChatMetadata = { transcript: Queue<Chat>; model: string; temperature: number };
@@ -61,6 +67,35 @@ export const chatOpenaiAboutGoogleProducts = async (
       }
 
       /**
+       * last node not found, so pop it out of our path.
+       * */
+      backtrackablePath.pop();
+
+      const { nextStep, metadata } = await openAiHandleForkInRoad(
+        makeStack(backtrackablePath.toList()).pop(),
+        toList(choices),
+        webPageMetaData,
+        {
+          defaultFailureMode: "Go One Level Up",
+          model,
+          temperature,
+        }
+      );
+      transcript.enqueue({ prompt: metadata.prompt, response: metadata.response });
+
+      if (nextStep === GoOneLevelUp) {
+        return {
+          type: "success",
+          categories: makeQueue(backtrackablePath.toList()),
+          metadata: { transcript, model, temperature },
+        };
+      }
+
+      /**
+       * Everything below is for nextStep === StartOver
+       */
+
+      /**
        * No retries left and we haven't been able to find an appropriate product category.
        * This means that either the website is not really a product or that the openai model we chose failed to categorize
        * the metadata we scraped.
@@ -71,11 +106,6 @@ export const chatOpenaiAboutGoogleProducts = async (
 
       console.log("Attempting a different path entirely");
 
-      /**
-       * last node not found and we have some retries left, so we pop it out and purge the product taxonomy of the whole
-       * path and try again.
-       * */
-      backtrackablePath.pop();
       const ok = purge(productTaxonomy, { path: makeQueue(backtrackablePath.toList()) });
 
       /**

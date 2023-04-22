@@ -78,12 +78,14 @@ export const scrapedMetaTagsTemplate = (metaTags: string) => /*html*/ `
   <pre><code>${escapeHtml(metaTags)}</code></pre>
 `;
 
-export const openAiTemplate = (model: string, temperature: number, transcript: Chat[]) => /*html*/ `
+export const openAiTemplate = (model: string, temperature: number, tokens: number, transcript: Chat[]) => /*html*/ `
   <h2>OpenAI</h2>
   <h3>Model</h3>
   <p>${model}</p>
   <h3>Temperature</h3>
   <p>${temperature}</p>
+  <h3>Tokens Used</h3>
+  <p>${tokens}</p>
   <h3>Trascript (Verbatum)</h3>
   ${templateTrascript(transcript)}
 `;

@@ -6,6 +6,7 @@ export const ROUTES = {
   },
   MAX_DEPTH: { url: "/max-depth", description: "Calculate Max Depth" },
   MAX_DEGREE: { url: "/max-degree", description: "Calculate Max Degree" },
+  SEARCH: { url: "/search", description: "Search (Substring Matching Only)" },
   TRAVERSE: { url: "/traverse", description: "Explore the Graph of Google Product Categories" },
   URL: { url: "/url", description: "Categorize a URL using Google Product Categories" },
 } as const;

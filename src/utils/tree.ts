@@ -98,6 +98,16 @@ export const find = <T>(nodes: Vertices<T>, { path }: { path: Queue<T> }): Verte
   return node!; // we know not null because a missing candidate returns early
 };
 
+export const search = <T>(nodes: Vertices<T>, match: (node: Vertex<T>) => boolean): Vertices<T> => {
+  let matches: Vertices<T> = [];
+  forEachBreadthFirst(nodes, (node) => {
+    if (match(node)) {
+      matches.push(node);
+    }
+  });
+  return matches;
+};
+
 /**
  * Purge/remove a path from a tree.
  *

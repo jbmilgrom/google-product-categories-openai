@@ -128,6 +128,39 @@ app.get(ROUTES.TRAVERSE.url, async (req, res) => {
   }
 });
 
+app.get(ROUTES.SEARCH.url, async (req, res) => {
+  console.log("searching...");
+
+  const term = (req.query.term as string) ?? null;
+  if (!term) {
+    res.send('Add a valid query parameter of form "?term=MY_SEARCH_TERM" to the url and hit enter.');
+    return;
+  }
+
+  const lineMatches = [];
+  for await (const line of makeGoogleProductTypeTextLineIterator()) {
+    if (line.toLocaleLowerCase().includes(term.toLocaleLowerCase())) {
+      lineMatches.push(line);
+    }
+  }
+
+  res.set("Content-Type", "text/html");
+  res.send(
+    Buffer.from(
+      homeTemplate(/*html*/ `
+    <h1>Search Results</h1>
+    ${
+      !lineMatches.length
+        ? "<p>No Results</p>"
+        : `<ul>
+        ${lineMatches.map((match) => `<li>${match}</li>`).join("")}
+      </ul>`
+    }
+  `)
+    )
+  );
+});
+
 app
   .route(ROUTES.URL.url)
   .get(async (req, res) => {

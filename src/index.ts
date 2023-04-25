@@ -197,7 +197,7 @@ app
     }
 
     if (!metaTags.length) {
-      res.send(`No metatags retrieved at: ${url}. Nothing to categorize.`);
+      res.send(`No metatags retrieved at: ${url}`);
       return;
     }
 

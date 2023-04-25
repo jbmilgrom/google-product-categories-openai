@@ -196,6 +196,11 @@ app
       return;
     }
 
+    if (!metaTags.length) {
+      res.send(`No metatags retrieved at: ${url}. Nothing to categorize.`);
+      return;
+    }
+
     let nodes: Vertices<string>;
     try {
       console.log("parsing google product categories into tree...");

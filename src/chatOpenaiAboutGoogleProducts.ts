@@ -87,7 +87,7 @@ export const chatOpenaiAboutGoogleProducts = async (
        * Why might we be querying OpenAI again about the parent category when of course it already gave us go (without which
        * we wouldnt be analyzing currently one of the parents children)? Well tht is because now we have the parents children
        * to give examples of the parent category in case it was ambiguous to begin with. OpenAI makes mistakes, and with the
-       * examples in hand we now have the ability to deterime if it did. finish successfully with the broader parent category
+       * examples in hand we now have the ability to deterime if it did. We finish successfully with the broader parent category
        * as the leafiest node if it didn't.
        */
       if (state === Correct) {

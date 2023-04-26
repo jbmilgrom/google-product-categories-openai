@@ -83,7 +83,7 @@ export const chatOpenaiAboutGoogleProducts = async (
        *  Apples: We never reach openAiAssessStateOfDeadend, b/c there is never a dead end
        *  Mangos: We would deadend, because Mango is neither an Apple, Banana or Carrot,
        *    and openAiAssessStateOfDeadend should return Correct b/c it is nevertheless a Fruit
-       *  Law Furniture: We would deadend, and openAiAssessStateOfDeadend should return Incorrect
+       *  Lawn Furniture: We would deadend, and openAiAssessStateOfDeadend should return Incorrect
        *
        */
       const { state, metadata } = await openAiAssessStateOfDeadend(

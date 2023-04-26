@@ -84,11 +84,22 @@ export const chatOpenaiAboutGoogleProducts = async (
 
       /**
        * Node may not have been found, but the parent category seems on point according to OpenAI.
-       * Why might we be querying OpenAI again about the parent category when of course it already gave us go (without which
-       * we wouldnt be analyzing currently one of the parents children)? Well tht is because now we have the parents children
-       * to give examples of the parent category in case it was ambiguous to begin with. OpenAI makes mistakes, and with the
-       * examples in hand we now have the ability to deterime if it did. We finish successfully with the broader parent category
-       * as the leafiest node if it didn't.
+       * You might be wondering why we are querying OpenAI about the parent category when the parent category was necessarily
+       * already selected by OpenAI one iteration ago? Well that is because we now have the parent's children
+       * to further explicate the parent category in case it was ambiguous to begin with. OpenAI makes mistakes, and with these
+       * examples in hand, we now have the ability to deterime if it did. We finish successfully with the broader parent category
+       * as the leafiest node if the original determination was fine.
+       *
+       * e.g.
+       *
+       * For say, ... > Fruits & Vegetables (Parent) > [Apple, Banana, Carrot] (children),
+       *
+       *  and a website about
+       *
+       *  Apples: We never reach openAiAssessStateOfDeadend, b/c there is never a dead end
+       *  Mangos: We would dead end, and openAiAssessStateOfDeadend should return Correct
+       *  Law Furniture: We would dead end, and openAiAssessStateOfDeadend should return Incorrect
+       *
        */
       if (state === Correct) {
         return {

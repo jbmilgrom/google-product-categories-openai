@@ -97,9 +97,9 @@ export const chatOpenaiAboutGoogleProducts = async (
        *  and a website about
        *
        *  Apples: We never reach openAiAssessStateOfDeadend, b/c there is never a dead end
-       *  Mangos: We would dead end, because Mango is neither an Apple, Banana or Carrot,
+       *  Mangos: We would deadend, because Mango is neither an Apple, Banana or Carrot,
        *    and openAiAssessStateOfDeadend should return Correct b/c it is nevertheless a Fruit
-       *  Law Furniture: We would dead end, and openAiAssessStateOfDeadend should return Incorrect
+       *  Law Furniture: We would deadend, and openAiAssessStateOfDeadend should return Incorrect
        *
        */
       if (state === Correct) {

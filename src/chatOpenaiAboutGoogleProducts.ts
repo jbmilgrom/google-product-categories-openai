@@ -66,22 +66,6 @@ export const chatOpenaiAboutGoogleProducts = async (
        * */
       backtrackablePath.pop();
 
-      const { state, metadata } = await openAiAssessStateOfDeadend(
-        backtrackablePath.peak(),
-        toList(choices),
-        webPageMetaData,
-        {
-          model,
-          temperature,
-        }
-      );
-      transcript.enqueue({ prompt: metadata.prompt, response: metadata.response });
-
-      // The assessment failed. Give Up.
-      if (state === null) {
-        return { type: "error:chat", category, metadata: { transcript, model, temperature } };
-      }
-
       /**
        * Node may not have been found, but the parent category seems on point according to OpenAI.
        * You might be wondering why we are querying OpenAI about the parent category when the parent category was necessarily
@@ -102,6 +86,22 @@ export const chatOpenaiAboutGoogleProducts = async (
        *  Law Furniture: We would deadend, and openAiAssessStateOfDeadend should return Incorrect
        *
        */
+      const { state, metadata } = await openAiAssessStateOfDeadend(
+        backtrackablePath.peak(),
+        toList(choices),
+        webPageMetaData,
+        {
+          model,
+          temperature,
+        }
+      );
+      transcript.enqueue({ prompt: metadata.prompt, response: metadata.response });
+
+      // The assessment failed. Give Up.
+      if (state === null) {
+        return { type: "error:chat", category, metadata: { transcript, model, temperature } };
+      }
+
       if (state === Correct) {
         return {
           type: "success",

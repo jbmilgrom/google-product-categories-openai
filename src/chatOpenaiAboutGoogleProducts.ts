@@ -67,7 +67,7 @@ export const chatOpenaiAboutGoogleProducts = async (
       backtrackablePath.pop();
 
       /**
-       * Node may not have been found, but the parent category seems on point according to OpenAI.
+       * Node may not have been found, but the parent category may nevertheless be on point, so query OpenAI to figure if so.
        * You might be wondering why we are querying OpenAI about the parent category when the parent category was necessarily
        * already selected by OpenAI one iteration ago? Well that is because we now have the parent's children
        * to further explicate the parent category in case it was ambiguous to begin with. OpenAI makes mistakes, and with these

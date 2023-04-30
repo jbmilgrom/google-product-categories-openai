@@ -49,8 +49,6 @@ export const homeTemplate = (children?: string): string => {
   `;
 };
 
-// export const bodyTemplate =
-
 export const footerTemplate = () => {
   return /*html*/ `
     <footer>

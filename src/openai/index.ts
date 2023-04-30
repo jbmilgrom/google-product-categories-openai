@@ -139,9 +139,6 @@ export const Incorrect = "Incorrect";
 export const Correct = "Correct";
 const States = [Incorrect, Correct] as const;
 export type State = (typeof States)[number];
-function isValidState(state: string): state is State {
-  return Object.values(States).includes(state as State);
-}
 
 export const generateCategorizationAuditChatPrompt = (
   category: string,
@@ -231,7 +228,7 @@ export const openAiAssessStateOfDeadend = async (
   choices: string[],
   metaTags: string,
   { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
-): Promise<{ state: State | null; metadata: { prompt: string; response: string } }> => {
+): Promise<{ state: State; metadata: { prompt: string; response: string } }> => {
   console.log("Asking OpenAI for help with deadend.");
   if (inList(INSTRUCTION_MODELS, model)) {
     return { state: Correct, metadata: { prompt: "None", response: "None" } };
@@ -243,9 +240,9 @@ export const openAiAssessStateOfDeadend = async (
     console.log("response", response);
     const state = response.trim();
     const prompt = messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");
-    if (!isValidState(state)) {
+    if (state.startsWith(Correct)) {
       return {
-        state: null,
+        state: Correct,
         metadata: {
           prompt,
           response,
@@ -253,7 +250,7 @@ export const openAiAssessStateOfDeadend = async (
       };
     }
     return {
-      state,
+      state: Incorrect,
       metadata: {
         prompt,
         response,

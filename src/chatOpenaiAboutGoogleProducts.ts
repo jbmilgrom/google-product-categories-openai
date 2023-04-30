@@ -99,9 +99,6 @@ export const chatOpenaiAboutGoogleProducts = async (
       transcript.enqueue({ prompt: metadata.prompt, response: metadata.response });
 
       switch (state) {
-        // The assessment failed. Give Up.
-        case null:
-          return { type: "error:chat", category, metadata: { transcript, model, temperature } };
         case Correct:
           return {
             type: "success",

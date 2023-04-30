@@ -31,7 +31,8 @@ export const cookieTrailTemplate = (
 };
 
 export const templateTrascript = (transcript: Chat[]): string => {
-  const template = ({ prompt, response }: Chat) => /*html*/ `
+  const template = ({ prompt, response }: Chat, index: number) => /*html*/ `
+    <h3>Query #${index + 1}</h3>
     <h4>Prompt</h4>
     <code><pre>${escapeHtml(prompt)}</pre><code>
     <h4>OpenAI</h4>
@@ -68,13 +69,12 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
 };
 
 export const resultsHeaderTemplate = (url: string) => /*html*/ `
-  <h1>Results</h1>
-  <h2>URL</h2>
+  <h1>URL</h1>
   <div>${url}</div>
 `;
 
 export const scrapedMetaTagsTemplate = (metaTags: string) => /*html*/ `
-  <h2>Scraped Meta Tags</h2>
+  <h1>Scraped Meta Tags</h1>
   <pre><code>${escapeHtml(metaTags)}</code></pre>
 `;
 
@@ -91,15 +91,15 @@ export const openAiTemplate = ({
   tokens: number;
   transcript: Chat[];
 }) => /*html*/ `
-  <h2>OpenAI</h2>
-  <h3>Model</h3>
+  <h1>OpenAI</h1>
+  <h2>Model</h2>
   <p>${model}</p>
-  <h3>Temperature</h3>
+  <h2>Temperature</h2>
   <p>${temperature}</p>
-  <h3>Words Used</h3>
+  <h2>Words Used</h2>
   <p>${words}</p>
-  <h3>Tokens Used</h3>
+  <h2>Tokens Used</h2>
   <p>${tokens}</p>
-  <h3>Trascript (Verbatum)</h3>
+  <h2>Trascript (Verbatum)</h2>
   ${templateTrascript(transcript)}
 `;

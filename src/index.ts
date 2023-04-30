@@ -241,7 +241,7 @@ app
         Buffer.from(
           homeTemplate(/*html*/ `
           ${resultsHeaderTemplate(url)}
-          <h2>No Product Category Found</h2>
+          <h1>No Product Category Found</h1>
           <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
           ${scrapedMetaTagsTemplate(metaTags)}
           ${openAiTemplate({
@@ -263,7 +263,7 @@ app
         Buffer.from(
           homeTemplate(/*html*/ `
           ${resultsHeaderTemplate(url)}
-          <h2>Error Purging Product Categories</h2>
+          <h1>Error Purging Product Categories</h1>
           <div>Purged path: "${categories.toList().join(" > ")}"</div>
           ${scrapedMetaTagsTemplate(metaTags)}
           ${openAiTemplate({
@@ -284,7 +284,7 @@ app
       Buffer.from(
         homeTemplate(/*html*/ `
         ${resultsHeaderTemplate(url)}
-        <h2>Product Categories</h2>
+        <h1>Result (Google Product Categories)</h1>
         <div>
           ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
         </div>

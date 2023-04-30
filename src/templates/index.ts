@@ -20,7 +20,8 @@ export const htmlTemplate = (children?: string): string => {
           width: 100%;
           text-align: center;
           background-color: white;
-          color: #aaa;       
+          color: #aaa;
+          font-size: 13px;       
         }
 
         footer a:visited {

@@ -6,7 +6,9 @@ import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextL
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import {
   cookieTrailTemplate,
+  footerTemplate,
   homeTemplate,
+  htmlTemplate,
   linkTemplate,
   openAiTemplate,
   resultsHeaderTemplate,
@@ -36,14 +38,17 @@ const QUERY_PARAM_DELIMITER = "_";
 app.get("/", async (req, res) => {
   res.set("Content-Type", "text/html");
   res.send(
-    Buffer.from(`
+    Buffer.from(
+      htmlTemplate(/*html*/ `
     <h1>Explore Google Product Types</h1>
     <ul>
       ${(Object.keys(ROUTES) as RouteKeys)
         .map((k) => `<li><a href=${ROUTES[k].url}>${ROUTES[k].description}</a></li>`)
         .join("")}
     </ul>
+    ${footerTemplate()}
   `)
+    )
   );
 });
 
@@ -100,7 +105,8 @@ app.get(ROUTES.TRAVERSE.url, async (req, res) => {
     res.set("Content-Type", "text/html");
     res.send(
       Buffer.from(
-        homeTemplate(/*html*/ `
+        htmlTemplate(
+          homeTemplate(/*html*/ `
       <h2>Path</h2>
       <div>
         <span>${pathList.length ? `<a href=${ROUTES.TRAVERSE.url}>Root</a><span> > </span>` : "Root"}</span>
@@ -121,6 +127,7 @@ app.get(ROUTES.TRAVERSE.url, async (req, res) => {
           .join("")}
       </ul>
     `)
+        )
       )
     );
   } catch {
@@ -147,7 +154,8 @@ app.get(ROUTES.SEARCH.url, async (req, res) => {
   res.set("Content-Type", "text/html");
   res.send(
     Buffer.from(
-      homeTemplate(/*html*/ `
+      htmlTemplate(
+        homeTemplate(/*html*/ `
     <h1>Search Results</h1>
     ${
       !lineMatches.length
@@ -157,6 +165,7 @@ app.get(ROUTES.SEARCH.url, async (req, res) => {
       </ul>`
     }
   `)
+      )
     )
   );
 });
@@ -178,7 +187,7 @@ app
       }
 
       res.set("Content-Type", "text/html");
-      res.send(Buffer.from(homeTemplate(urlFormTemplate(ROUTES.URL.url, models))));
+      res.send(Buffer.from(htmlTemplate(homeTemplate(urlFormTemplate(ROUTES.URL.url, models)))));
       return;
     }
 
@@ -239,7 +248,8 @@ app
       const incorrectResult = metadata.transcript.peakLast();
       res.send(
         Buffer.from(
-          homeTemplate(/*html*/ `
+          htmlTemplate(
+            homeTemplate(/*html*/ `
           ${resultsHeaderTemplate(url)}
           <h1>No Product Category Found</h1>
           <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
@@ -252,6 +262,7 @@ app
             transcript: metadata.transcript.toList(),
           })}
         `)
+          )
         )
       );
       return;
@@ -261,7 +272,8 @@ app
       const { categories, metadata } = result;
       res.send(
         Buffer.from(
-          homeTemplate(/*html*/ `
+          htmlTemplate(
+            homeTemplate(/*html*/ `
           ${resultsHeaderTemplate(url)}
           <h1>Error Purging Product Categories</h1>
           <div>Purged path: "${categories.toList().join(" > ")}"</div>
@@ -274,6 +286,7 @@ app
             transcript: metadata.transcript.toList(),
           })}
         `)
+          )
         )
       );
       return;
@@ -282,7 +295,8 @@ app
     const { categories, metadata } = result;
     res.send(
       Buffer.from(
-        homeTemplate(/*html*/ `
+        htmlTemplate(
+          homeTemplate(/*html*/ `
         ${resultsHeaderTemplate(url)}
         <h1>Result (Google Product Categories)</h1>
         <div>
@@ -297,6 +311,7 @@ app
           transcript: metadata.transcript.toList(),
         })}
       `)
+        )
       )
     );
   })

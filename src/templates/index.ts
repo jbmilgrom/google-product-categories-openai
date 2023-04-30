@@ -3,12 +3,55 @@ import { makeQueryParams } from "../utils/makeQueyParams";
 
 type Chat = { prompt: string; response: string };
 
+export const htmlTemplate = (children?: string): string => {
+  return /*html*/ `
+  <html>
+    <head>
+      <style>
+        body {
+          color: #353740;
+        }
+
+        footer {
+          font-family: "ColfaxAI", Helvetica, sans-serif;
+          position: fixed;
+          left: 0;
+          bottom: 0;
+          width: 100%;
+          text-align: center;
+          background-color: white;
+          color: #aaa;       
+        }
+
+        footer a:hover {
+          color: #353740;
+        }
+
+      </style>
+    </head>
+    <body>
+      ${children}
+    </body>
+  </html>
+  `;
+};
+
 export const homeTemplate = (children?: string): string => {
   return /*html*/ `
     <div>
       <a href="/">Home</a>
     <div>
     ${children}
+  `;
+};
+
+// export const bodyTemplate =
+
+export const footerTemplate = () => {
+  return /*html*/ `
+    <footer>
+      <p><a href="https://github.com/jbmilgrom/google-product-categories-openai">Code</a> |  Powered by <a href="https://openai.com/product">OpenAI</a> © 2023 <a href="https://softwarefordays.com/">Jonathan Milgrom</a>. All rights reserved.</p> 
+    </footer>
   `;
 };
 
@@ -65,6 +108,7 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
   </form>
   <p>Only submit the form <b>once</b> to avoid multiple submissions. It will take a moment!</p>
   <p>The model <b>"gpt-3.5-turbo"</b> is used by default because it is significantly less expensive. Also, more time has been invested optimizing the turbo prompts.</p>
+  ${footerTemplate()}
 `;
 };
 

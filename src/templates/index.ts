@@ -23,6 +23,10 @@ export const htmlTemplate = (children?: string): string => {
           color: #aaa;       
         }
 
+        footer a:visited {
+          color: inherit
+        }
+
         footer a:hover {
           color: #353740;
         }

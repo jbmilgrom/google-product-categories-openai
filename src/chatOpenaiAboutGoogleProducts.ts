@@ -1,5 +1,6 @@
-import { makeQueue, Vertices, Queue, find, toList, makeStack, purge } from "./utils/tree";
-import { Correct, openAiAssessStateOfDeadend, openAiSelectCategoryFromChoices } from "./openai";
+import { makeQueue, Vertices, Queue, find, getValues, makeStack, purge } from "./utils/tree";
+import { Correct, Incorrect, openAiAssessStateOfDeadend, openAiSelectCategoryFromChoices } from "./openai";
+import { assertUnreachable } from "./utils/assertUnreachable";
 
 type Chat = { prompt: string; response: string };
 type ChatMetadata = { transcript: Queue<Chat>; model: string; temperature: number };
@@ -46,7 +47,7 @@ export const chatOpenaiAboutGoogleProducts = async (
       const {
         category,
         metadata: { prompt, response },
-      } = await openAiSelectCategoryFromChoices(toList(choices), webPageMetaData, {
+      } = await openAiSelectCategoryFromChoices(getValues(choices), webPageMetaData, {
         model,
         temperature,
       });
@@ -88,7 +89,7 @@ export const chatOpenaiAboutGoogleProducts = async (
        */
       const { state, metadata } = await openAiAssessStateOfDeadend(
         backtrackablePath.peak(),
-        toList(choices),
+        getValues(choices),
         webPageMetaData,
         {
           model,
@@ -97,44 +98,42 @@ export const chatOpenaiAboutGoogleProducts = async (
       );
       transcript.enqueue({ prompt: metadata.prompt, response: metadata.response });
 
-      // The assessment failed. Give Up.
-      if (state === null) {
-        return { type: "error:chat", category, metadata: { transcript, model, temperature } };
+      switch (state) {
+        // The assessment failed. Give Up.
+        case null:
+          return { type: "error:chat", category, metadata: { transcript, model, temperature } };
+        case Correct:
+          return {
+            type: "success",
+            categories: makeQueue(backtrackablePath.toList()),
+            metadata: { transcript, model, temperature },
+          };
+        case Incorrect: {
+          /**
+           * No retries left and we haven't been able to find an appropriate product category.
+           * This means that either the website is not really a product or that the openai model we chose failed to categorize
+           * the metadata we scraped.
+           */
+          if (!retries) {
+            return { type: "error:chat", category, metadata: { transcript, model, temperature } };
+          }
+
+          console.log("Attempting a different path entirely");
+
+          const ok = purge(productTaxonomy, { path: makeQueue(backtrackablePath.toList()) });
+
+          /**
+           * Something went wrong with the purge util above. This is likely a developer error.
+           */
+          if (!ok) {
+            return { type: "error:purge", categories, metadata: { transcript, model, temperature } };
+          }
+
+          return orchestrate(retries - 1);
+        }
+        default:
+          return assertUnreachable(state);
       }
-
-      if (state === Correct) {
-        return {
-          type: "success",
-          categories: makeQueue(backtrackablePath.toList()),
-          metadata: { transcript, model, temperature },
-        };
-      }
-
-      /**
-       * Everything below is for state === Incorrect
-       */
-
-      /**
-       * No retries left and we haven't been able to find an appropriate product category.
-       * This means that either the website is not really a product or that the openai model we chose failed to categorize
-       * the metadata we scraped.
-       */
-      if (!retries) {
-        return { type: "error:chat", category, metadata: { transcript, model, temperature } };
-      }
-
-      console.log("Attempting a different path entirely");
-
-      const ok = purge(productTaxonomy, { path: makeQueue(backtrackablePath.toList()) });
-
-      /**
-       * Something went wrong with the purge util above. This is likely a developer error.
-       */
-      if (!ok) {
-        return { type: "error:purge", categories, metadata: { transcript, model, temperature } };
-      }
-
-      return orchestrate(retries - 1);
     }
     return { type: "success", categories, metadata: { transcript, model, temperature } };
   };

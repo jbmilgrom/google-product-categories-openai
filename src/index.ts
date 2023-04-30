@@ -1,5 +1,5 @@
 import express from "express";
-import { makeQueue, maxDepth, maxDegree, find, toList, Vertices } from "./utils/tree";
+import { makeQueue, maxDepth, maxDegree, find, getValues, Vertices } from "./utils/tree";
 import { getMetaTags } from "./crawl";
 import { CHAT_AND_COMPlETION_MODELS, inList, listSupportedModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
@@ -95,7 +95,7 @@ app.get(ROUTES.TRAVERSE.url, async (req, res) => {
     const node = find(nodes, { path: path.copy() });
     const children = node?.children ?? nodes;
     const pathList = path.toList();
-    const childrenList = toList(children);
+    const childrenList = getValues(children);
 
     res.set("Content-Type", "text/html");
     res.send(

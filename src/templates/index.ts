@@ -9,6 +9,9 @@ export const htmlTemplate = (children?: string): string => {
     <head>
       <style>
         body {
+          padding-left: 1em;
+          padding-top: 1em;
+          padding-bottom: 4em;
           color: #353740;
         }
 
@@ -19,9 +22,9 @@ export const htmlTemplate = (children?: string): string => {
           bottom: 0;
           width: 100%;
           text-align: center;
-          background-color: white;
           color: #aaa;
-          font-size: 13px;       
+          font-size: 13px;
+          background-color: rgba(255, 255, 255, .9);       
         }
 
         footer a:visited {
@@ -47,6 +50,7 @@ export const homeTemplate = (children?: string): string => {
       <a href="/">Home</a>
     <div>
     ${children}
+    ${footerTemplate()}
   `;
 };
 
@@ -111,7 +115,6 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
   </form>
   <p>Only submit the form <b>once</b> to avoid multiple submissions. It will take a moment!</p>
   <p>The model <b>"gpt-3.5-turbo"</b> is used by default because it is significantly less expensive. Also, more time has been invested optimizing the turbo prompts.</p>
-  ${footerTemplate()}
 `;
 };
 

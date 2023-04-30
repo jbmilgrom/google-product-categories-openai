@@ -1,4 +1,4 @@
-# google-product-types
+# Google Product Category Classifier
 
 Service that can categorize any website with just a URL, using OpenAI and the Google Product Category taxonomy under the hood.
 

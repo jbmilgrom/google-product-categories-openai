@@ -181,8 +181,11 @@ app
     const url = (req.query.url as string) ?? null;
     const model = (req.query.model as string) ?? null;
 
-    const sendHtml = (html: string): void => {
+    const writeHtml = (html: string): void => {
       res.write(Buffer.from(html));
+    };
+    const sendHtml = (html: string): void => {
+      writeHtml(html);
       res.end();
     };
 
@@ -202,7 +205,7 @@ app
 
     console.log(`Received request for URL: ${url}, model: ${model}`);
 
-    sendHtml(htmlTemplate(homeTemplate(resultsHeaderTemplate(url))));
+    writeHtml(htmlTemplate(homeTemplate(resultsHeaderTemplate(url))));
 
     let metaTags: string;
     try {
@@ -223,7 +226,7 @@ app
       return;
     }
 
-    res.write(Buffer.from(scrapedMetaTagsTemplate(metaTags)));
+    writeHtml(scrapedMetaTagsTemplate(metaTags));
 
     let nodes: Vertices<string>;
     try {

@@ -57,7 +57,7 @@ export const homeTemplate = (children?: string): string => {
 export const footerTemplate = () => {
   return /*html*/ `
     <footer>
-      <p><a href="https://github.com/jbmilgrom/google-product-categories-openai">Code</a> |  Powered by <a href="https://openai.com/product">OpenAI</a> © 2023 <a href="https://softwarefordays.com/">Jonathan Milgrom</a>. All rights reserved.</p> 
+      <p><a href="https://github.sc-corp.net/jmilgrom/google-product-types">Code</a> |  Powered by <a href="https://openai.com/product">OpenAI</a>.</p> 
     </footer>
   `;
 };

@@ -179,7 +179,7 @@ export const maxDepth = <T>(nodes: Vertices<T>): number => {
 
 export const getValues = <T>(nodes: Vertices<T>): T[] => nodes.map((n) => n.value);
 
-const forEachBreadthFirst = <T>(nodes: Vertices<T>, cb: (node: Vertex<T>) => void): void => {
+export const forEachBreadthFirst = <T>(nodes: Vertices<T>, cb: (node: Vertex<T>) => void): void => {
   nodes.forEach((n) => {
     cb(n);
     forEachBreadthFirst(n.children, cb);

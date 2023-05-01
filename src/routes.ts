@@ -4,9 +4,8 @@ export const ROUTES = {
     url: "/internal-representation.json",
     description: "JSON (Intenral Representation)",
   },
-  MAX_DEPTH: { url: "/max-depth", description: "Calculate Max Depth" },
-  MAX_DEGREE: { url: "/max-degree", description: "Calculate Max Degree" },
-  SEARCH: { url: "/search", description: "Search (Substring Matching Only)" },
+  GPC_STATS: { url: "/gpc-stats", description: "Stats" },
+  SEARCH: { url: "/search", description: "Search" },
   TRAVERSE: { url: "/traverse", description: "Explore" },
   URL: { url: "/url", description: "Categorize a URL using Google Product Categories" },
 } as const;

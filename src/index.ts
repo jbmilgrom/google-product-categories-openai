@@ -1,5 +1,5 @@
 import express from "express";
-import { makeQueue, maxDepth, maxDegree, find, getValues, Vertices } from "./utils/tree";
+import { makeQueue, maxDepth, maxDegree, find, getValues, Vertices, forEachBreadthFirst } from "./utils/tree";
 import { getMetaTags } from "./crawl";
 import { CHAT_AND_COMPlETION_MODELS, inList, listSupportedModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
@@ -72,21 +72,23 @@ app.get(ROUTES.INTERNAL_REPRESENTATION.url, async (req, res) => {
   res.send(nodes);
 });
 
-app.get(ROUTES.MAX_DEPTH.url, async (req, res) => {
+app.get(ROUTES.GPC_STATS.url, async (req, res) => {
   console.log("calculating max depth...");
-  let max = 0;
-  const nodes = await getGoogleProductCategoriesTaxonomy();
-  res.send(`Max depth: ${maxDepth(nodes)}\n`);
-});
 
-app.get(ROUTES.MAX_DEGREE.url, async (req, res) => {
-  console.log("calculating max degree...");
   const nodes = await getGoogleProductCategoriesTaxonomy();
 
-  const [token, max] = maxDegree(nodes);
+  const [token, maxDeg] = maxDegree(nodes);
+  const maxDep = maxDepth(nodes);
+  let leafNodeCount = 0;
+  forEachBreadthFirst(nodes, () => {
+    leafNodeCount++;
+  });
 
-  res.write(`Max degree: ${max}\n`);
-  res.write(`Token: "${token}"\n`);
+  res.write(`Max degree: token "${token}" has the highest degree of ${maxDeg}\n`);
+  res.write("\n");
+  res.write(`Max depth: ${maxDep}\n`);
+  res.write("\n");
+  res.write(`Total Google Product Categories: ${leafNodeCount}`);
   res.end();
 });
 

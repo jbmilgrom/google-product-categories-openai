@@ -294,7 +294,7 @@ app
 
     const { categories, metadata } = result;
     sendHtml(/*html*/ `
-        <h1>Result (Google Product Categories)</h1>
+        <h1>Result (Google Product Category)</h1>
         <div>
           ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
         </div>

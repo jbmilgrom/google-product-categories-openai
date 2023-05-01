@@ -181,23 +181,28 @@ app
     const url = (req.query.url as string) ?? null;
     const model = (req.query.model as string) ?? null;
 
+    const sendHtml = (html: string): void => {
+      res.write(Buffer.from(html));
+      res.end();
+    };
+
     if (!isValidHttpUrl(url)) {
       let models: string[];
       try {
         models = await listSupportedModels();
       } catch (e) {
         console.log(e);
-        res.send(Buffer.from(errorTemplate("Failed to fetch open ai models. Try again.")));
+        sendHtml(errorTemplate("Failed to fetch open ai models. Try again."));
         return;
       }
 
-      res.send(Buffer.from(htmlTemplate(homeTemplate(urlFormTemplate(ROUTES.URL.url, models)))));
+      sendHtml(htmlTemplate(homeTemplate(urlFormTemplate(ROUTES.URL.url, models))));
       return;
     }
 
     console.log(`Received request for URL: ${url}, model: ${model}`);
 
-    res.write(Buffer.from(htmlTemplate(homeTemplate(resultsHeaderTemplate(url)))));
+    sendHtml(htmlTemplate(homeTemplate(resultsHeaderTemplate(url))));
 
     let metaTags: string;
     try {
@@ -205,20 +210,16 @@ app
       metaTags = await getMetaTags(url);
     } catch (e) {
       console.log("error", e);
-      res.write(
-        Buffer.from(
-          errorTemplate(
-            `Error Fetching ${url}. \n\nMost likely we failed the advertiser bot check. I would try a different advertiser in the same product category and try again.`
-          )
+      sendHtml(
+        errorTemplate(
+          `Error Fetching ${url}. \n\nMost likely we failed the advertiser bot check. I would try a different advertiser in the same product category and try again.`
         )
       );
-      res.end();
       return;
     }
 
     if (!metaTags.length) {
-      res.write(Buffer.from(errorTemplate(`No metatags retrieved at: ${url}`)));
-      res.end();
+      sendHtml(errorTemplate(`No metatags retrieved at: ${url}`));
       return;
     }
 
@@ -230,8 +231,7 @@ app
       nodes = await getGoogleProductCategoriesTaxonomy();
     } catch (e) {
       console.log("error", e);
-      res.write(Buffer.from(errorTemplate("Error fetching Google Product Categories. Try again.")));
-      res.end();
+      sendHtml(errorTemplate("Error fetching Google Product Categories. Try again."));
       return;
     }
 
@@ -244,8 +244,7 @@ app
       });
     } catch (e) {
       console.log("error", e);
-      res.write(Buffer.from(errorTemplate("OpenAI Error. Try again.")));
-      res.end();
+      sendHtml(errorTemplate("OpenAI Error. Try again."));
       return;
     }
 
@@ -260,8 +259,7 @@ app
     if (result.type === "error:chat") {
       const { metadata } = result;
       const incorrectResult = metadata.transcript.peakLast();
-      res.write(
-        Buffer.from(/*html*/ `
+      sendHtml(/*html*/ `
           <h1>No Product Category Found</h1>
           <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
           ${openAiTemplate({
@@ -271,16 +269,13 @@ app
             words,
             transcript: metadata.transcript.toList(),
           })}
-        `)
-      );
-      res.end();
+        `);
       return;
     }
 
     if (result.type === "error:purge") {
       const { categories, metadata } = result;
-      res.write(
-        Buffer.from(/*html*/ `
+      sendHtml(/*html*/ `
           <h1>Error Purging Product Categories</h1>
           <div>Purged path: "${categories.toList().join(" > ")}"</div>
           ${openAiTemplate({
@@ -290,15 +285,12 @@ app
             words,
             transcript: metadata.transcript.toList(),
           })}
-        `)
-      );
-      res.end();
+        `);
       return;
     }
 
     const { categories, metadata } = result;
-    res.write(
-      Buffer.from(/*html*/ `
+    sendHtml(/*html*/ `
         <h1>Result (Google Product Categories)</h1>
         <div>
           ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
@@ -310,9 +302,7 @@ app
           words,
           transcript: metadata.transcript.toList(),
         })}
-      `)
-    );
-    res.end();
+      `);
   })
   .post(async (req, res) => {
     const model: string | undefined = req.body.model;

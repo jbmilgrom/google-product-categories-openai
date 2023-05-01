@@ -6,6 +6,7 @@ import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextL
 import { chatOpenaiAboutGoogleProducts } from "./chatOpenaiAboutGoogleProducts";
 import {
   cookieTrailTemplate,
+  errorTemplate,
   footerTemplate,
   homeTemplate,
   htmlTemplate,
@@ -175,6 +176,8 @@ app.get(ROUTES.SEARCH.url, async (req, res) => {
 app
   .route(ROUTES.URL.url)
   .get(async (req, res) => {
+    res.set("Content-Type", "text/html");
+
     const url = (req.query.url as string) ?? null;
     const model = (req.query.model as string) ?? null;
 
@@ -184,16 +187,17 @@ app
         models = await listSupportedModels();
       } catch (e) {
         console.log(e);
-        res.send("Failed to fetch open ai models. Try again.");
+        res.send(Buffer.from(errorTemplate("Failed to fetch open ai models. Try again.")));
         return;
       }
 
-      res.set("Content-Type", "text/html");
       res.send(Buffer.from(htmlTemplate(homeTemplate(urlFormTemplate(ROUTES.URL.url, models)))));
       return;
     }
 
     console.log(`Received request for URL: ${url}, model: ${model}`);
+
+    res.write(Buffer.from(htmlTemplate(homeTemplate(resultsHeaderTemplate(url)))));
 
     let metaTags: string;
     try {
@@ -201,16 +205,24 @@ app
       metaTags = await getMetaTags(url);
     } catch (e) {
       console.log("error", e);
-      res.send(
-        `Error Fetching ${url}. \n\nMost likely we failed the advertiser bot check. I would try a different advertiser in the same product category and try again.`
+      res.write(
+        Buffer.from(
+          errorTemplate(
+            `Error Fetching ${url}. \n\nMost likely we failed the advertiser bot check. I would try a different advertiser in the same product category and try again.`
+          )
+        )
       );
+      res.end();
       return;
     }
 
     if (!metaTags.length) {
-      res.send(`No metatags retrieved at: ${url}`);
+      res.write(Buffer.from(errorTemplate(`No metatags retrieved at: ${url}`)));
+      res.end();
       return;
     }
+
+    res.write(Buffer.from(scrapedMetaTagsTemplate(metaTags)));
 
     let nodes: Vertices<string>;
     try {
@@ -218,7 +230,8 @@ app
       nodes = await getGoogleProductCategoriesTaxonomy();
     } catch (e) {
       console.log("error", e);
-      res.send("Error fetching Google Product Categories. Try again.");
+      res.write(Buffer.from(errorTemplate("Error fetching Google Product Categories. Try again.")));
+      res.end();
       return;
     }
 
@@ -231,11 +244,10 @@ app
       });
     } catch (e) {
       console.log("error", e);
-      res.send("OpenAI Error. Try again.");
+      res.write(Buffer.from(errorTemplate("OpenAI Error. Try again.")));
+      res.end();
       return;
     }
-
-    res.set("Content-Type", "text/html");
 
     const transcript = result.metadata.transcript
       .toList()
@@ -248,14 +260,10 @@ app
     if (result.type === "error:chat") {
       const { metadata } = result;
       const incorrectResult = metadata.transcript.peakLast();
-      res.send(
-        Buffer.from(
-          htmlTemplate(
-            homeTemplate(/*html*/ `
-          ${resultsHeaderTemplate(url)}
+      res.write(
+        Buffer.from(/*html*/ `
           <h1>No Product Category Found</h1>
           <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
-          ${scrapedMetaTagsTemplate(metaTags)}
           ${openAiTemplate({
             model: metadata.model,
             temperature: metadata.temperature,
@@ -264,22 +272,17 @@ app
             transcript: metadata.transcript.toList(),
           })}
         `)
-          )
-        )
       );
+      res.end();
       return;
     }
 
     if (result.type === "error:purge") {
       const { categories, metadata } = result;
-      res.send(
-        Buffer.from(
-          htmlTemplate(
-            homeTemplate(/*html*/ `
-          ${resultsHeaderTemplate(url)}
+      res.write(
+        Buffer.from(/*html*/ `
           <h1>Error Purging Product Categories</h1>
           <div>Purged path: "${categories.toList().join(" > ")}"</div>
-          ${scrapedMetaTagsTemplate(metaTags)}
           ${openAiTemplate({
             model: metadata.model,
             temperature: metadata.temperature,
@@ -288,23 +291,18 @@ app
             transcript: metadata.transcript.toList(),
           })}
         `)
-          )
-        )
       );
+      res.end();
       return;
     }
 
     const { categories, metadata } = result;
-    res.send(
-      Buffer.from(
-        htmlTemplate(
-          homeTemplate(/*html*/ `
-        ${resultsHeaderTemplate(url)}
+    res.write(
+      Buffer.from(/*html*/ `
         <h1>Result (Google Product Categories)</h1>
         <div>
           ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
         </div>
-        ${scrapedMetaTagsTemplate(metaTags)}
         ${openAiTemplate({
           model: metadata.model,
           temperature: metadata.temperature,
@@ -313,9 +311,8 @@ app
           transcript: metadata.transcript.toList(),
         })}
       `)
-        )
-      )
     );
+    res.end();
   })
   .post(async (req, res) => {
     const model: string | undefined = req.body.model;

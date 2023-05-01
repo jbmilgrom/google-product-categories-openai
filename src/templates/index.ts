@@ -119,13 +119,18 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
 };
 
 export const resultsHeaderTemplate = (url: string) => /*html*/ `
-  <h1>URL</h1>
+  <h1>Loading URL</h1>
   <div>${url}</div>
 `;
 
 export const scrapedMetaTagsTemplate = (metaTags: string) => /*html*/ `
   <h1>Scraped Meta Tags</h1>
   <pre><code>${escapeHtml(metaTags)}</code></pre>
+`;
+
+export const errorTemplate = (error: string) => /*html*/ `
+  <h1>Error</h1>
+  <div>${error}</div>
 `;
 
 export const openAiTemplate = ({

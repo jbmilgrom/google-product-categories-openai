@@ -224,9 +224,8 @@ export const openAiSelectCategoryFromChoices = async (
 };
 
 export const openAiAssessStateOfDeadend = async (
-  parentCategory: string,
-  choices: string[],
-  metaTags: string,
+  subjectMetatags: string,
+  { parent, children }: { parent: string; children: string[] },
   { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
 ): Promise<{ state: State; metadata: { prompt: string; response: string } }> => {
   console.log("Asking OpenAI for help with deadend.");
@@ -235,7 +234,7 @@ export const openAiAssessStateOfDeadend = async (
   }
 
   if (inList(CHAT_COMPLETION_MODELS, model)) {
-    const messages = generateCategorizationAuditChatPrompt(parentCategory, choices, metaTags);
+    const messages = generateCategorizationAuditChatPrompt(parent, children, subjectMetatags);
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
     console.log("response", response);
     const state = response.trim();

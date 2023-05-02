@@ -140,10 +140,20 @@ app.get(ROUTES.TRAVERSE.url, async (req, res) => {
 
 app.get(ROUTES.SEARCH.url, async (req, res) => {
   console.log("searching...");
+  res.set("Content-Type", "text/html");
 
   const term = (req.query.term as string) ?? null;
   if (!term) {
-    res.send('Add a valid query parameter of form "?term=MY_SEARCH_TERM" to the url and hit enter.');
+    res.send(
+      Buffer.from(
+        htmlTemplate(
+          homeTemplate(/*html*/ `
+          <h1>Instructions</h1>
+          <p>Add a valid query parameter of form "?term=MY_SEARCH_TERM" to the url and hit enter.</P>
+        `)
+        )
+      )
+    );
     return;
   }
 
@@ -154,7 +164,6 @@ app.get(ROUTES.SEARCH.url, async (req, res) => {
     }
   }
 
-  res.set("Content-Type", "text/html");
   res.send(
     Buffer.from(
       htmlTemplate(

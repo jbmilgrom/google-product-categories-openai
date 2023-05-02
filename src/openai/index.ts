@@ -128,7 +128,7 @@ export const generateChatPrompt = (choices: string[], metaTags: string): ChatCom
     Question: Which product category best describes the metadata?
 
     metadata:
-    ${metaTags.replace("\n", "\n\t")}
+    ${metaTags}
 
     choices: \n\t${choices.map((choice, i) => `${i + 1}) ${choice}`).join("\n\t")}
   `,

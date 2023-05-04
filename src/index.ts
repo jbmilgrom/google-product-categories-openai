@@ -288,7 +288,7 @@ app
           words,
           transcript: metadata.transcript.toList(),
         })}
-        `);
+      `);
       return;
     }
 
@@ -304,7 +304,7 @@ app
           words,
           transcript: metadata.transcript.toList(),
         })}
-        `);
+      `);
       return;
     }
 
@@ -321,7 +321,7 @@ app
         words,
         transcript: metadata.transcript.toList(),
       })}
-      `);
+    `);
   })
   .post(async (req, res) => {
     const model: string | undefined = req.body.model;

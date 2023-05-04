@@ -279,41 +279,8 @@ app
       const { metadata } = result;
       const incorrectResult = metadata.transcript.peakLast();
       sendHtml(/*html*/ `
-          <h1>No Product Category Found</h1>
-          <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
-          ${openAiTemplate({
-            model: metadata.model,
-            temperature: metadata.temperature,
-            tokens: tokens.length,
-            words,
-            transcript: metadata.transcript.toList(),
-          })}
-        `);
-      return;
-    }
-
-    if (result.type === "error:purge") {
-      const { categories, metadata } = result;
-      sendHtml(/*html*/ `
-          <h1>Error Purging Product Categories</h1>
-          <div>Purged path: "${categories.toList().join(" > ")}"</div>
-          ${openAiTemplate({
-            model: metadata.model,
-            temperature: metadata.temperature,
-            tokens: tokens.length,
-            words,
-            transcript: metadata.transcript.toList(),
-          })}
-        `);
-      return;
-    }
-
-    const { categories, metadata } = result;
-    sendHtml(/*html*/ `
-        <h1>Result (Google Product Category)</h1>
-        <div>
-          ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
-        </div>
+        <h1>No Product Category Found</h1>
+        <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
         ${openAiTemplate({
           model: metadata.model,
           temperature: metadata.temperature,
@@ -321,6 +288,39 @@ app
           words,
           transcript: metadata.transcript.toList(),
         })}
+        `);
+      return;
+    }
+
+    if (result.type === "error:purge") {
+      const { categories, metadata } = result;
+      sendHtml(/*html*/ `
+        <h1>Error Purging Product Categories</h1>
+        <div>Purged path: "${categories.toList().join(" > ")}"</div>
+        ${openAiTemplate({
+          model: metadata.model,
+          temperature: metadata.temperature,
+          tokens: tokens.length,
+          words,
+          transcript: metadata.transcript.toList(),
+        })}
+        `);
+      return;
+    }
+
+    const { categories, metadata } = result;
+    sendHtml(/*html*/ `
+      <h1>Result (Google Product Category)</h1>
+      <div>
+        ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories.toList(), { delimiter: QUERY_PARAM_DELIMITER })}
+      </div>
+      ${openAiTemplate({
+        model: metadata.model,
+        temperature: metadata.temperature,
+        tokens: tokens.length,
+        words,
+        transcript: metadata.transcript.toList(),
+      })}
       `);
   })
   .post(async (req, res) => {

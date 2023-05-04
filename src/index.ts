@@ -62,8 +62,6 @@ app.get(ROUTES.TEXT.url, async (req, res) => {
     characterCount += line.length;
     res.write(`${line}\n`);
   }
-  console.log(`Line/Path Count: ${lineCount}`);
-  console.log(`Avg line length: ${characterCount / lineCount}`);
   res.end();
 });
 
@@ -80,10 +78,8 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
 
   const [token, maxDeg] = maxDegree(nodes);
   const maxDep = maxDepth(nodes);
-  let leafNodeCount = 0;
-  forEachBreadthFirst(nodes, () => {
-    leafNodeCount++;
-  });
+  let nodeCount = 0;
+  forEachBreadthFirst(nodes, () => nodeCount++);
 
   res.set("Content-Type", "text/html");
   res.send(
@@ -93,7 +89,7 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
       <h1>Stats</h1>
       <p>Max degree: token "${token}" has the highest degree of ${maxDeg}</p>
       <p>Max depth: ${maxDep}</p>
-      <p>Total Google Product Categories: ${leafNodeCount}</p>
+      <p>Total Google Product Categories: ${nodeCount}</p>
       `)
       )
     )
@@ -211,7 +207,7 @@ app
         models = await listSupportedModels();
       } catch (e) {
         console.log(e);
-        sendHtml(errorTemplate("Failed to fetch open ai models. Try again."));
+        sendHtml(errorTemplate("Failed to fetch OpenAI models. Try again."));
         return;
       }
 

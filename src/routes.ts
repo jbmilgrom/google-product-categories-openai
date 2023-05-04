@@ -2,7 +2,7 @@ export const ROUTES = {
   TEXT: { url: "/text", description: "Text File" },
   INTERNAL_REPRESENTATION: {
     url: "/internal-representation.json",
-    description: "JSON (Intenral Representation)",
+    description: "JSON (Internal Representation)",
   },
   GPC_STATS: { url: "/gpc-stats", description: "Stats" },
   SEARCH: { url: "/search", description: "Search" },

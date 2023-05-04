@@ -85,12 +85,19 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
     leafNodeCount++;
   });
 
-  res.write(`Max degree: token "${token}" has the highest degree of ${maxDeg}\n`);
-  res.write("\n");
-  res.write(`Max depth: ${maxDep}\n`);
-  res.write("\n");
-  res.write(`Total Google Product Categories: ${leafNodeCount}`);
-  res.end();
+  res.set("Content-Type", "text/html");
+  res.send(
+    Buffer.from(
+      htmlTemplate(
+        homeTemplate(/*html*/ `
+      <h1>Stats</h1>
+      <p>Max degree: token "${token}" has the highest degree of ${maxDeg}</p>
+      <p>Max depth: ${maxDep}</p>
+      <p>Total Google Product Categories: ${leafNodeCount}</p>
+      `)
+      )
+    )
+  );
 });
 
 app.get(ROUTES.TRAVERSE.url, async (req, res) => {

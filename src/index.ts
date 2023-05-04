@@ -325,7 +325,7 @@ app
     }
 
     res.redirect(
-      ROUTES.URL.url + `?url=${encodeURIComponent(url)}&model=${encodeURIComponent(model ? model : "default")}`
+      ROUTES.URL.url + `?model=${encodeURIComponent(model ? model : "default")}&url=${encodeURIComponent(url)}`
     );
   });
 

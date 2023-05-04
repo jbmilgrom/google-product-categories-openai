@@ -32,7 +32,11 @@ export const htmlTemplate = (children?: string): string => {
         }
 
         a:visited {
-          color: #828282;;
+          color: #828282;
+        }
+
+        a:hover {
+          color: #000000;
         }
 
         footer a:visited {

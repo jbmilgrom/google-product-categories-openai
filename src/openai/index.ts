@@ -225,8 +225,8 @@ export const openAiSelectCategoryFromChoices = async (
 
 export const openAiAssessStateOfDeadend = async (
   subjectMetatags: string,
-  { parent, children }: { parent: string; children: string[] },
-  { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
+  { parent, children }: { parent: string; children: string[] }, // state
+  { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number } // model config
 ): Promise<{ state: State; metadata: { prompt: string; response: string } }> => {
   console.log("Asking OpenAI for help with deadend.");
   if (inList(INSTRUCTION_MODELS, model)) {

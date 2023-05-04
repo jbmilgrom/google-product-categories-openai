@@ -147,7 +147,7 @@ export const generateCategorizationAuditChatPrompt = (
 ): ChatCompletionRequestMessage[] => [
   {
     role: "system",
-    content: `You help determine whether products have been correctly categorized. I will provide you metadata from the product website as well as a potential category. I'll also give you examples of that category to help explain the category.
+    content: `You determine whether products have been correctly categorized. I'll give you metadata describing the product and a possible category. I'll also give you examples of that category.
     
     Please answer with either "Correct" or "Incorrect".
       `,

@@ -30,10 +30,10 @@ export const chatOpenaiAboutGoogleProducts = async (
   const transcript = makeQueue<Chat>();
 
   /**
-   * (No choices left? We're done! We've found the product category heirarchy.)
-   *  1. Get next choices (from found node's children or root product taxonomy)
-   *  2. Select token from choices (OpenAI)
-   *  3. Find node from token, go to 1.
+   *  0. No choices left? We're done! We've found the product category heirarchy.
+   *  1. Select token from choices (OpenAI)
+   *  2. Find node from token,
+   *  3. Get next choices (i.e. the found node's children), go to 0.
    *  4. Can't find node
    *  5. Determine whether the parent category is sufficient (OpenAI)
    *  6. If not and Retries > 0, go to 1 and try again w/o the failed path in the product taxonomy

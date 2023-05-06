@@ -27,6 +27,10 @@ export const htmlTemplate = (children?: string): string => {
           background-color: rgba(255, 255, 255, .9);       
         }
 
+        footer a {
+          color: #aaa;
+        }
+
         footer a:visited {
           color: inherit
         }

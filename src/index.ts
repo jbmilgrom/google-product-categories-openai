@@ -1,5 +1,5 @@
 import express from "express";
-import { makeQueue, maxDepth, maxDegree, find, getValues, Vertices, forEachBreadthFirst } from "./utils/tree";
+import { makeQueue, find, getValues, Vertices, forEachBreadthFirst } from "./utils/tree";
 import { getMetaTags } from "./crawl";
 import { CHAT_AND_COMPlETION_MODELS, inList, listSupportedModels } from "./openai";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
@@ -72,14 +72,31 @@ app.get(ROUTES.INTERNAL_REPRESENTATION.url, async (req, res) => {
 });
 
 app.get(ROUTES.GPC_STATS.url, async (req, res) => {
-  console.log("calculating max depth...");
+  console.log("calculating stats...");
 
   const nodes = await getGoogleProductCategoriesTaxonomy();
 
-  const [token, maxDeg] = maxDegree(nodes);
-  const maxDep = maxDepth(nodes);
+  let [token, maxDeg] = ["", 0];
+  let maxDep = 0;
   let nodeCount = 0;
-  forEachBreadthFirst(nodes, () => nodeCount++);
+  let leafNodeCount = 0;
+  let levelCount = 0;
+  let leafNodeLevelCount = 0;
+  forEachBreadthFirst(nodes, (node, level) => {
+    nodeCount++;
+    levelCount = levelCount + level;
+    maxDep = maxDep > level ? maxDep : level;
+    const numChildren = node.children.length;
+    if (!numChildren) {
+      leafNodeCount++;
+      leafNodeLevelCount = leafNodeLevelCount + level;
+    }
+
+    if (numChildren > maxDeg) {
+      maxDeg = numChildren;
+      token = node.value;
+    }
+  });
 
   res.set("Content-Type", "text/html");
   res.send(
@@ -89,6 +106,8 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
       <h1>Stats</h1>
       <p>Max degree: token "${token}" has the highest degree of ${maxDeg}</p>
       <p>Max depth: ${maxDep}</p>
+      <p>Average depth of Leaf Nodes: ${(leafNodeLevelCount / leafNodeCount).toFixed(2)}</p>
+      <p>Average depth of all Nodes: ${(levelCount / nodeCount).toFixed(2)}</p>
       <p>Total Google Product Categories: ${nodeCount}</p>
       `)
       )

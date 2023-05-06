@@ -146,44 +146,17 @@ export const removeChildren = <T>(nodes: Vertices<T>, { path }: { path: Queue<T>
   return true;
 };
 
-export const maxDegree = <T>(nodes: Vertices<T>): [T | null, number] => {
-  let max = 0;
-  let maxValue: T | null = null;
-  forEachBreadthFirst(nodes, (node) => {
-    const candidate = node.children.length;
-    if (candidate < max) {
-      return;
-    }
-    maxValue = node.value;
-    max = candidate;
-  });
-  return [maxValue, max];
-};
-
-export const maxDepth = <T>(nodes: Vertices<T>): number => {
-  const aggregateNodes = <T>(nodes: Vertices<T>, level: number): number =>
-    nodes.reduce((max, next) => {
-      const candidate = countChildrenLevels(next, level);
-      return candidate > max ? candidate : max;
-    }, 0);
-
-  const countChildrenLevels = <T>(node: Vertex<T>, currentLevel: number): number => {
-    if (node.children.length === 0) {
-      return currentLevel; // leaf node
-    }
-    return aggregateNodes(node.children, currentLevel + 1); // has children
-  };
-
-  return aggregateNodes(nodes, 1);
-};
-
 export const getValues = <T>(nodes: Vertices<T>): T[] => nodes.map((n) => n.value);
 
-export const forEachBreadthFirst = <T>(nodes: Vertices<T>, cb: (node: Vertex<T>) => void): void => {
-  nodes.forEach((n) => {
-    cb(n);
-    forEachBreadthFirst(n.children, cb);
-  });
+export const forEachBreadthFirst = <T>(nodes: Vertices<T>, cb: (node: Vertex<T>, level: number) => void): void => {
+  const orchestrate = (nodes: Vertices<T>, level: number) => {
+    nodes.forEach((n) => {
+      cb(n, level);
+      orchestrate(n.children, level + 1);
+    });
+  };
+
+  orchestrate(nodes, 1);
 };
 
 const createNode = <T>(value: T, children: Vertex<T>[] = []): Vertex<T> => ({

@@ -106,8 +106,8 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
       <h1>Stats</h1>
       <p>Max degree: token "${token}" has the highest degree of ${maxDeg}</p>
       <p>Max depth: ${maxDep}</p>
-      <p>Average depth of Leaf Nodes: ${(leafNodeLevelCount / leafNodeCount).toFixed(2)}</p>
-      <p>Average depth of all Nodes: ${(levelCount / nodeCount).toFixed(2)}</p>
+      <p>Average depth of leaf nodes: ${(leafNodeLevelCount / leafNodeCount).toFixed(2)}</p>
+      <p>Average depth of all nodes: ${(levelCount / nodeCount).toFixed(2)}</p>
       <p>Total Google Product Categories: ${nodeCount}</p>
       `)
       )

@@ -77,11 +77,9 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
   const nodes = await getGoogleProductCategoriesTaxonomy();
 
   let [token, maxDeg] = ["", 0];
+  let [nodeCount, levelCount] = [0, 0];
+  let [leafNodeCount, leafNodeLevelCount] = [0, 0];
   let maxLevels = 0;
-  let nodeCount = 0;
-  let leafNodeCount = 0;
-  let levelCount = 0;
-  let leafNodeLevelCount = 0;
   forEachBreadthFirst(nodes, (node, level) => {
     nodeCount++;
     levelCount = levelCount + level;

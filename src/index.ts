@@ -106,11 +106,12 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
       htmlTemplate(
         homeTemplate(/*html*/ `
       <h1>Stats</h1>
-      <p>Max degree: token "${token}" has the highest degree of ${maxDeg}</p>
-      <p>Longest path (measured in edges): ${levelToEdge(maxLevels)}</p>
-      <p>Average path length of leaf nodes: ${levelToEdge(leafNodeLevelCount / leafNodeCount).toFixed(2)}</p>
-      <p>Average path length of all nodes: ${levelToEdge(levelCount / nodeCount).toFixed(2)}</p>
-      <p>Total Google Product Categories: ${nodeCount}</p>
+      <p>Total Google Product Categories (i.e. the count of all nodes): ${nodeCount}</p>
+      <p>The category "${token}" has the highest degree: ${maxDeg}</p>
+      <h2>Path Length (Measured in Edges)</h2>
+      <p>Longest path: ${levelToEdge(maxLevels)}</p>
+      <p>Average path of leaf nodes: ${levelToEdge(leafNodeLevelCount / leafNodeCount).toFixed(2)}</p>
+      <p>Average path of all nodes: ${levelToEdge(levelCount / nodeCount).toFixed(2)}</p>
       `)
       )
     )

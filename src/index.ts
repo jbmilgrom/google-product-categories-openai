@@ -77,7 +77,7 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
   const nodes = await getGoogleProductCategoriesTaxonomy();
 
   let [token, maxDeg] = ["", 0];
-  let maxDep = 0;
+  let maxLevels = 0;
   let nodeCount = 0;
   let leafNodeCount = 0;
   let levelCount = 0;
@@ -85,7 +85,7 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
   forEachBreadthFirst(nodes, (node, level) => {
     nodeCount++;
     levelCount = levelCount + level;
-    maxDep = maxDep > level ? maxDep : level;
+    maxLevels = maxLevels > level ? maxLevels : level;
     const numChildren = node.children.length;
     if (!numChildren) {
       leafNodeCount++;
@@ -98,6 +98,8 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
     }
   });
 
+  const levelToEdge = (level: number) => level - 1;
+
   res.set("Content-Type", "text/html");
   res.send(
     Buffer.from(
@@ -105,9 +107,9 @@ app.get(ROUTES.GPC_STATS.url, async (req, res) => {
         homeTemplate(/*html*/ `
       <h1>Stats</h1>
       <p>Max degree: token "${token}" has the highest degree of ${maxDeg}</p>
-      <p>Max depth: ${maxDep}</p>
-      <p>Average depth of leaf nodes: ${(leafNodeLevelCount / leafNodeCount).toFixed(2)}</p>
-      <p>Average depth of all nodes: ${(levelCount / nodeCount).toFixed(2)}</p>
+      <p>Longest path (measured in edges): ${levelToEdge(maxLevels)}</p>
+      <p>Average path length of leaf nodes: ${levelToEdge(leafNodeLevelCount / leafNodeCount).toFixed(2)}</p>
+      <p>Average path length of all nodes: ${levelToEdge(levelCount / nodeCount).toFixed(2)}</p>
       <p>Total Google Product Categories: ${nodeCount}</p>
       `)
       )

@@ -66,6 +66,9 @@ export const chatOpenaiAboutGoogleProducts = async (
        * last node not found, so pop it out of our path.
        * */
       backtrackablePath.pop();
+      if (backtrackablePath.isEmpty()) {
+        return { type: "error:chat", category, metadata: { transcript, model, temperature } };
+      }
 
       /**
        * Node may not have been found, but the parent category may nevertheless be on point, so query OpenAI to figure if so.

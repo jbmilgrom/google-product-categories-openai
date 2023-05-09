@@ -55,11 +55,7 @@ app.get("/", async (req, res) => {
 
 app.get(ROUTES.TEXT.url, async (req, res) => {
   console.log(`fetching google product type...`);
-  let lineCount = 0;
-  let characterCount = 0;
   for await (const line of makeGoogleProductTypeTextLineIterator()) {
-    lineCount++;
-    characterCount += line.length;
     res.write(`${line}\n`);
   }
   res.end();

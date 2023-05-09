@@ -196,7 +196,14 @@ app.get(ROUTES.SEARCH.url, async (req, res) => {
       !lineMatches.length
         ? "<p>No Results</p>"
         : `<ul>
-        ${lineMatches.map((match) => `<li>${match}</li>`).join("")}
+        ${lineMatches
+          .map((match) => {
+            const categories = match.split(">").map((s) => s.trim());
+            return `<li>${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories, {
+              delimiter: QUERY_PARAM_DELIMITER,
+            })}</li>`;
+          })
+          .join("")}
       </ul>`
     }
   `)

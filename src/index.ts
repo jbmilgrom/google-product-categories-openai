@@ -199,9 +199,10 @@ app.get(ROUTES.SEARCH.url, async (req, res) => {
         ${lineMatches
           .map((match) => {
             const categories = match.split(">").map((s) => s.trim());
-            return `<li>${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories, {
-              delimiter: QUERY_PARAM_DELIMITER,
-            })}</li>`;
+            return `
+              <li>
+                ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories, { delimiter: QUERY_PARAM_DELIMITER })}
+              </li>`;
           })
           .join("")}
       </ul>`

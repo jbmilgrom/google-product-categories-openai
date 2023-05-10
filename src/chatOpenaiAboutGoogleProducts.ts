@@ -62,12 +62,37 @@ export const chatOpenaiAboutGoogleProducts = async (
         continue;
       }
 
+      const maybeRetryDifferentPath = () => {
+        /**
+         * No retries left and we haven't been able to find an appropriate product category.
+         * This means that either the website is not really a product or that the openai model we chose failed to categorize
+         * the metadata we scraped.
+         */
+        if (!retries) {
+          return { type: "error:chat", category, metadata: { transcript, model, temperature } } as const;
+        }
+
+        console.log("Attempting a different path entirely");
+
+        const ok = purge(productTaxonomy, { path: makeQueue(backtrackablePath.toList()) });
+
+        /**
+         * Something went wrong with the purge util above. This is likely a developer error.
+         */
+        if (!ok) {
+          return { type: "error:purge", categories, metadata: { transcript, model, temperature } } as const;
+        }
+
+        return orchestrate(retries - 1);
+      };
+
       /**
        * last node not found, so pop it out of our path.
        * */
       backtrackablePath.pop();
+
       if (backtrackablePath.isEmpty()) {
-        return { type: "error:chat", category, metadata: { transcript, model, temperature } };
+        return maybeRetryDifferentPath();
       }
 
       /**
@@ -108,27 +133,7 @@ export const chatOpenaiAboutGoogleProducts = async (
             metadata: { transcript, model, temperature },
           };
         case Incorrect: {
-          /**
-           * No retries left and we haven't been able to find an appropriate product category.
-           * This means that either the website is not really a product or that the openai model we chose failed to categorize
-           * the metadata we scraped.
-           */
-          if (!retries) {
-            return { type: "error:chat", category, metadata: { transcript, model, temperature } };
-          }
-
-          console.log("Attempting a different path entirely");
-
-          const ok = purge(productTaxonomy, { path: makeQueue(backtrackablePath.toList()) });
-
-          /**
-           * Something went wrong with the purge util above. This is likely a developer error.
-           */
-          if (!ok) {
-            return { type: "error:purge", categories, metadata: { transcript, model, temperature } };
-          }
-
-          return orchestrate(retries - 1);
+          return maybeRetryDifferentPath();
         }
         default:
           return assertUnreachable(state);

@@ -297,7 +297,6 @@ app
 
     if (result.type === "error:chat") {
       const { metadata } = result;
-      const incorrectResult = metadata.transcript.peakLast();
       sendHtml(/*html*/ `
         <h1>No Product Category Found</h1>
         <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>

@@ -1,7 +1,6 @@
 export type Queue<T> = {
   enqueue: (i: T) => void;
   dequeue: () => T;
-  peakLast: () => T;
   isEmpty: () => boolean;
   toList: () => T[];
   copy: () => Queue<T>;
@@ -40,7 +39,6 @@ export const makeQueue = <T>(q: T[] = []): Queue<T> => {
       }
       return q.shift()!;
     },
-    peakLast: () => q[q.length - 1],
     isEmpty,
     copy: () => makeQueue([...q]),
     toList: () => [...q],

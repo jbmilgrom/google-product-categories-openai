@@ -117,7 +117,7 @@ export const chatOpenaiAboutGoogleProducts = async (
        */
       const { state, metadata } = await openAiAssessStateOfDeadend(
         webPageMetaData,
-        { parent: backtrackablePath.peak(), children: getValues(choices) },
+        { ancestors: backtrackablePath.toList(), children: getValues(choices) },
         {
           model,
           temperature,

@@ -141,7 +141,7 @@ const States = [Incorrect, Correct] as const;
 export type State = (typeof States)[number];
 
 export const generateCategorizationAuditChatPrompt = (
-  ancestors: string[],
+  category: string,
   examples: string[],
   metaTags: string
 ): ChatCompletionRequestMessage[] => [
@@ -159,7 +159,7 @@ export const generateCategorizationAuditChatPrompt = (
       <meta name="description" content="Amazon.com: Produce Red Mango, 1 Each : Grocery &amp; Gourmet Food">
       <meta name="title" content="Amazon.com: Produce Red Mango, 1 Each : Grocery &amp; Gourmet Food">
 
-      Category: Food, Beverages & Tobacco > Food Items > Fresh & Frozen Fruits
+      Category: Fresh & Frozen Fruits
 
       Examples of the Category: Apples, Avocados, Babacos, Bananas, Berries, Coconuts, Tamarindo        
     `,
@@ -173,7 +173,7 @@ export const generateCategorizationAuditChatPrompt = (
       <meta property="og:title" content="Nike Pegasus 40 Women's Road Running Shoes. Nike.com">
       <meta property="og:description" content="Find the Nike Pegasus 40 Women's Road Running Shoes at Nike.com.  Free delivery and returns.">
 
-      Category: Sporting Goods > Track & Field
+      Category: Track & Field
 
       Examples of the Category: Discus, High Jump Crossbars, Javelins, Shot Puts, Starter Pistols, Throwing Hammers, Track Hurdles, Vaulting Poles
     `,
@@ -185,7 +185,7 @@ export const generateCategorizationAuditChatPrompt = (
     Product metadata::
     ${metaTags}
 
-    Category: ${ancestors.join(" > ")}
+    Category: ${category}
 
     Examples of the Category: ${examples.join(", ")}
   `,
@@ -196,10 +196,7 @@ export const openAiSelectCategoryFromChoices = async (
   choices: string[],
   metaTags: string,
   { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
-): Promise<{
-  category: string;
-  metadata: { prompt: string; response: string; messages?: ChatCompletionRequestMessage[] };
-}> => {
+): Promise<{ category: string; metadata: { prompt: string; response: string } }> => {
   if (inList(INSTRUCTION_MODELS, model)) {
     const prompt = generateInstructivePrompt(choices, metaTags);
     const response = (await instructOpenai(prompt, { model, temperature })) ?? "";
@@ -218,7 +215,6 @@ export const openAiSelectCategoryFromChoices = async (
       category: response.trim().split(" ").slice(1).join(" "),
       metadata: {
         prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
-        messages,
         response,
       },
     };
@@ -229,19 +225,16 @@ export const openAiSelectCategoryFromChoices = async (
 
 export const openAiAssessStateOfDeadend = async (
   subjectMetatags: string,
-  { ancestors, children }: { ancestors: string[]; children: string[] }, // state
+  { parent, children }: { parent: string; children: string[] }, // state
   { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number } // model config
-): Promise<{
-  state: State;
-  metadata: { prompt: string; response: string; messages?: ChatCompletionRequestMessage[] };
-}> => {
+): Promise<{ state: State; metadata: { prompt: string; response: string } }> => {
   console.log("Asking OpenAI for help with deadend.");
   if (inList(INSTRUCTION_MODELS, model)) {
     return { state: Correct, metadata: { prompt: "None", response: "None" } };
   }
 
   if (inList(CHAT_COMPLETION_MODELS, model)) {
-    const messages = generateCategorizationAuditChatPrompt(ancestors, children, subjectMetatags);
+    const messages = generateCategorizationAuditChatPrompt(parent, children, subjectMetatags);
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
     console.log("response", response);
     const state = response.trim();
@@ -251,7 +244,6 @@ export const openAiAssessStateOfDeadend = async (
         state: Correct,
         metadata: {
           prompt,
-          messages,
           response,
         },
       };
@@ -260,7 +252,6 @@ export const openAiAssessStateOfDeadend = async (
       state: Incorrect,
       metadata: {
         prompt,
-        messages,
         response,
       },
     };

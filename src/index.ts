@@ -19,6 +19,7 @@ import {
 import { ROUTES, RouteKeys } from "./routes";
 import { isValidHttpUrl } from "./utils/isValidHttpUrl";
 import { encode } from "gpt-3-encoder";
+import { writeTranscript } from "./utils/writeTranscript";
 
 const app = express();
 

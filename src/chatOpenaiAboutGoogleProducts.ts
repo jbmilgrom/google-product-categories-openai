@@ -46,7 +46,7 @@ export const chatOpenaiAboutGoogleProducts = async (
     while (choices.length) {
       const {
         category,
-        metadata: { transcript: prompt, response },
+        metadata: { prompt, response },
       } = await openAiSelectCategoryFromChoices(getValues(choices), webPageMetaData, {
         model,
         temperature,
@@ -123,7 +123,7 @@ export const chatOpenaiAboutGoogleProducts = async (
           temperature,
         }
       );
-      transcript.enqueue({ prompt: metadata.transcript, response: metadata.response });
+      transcript.enqueue({ prompt: metadata.prompt, response: metadata.response });
 
       switch (state) {
         case Correct:

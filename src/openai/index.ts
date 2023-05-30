@@ -33,8 +33,6 @@ export function inList<T extends string>(list: Readonly<T[]>, s: string): s is T
   return list.includes(s as T);
 }
 
-type Prompt = { type: "Chat"; messages: ChatCompletionRequestMessage[] } | { type: "Instruction"; prompt: string };
-
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -198,14 +196,14 @@ export const openAiSelectCategoryFromChoices = async (
   choices: string[],
   metaTags: string,
   { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
-): Promise<{ category: string; metadata: { transcript: string; response: string; prompt: Prompt } }> => {
+): Promise<{ category: string; metadata: { prompt: string; response: string } }> => {
   if (inList(INSTRUCTION_MODELS, model)) {
     const prompt = generateInstructivePrompt(choices, metaTags);
     const response = (await instructOpenai(prompt, { model, temperature })) ?? "";
     console.log("category", response);
     return {
       category: response.trim(),
-      metadata: { transcript: prompt, response, prompt: { type: "Instruction", prompt } },
+      metadata: { prompt, response },
     };
   }
 
@@ -216,9 +214,8 @@ export const openAiSelectCategoryFromChoices = async (
     return {
       category: response.trim().split(" ").slice(1).join(" "),
       metadata: {
-        transcript: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
+        prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
         response,
-        prompt: { type: "Chat", messages },
       },
     };
   }
@@ -230,34 +227,33 @@ export const openAiAssessStateOfDeadend = async (
   subjectMetatags: string,
   { parent, children }: { parent: string; children: string[] }, // state
   { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number } // model config
-): Promise<{ state: State; metadata: { transcript: string; response: string; prompt: Prompt } }> => {
+): Promise<{ state: State; metadata: { prompt: string; response: string } }> => {
   console.log("Asking OpenAI for help with deadend.");
   if (inList(INSTRUCTION_MODELS, model)) {
-    return {
-      state: Correct,
-      metadata: { transcript: "None", response: "None", prompt: { type: "Instruction", prompt: "None" } },
-    };
+    return { state: Correct, metadata: { prompt: "None", response: "None" } };
   }
 
   if (inList(CHAT_COMPLETION_MODELS, model)) {
     const messages = generateCategorizationAuditChatPrompt(parent, children, subjectMetatags);
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
     console.log("response", response);
-    const metadata = {
-      transcript: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
-      response,
-      prompt: { type: "Chat", messages },
-    } as const;
-
-    if (response.trim().startsWith(Correct)) {
+    const state = response.trim();
+    const prompt = messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");
+    if (state.startsWith(Correct)) {
       return {
         state: Correct,
-        metadata,
+        metadata: {
+          prompt,
+          response,
+        },
       };
     }
     return {
       state: Incorrect,
-      metadata,
+      metadata: {
+        prompt,
+        response,
+      },
     };
   }
 

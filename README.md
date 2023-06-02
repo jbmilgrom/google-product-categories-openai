@@ -204,7 +204,7 @@ and so on and so forth.
 
 ## Structured Data
 
-[Multiple-choice questions](https://github.com/openai/evals/blob/main/docs/eval-templates.md#basic-eval-templates) ensure structured data. The program runtime expects a descrete set of possible answers and can trivially verify whether a response is a member of the set.
+[Multiple-choice questions](https://github.com/openai/evals/blob/main/docs/eval-templates.md#basic-eval-templates) help to ensure structured data. The program runtime expects a descrete set of possible answers and can trivially verify whether a response is a member of the set.
 
 ## Leaf Node Granularity Discourages Misclassification
 

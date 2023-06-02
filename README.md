@@ -208,7 +208,9 @@ Wallets & Cases; 6) Jewelry; 7) Shoe Accessories; 8) Shoes;
 
 and so on and so forth.
 
-[If the algorithm stops once a leaf-node is reached (i.e. a node with no children), a maximum of 6 requests would be issued to OpenAI and 3 on average, since the longest path has 6 edges and the average has a little over 3.[^7]]
+## Structured Data
+
+[Multiple-choice questions](https://github.com/openai/evals/blob/main/docs/eval-templates.md#basic-eval-templates) ensure structured data. The program runtime has access to a descrete set of possible answers and can trivially verify that the response is a member of the set.
 
 ## Leaf Node Granularity Discourages Misclassification
 
@@ -239,7 +241,7 @@ as does "Art & Entertainment" until presented with the subcategories
 1) Event Tickets; 2) Hobbies & Creative Arts; 3) Party & Celebration
 ```
 
-OpenAI recognizes the mistaken path before reaching a leaf node and correctly responds with `"None of the Above"` in either case.
+OpenAI recognizes its mistake before reaching a leaf node and correctly responds with `"None of the Above"` in either case.
 
 ## Final Thoughts
 

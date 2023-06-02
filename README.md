@@ -27,7 +27,7 @@ And navigate to `localhost:3003/url`, put in a URL and hit enter.
 
 # The Algorithm
 
-## Using OpenAI Model gpt-3.5-turbo and Google Product Categories to Classify Websites in a Structured Way
+## Using OpenAI Model gpt-3.5-turbo and Google Product Categories to Classify Websites
 
 [Application](https://google-product-categories.herokuapp.com/url) | [Code](https://github.sc-corp.net/jmilgrom/google-product-types)
 

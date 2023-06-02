@@ -27,7 +27,7 @@ And navigate to `localhost:3003/url`, put in a URL and hit enter.
 
 # Using OpenAI Model gpt-3.5-turbo and Google Product Categories to Classify Websites
 
-Starting with a URL, the application retrieves an html document, parses out metadata and categorizes the corresponding website according to the Google Product Categories [Taxonomy](https://www.google.com/basepages/producttype/taxonomy.en-US.txt) (GPCs) using OpenAI. In my testing, it has shown to be shockingly accurate at transforming semi-structured web metadata into structured data, mapping product websites[^1] to an applicable GPC and non-product websites[^2] to `null`.
+Starting with a URL, the application retrieves an html document, parses out metadata and categorizes the corresponding website according to the Google Product Categories [Taxonomy](https://www.google.com/basepages/producttype/taxonomy.en-US.txt) (GPCs) using OpenAI. It transforms semi-structured web metadata into structured data, mapping product websites[^1] to an applicable GPC and non-product websites[^2] to `null`.
 
 ## Supported Models
 

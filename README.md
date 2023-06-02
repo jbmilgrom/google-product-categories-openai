@@ -35,7 +35,7 @@ The application supports a selection of chat and completion models below gpt-4, 
 
 ## Tree Traversal with a Series of Mulitple-Choice Questions
 
-No pretraining on GPCs has been performed. As a result, the LLM must be fed possible GPCs as part of the prompt, increasing the number of tokens and cost. On the other hand, the code can be run locally with your own OpenAI API key and perform just as well as a pretrained LLM. Of course, including all [5595](https://google-product-categories.herokuapp.com/gpc-stats) GPCs with every prompt is exceedingly expensive.[^0] Instead, the algorithm leverages the heirarchical nature of the GPC taxonomy[^8]. Only nodes at a given level in the tree are sent to OpenAI at any given time, and the children of the answer form the next question. The NodeJS runtime descends the GPC tree with OpenAI dictating the path until a GPC is found. For example, a prompt-generater[^3]
+Including all [5595](https://google-product-categories.herokuapp.com/gpc-stats) GPCs with every prompt is exceedingly expensive.[^0] Instead, the algorithm leverages the heirarchical nature of the GPC taxonomy[^8]. Only nodes at a given level in the tree are sent to OpenAI at any given time, and the children of the answer form the next question. The NodeJS runtime descends the GPC tree with OpenAI dictating the path until a GPC is found. For example, a prompt-generater[^3]
 
 ```ts
 export const generateChatPrompt = (choices: string[], metaTags: string): ChatCompletionRequestMessage[] => [

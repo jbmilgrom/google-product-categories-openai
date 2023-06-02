@@ -227,8 +227,6 @@ In the GPC taxonomy, each child is a true [subcategory](https://en.wikipedia.org
 />
 ```
 
-<figcaption>"None of the Above" is the desired outcome for a newsite like ESPN that does not offer a specific product.</figcaption>
-
 "Sportings Goods" and "Athletics" thereafter seem like fine choices until presented with the subcategories of "Athletics",
 
 ```text

@@ -25,9 +25,7 @@ And navigate to `localhost:3003/url`, put in a URL and hit enter.
 
 `localhost:3003` provides an index of other features including `/traverse` which facilitates an exploration of the Google Product Category taxonomy
 
-# The Algorithm
-
-## Using OpenAI Model gpt-3.5-turbo and Google Product Categories to Classify Websites
+# Using OpenAI Model gpt-3.5-turbo and Google Product Categories to Classify Websites
 
 [Application](https://google-product-categories.herokuapp.com/url) | [Code](https://github.sc-corp.net/jmilgrom/google-product-types)
 

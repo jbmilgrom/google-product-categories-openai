@@ -237,10 +237,6 @@ as does "Art & Entertainment" until presented with the subcategories
 
 OpenAI recognizes its mistake before reaching a leaf node and correctly responds with `"None of the Above"` in either case.
 
-## Final Thoughts
-
-The orchestration is provided by an ordinary programming runtime, in this case NodeJS; There is no BabyAGI or some other LangChain application whereby the LLM replaces a programming runtime as the ultimate
-
 [^0]: And perhaps even impossible given token limits per prompts - I haven't even tried .
 [^1]: For example, a [t-shirt](https://google-product-categories.herokuapp.com/url?url=https%3A%2F%2Fthisisthegreat.com%2Fcollections%2Fthe-great-man%2Fproducts%2Fthe-mens-pocket-tee-heather-grey&model=default).
 [^2]: For example, a [news site](https://google-product-categories.herokuapp.com/url?url=https%3A%2F%2Fespn.com&model=default).

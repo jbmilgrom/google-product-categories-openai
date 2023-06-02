@@ -25,7 +25,9 @@ And navigate to `localhost:3003/url`, put in a URL and hit enter.
 
 `localhost:3003` provides an index of other features including `/traverse` which facilitates an exploration of the Google Product Category taxonomy
 
-# The Algorithm: Using OpenAI Model gpt-3.5-turbo and Google Product Categories to Classify Websites in a Structured Way
+# The Algorithm
+
+## Using OpenAI Model gpt-3.5-turbo and Google Product Categories to Classify Websites in a Structured Way
 
 [Application](https://google-product-categories.herokuapp.com/url) | [Code](https://github.sc-corp.net/jmilgrom/google-product-types)
 
@@ -208,9 +210,9 @@ and so on and so forth.
 
 [If the algorithm stops once a leaf-node is reached (i.e. a node with no children), a maximum of 6 requests would be issued to OpenAI and 3 on average, since the longest path has 6 edges and the average has a little over 3.[^7]]
 
-## Increasingly Low Probablity for False Positives
+## Leaf Node Granularity Discourages Misclassification
 
-In the GPC taxonomy, each child is a true [subcategory](https://en.wikipedia.org/wiki/Subcategory) of its parent. The farther down the tree, the more specific the set of subcategories. As the algorithm descends the GPC tree, OpenAI is run through a series of multiple-choice questions with step-up increases in difficulty by level. In the GPC taxonomy, each child is a true [subcategory](https://en.wikipedia.org/wiki/Subcategory) of its parent. The farther down the tree, the more specific the set of subcategories. By the time the algorithm reaches a leaf-node, and there are no additional levels to descend or questions to ask, any product category response. [or questions to ask, OpenAI has been taken through the proverbial wringer.] OpenAI is instructed to respond with `"None of the Above"` when the suggested product categories are inapplicable. An [input of https://espn.com](http://localhost:3003/url?model=default&url=https%3A%2F%2Fespn.com), for example, commonly results in the path `"Sporting Goods"` > `"Athletics"` > `"None of the Above"`, where OpenAI responds with "None of the Above" at level 3, or `"Arts & Entertainment"` > `"None of the Above"`, where OpenAI responds with `"None of the Above"` at level 2, for the scraped metadata:
+In the GPC taxonomy, each child is a true [subcategory](https://en.wikipedia.org/wiki/Subcategory) of its parent. The farther down the tree, the more specific the set of subcategories. As a result, the semantic distance between the metadata and any incorrect choice increase dramatically at the next level, comprised entirely of more specific examples of the previous choice. An [input of https://espn.com](http://localhost:3003/url?model=default&url=https%3A%2F%2Fespn.com), for example, commonly results in the path `"Sporting Goods"` > `"Athletics"` > `"None of the Above"`, where OpenAI responds with "None of the Above" at level 3, or `"Arts & Entertainment"` > `"None of the Above"`, where OpenAI responds with `"None of the Above"` at level 2, for the scraped metadata:
 
 ```html
 <meta
@@ -227,7 +229,7 @@ In the GPC taxonomy, each child is a true [subcategory](https://en.wikipedia.org
 
 <figcaption>"None of the Above" is the desired outcome for a newsite like ESPN that does not offer a specific product.</figcaption>
 
-In the GPC taxonomy, each child is a [subcategory](https://en.wikipedia.org/wiki/Subcategory) of its parent; the farther down the tree, the more specific the set of subcategories. "Sportings Goods" and "Athletics" thereafter seem like fine choices, that is until presented with the true subcategories of "Athletics",
+"Sportings Goods" and "Athletics" thereafter seem like fine choices until presented with the subcategories of "Athletics",
 
 ```text
 1) American Football; 2) Baseball & Softball; 3) Basketball; 4) Boxing & Martial Arts; 5) Broomball Equipment; 6) Cheerleading; 7) Coaching & Officiating; 8) Cricket; 9) Dancing; 10) Fencing; 11) Field Hockey & Lacrosse; 12) Figure Skating & Hockey; 13) General Purpose Athletic Equipment; 14) Gymnastics; 15) Racquetball & Squash; 16) Rounders; 17) Rugby; 18) Soccer; 19) Team Handball; 20) Tennis; 21) Track & Field; 22) Volleyball; 23) Wallyball Equipment; 24) Water Polo; 25) Wrestling
@@ -239,21 +241,7 @@ as does "Art & Entertainment" until presented with the subcategories
 1) Event Tickets; 2) Hobbies & Creative Arts; 3) Party & Celebration
 ```
 
-In order to descend the GPC tree, OpenAI must pick amongst subcategories of increasing specificity. The farther down the tree, the more difficult any previously incorrect response is to square with the latest level of subcategories. Pick an inapplicable category again and the difficulty only grows at the next level. That the algorithm produces exceedingly accurate results when a leaf-node is reached is an expected behavior. OpenAI hallucinations will not be matched to a node in the tree and traversal ends. "None of the above" ends the traversal. And an incorrect selection will result in subcategories that push the choices even farther from website metadata.
-
-To get to a leaf-node, OpenAI must respond with a specific subcategory like [`"Cooking Torches"`](https://google-product-categories.herokuapp.com/traverse?path=Home%20%26%20Garden_Kitchen%20%26%20Dining_Kitchen%20Tools%20%26%20Utensils_Cooking%20Torches), [`"Rugby Gloves"`](https://google-product-categories.herokuapp.com/traverse?path=Sporting%20Goods_Athletics_Rugby_Rugby%20Gloves) or [`"Shirt & Tops"`](https://google-product-categories.herokuapp.com/traverse?path=Apparel%20%26%20Accessories_Clothing_Shirts%20%26%20Tops). Conversely, Non products...
-
-## Optimizations to Lower Probability of False Negatives.
-
-This happy path gets us 90% of the way there. In Two categories of mistakes can be made. First, A node may not be found for rare items for which the GPC taxonomy is absent a specific category. If not found, or a determination is made that GCP is the wrong overarching taxonomy for the page. See [Ending Criteria](#ending-criteria) for more details.
-
-[ [This behavior has yet to produce an incorrect result in my testing.]]
-
-## Prompt-Engineering an LLM to Map a Subject onto a Structured Taxonomy without Pretraining
-
-Pretraining a model on a particular domain like the GPCs would allow the model to classify material along those lines without including information about the domain in the prompt. Absent that pretraining The more general learning from the above exercise if that a taxonomy is well-suited for The orchestration logic is provided by an ordinary programming runtime. There is no BabyAGI or some other LangChain application, whereby some traditional programming model is swapped out in favor of LLM control. Here, NodeJS[^5] remains in control and delegates a string classification to OpenAI just like it's calling out to any ol' HTTP service. There's a while-loop and a stack and a queue, all of that wholesome goodness commonly used for graph traversal and backtracking. Nevertheless and despite the best of intentions, the program is nondeterministic like any ol' ML application. Try to load [this page](https://google-product-categories.herokuapp.com/url?url=https%3A%2F%2Fwww.nike.com%2Ft%2Fpegasus-40-womens-road-running-shoes-bF2QL9%2FDV3854-102&model=default) 5 times with homogeneous results. A key piece of the algorithm - i.e. which path to take - is determined by an LLM and the efficacy of the program as a result. Yet,
-
-[ [, until reaching a leaf node in tree, at which point the GPC has been found. , l [are scoped to one level at a time. prompts are constructed from possible GPCs an interplay has been arranged between the NodeJS runtime and OpenAI, whereby prompts are constructured that allows the JS program to perform traditional graph traversal and OpenAI to dictate the path.] The GPC taxonomy is a tree.] (we'll see below there is a small optimization on top of ordinary breadth-first graph traversal)]
+OpenAI recognizes the mistaken path before reaching a leaf node and correctly responds with `"None of the Above"` in either case.
 
 ## Final Thoughts
 

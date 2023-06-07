@@ -1,5 +1,6 @@
 import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
 import * as dotenv from "dotenv";
+import { writeTranscript } from "../utils/writeTranscript";
 
 dotenv.config();
 
@@ -210,6 +211,9 @@ export const openAiSelectCategoryFromChoices = async (
   if (inList(CHAT_COMPLETION_MODELS, model)) {
     const messages = generateChatPrompt(choices, metaTags);
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
+
+    writeTranscript({ input: messages, ideal: response });
+
     console.log("response", response);
     return {
       category: response.trim().split(" ").slice(1).join(" "),
@@ -236,6 +240,7 @@ export const openAiAssessStateOfDeadend = async (
   if (inList(CHAT_COMPLETION_MODELS, model)) {
     const messages = generateCategorizationAuditChatPrompt(parent, children, subjectMetatags);
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
+
     console.log("response", response);
     const state = response.trim();
     const prompt = messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");

@@ -1,7 +1,7 @@
 import { makeTextFileLineIterator } from "../utils/readTxtFile";
 import { Queue, Vertices, insert, makeQueue } from "../utils/tree";
 
-const GOOGLE_PRODUCT_TYPES_URL = "https://www.google.com/basepages/producttype/taxonomy.en-US.txt";
+export const GOOGLE_PRODUCT_TYPES_URL = "https://www.google.com/basepages/producttype/taxonomy.en-US.txt";
 
 export const getGoogleProductCategoriesTaxonomy = async (): Promise<Vertices<string>> => {
   let nodes: Vertices<string> = [];

@@ -39,6 +39,18 @@ export const htmlTemplate = (children?: string): string => {
           color: #353740;
         }
 
+        form.url-form {
+          display: grid;
+          width: max(38vw, 400px);
+          grid-template-columns: 1fr 2fr;
+          grid-auto-rows: minmax(30px, auto);
+          gap: 16px;
+        }
+
+        form .footnote {
+          font-size: .85em;
+        }
+
       </style>
     </head>
     <body>
@@ -64,6 +76,12 @@ export const footerTemplate = () => {
       <p><a href="https://github.sc-corp.net/jmilgrom/google-product-types">Code</a> |  Powered by <a href="https://openai.com/product">OpenAI</a>.</p> 
     </footer>
   `;
+};
+
+export const routeList = <T extends { [k: string]: { url: string; description: string } }>(routes: T): string => {
+  return (Object.keys(routes) as Array<keyof typeof routes>)
+    .map((k) => `<li><a href=${routes[k].url}>${routes[k].description}</a></li>`)
+    .join("");
 };
 
 export const linkTemplate = (base: string, path: string[], { delimiter }: { delimiter?: string } = {}) => {
@@ -98,13 +116,13 @@ export const templateTrascript = (transcript: Chat[]): string => {
 export const urlFormTemplate = (url: string, aiModels: string[]): string => {
   return /*html*/ `
   <h1>Find the Google Product Categories</h1>
-  <form action=${url} method="post">
-    <label for="url">URL:</label>
+  <form action=${url} method="post" class="url-form">
+    <label for="url">URL</label>
     <input type="url" name="url" id="url"
           placeholder="https://example.com"
           pattern="https?://.*" 
           required>
-    <label for="ai-models">OpenAI Model:</label>
+    <label for="ai-models">OpenAI Model</label>
     <input list="ai-models" placeholder="Start typing..." name="model">
     <datalist id="ai-models">
       ${aiModels
@@ -115,9 +133,10 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
         )
         .join("")}
     </datalist>
-    <input type="submit" value="Submit">
+    <div></div>
+    <div class="footnote">The model <b>"gpt-3.5-turbo"</b> is used by default because it is significantly less expensive. Also, more time has been invested optimizing the turbo prompts.</div>
+    <input class="submit-button" type="submit" value="Submit">
   </form>
-  <p>The model <b>"gpt-3.5-turbo"</b> is used by default because it is significantly less expensive. Also, more time has been invested optimizing the turbo prompts.</p>
 `;
 };
 

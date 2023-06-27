@@ -17,6 +17,7 @@ import { getGoogleProductCategoriesTaxonomy } from "../googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "../chatOpenaiAboutGoogleProducts";
 import { encode } from "gpt-3-encoder";
 import { ROUTES } from "../routes";
+import { similaritySearch } from "../context";
 
 export const configureGraphTraversalRoute = (
   app: Express,
@@ -170,4 +171,20 @@ export const configureGraphTraversalRoute = (
 
       res.redirect(route + `?model=${encodeURIComponent(model ? model : "default")}&url=${encodeURIComponent(url)}`);
     });
+};
+
+export const configureVectorSearchRoute = (app: Express, { route }: { route: string }): void => {
+  app.route(route).get(async (req, res) => {
+    // res.set("Content-Type", "text/html");
+
+    console.log("Entering search route");
+
+    const result = await similaritySearch(`
+        The Men’s Pocket Tee. is the latest fit in your lineup of essentials. This supersoft, washed-and-worn basic fits&nbsp;generously through the body with a&nbsp;pocket detail&nbsp;that naturally torques like your favorite vintage tee. Handcrafted locally in L.A., this tee is designed to get (even) more character with age&nbsp;and&nbsp;wear. 50%
+      `);
+
+    console.log("result", result);
+
+    res.send(result);
+  });
 };

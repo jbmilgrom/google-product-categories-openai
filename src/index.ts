@@ -3,7 +3,7 @@ import { makeQueue, find, getValues, forEachBreadthFirst } from "./utils/tree";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
 import { cookieTrailTemplate, footerTemplate, homeTemplate, htmlTemplate, linkTemplate, routeList } from "./templates";
 import { ROUTES } from "./routes";
-import { configureGraphTraversalRoute } from "./pages";
+import { configureGraphTraversalRoute, configureVectorSearchRoute } from "./pages";
 
 const app = express();
 
@@ -213,6 +213,8 @@ configureGraphTraversalRoute(app, {
   route: ROUTES.URL.ROUTES.GRAPH_TRAVERSAL.url,
   queryParamDelimiter: QUERY_PARAM_DELIMITER,
 });
+
+configureVectorSearchRoute(app, { route: ROUTES.URL.ROUTES.VECTOR_SEARCH.url });
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

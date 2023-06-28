@@ -1,6 +1,6 @@
 import { Express } from "express";
-import { isValidHttpUrl } from "../utils/isValidHttpUrl";
-import { CHAT_AND_COMPlETION_MODELS, inList, listSupportedModels } from "../openai";
+import { isValidHttpUrl } from "../../../utils/isValidHttpUrl";
+import { CHAT_AND_COMPlETION_MODELS, inList, listSupportedModels } from "../../openai";
 import {
   cookieTrailTemplate,
   errorTemplate,
@@ -12,8 +12,8 @@ import {
   urlFormTemplate,
 } from "../templates";
 import { getMetaTags } from "../crawl";
-import { Vertices } from "../utils/tree";
-import { getGoogleProductCategoriesTaxonomy } from "../googleProducts";
+import { Vertices } from "../../../utils/tree";
+import { getGoogleProductCategoriesTaxonomy } from "../../googleProducts";
 import { chatOpenaiAboutGoogleProducts } from "../chatOpenaiAboutGoogleProducts";
 import { encode } from "gpt-3-encoder";
 import { ROUTES } from "../routes";

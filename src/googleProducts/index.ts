@@ -1,5 +1,5 @@
-import { makeTextFileLineIterator } from "../utils/readTxtFile";
-import { Queue, Vertices, insert, makeQueue } from "../utils/tree";
+import { makeTextFileLineIterator } from "../../utils/readTxtFile";
+import { Queue, Vertices, insert, makeQueue } from "../../utils/tree";
 
 export const GOOGLE_PRODUCT_TYPES_URL = "https://www.google.com/basepages/producttype/taxonomy.en-US.txt";
 

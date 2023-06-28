@@ -27,7 +27,7 @@ const openAiAda002Embedder = new OpenAIEmbeddings({
   modelName: ADA_002_EMBEDDING_MODEL,
 });
 
-const loadDocuments = async (): Promise<Document[]> => {
+const loadGoogleProductCategories = async (): Promise<Document[]> => {
   const documents: Document[] = [];
   let lineNumber = 0;
   for await (const line of makeGoogleProductTypeTextLineIterator()) {
@@ -40,13 +40,15 @@ const loadDocuments = async (): Promise<Document[]> => {
 
 (async () => {
   try {
-    const pineconeClient = await initializePineconeClient();
-
     console.log("Loading documents.");
 
-    const documents = await loadDocuments();
+    const documents = await loadGoogleProductCategories();
 
-    console.log("Generating or retrieving Pinecone index.");
+    console.log("Initializing Pinecone.");
+
+    const pineconeClient = await initializePineconeClient();
+
+    console.log("Generating (sometimes) and retrieving Pinecone index.");
 
     const pineconeIndex = await getOrCreatePineconeIndex(pineconeClient, {
       name: PINECONE_INDEX_NAME_OPEN_AI_ADA_002,

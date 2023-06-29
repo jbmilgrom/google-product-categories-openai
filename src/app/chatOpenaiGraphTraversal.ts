@@ -18,7 +18,7 @@ type Result =
  * @param openaiConfig
  * @returns
  */
-export const chatOpenaiAboutGoogleProducts = async (
+export const chatOpenaiGraphTraversal = async (
   productTaxonomy: Vertices<string>,
   webPageMetaData: string,
   {

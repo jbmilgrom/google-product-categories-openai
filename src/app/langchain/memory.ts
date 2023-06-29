@@ -49,3 +49,14 @@ const storePromise: Promise<VectorStore> = new Promise(async (resolve, reject) =
 export const getVectorStore = (): Promise<VectorStore> => {
   return storePromise;
 };
+
+export const similaritySearch = async (
+  subject: string,
+  { k = 10 }: { k?: number } = {}
+): Promise<[Document, number][]> => {
+  console.log("retrieving vector store");
+  const store = await getVectorStore();
+  console.log("executing similarity search");
+  // return store.asRetriever(k).getRelevantDocuments(subject);
+  return store.similaritySearchWithScore(subject, k);
+};

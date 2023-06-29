@@ -214,7 +214,10 @@ configureGraphTraversalRoute(app, {
   queryParamDelimiter: QUERY_PARAM_DELIMITER,
 });
 
-configureVectorSearchRoute(app, { route: ROUTES.URL.ROUTES.VECTOR_SEARCH.url });
+configureVectorSearchRoute(app, {
+  route: ROUTES.URL.ROUTES.VECTOR_SEARCH.url,
+  queryParamDelimiter: QUERY_PARAM_DELIMITER,
+});
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

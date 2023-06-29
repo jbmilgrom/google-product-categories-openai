@@ -51,17 +51,17 @@ export const generateInstructivePrompt = (choices: string[], metaTags: string) =
   Respond only with the selected category or an empty response if none are relevant.
   `;
 
-export const openAiSelectCategoryFromChoices = async (
+export const openAiSelectProductCategory = async (
   choices: string[],
   metaTags: string,
   { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
-): Promise<{ category: string; metadata: { prompt: string; response: string } }> => {
+): Promise<{ productCategories: string; metadata: { prompt: string; response: string } }> => {
   if (inList(INSTRUCTION_MODELS, model)) {
     const prompt = generateInstructivePrompt(choices, metaTags);
     const response = (await instructOpenai(prompt, { model, temperature })) ?? "";
     console.log("category", response);
     return {
-      category: response.trim(),
+      productCategories: response.trim(),
       metadata: { prompt, response },
     };
   }
@@ -71,7 +71,7 @@ export const openAiSelectCategoryFromChoices = async (
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
     console.log("response", response);
     return {
-      category: response.trim().split(" ").slice(1).join(" "),
+      productCategories: response.trim().split(" ").slice(1).join(" "),
       metadata: {
         prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
         response,

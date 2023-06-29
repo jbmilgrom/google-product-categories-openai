@@ -4,8 +4,14 @@ import * as dotenv from "dotenv";
 
 dotenv.config();
 
+const { OPENAI_API_KEY } = process.env;
+
+if (OPENAI_API_KEY === undefined) {
+  throw new Error("OPENAI_API_KEY is undefined.");
+}
+
 const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: OPENAI_API_KEY,
 });
 const openai = new OpenAIApi(configuration);
 

@@ -1,6 +1,6 @@
-import { makeQueue, Vertices, Queue, find, getValues, makeStack, purge } from "./utils/tree";
-import { Correct, Incorrect, openAiAssessStateOfDeadend, openAiSelectCategoryFromChoices } from "./openai";
-import { assertUnreachable } from "./utils/assertUnreachable";
+import { makeQueue, Vertices, Queue, find, getValues, makeStack, purge } from "../utils/tree";
+import { Correct, Incorrect, openAiAssessStateOfDeadend, openAiSelectCategoryFromChoices } from "../openai";
+import { assertUnreachable } from "../utils/assertUnreachable";
 
 type Chat = { prompt: string; response: string };
 type ChatMetadata = { transcript: Queue<Chat>; model: string; temperature: number };
@@ -18,7 +18,7 @@ type Result =
  * @param openaiConfig
  * @returns
  */
-export const chatOpenaiAboutGoogleProducts = async (
+export const chatOpenaiGraphTraversal = async (
   productTaxonomy: Vertices<string>,
   webPageMetaData: string,
   {

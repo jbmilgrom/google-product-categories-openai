@@ -1,9 +1,9 @@
 import express from "express";
-import { makeQueue, find, getValues, forEachBreadthFirst } from "./utils/tree";
-import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "./googleProducts";
+import { makeQueue, find, getValues, forEachBreadthFirst } from "../utils/tree";
+import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "../googleProducts";
 import { cookieTrailTemplate, footerTemplate, homeTemplate, htmlTemplate, linkTemplate, routeList } from "./templates";
 import { ROUTES } from "./routes";
-import { configureGraphTraversalRoute } from "./pages";
+import { configureGraphTraversalRoute, configureVectorSearchRoute } from "./pages";
 
 const app = express();
 
@@ -211,6 +211,11 @@ app.get(ROUTES.SEARCH.url, async (req, res) => {
 
 configureGraphTraversalRoute(app, {
   route: ROUTES.URL.ROUTES.GRAPH_TRAVERSAL.url,
+  queryParamDelimiter: QUERY_PARAM_DELIMITER,
+});
+
+configureVectorSearchRoute(app, {
+  route: ROUTES.URL.ROUTES.VECTOR_SEARCH.url,
   queryParamDelimiter: QUERY_PARAM_DELIMITER,
 });
 

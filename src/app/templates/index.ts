@@ -1,5 +1,5 @@
-import { escapeHtml } from "../utils/escapeHtml";
-import { makeQueryParams } from "../utils/makeQueyParams";
+import { escapeHtml } from "../../utils/escapeHtml";
+import { makeQueryParams } from "../../utils/makeQueyParams";
 
 type Chat = { prompt: string; response: string };
 

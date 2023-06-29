@@ -1,7 +1,5 @@
-import { makeQueue, Queue, getValues, makeStack, purge, Vertices, find } from "../utils/tree";
-import { openAiSelectCategoryFromChoices, openAiSelectProductCategory } from "../openai";
-import { assertUnreachable } from "../utils/assertUnreachable";
-import { getOrCreatePineconeIndex } from "../pinecone";
+import { makeQueue, Queue, Vertices, find } from "../utils/tree";
+import { openAiSelectProductCategory } from "../openai";
 import { googleProductCategoriesSimilaritySearch } from "./langchain/pinecone";
 
 type Chat = { prompt: string; response: string };

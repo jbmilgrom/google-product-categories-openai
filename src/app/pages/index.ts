@@ -17,8 +17,7 @@ import { getGoogleProductCategoriesTaxonomy } from "../../googleProducts";
 import { chatOpenaiGraphTraversal } from "../chatOpenaiGraphTraversal";
 import { encode } from "gpt-3-encoder";
 import { ROUTES } from "../routes";
-import { similaritySearch } from "../langchain/memory";
-import { chatOpenaiEmbeddings } from "../chatOpenAiEmbeddings";
+import { chatOpenaiEmbeddings } from "../chatOpenaiEmbeddings";
 
 export const configureGraphTraversalRoute = (
   app: Express,

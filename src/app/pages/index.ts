@@ -4,12 +4,13 @@ import { CHAT_AND_COMPlETION_MODELS, inList, listSupportedModels } from "../../o
 import {
   cookieTrailTemplate,
   errorTemplate,
+  formTemplate,
   homeTemplate,
   htmlTemplate,
   openAiTemplate,
   resultsHeaderTemplate,
   scrapedMetaTagsTemplate,
-  urlFormTemplate,
+  urlAndModelFormTemplate,
 } from "../templates";
 import { getMetaTags } from "../crawl";
 import { Vertices } from "../../utils/tree";
@@ -54,7 +55,7 @@ export const configureGraphTraversalRoute = (
           return;
         }
 
-        sendHtml(htmlTemplate(homeTemplate(urlFormTemplate(route, models))));
+        sendHtml(htmlTemplate(homeTemplate(formTemplate(route, urlAndModelFormTemplate(models)))));
         return;
       }
 
@@ -208,7 +209,7 @@ export const configureVectorSearchRoute = (
           return;
         }
 
-        sendHtml(htmlTemplate(homeTemplate(urlFormTemplate(route, models))));
+        sendHtml(htmlTemplate(homeTemplate(formTemplate(route, urlAndModelFormTemplate(models)))));
         return;
       }
 
@@ -251,7 +252,7 @@ export const configureVectorSearchRoute = (
       try {
         console.log("chating openai...");
         result = await chatOpenaiEmbeddings(nodes, metaTags, {
-          k: 10,
+          k: 5,
           model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
         });
       } catch (e) {

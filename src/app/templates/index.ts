@@ -113,10 +113,18 @@ export const templateTrascript = (transcript: Chat[]): string => {
   return transcript.map(template).join("");
 };
 
-export const urlFormTemplate = (url: string, aiModels: string[]): string => {
+export const formTemplate = (postUrl: string, children: string): string => {
+  return /* html */ `
+    <h1>Find the Google Product Categories</h1>
+    <form action=${postUrl} method="post" class="url-form">
+      ${children}
+      <input class="submit-button" type="submit" value="Submit">
+    </form>
+  `;
+};
+
+export const urlAndModelFormTemplate = (aiModels: string[]): string => {
   return /*html*/ `
-  <h1>Find the Google Product Categories</h1>
-  <form action=${url} method="post" class="url-form">
     <label for="url">URL</label>
     <input type="url" name="url" id="url"
           placeholder="https://example.com"
@@ -135,8 +143,6 @@ export const urlFormTemplate = (url: string, aiModels: string[]): string => {
     </datalist>
     <div></div>
     <div class="footnote">The model <b>"gpt-3.5-turbo"</b> is used by default because it is significantly less expensive. Also, more time has been invested optimizing the turbo prompts.</div>
-    <input class="submit-button" type="submit" value="Submit">
-  </form>
 `;
 };
 

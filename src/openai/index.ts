@@ -4,6 +4,14 @@ import * as dotenv from "dotenv";
 dotenv.config();
 
 /**
+ * For model text-embedding-ada-002
+ *
+ * @see https://openai.com/blog/new-and-improved-embedding-model
+ * */
+export const OPEN_AI_TEXT_EMBEDDING_ADA_002_DIMENSION = 1536;
+export const ADA_002_EMBEDDING_MODEL = "text-embedding-ada-002";
+
+/**
  * The "list all models" endpoint does not include information about type
  * so we have to do our own filtering/understanding using these hard-coded lists
  *

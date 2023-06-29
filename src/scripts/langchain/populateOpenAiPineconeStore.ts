@@ -4,17 +4,9 @@ import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { Document } from "langchain/document";
 import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { GOOGLE_PRODUCT_TYPES_URL, makeGoogleProductTypeTextLineIterator } from "../../googleProducts";
+import { ADA_002_EMBEDDING_MODEL, OPEN_AI_TEXT_EMBEDDING_ADA_002_DIMENSION } from "../../openai";
 
 dotenv.config();
-
-const ADA_002_EMBEDDING_MODEL = "text-embedding-ada-002";
-
-/**
- * For model text-embedding-ada-002
- *
- * @see https://openai.com/blog/new-and-improved-embedding-model
- * */
-const OPEN_AI_TEXT_EMBEDDING_ADA_002_DIMENSION = 1536;
 
 const { PINECONE_INDEX_NAME_OPEN_AI_ADA_002 } = process.env;
 

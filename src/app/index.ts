@@ -1,5 +1,5 @@
 import express from "express";
-import { makeQueue, find, getValues, forEachBreadthFirst } from "../../utils/tree";
+import { makeQueue, find, getValues, forEachBreadthFirst } from "../utils/tree";
 import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "../googleProducts";
 import { cookieTrailTemplate, footerTemplate, homeTemplate, htmlTemplate, linkTemplate, routeList } from "./templates";
 import { ROUTES } from "./routes";

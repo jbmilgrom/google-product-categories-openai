@@ -1,6 +1,6 @@
-import { makeQueue, Vertices, Queue, find, getValues, makeStack, purge } from "../../utils/tree";
+import { makeQueue, Vertices, Queue, find, getValues, makeStack, purge } from "../utils/tree";
 import { Correct, Incorrect, openAiAssessStateOfDeadend, openAiSelectCategoryFromChoices } from "../openai";
-import { assertUnreachable } from "../../utils/assertUnreachable";
+import { assertUnreachable } from "../utils/assertUnreachable";
 
 type Chat = { prompt: string; response: string };
 type ChatMetadata = { transcript: Queue<Chat>; model: string; temperature: number };

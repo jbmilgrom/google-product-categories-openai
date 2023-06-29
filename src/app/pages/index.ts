@@ -7,6 +7,7 @@ import {
   formTemplate,
   homeTemplate,
   htmlTemplate,
+  kFormTemplate,
   openAiTemplate,
   resultsHeaderTemplate,
   scrapedMetaTagsTemplate,
@@ -185,6 +186,7 @@ export const configureVectorSearchRoute = (
 
       const url = (req.query.url as string) ?? null;
       const model = (req.query.model as string) ?? null;
+      const k = (req.query.k as string) ?? null;
 
       const writeHtml = (html: string): void => {
         res.write(Buffer.from(html));
@@ -209,9 +211,11 @@ export const configureVectorSearchRoute = (
           return;
         }
 
-        sendHtml(htmlTemplate(homeTemplate(formTemplate(route, urlAndModelFormTemplate(models)))));
+        sendHtml(htmlTemplate(homeTemplate(formTemplate(route, urlAndModelFormTemplate(models) + kFormTemplate(10)))));
         return;
       }
+
+      const kNumber = parseInt(k);
 
       console.log(`Received request for URL: ${url}, model: ${model}`);
 
@@ -252,7 +256,7 @@ export const configureVectorSearchRoute = (
       try {
         console.log("chating openai...");
         result = await chatOpenaiEmbeddings(nodes, metaTags, {
-          k: 5,
+          k: Number.isInteger(kNumber) ? kNumber : undefined,
           model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
         });
       } catch (e) {
@@ -303,11 +307,17 @@ export const configureVectorSearchRoute = (
     .post(async (req, res) => {
       const model: string | undefined = req.body.model;
       const url: string | undefined = req.body.url;
+      const k: string | undefined = req.body.k;
       if (!url) {
         res.send("No URL received");
         return;
       }
 
-      res.redirect(route + `?model=${encodeURIComponent(model ? model : "default")}&url=${encodeURIComponent(url)}`);
+      res.redirect(
+        route +
+          `?model=${encodeURIComponent(model ? model : "default")}&url=${encodeURIComponent(
+            url
+          )}&k=${encodeURIComponent(k ? k : "default")}`
+      );
     });
 };

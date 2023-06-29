@@ -16,7 +16,7 @@ if (PINECONE_INDEX_NAME_OPEN_AI_ADA_002 === undefined) {
   throw new Error("PINECONE_INDEX_NAME_OPEN_AI_ADA_002 is undefined.");
 }
 
-const getPineconeOpenAiEmbeddingsIndex = async (): Promise<VectorOperationsApi> => {
+const getPineconeGoogleProductCategoriesIndex = async (): Promise<VectorOperationsApi> => {
   const pineconeClient = await initializePineconeClient();
 
   const pineconeIndex = await getOrCreatePineconeIndex(pineconeClient, {
@@ -46,7 +46,7 @@ export const googleProductCategoriesSimilaritySearch = async (
   { k = 10 }: { k?: number } = {}
 ): Promise<[Document, number][]> => {
   console.log("Retrieveing pinecone index.");
-  const pineconeIndex = await getPineconeOpenAiEmbeddingsIndex();
+  const pineconeIndex = await getPineconeGoogleProductCategoriesIndex();
   console.log("Configuring Langchain VectorStore");
   const store = await fromExistingIndex(openAiEmbedder, { pineconeIndex });
   console.log("Performing similarity search.");

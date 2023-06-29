@@ -54,7 +54,7 @@ export const generateInstructivePrompt = (choices: string[], metaTags: string) =
 export const openAiSelectProductCategory = async (
   choices: string[],
   metaTags: string,
-  { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
+  { model = "gpt-3.5-turbo", temperature }: { k?: number; model?: string; temperature?: number }
 ): Promise<{ productCategories: string; metadata: { prompt: string; response: string } }> => {
   if (inList(INSTRUCTION_MODELS, model)) {
     const prompt = generateInstructivePrompt(choices, metaTags);

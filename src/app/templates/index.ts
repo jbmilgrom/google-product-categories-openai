@@ -137,13 +137,31 @@ export const urlAndModelFormTemplate = (aiModels: string[]): string => {
         .map(
           (name) =>
             /*html*/
-            `<option >${name}</option>`
+            `<option>${name}</option>`
         )
         .join("")}
     </datalist>
     <div></div>
     <div class="footnote">The model <b>"gpt-3.5-turbo"</b> is used by default because it is significantly less expensive. Also, more time has been invested optimizing the turbo prompts.</div>
 `;
+};
+
+export const kFormTemplate = (k: number): string => {
+  return /* html */ `
+    <label for="k-select">Top "k"</label>
+    <select id="k-select" name="k">
+      ${Array(k)
+        .fill(null)
+        .map(
+          (_, index) => /* html */ `
+        <option value=${index + 1}>${index + 1}</option>
+      `
+        )
+        .join("")}
+    </select>
+    <div></div>
+    <div class="footnote">The number of similar product categories that should be retrieved from the vector embeddings and inserted into an OpenAI query in order to decide the best among them. Note that "1" will result in the chat with OpenAI being skipped altogether since there is nothing to chat about. You might do this to test the viability of the vector search as is without the added chat.</div>
+  `;
 };
 
 export const resultsHeaderTemplate = (url: string) => /*html*/ `

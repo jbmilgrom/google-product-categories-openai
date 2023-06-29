@@ -1,58 +1,6 @@
-import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
-import * as dotenv from "dotenv";
-import {
-  CHAT_AND_COMPlETION_MODELS,
-  CHAT_COMPLETION_MODELS,
-  ChatCompletionModel,
-  ChatOrCompletionModel,
-  CompletionModel,
-  INSTRUCTION_MODELS,
-  chatOrCompletionModel,
-  inList,
-} from "./constants";
-
-dotenv.config();
-
-const configuration = new Configuration({
-  apiKey: process.env.OPENAI_API_KEY,
-});
-const openai = new OpenAIApi(configuration);
-
-export const instructOpenai = async (
-  prompt: string,
-  { model = "text-davinci-003", temperature = 0.6 }: { model?: CompletionModel; temperature?: number } = {}
-): Promise<string | undefined> => {
-  console.log(`Calling Completion API with model: "${model}", temperature: ${temperature}`);
-  const completion = await openai.createCompletion({
-    model,
-    prompt,
-    temperature,
-  });
-
-  return completion.data.choices[0].text;
-};
-
-export const chatOpenai = async (
-  messages: ChatCompletionRequestMessage[],
-  { model = "gpt-3.5-turbo", temperature = 0.6 }: { model?: ChatCompletionModel; temperature?: number } = {}
-): Promise<string | undefined> => {
-  console.log(`Calling Chat Completion API with model: "${model}", temperature: ${temperature}`);
-  const completion = await openai.createChatCompletion({
-    model,
-    messages,
-    temperature,
-  });
-
-  return completion.data.choices[0].message?.content;
-};
-
-export const listSupportedModels = async (): Promise<string[]> => {
-  const models = await openai.listModels();
-
-  return models.data.data
-    .map((model) => model.id)
-    .filter((id) => chatOrCompletionModel.has(id as ChatOrCompletionModel));
-};
+import { ChatCompletionRequestMessage } from "openai";
+import { CHAT_AND_COMPlETION_MODELS, CHAT_COMPLETION_MODELS, INSTRUCTION_MODELS, inList } from "./constants";
+import { chatOpenai, instructOpenai } from "./client";
 
 export const generateInstructivePrompt = (choices: string[], metaTags: string) => `
   Select a category from the following list 
@@ -70,7 +18,7 @@ export const generateChatPrompt = (choices: string[], metaTags: string): ChatCom
   {
     role: "system",
     content:
-      'You are a multiple-choice test taker. You may select one of the choices that best apply. Please respond with "None of the Above" if none are relevant.',
+      'You are a multiple-choice test taker. You may select one of the choices that best apply. Respond with "None of the Above" if none are relevant.',
   },
   {
     role: "user",

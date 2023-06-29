@@ -5,3 +5,4 @@ export {
   CHAT_AND_COMPlETION_MODELS,
   inList,
 } from "./constants";
+export { listSupportedModels } from "./client";

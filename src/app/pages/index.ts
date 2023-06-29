@@ -56,7 +56,15 @@ export const configureGraphTraversalRoute = (
           return;
         }
 
-        sendHtml(htmlTemplate(homeTemplate(formTemplate(route, urlAndModelFormTemplate(models)))));
+        sendHtml(
+          htmlTemplate(
+            homeTemplate(
+              /* html */
+              `<h1>Find the Google Product Categories</h1>
+          ${formTemplate(route, urlAndModelFormTemplate(models))}`
+            )
+          )
+        );
         return;
       }
 
@@ -211,7 +219,17 @@ export const configureVectorSearchRoute = (
           return;
         }
 
-        sendHtml(htmlTemplate(homeTemplate(formTemplate(route, urlAndModelFormTemplate(models) + kFormTemplate(10)))));
+        sendHtml(
+          htmlTemplate(
+            homeTemplate(/* html */ `
+          <header>
+            <h1>Find the Google Product Categories</h1>
+            <p>The Google Product Categories Taxonomy <a href="https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/scripts/langchain/populateOpenAiPineconeStore.ts">has been embedded</a> in a vector space using OpenAI's <a href="https://openai.com/blog/new-and-improved-embedding-model">embedding API</a> and stored in a <a href="https://www.pinecone.io/">Pinecone</a> index.</p>
+          </header>
+          ${formTemplate(route, urlAndModelFormTemplate(models) + kFormTemplate(10))}
+        `)
+          )
+        );
         return;
       }
 

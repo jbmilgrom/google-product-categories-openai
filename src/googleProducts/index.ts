@@ -3,10 +3,12 @@ import { Queue, Vertices, insert, makeQueue } from "../utils/tree";
 
 export const GOOGLE_PRODUCT_TYPES_URL = "https://www.google.com/basepages/producttype/taxonomy.en-US.txt";
 
+const GOOGLE_CATEGORY_DELIMITER = " > ";
+
 export const getGoogleProductCategoriesTaxonomy = async (): Promise<Vertices<string>> => {
   let nodes: Vertices<string> = [];
   for await (const line of makeGoogleProductTypeTextLineIterator()) {
-    insert(nodes, getPath(line));
+    insert(nodes, toPath(line));
   }
   return nodes;
 };
@@ -37,9 +39,19 @@ export async function* makeGoogleProductTypeTextLineIterator(): AsyncGenerator<s
  * @param line
  * @returns
  */
-export const getPath = (line: string, { delimitingChar = ">" }: { delimitingChar?: string } = {}): Queue<string> => {
+export const toPath = (
+  line: string,
+  { delimitingChar = GOOGLE_CATEGORY_DELIMITER }: { delimitingChar?: string } = {}
+): Queue<string> => {
   const list = line.split(delimitingChar).map((token) => token.trim());
   const queue = makeQueue<string>();
   list.forEach((token) => queue.enqueue(token));
   return queue;
+};
+
+export const toLine = (
+  path: Queue<string>,
+  { delimitingChar = GOOGLE_CATEGORY_DELIMITER }: { delimitingChar?: string } = {}
+): string => {
+  return path.toList().join(delimitingChar);
 };

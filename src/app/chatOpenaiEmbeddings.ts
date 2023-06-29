@@ -1,6 +1,7 @@
-import { makeQueue, Queue, Vertices, find } from "../utils/tree";
+import { makeQueue, Queue, Vertices, find, Vertex } from "../utils/tree";
 import { openAiSelectProductCategory } from "../openai";
 import { googleProductCategoriesSimilaritySearch } from "./langchain/pinecone";
+import { toPath, toLine } from "../googleProducts";
 
 type Chat = { prompt: string; response: string };
 type ChatMetadata = { transcript: Queue<Chat>; model: string; temperature: number };
@@ -26,23 +27,30 @@ export const chatOpenaiEmbeddings = async (
 
   const similarCategories = await googleProductCategoriesSimilaritySearch(webPageMetaData, { k });
 
+  const topCategories = similarCategories.map((document) => document[0].pageContent);
+
+  // Note that the length of categoriesList is determined by k.
+  if (topCategories.length === 1) {
+    return {
+      type: "success",
+      categories: toPath(topCategories[0]),
+      metadata: { transcript, model, temperature },
+    } as const;
+  }
+
   const {
     productCategories,
     metadata: { prompt, response },
-  } = await openAiSelectProductCategory(
-    similarCategories.map((document) => document[0].pageContent),
-    webPageMetaData,
-    {
-      model,
-      temperature,
-    }
-  );
+  } = await openAiSelectProductCategory(topCategories, webPageMetaData, {
+    model,
+    temperature,
+  });
 
   transcript.enqueue({ prompt, response });
 
-  const categories = makeQueue<string>(productCategories.split(" > "));
+  const categories = toPath(productCategories);
 
-  const ok = find(productTaxonomy, { path: categories });
+  const ok = find(productTaxonomy, { path: categories.copy() });
 
   if (!ok) {
     return { type: "error:chat", categories, metadata: { transcript, model, temperature } } as const;
@@ -50,7 +58,7 @@ export const chatOpenaiEmbeddings = async (
 
   return {
     type: "success",
-    categories: makeQueue(productCategories.split(" > ")),
+    categories,
     metadata: { transcript, model, temperature },
   } as const;
 };

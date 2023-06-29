@@ -1,6 +1,6 @@
 import express from "express";
 import { makeQueue, find, getValues, forEachBreadthFirst } from "../utils/tree";
-import { getGoogleProductCategoriesTaxonomy, getPath, makeGoogleProductTypeTextLineIterator } from "../googleProducts";
+import { getGoogleProductCategoriesTaxonomy, toPath, makeGoogleProductTypeTextLineIterator } from "../googleProducts";
 import { cookieTrailTemplate, footerTemplate, homeTemplate, htmlTemplate, linkTemplate, routeList } from "./templates";
 import { ROUTES } from "./routes";
 import { configureGraphTraversalRoute, configureVectorSearchRoute } from "./pages";
@@ -118,7 +118,7 @@ app.get(ROUTES.TRAVERSE.url, async (req, res) => {
   const nodes = await getGoogleProductCategoriesTaxonomy();
   try {
     const pathString = (req.query.path as string) ?? null;
-    const path = pathString ? getPath(pathString, { delimitingChar: QUERY_PARAM_DELIMITER }) : makeQueue<string>();
+    const path = pathString ? toPath(pathString, { delimitingChar: QUERY_PARAM_DELIMITER }) : makeQueue<string>();
     const node = find(nodes, { path: path.copy() });
     const children = node?.children ?? nodes;
     const pathList = path.toList();

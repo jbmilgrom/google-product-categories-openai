@@ -39,6 +39,20 @@ export const htmlTemplate = (children?: string): string => {
           color: #353740;
         }
 
+        header {
+          margin-bottom: 2em;
+        }
+        
+        header h1 {
+          margin-bottom: 0;
+        }
+
+        header p {
+          margin-top: .5em;
+          margin-bottom: 0;
+          width: max(80vw, 400px);
+        }
+
         form.url-form {
           display: grid;
           width: max(38vw, 400px);
@@ -115,7 +129,6 @@ export const templateTrascript = (transcript: Chat[]): string => {
 
 export const formTemplate = (postUrl: string, children: string): string => {
   return /* html */ `
-    <h1>Find the Google Product Categories</h1>
     <form action=${postUrl} method="post" class="url-form">
       ${children}
       <input class="submit-button" type="submit" value="Submit">
@@ -160,7 +173,7 @@ export const kFormTemplate = (k: number): string => {
         .join("")}
     </select>
     <div></div>
-    <div class="footnote">The number of similar product categories that should be retrieved from the vector embeddings and inserted into an OpenAI query in order to decide the best among them. Note that "1" will result in the chat with OpenAI being skipped altogether since there is nothing to chat about. You might do this to test the viability of the vector search as is without the added chat.</div>
+    <div class="footnote">The number of similar product categories that should be retrieved from the vector space. The top "k" similar product cateogories will be inserted into the query to an OpenAI chat or instruction model (selected above) in order to decide the best among them. If you think OpenAI embeddings should be sufficient without querying OpenAI again, this time through a chat/instruction model, then set "k" to 1. 1 will result in the chat with OpenAI being skipped altogether since there is nothing to chat about.</div>
   `;
 };
 
@@ -201,6 +214,15 @@ export const openAiTemplate = ({
   <p>${words}</p>
   <h2>Tokens Used</h2>
   <p>${tokens}</p>
-  <h2>Trascript (Verbatum)</h2>
-  ${templateTrascript(transcript)}
+  ${
+    transcript.length
+      ? /*html*/ `
+      <h2>Trascript (Verbatum)</h2>
+      ${templateTrascript(transcript)}
+      ` /*html*/
+      : `
+      <h2>Trascript (Verbatum)</h2>
+      <p>None</p>
+      `
+  }
 `;

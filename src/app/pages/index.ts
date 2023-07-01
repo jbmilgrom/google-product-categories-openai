@@ -21,6 +21,60 @@ import { encode } from "gpt-3-encoder";
 import { ROUTES } from "../routes";
 import { chatOpenaiEmbeddings } from "../chatOpenaiEmbeddings";
 
+const noCategoryFound = ({
+  model,
+  temperature,
+  tokens,
+  words,
+  transcript,
+}: {
+  model: string;
+  temperature: number;
+  tokens: number;
+  words: number;
+  transcript: { prompt: string; response: string }[];
+}) => /* html */ `
+  <h1>No Product Category Found</h1>
+  <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
+  ${openAiTemplate({
+    model,
+    temperature,
+    tokens,
+    words,
+    transcript,
+  })}
+`;
+
+const categoryResult = ({
+  model,
+  temperature,
+  tokens,
+  words,
+  transcript,
+  queryParamDelimiter,
+  categories,
+}: {
+  model: string;
+  temperature: number;
+  tokens: number;
+  words: number;
+  transcript: { prompt: string; response: string }[];
+  categories: string[];
+  queryParamDelimiter: string;
+}) => /* html */ `
+  <h1>Result (Google Product Category)</h1>
+  <div>
+    ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories, { delimiter: queryParamDelimiter })}
+  </div>
+  ${openAiTemplate({
+    model,
+    temperature,
+    tokens,
+    words,
+    transcript,
+  })}
+`;
+
 export const configureGraphTraversalRoute = (
   app: Express,
   { route, queryParamDelimiter }: { route: string; queryParamDelimiter: string }
@@ -126,17 +180,15 @@ export const configureGraphTraversalRoute = (
 
       if (result.type === "error:chat") {
         const { metadata } = result;
-        sendHtml(/*html*/ `
-          <h1>No Product Category Found</h1>
-          <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
-          ${openAiTemplate({
+        sendHtml(
+          noCategoryFound({
             model: metadata.model,
             temperature: metadata.temperature,
             tokens: tokens.length,
             words,
             transcript: metadata.transcript.toList(),
-          })}
-        `);
+          })
+        );
         return;
       }
 
@@ -157,19 +209,17 @@ export const configureGraphTraversalRoute = (
       }
 
       const { categories, metadata } = result;
-      sendHtml(/*html*/ `
-        <h1>Result (Google Product Category)</h1>
-        <div>
-          ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories.toList(), { delimiter: queryParamDelimiter })}
-        </div>
-        ${openAiTemplate({
+      sendHtml(
+        categoryResult({
           model: metadata.model,
           temperature: metadata.temperature,
           tokens: tokens.length,
           words,
           transcript: metadata.transcript.toList(),
-        })}
-      `);
+          categories: categories.toList(),
+          queryParamDelimiter,
+        })
+      );
     })
     .post(async (req, res) => {
       const model: string | undefined = req.body.model;
@@ -293,34 +343,30 @@ export const configureVectorSearchRoute = (
 
       if (result.type === "error:chat") {
         const { metadata } = result;
-        sendHtml(/*html*/ `
-          <h1>No Product Category Found</h1>
-          <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
-          ${openAiTemplate({
+        sendHtml(
+          noCategoryFound({
             model: metadata.model,
             temperature: metadata.temperature,
             tokens: tokens.length,
             words,
             transcript: metadata.transcript.toList(),
-          })}
-        `);
+          })
+        );
         return;
       }
 
       const { categories, metadata } = result;
-      sendHtml(/*html*/ `
-        <h1>Result (Google Product Category)</h1>
-        <div>
-          ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories.toList(), { delimiter: queryParamDelimiter })}
-        </div>
-        ${openAiTemplate({
+      sendHtml(
+        categoryResult({
           model: metadata.model,
           temperature: metadata.temperature,
           tokens: tokens.length,
           words,
           transcript: metadata.transcript.toList(),
-        })}
-      `);
+          categories: categories.toList(),
+          queryParamDelimiter,
+        })
+      );
     })
     .post(async (req, res) => {
       const model: string | undefined = req.body.model;

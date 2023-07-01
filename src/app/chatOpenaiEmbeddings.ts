@@ -31,9 +31,17 @@ export const chatOpenaiEmbeddings = async (
 
   // Note that the length of categoriesList is determined by k.
   if (topCategories.length === 1) {
+    const categories = toPath(topCategories[0]);
+
+    const ok = find(productTaxonomy, { path: categories.copy() });
+
+    if (!ok) {
+      return { type: "error:chat", categories, metadata: { transcript, model, temperature } } as const;
+    }
+
     return {
       type: "success",
-      categories: toPath(topCategories[0]),
+      categories,
       metadata: { transcript, model, temperature },
     } as const;
   }

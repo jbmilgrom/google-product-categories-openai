@@ -191,10 +191,10 @@ export const formTemplate = (postUrl: string, children: string): string => {
 
 export const urlAndModelFormTemplate = (aiModels: string[]): string => {
   return /*html*/ `
-    <input class="radio1-input radio1" type="radio" name="source" id="source-url" value="url" checked />
-    <label class="radio1-label radio1 radio" for="source-url">URL</label>
-    <input class="radio2-input radio2" type="radio" name="source" id="source-text" value="text" />
-    <label class="radio2-label radio2 radio" for="source-url">Text</label>
+    <input class="radio1-input" type="radio" name="source" id="source-url" value="url" checked />
+    <label class="radio1-label radio" for="source-url">URL</label>
+    <input class="radio2-input" type="radio" name="source" id="source-text" value="text" />
+    <label class="radio2-label radio" for="source-url">Text</label>
     <div class="tab tab-url">
       <input type="url" name="url" id="url"
             placeholder="https://example.com"

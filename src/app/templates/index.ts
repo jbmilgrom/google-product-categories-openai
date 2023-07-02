@@ -55,15 +55,68 @@ export const htmlTemplate = (children?: string): string => {
 
         form.url-form {
           display: grid;
-          width: max(38vw, 400px);
-          grid-template-columns: 1fr 2fr;
-          grid-auto-rows: minmax(30px, auto);
+          grid-template-columns: repeat(12, 1fr);
+          width: max(54vw, 600px);
+          grid-template-areas: 
+            "radio1-input   radio1-label  radio2-input   radio2-label  tab             tab             tab             tab            tab             tab             tab             tab"
+            "model-label    model-label   model-label    model-label   model-input     model-input     model-input     model-input    model-input     model-input     model-input     model-input"
+            ".              .             .              .             model-footnote  model-footnote  model-footnote  model-footnote model-footnote  model-footnote  model-footnote  model-footnote"
+            "k-label        k-label       k-label        k-label       k-input         k-input         k-input         k-input        k-input         k-input         k-input         k-input"
+            ".              .             .              .             k-footnote      k-footnote      k-footnote      k-footnote     k-footnote      k-footnote      k-footnote      k-footnote"
+            ".              .             submit-button  submit-button submit-button   submit-button   submit-button   submit-button  submit-button   submit-button   .               .             "
+            ;
           gap: 16px;
+        }
+
+        .tab {
+          grid-area: tab;
+        }
+
+        .model-label {
+          grid-area: model-label;
+        }
+
+        .model-input {
+          grid-area: model-input;
+        }
+
+        .model-footnote {
+          grid-area: model-footnote;
+        }
+
+        .k-label {
+          grid-area: k-label;
+        }
+        
+        .k-input {
+          grid-area: k-input;
+        }
+
+        .k-footnote {
+          grid-area: k-footnote;
+        }
+
+        .submit-button {
+          grid-area: submit-button;
         }
 
         form .footnote {
           font-size: .85em;
         }
+
+        input[type="radio"] {
+          max-height: 1em;
+          margin-left: -2em;
+        }
+
+        label.radio {
+          margin-left: -2em;
+        }
+
+        input[type="radio"] ~ .tab { display: none; } /* hide contents */
+        /* show contents only for selected tab */
+        #source-url:checked ~ .tab.tab-url,
+        #source-text:checked ~ .tab.tab-text { display: block; }
 
       </style>
     </head>
@@ -138,13 +191,21 @@ export const formTemplate = (postUrl: string, children: string): string => {
 
 export const urlAndModelFormTemplate = (aiModels: string[]): string => {
   return /*html*/ `
-    <label for="url">URL</label>
-    <input type="url" name="url" id="url"
-          placeholder="https://example.com"
-          pattern="https?://.*" 
-          required>
-    <label for="ai-models">OpenAI Model</label>
-    <input list="ai-models" placeholder="Start typing..." name="model">
+    <input class="radio1-input radio1" type="radio" name="source" id="source-url" value="url" checked />
+    <label class="radio1-label radio1 radio" for="source-url">URL</label>
+    <input class="radio2-input radio2" type="radio" name="source" id="source-text" value="text" />
+    <label class="radio2-label radio2 radio" for="source-url">Text</label>
+    <div class="tab tab-url">
+      <input type="url" name="url" id="url"
+            placeholder="https://example.com"
+            pattern="https?://.*" 
+            required>
+    </div>
+    <div class="tab tab-text">
+      <textarea name="text" id="text" required></textarea>
+    </div>
+    <label class="model-label" for="ai-models">OpenAI Model</label>
+    <input class="model-input" list="ai-models" placeholder="Start typing..." name="model">
     <datalist id="ai-models">
       ${aiModels
         .map(
@@ -154,15 +215,14 @@ export const urlAndModelFormTemplate = (aiModels: string[]): string => {
         )
         .join("")}
     </datalist>
-    <div></div>
-    <div class="footnote">The model <b>"gpt-3.5-turbo"</b> is used by default because it is significantly less expensive. Also, more time has been invested optimizing the turbo prompts.</div>
+    <div class="footnote model-footnote">The model <b>"gpt-3.5-turbo"</b> is used by default because it is significantly less expensive. Also, more time has been invested optimizing the turbo prompts.</div>
 `;
 };
 
 export const kFormTemplate = (k: number): string => {
   return /* html */ `
-    <label for="k-select">Top "k"</label>
-    <select id="k-select" name="k">
+    <label class="k-label" for="k-select">Top "k"</label>
+    <select class="k-input" id="k-select" name="k">
       ${Array(k)
         .fill(null)
         .map(
@@ -172,8 +232,7 @@ export const kFormTemplate = (k: number): string => {
         )
         .join("")}
     </select>
-    <div></div>
-    <div class="footnote">The number of similar product categories that should be retrieved from the vector space. The top "k" similar product cateogories will be inserted into the query to an OpenAI chat or instruction model (selected above) in order to decide the best among them. If you think OpenAI embeddings should be sufficient without querying OpenAI again, this time through a chat/instruction model, then set "k" to 1, which will result in the chat with OpenAI being skipped altogether since there is nothing to chat about.</div>
+    <div class="footnote k-footnote">The number of similar product categories that should be retrieved from the vector space. The top "k" similar product cateogories will be inserted into the query to an OpenAI chat or instruction model (selected above) in order to decide the best among them. If you think OpenAI embeddings should be sufficient without querying OpenAI again, this time through a chat/instruction model, then set "k" to 1, which will result in the chat with OpenAI being skipped altogether since there is nothing to chat about.</div>
   `;
 };
 

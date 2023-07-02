@@ -56,7 +56,6 @@ export const htmlTemplate = (children?: string): string => {
         form.url-form {
           display: grid;
           grid-template-columns: repeat(12, 1fr);
-          grid-template-rows: 36px 36px auto 36px auto 36px;
           width: max(54vw, 600px);
           grid-template-areas: 
             "radio1-input   radio1-label  radio2-input   radio2-label  tab             tab             tab             tab            tab             tab             tab             tab"

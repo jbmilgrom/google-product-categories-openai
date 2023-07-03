@@ -13,6 +13,7 @@ import {
   scrapedMetaTagsTemplate,
   modelFormTemplate,
   sourceFormTemplate,
+  resultsHeaderTemplateText,
 } from "../templates";
 import { getMetaTags } from "../crawl";
 import { Vertices } from "../../utils/tree";
@@ -22,6 +23,7 @@ import { encode } from "gpt-3-encoder";
 import { ROUTES } from "../routes";
 import { chatOpenaiEmbeddings } from "../chatOpenaiEmbeddings";
 import { assertUnreachable } from "../../utils/assertUnreachable";
+import { escapeHtml } from "../../utils/escapeHtml";
 
 const noCategoryFound = ({
   model,
@@ -275,123 +277,222 @@ export const configureVectorSearchRoute = (
         res.end();
       };
 
-      /**
-       * Case where either
-       *  (i) user's first time through /url and "url" is empty --> show the form
-       *  (ii) url entered in /url is invalid --> show the form
-       */
-      if (!isValidHttpUrl(url)) {
-        let models: string[];
-        try {
-          models = await listSupportedModels();
-        } catch (e) {
-          console.log(e);
-          sendHtml(errorTemplate("Failed to fetch OpenAI models. Try again."));
-          return;
-        }
+      switch (source) {
+        case "url": {
+          /**
+           * Case where either
+           *  (i) user's first time through /url and "url" is empty --> show the form
+           *  (ii) url entered in /url is invalid --> show the form
+           */
+          if (!isValidHttpUrl(url)) {
+            let models: string[];
+            try {
+              models = await listSupportedModels();
+            } catch (e) {
+              console.log(e);
+              sendHtml(errorTemplate("Failed to fetch OpenAI models. Try again."));
+              return;
+            }
 
-        sendHtml(
-          htmlTemplate(
-            homeTemplate(/* html */ `
+            sendHtml(
+              htmlTemplate(
+                homeTemplate(/* html */ `
           <header>
             <h1>Find the Google Product Categories</h1>
             <p>The Google Product Categories Taxonomy <a href="https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/scripts/langchain/populateOpenAiPineconeStore.ts">has been embedded</a> in a vector space using OpenAI's <a href="https://openai.com/blog/new-and-improved-embedding-model">embedding API</a> and stored in a <a href="https://www.pinecone.io/">Pinecone</a> index.</p>
           </header>
           ${formTemplate(route, sourceFormTemplate(source, route) + modelFormTemplate(models) + kFormTemplate(10))}
         `)
-          )
-        );
-        return;
-      }
+              )
+            );
+            return;
+          }
 
-      const kNumber = parseInt(k);
+          const kNumber = parseInt(k);
 
-      console.log(`Received request for URL: ${url}, model: ${model}`);
+          console.log(`Received request for URL: ${url}, model: ${model}`);
 
-      writeHtml(htmlTemplate(homeTemplate(resultsHeaderTemplate(url))));
+          writeHtml(htmlTemplate(homeTemplate(resultsHeaderTemplate(url))));
 
-      let metaTags: string;
-      try {
-        if (source === "url") {
-          console.log("scraping meta tags...");
-          metaTags = await getMetaTags(url);
-        } else {
-          metaTags = text;
+          let metaTags: string;
+          try {
+            console.log("scraping meta tags...");
+            metaTags = await getMetaTags(url);
+          } catch (e) {
+            console.log("error", e);
+            sendHtml(
+              errorTemplate(
+                `Error Fetching ${url}. \n\nMost likely we failed the advertiser bot check. I would try a different advertiser in the same product category and try again.`
+              )
+            );
+            return;
+          }
+
+          if (!metaTags.length) {
+            sendHtml(errorTemplate(`No metatags retrieved at: ${url}`));
+            return;
+          }
+
+          writeHtml(scrapedMetaTagsTemplate(metaTags));
+
+          let nodes: Vertices<string>;
+          try {
+            console.log("parsing google product categories into tree...");
+            nodes = await getGoogleProductCategoriesTaxonomy();
+          } catch (e) {
+            console.log("error", e);
+            sendHtml(errorTemplate("Error fetching Google Product Categories. Try again."));
+            return;
+          }
+
+          let result: Awaited<ReturnType<typeof chatOpenaiEmbeddings>>;
+          try {
+            console.log("chating openai...");
+            result = await chatOpenaiEmbeddings(nodes, metaTags, {
+              k: Number.isInteger(kNumber) ? kNumber : undefined,
+              model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
+            });
+          } catch (e) {
+            console.log("error", e);
+            sendHtml(errorTemplate("OpenAI Error. Try again."));
+            return;
+          }
+
+          const transcript = result.metadata.transcript
+            .toList()
+            .map(({ prompt, response }) => `${prompt} ${response}`)
+            .join(" ");
+
+          const words = transcript.match(/\S+/g)?.length ?? 0;
+          const tokens = encode(transcript);
+
+          if (result.type === "error:chat") {
+            const { metadata } = result;
+            sendHtml(
+              noCategoryFound({
+                model: metadata.model,
+                temperature: metadata.temperature,
+                tokens: tokens.length,
+                words,
+                transcript: metadata.transcript.toList(),
+              })
+            );
+            return;
+          }
+
+          const { categories, metadata } = result;
+          sendHtml(
+            categoryResult({
+              model: metadata.model,
+              temperature: metadata.temperature,
+              tokens: tokens.length,
+              words,
+              transcript: metadata.transcript.toList(),
+              categories: categories.toList(),
+              queryParamDelimiter,
+            })
+          );
         }
-      } catch (e) {
-        console.log("error", e);
-        sendHtml(
-          errorTemplate(
-            `Error Fetching ${url}. \n\nMost likely we failed the advertiser bot check. I would try a different advertiser in the same product category and try again.`
-          )
-        );
-        return;
+
+        case "text": {
+          /**
+           * Case where either
+           *  (i) user's first time through /url and "text" is empty --> show the form
+           *  (ii) text entered in /url is invalid --> show the form
+           */
+          if (!text) {
+            let models: string[];
+            try {
+              models = await listSupportedModels();
+            } catch (e) {
+              console.log(e);
+              sendHtml(errorTemplate("Failed to fetch OpenAI models. Try again."));
+              return;
+            }
+
+            sendHtml(
+              htmlTemplate(
+                homeTemplate(/* html */ `
+          <header>
+            <h1>Find the Google Product Categories</h1>
+            <p>The Google Product Categories Taxonomy <a href="https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/scripts/langchain/populateOpenAiPineconeStore.ts">has been embedded</a> in a vector space using OpenAI's <a href="https://openai.com/blog/new-and-improved-embedding-model">embedding API</a> and stored in a <a href="https://www.pinecone.io/">Pinecone</a> index.</p>
+          </header>
+          ${formTemplate(route, sourceFormTemplate(source, route) + modelFormTemplate(models) + kFormTemplate(10))}
+        `)
+              )
+            );
+            return;
+          }
+
+          const kNumber = parseInt(k);
+
+          console.log(`Received request for text: ${text}\n, model: ${model}`);
+
+          writeHtml(htmlTemplate(homeTemplate(resultsHeaderTemplateText(escapeHtml(text)))));
+
+          let nodes: Vertices<string>;
+          try {
+            console.log("parsing google product categories into tree...");
+            nodes = await getGoogleProductCategoriesTaxonomy();
+          } catch (e) {
+            console.log("error", e);
+            sendHtml(errorTemplate("Error fetching Google Product Categories. Try again."));
+            return;
+          }
+
+          let result: Awaited<ReturnType<typeof chatOpenaiEmbeddings>>;
+          try {
+            console.log("chating openai...");
+            result = await chatOpenaiEmbeddings(nodes, text, {
+              k: Number.isInteger(kNumber) ? kNumber : undefined,
+              model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
+            });
+          } catch (e) {
+            console.log("error", e);
+            sendHtml(errorTemplate("OpenAI Error. Try again."));
+            return;
+          }
+
+          const transcript = result.metadata.transcript
+            .toList()
+            .map(({ prompt, response }) => `${prompt} ${response}`)
+            .join(" ");
+
+          const words = transcript.match(/\S+/g)?.length ?? 0;
+          const tokens = encode(transcript);
+
+          if (result.type === "error:chat") {
+            const { metadata } = result;
+            sendHtml(
+              noCategoryFound({
+                model: metadata.model,
+                temperature: metadata.temperature,
+                tokens: tokens.length,
+                words,
+                transcript: metadata.transcript.toList(),
+              })
+            );
+            return;
+          }
+
+          const { categories, metadata } = result;
+          sendHtml(
+            categoryResult({
+              model: metadata.model,
+              temperature: metadata.temperature,
+              tokens: tokens.length,
+              words,
+              transcript: metadata.transcript.toList(),
+              categories: categories.toList(),
+              queryParamDelimiter,
+            })
+          );
+          return;
+        }
+
+        default:
+          return assertUnreachable(source);
       }
-
-      if (!metaTags.length) {
-        sendHtml(errorTemplate(`No metatags retrieved at: ${url}`));
-        return;
-      }
-
-      writeHtml(scrapedMetaTagsTemplate(metaTags));
-
-      let nodes: Vertices<string>;
-      try {
-        console.log("parsing google product categories into tree...");
-        nodes = await getGoogleProductCategoriesTaxonomy();
-      } catch (e) {
-        console.log("error", e);
-        sendHtml(errorTemplate("Error fetching Google Product Categories. Try again."));
-        return;
-      }
-
-      let result: Awaited<ReturnType<typeof chatOpenaiEmbeddings>>;
-      try {
-        console.log("chating openai...");
-        result = await chatOpenaiEmbeddings(nodes, metaTags, {
-          k: Number.isInteger(kNumber) ? kNumber : undefined,
-          model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
-        });
-      } catch (e) {
-        console.log("error", e);
-        sendHtml(errorTemplate("OpenAI Error. Try again."));
-        return;
-      }
-
-      const transcript = result.metadata.transcript
-        .toList()
-        .map(({ prompt, response }) => `${prompt} ${response}`)
-        .join(" ");
-
-      const words = transcript.match(/\S+/g)?.length ?? 0;
-      const tokens = encode(transcript);
-
-      if (result.type === "error:chat") {
-        const { metadata } = result;
-        sendHtml(
-          noCategoryFound({
-            model: metadata.model,
-            temperature: metadata.temperature,
-            tokens: tokens.length,
-            words,
-            transcript: metadata.transcript.toList(),
-          })
-        );
-        return;
-      }
-
-      const { categories, metadata } = result;
-      sendHtml(
-        categoryResult({
-          model: metadata.model,
-          temperature: metadata.temperature,
-          tokens: tokens.length,
-          words,
-          transcript: metadata.transcript.toList(),
-          categories: categories.toList(),
-          queryParamDelimiter,
-        })
-      );
     })
     .post(async (req, res) => {
       const model: string | undefined = req.body.model;

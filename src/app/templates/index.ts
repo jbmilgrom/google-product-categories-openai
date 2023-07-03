@@ -182,7 +182,7 @@ export const sourceFormTemplate = (source: "url" | "text", path: string) => {
     case "text":
       return /*html*/ `
         <label class="source-label" for="text-source">Text</label>
-        <textarea class="source-input" name="text" id="text-source" required></textarea>
+        <textarea maxlength="1800" class="source-input" name="text" id="text-source" required></textarea>
         <div class="source-change">Switch to <a href="${path}?source=url">URL</a></div>
         <input type="hidden" name="source" value="text"/>
       `;
@@ -228,6 +228,11 @@ export const kFormTemplate = (k: number): string => {
 export const resultsHeaderTemplate = (url: string) => /*html*/ `
   <h1>Loading URL</h1>
   <div>${url}</div>
+`;
+
+export const resultsHeaderTemplateText = (text: string) => /*html*/ `
+  <h1>Text</h1>
+  <div>${text}</div>
 `;
 
 export const scrapedMetaTagsTemplate = (metaTags: string) => /*html*/ `

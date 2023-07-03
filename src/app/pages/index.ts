@@ -116,7 +116,7 @@ export const configureGraphTraversalRoute = (
             homeTemplate(
               /* html */
               `<h1>Find the Google Product Categories</h1>
-          ${formTemplate(route, sourceFormTemplate("url") + modelFormTemplate(models))}`
+          ${formTemplate(route, sourceFormTemplate("url", route) + modelFormTemplate(models))}`
             )
           )
         );
@@ -277,7 +277,7 @@ export const configureVectorSearchRoute = (
             <h1>Find the Google Product Categories</h1>
             <p>The Google Product Categories Taxonomy <a href="https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/scripts/langchain/populateOpenAiPineconeStore.ts">has been embedded</a> in a vector space using OpenAI's <a href="https://openai.com/blog/new-and-improved-embedding-model">embedding API</a> and stored in a <a href="https://www.pinecone.io/">Pinecone</a> index.</p>
           </header>
-          ${formTemplate(route, sourceFormTemplate("url") + modelFormTemplate(models) + kFormTemplate(10))}
+          ${formTemplate(route, sourceFormTemplate("url", route) + modelFormTemplate(models) + kFormTemplate(10))}
         `)
           )
         );

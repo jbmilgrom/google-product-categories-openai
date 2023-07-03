@@ -56,15 +56,15 @@ export const htmlTemplate = (children?: string): string => {
 
         form.url-form {
           display: grid;
-          grid-template-columns: repeat(6, 1fr);
-          width: max(54vw, 600px);
+          grid-template-columns: repeat(7, 1fr);
+          width: max(68vw, 600px);
           grid-template-areas: 
-            "source-label   source-label   source-input     source-input    source-input      source-input"
-            "model-label    model-label    model-input      model-input     model-input       model-input"
-            ".              .              model-footnote   model-footnote  model-footnote    model-footnote"
-            "k-label        k-label        k-input          k-input         k-input           k-input"
-            ".              .              k-footnote       k-footnote      k-footnote        k-footnote"
-            ".              submit-button  submit-button    submit-button   submit-button     .             "
+            "source-label   source-label   source-input     source-input    source-input      source-input    source-change"
+            "model-label    model-label    model-input      model-input     model-input       model-input     ."
+            ".              .              model-footnote   model-footnote  model-footnote    model-footnote  ."
+            "k-label        k-label        k-input          k-input         k-input           k-input         ."
+            ".              .              k-footnote       k-footnote      k-footnote        k-footnote      ."
+            ".              submit-button  submit-button    submit-button   submit-button     .               ."
             ;
           gap: 16px;
         }
@@ -72,6 +72,7 @@ export const htmlTemplate = (children?: string): string => {
         ${[
           "source-label",
           "source-input",
+          "source-change",
           "model-label",
           "model-input",
           "model-footnote",
@@ -166,7 +167,7 @@ export const formTemplate = (postUrl: string, children: string): string => {
   `;
 };
 
-export const sourceFormTemplate = (source: "url" | "text" = "url") => {
+export const sourceFormTemplate = (source: "url" | "text", path: string) => {
   switch (source) {
     case "url":
       return /*html*/ `
@@ -175,11 +176,13 @@ export const sourceFormTemplate = (source: "url" | "text" = "url") => {
               placeholder="https://example.com"
               pattern="https?://.*" 
               required>
+        <div class="source-change">Switch to <a href="${path}?source=text">Text</a></div>
       `;
     case "text":
       return /*html*/ `
         <label class="source-label" for="text-source">Text</label>
         <textarea class="source-input" name="text" id="text-source" required></textarea>
+        <div class="source-change">Switch to <a href="${path}?source=text">Text</a></div>
       `;
     default:
       return assertUnreachable(source);

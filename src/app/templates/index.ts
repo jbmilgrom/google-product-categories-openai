@@ -177,12 +177,14 @@ export const sourceFormTemplate = (source: "url" | "text", path: string) => {
               pattern="https?://.*" 
               required>
         <div class="source-change">Switch to <a href="${path}?source=text">Text</a></div>
+        <input type="hidden" name="source" value="url"/>
       `;
     case "text":
       return /*html*/ `
         <label class="source-label" for="text-source">Text</label>
         <textarea class="source-input" name="text" id="text-source" required></textarea>
-        <div class="source-change">Switch to <a href="${path}?source=text">Text</a></div>
+        <div class="source-change">Switch to <a href="${path}?source=url">URL</a></div>
+        <input type="hidden" name="source" value="text"/>
       `;
     default:
       return assertUnreachable(source);

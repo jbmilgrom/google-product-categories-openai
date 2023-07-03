@@ -21,6 +21,7 @@ import { chatOpenaiGraphTraversal } from "../chatOpenaiGraphTraversal";
 import { encode } from "gpt-3-encoder";
 import { ROUTES } from "../routes";
 import { chatOpenaiEmbeddings } from "../chatOpenaiEmbeddings";
+import { assertUnreachable } from "../../utils/assertUnreachable";
 
 const noCategoryFound = ({
   model,
@@ -76,6 +77,17 @@ const categoryResult = ({
   })}
 `;
 
+const parseSource = (source: string): "url" | "text" => {
+  const lower = source.toLowerCase();
+  switch (lower) {
+    case "url":
+    case "text":
+      return lower;
+    default:
+      return "url";
+  }
+};
+
 export const configureGraphTraversalRoute = (
   app: Express,
   { route, queryParamDelimiter }: { route: string; queryParamDelimiter: string }
@@ -87,6 +99,8 @@ export const configureGraphTraversalRoute = (
 
       const url = (req.query.url as string) ?? null;
       const model = (req.query.model as string) ?? null;
+      const source = parseSource((req.query.source as string) ?? null);
+      const text = (req.query.text as string) ?? "";
 
       const writeHtml = (html: string): void => {
         res.write(Buffer.from(html));
@@ -116,7 +130,7 @@ export const configureGraphTraversalRoute = (
             homeTemplate(
               /* html */
               `<h1>Find the Google Product Categories</h1>
-          ${formTemplate(route, sourceFormTemplate("url", route) + modelFormTemplate(models))}`
+          ${formTemplate(route, sourceFormTemplate(parseSource(source), route) + modelFormTemplate(models))}`
             )
           )
         );
@@ -129,8 +143,12 @@ export const configureGraphTraversalRoute = (
 
       let metaTags: string;
       try {
-        console.log("scraping meta tags...");
-        metaTags = await getMetaTags(url);
+        if (source === "url") {
+          console.log("scraping meta tags...");
+          metaTags = await getMetaTags(url);
+        } else {
+          metaTags = text;
+        }
       } catch (e) {
         console.log("error", e);
         sendHtml(
@@ -246,6 +264,8 @@ export const configureVectorSearchRoute = (
       const url = (req.query.url as string) ?? null;
       const model = (req.query.model as string) ?? null;
       const k = (req.query.k as string) ?? null;
+      const source = parseSource((req.query.source as string) ?? null);
+      const text = (req.query.text as string) ?? null;
 
       const writeHtml = (html: string): void => {
         res.write(Buffer.from(html));
@@ -277,7 +297,7 @@ export const configureVectorSearchRoute = (
             <h1>Find the Google Product Categories</h1>
             <p>The Google Product Categories Taxonomy <a href="https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/scripts/langchain/populateOpenAiPineconeStore.ts">has been embedded</a> in a vector space using OpenAI's <a href="https://openai.com/blog/new-and-improved-embedding-model">embedding API</a> and stored in a <a href="https://www.pinecone.io/">Pinecone</a> index.</p>
           </header>
-          ${formTemplate(route, sourceFormTemplate("url", route) + modelFormTemplate(models) + kFormTemplate(10))}
+          ${formTemplate(route, sourceFormTemplate(source, route) + modelFormTemplate(models) + kFormTemplate(10))}
         `)
           )
         );
@@ -292,8 +312,12 @@ export const configureVectorSearchRoute = (
 
       let metaTags: string;
       try {
-        console.log("scraping meta tags...");
-        metaTags = await getMetaTags(url);
+        if (source === "url") {
+          console.log("scraping meta tags...");
+          metaTags = await getMetaTags(url);
+        } else {
+          metaTags = text;
+        }
       } catch (e) {
         console.log("error", e);
         sendHtml(
@@ -372,17 +396,39 @@ export const configureVectorSearchRoute = (
     .post(async (req, res) => {
       const model: string | undefined = req.body.model;
       const url: string | undefined = req.body.url;
+      const text: string | undefined = req.body.text;
       const k: string | undefined = req.body.k;
-      if (!url) {
-        res.send("No URL received");
-        return;
-      }
+      const source = parseSource(req.body.source);
 
-      res.redirect(
-        route +
-          `?model=${encodeURIComponent(model ? model : "default")}&url=${encodeURIComponent(
-            url
-          )}&k=${encodeURIComponent(k ? k : "default")}`
-      );
+      switch (source) {
+        case "text":
+          if (!text) {
+            res.send("No Text received.");
+            return;
+          }
+
+          res.redirect(
+            route +
+              `?model=${encodeURIComponent(model ? model : "default")}&text=${encodeURIComponent(
+                text
+              )}&k=${encodeURIComponent(k ? k : "default")}&source=${source}`
+          );
+          return;
+        case "url":
+          if (!url) {
+            res.send("No URL received");
+            return;
+          }
+
+          res.redirect(
+            route +
+              `?model=${encodeURIComponent(model ? model : "default")}&url=${encodeURIComponent(
+                url
+              )}&k=${encodeURIComponent(k ? k : "default")}&source=${source}`
+          );
+          return;
+        default:
+          return assertUnreachable(source);
+      }
     });
 };

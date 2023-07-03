@@ -57,14 +57,14 @@ export const htmlTemplate = (children?: string): string => {
         form.url-form {
           display: grid;
           grid-template-columns: repeat(7, 1fr);
-          width: max(48vw, 600px);
+          width: max(46vw, 600px);
           grid-template-areas: 
-            "source-label   source-label   source-input     source-input    source-input      source-input    source-change"
-            "model-label    model-label    model-input      model-input     model-input       model-input     ."
-            ".              .              model-footnote   model-footnote  model-footnote    model-footnote  ."
-            "k-label        k-label        k-input          k-input         k-input           k-input         ."
-            ".              .              k-footnote       k-footnote      k-footnote        k-footnote      ."
-            ".              submit-button  submit-button    submit-button   submit-button     .               ."
+            "source-label   source-input     source-input     source-input    source-input      source-input    source-change"
+            "model-label    model-input      model-input      .               .                 .               ."
+            ".              model-footnote   model-footnote   model-footnote  model-footnote    model-footnote  ."
+            "k-label        k-input          .                .               .                 .               ."
+            ".              k-footnote       k-footnote       k-footnote      k-footnote        k-footnote      ."
+            ".              submit-button    submit-button    submit-button   submit-button     .               ."
             ;
           gap: 16px;
         }

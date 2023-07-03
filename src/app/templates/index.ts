@@ -57,7 +57,7 @@ export const htmlTemplate = (children?: string): string => {
         form.url-form {
           display: grid;
           grid-template-columns: repeat(7, 1fr);
-          width: max(68vw, 600px);
+          width: max(48vw, 600px);
           grid-template-areas: 
             "source-label   source-label   source-input     source-input    source-input      source-input    source-change"
             "model-label    model-label    model-input      model-input     model-input       model-input     ."

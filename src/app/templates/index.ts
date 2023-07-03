@@ -1,3 +1,4 @@
+import { assertUnreachable } from "../../utils/assertUnreachable";
 import { escapeHtml } from "../../utils/escapeHtml";
 import { makeQueryParams } from "../../utils/makeQueyParams";
 
@@ -58,7 +59,7 @@ export const htmlTemplate = (children?: string): string => {
           grid-template-columns: repeat(6, 1fr);
           width: max(54vw, 600px);
           grid-template-areas: 
-            "url-label      url-label      url-input        url-input       url-input         url-input"
+            "source-label   source-label   source-input     source-input    source-input      source-input"
             "model-label    model-label    model-input      model-input     model-input       model-input"
             ".              .              model-footnote   model-footnote  model-footnote    model-footnote"
             "k-label        k-label        k-input          k-input         k-input           k-input"
@@ -69,8 +70,8 @@ export const htmlTemplate = (children?: string): string => {
         }
 
         ${[
-          "url-label",
-          "url-input",
+          "source-label",
+          "source-input",
           "model-label",
           "model-input",
           "model-footnote",
@@ -80,8 +81,7 @@ export const htmlTemplate = (children?: string): string => {
           "submit-button",
         ]
           .map(
-            (gridArea) =>
-              /* html */ `.${gridArea} {
+            (gridArea) => /* html */ `.${gridArea} {
               grid-area: ${gridArea};
             }`
           )
@@ -91,7 +91,7 @@ export const htmlTemplate = (children?: string): string => {
           font-size: .85em;
         }
 
-        .url-input, .model-input, .k-input, .submit-button {
+        .source-input, .model-input, .k-input, .submit-button {
           padding: 6px;
         }
 
@@ -166,13 +166,28 @@ export const formTemplate = (postUrl: string, children: string): string => {
   `;
 };
 
-export const urlAndModelFormTemplate = (aiModels: string[]): string => {
+export const sourceFormTemplate = (source: "url" | "text" = "url") => {
+  switch (source) {
+    case "url":
+      return /*html*/ `
+        <label class="source-label" for="url-source">URL</label>
+        <input class="source-input" type="url" name="url" id="url-source"
+              placeholder="https://example.com"
+              pattern="https?://.*" 
+              required>
+      `;
+    case "text":
+      return /*html*/ `
+        <label class="source-label" for="text-source">Text</label>
+        <textarea class="source-input" name="text" id="text-source" required></textarea>
+      `;
+    default:
+      return assertUnreachable(source);
+  }
+};
+
+export const modelFormTemplate = (aiModels: string[]): string => {
   return /*html*/ `
-    <label class="url-label">URL</label>
-    <input class="url-input" type="url" name="url" id="url"
-          placeholder="https://example.com"
-          pattern="https?://.*" 
-          required>
     <label class="model-label" for="ai-models">OpenAI Model</label>
     <input class="model-input" list="ai-models" placeholder="Start typing..." name="model">
     <datalist id="ai-models">

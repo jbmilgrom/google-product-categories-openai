@@ -55,76 +55,45 @@ export const htmlTemplate = (children?: string): string => {
 
         form.url-form {
           display: grid;
-          grid-template-columns: repeat(12, 1fr);
+          grid-template-columns: repeat(6, 1fr);
           width: max(54vw, 600px);
           grid-template-areas: 
-            "radio1-input   radio1-label  radio2-input   radio2-label  tab             tab             tab             tab            tab             tab             tab             tab"
-            "model-label    model-label   model-label    model-label   model-input     model-input     model-input     model-input    model-input     model-input     model-input     model-input"
-            ".              .             .              .             model-footnote  model-footnote  model-footnote  model-footnote model-footnote  model-footnote  model-footnote  model-footnote"
-            "k-label        k-label       k-label        k-label       k-input         k-input         k-input         k-input        k-input         k-input         k-input         k-input"
-            ".              .             .              .             k-footnote      k-footnote      k-footnote      k-footnote     k-footnote      k-footnote      k-footnote      k-footnote"
-            ".              .             submit-button  submit-button submit-button   submit-button   submit-button   submit-button  submit-button   submit-button   .               .             "
+            "url-label      url-label      url-input        url-input       url-input         url-input"
+            "model-label    model-label    model-input      model-input     model-input       model-input"
+            ".              .              model-footnote   model-footnote  model-footnote    model-footnote"
+            "k-label        k-label        k-input          k-input         k-input           k-input"
+            ".              .              k-footnote       k-footnote      k-footnote        k-footnote"
+            ".              submit-button  submit-button    submit-button   submit-button     .             "
             ;
           gap: 16px;
         }
 
-        .tab {
-          grid-area: tab;
-        }
-
-        .model-label {
-          grid-area: model-label;
-        }
-
-        .model-input {
-          grid-area: model-input;
-        }
-
-        .model-footnote {
-          grid-area: model-footnote;
-        }
-
-        .k-label {
-          grid-area: k-label;
-        }
-        
-        .k-input {
-          grid-area: k-input;
-        }
-
-        .k-footnote {
-          grid-area: k-footnote;
-        }
-
-        .submit-button {
-          grid-area: submit-button;
-        }
+        ${[
+          "url-label",
+          "url-input",
+          "model-label",
+          "model-input",
+          "model-footnote",
+          "k-label",
+          "k-input",
+          "k-footnote",
+          "submit-button",
+        ]
+          .map(
+            (gridArea) =>
+              /* html */ `.${gridArea} {
+              grid-area: ${gridArea};
+            }`
+          )
+          .join("\n")}
 
         form .footnote {
           font-size: .85em;
         }
 
-        input[type="radio"] {
-          max-height: 1em;
-          margin-left: -2em;
+        .url-input, .model-input, .k-input, .submit-button {
+          padding: 6px;
         }
-
-        input[name="url"] {
-          height: 100%;
-        }
-
-        label.radio {
-          margin-left: -2em;
-        }
-
-        .model-input, input[type="url"], .k-input, .submit-button {
-          padding: 4px;
-        }
-
-        input[type="radio"] ~ .tab { display: none; } /* hide contents */
-        /* show contents only for selected tab */
-        #source-url:checked ~ .tab.tab-url,
-        #source-text:checked ~ .tab.tab-text { display: block; }
 
       </style>
     </head>
@@ -199,19 +168,11 @@ export const formTemplate = (postUrl: string, children: string): string => {
 
 export const urlAndModelFormTemplate = (aiModels: string[]): string => {
   return /*html*/ `
-    <input class="radio1-input" type="radio" name="source" id="source-url" value="url" checked />
-    <label class="radio1-label radio" for="source-url">URL</label>
-    <input class="radio2-input" type="radio" name="source" id="source-text" value="text" />
-    <label class="radio2-label radio" for="source-url">Text</label>
-    <div class="tab tab-url">
-      <input type="url" name="url" id="url"
-            placeholder="https://example.com"
-            pattern="https?://.*" 
-            required>
-    </div>
-    <div class="tab tab-text">
-      <textarea name="text" id="text" required></textarea>
-    </div>
+    <label class="url-label">URL</label>
+    <input class="url-input" type="url" name="url" id="url"
+          placeholder="https://example.com"
+          pattern="https?://.*" 
+          required>
     <label class="model-label" for="ai-models">OpenAI Model</label>
     <input class="model-input" list="ai-models" placeholder="Start typing..." name="model">
     <datalist id="ai-models">

@@ -117,6 +117,10 @@ export const htmlTemplate = (children?: string): string => {
           margin-left: -2em;
         }
 
+        .model-input, input[type="url"], .k-input, .submit-button {
+          padding: 4px;
+        }
+
         input[type="radio"] ~ .tab { display: none; } /* hide contents */
         /* show contents only for selected tab */
         #source-url:checked ~ .tab.tab-url,

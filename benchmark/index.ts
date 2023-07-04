@@ -1,13 +1,8 @@
 import fs from "fs";
 import { parse } from "csv-parse";
 
-import { dirname } from "path";
-import { fileURLToPath } from "url";
-
 const RESOURCE_DIR = "resources";
 const GOLDEN_SET_BENCHMARK = "google_category_label_set_ad_3_5.csv";
-
-// const __dirname = dirname(fileURLToPath(import.meta.url));
 
 const processFile = async () => {
   const records = [];

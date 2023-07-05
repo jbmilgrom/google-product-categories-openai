@@ -18,10 +18,10 @@ import {
 import { getMetaTags } from "../crawl";
 import { Vertices } from "../../utils/tree";
 import { getGoogleProductCategoriesTaxonomy } from "../../googleProducts";
-import { chatOpenaiGraphTraversal } from "../chatOpenaiGraphTraversal";
+import { chatOpenaiGraphTraversal } from "../../chatOpenaiGraphTraversal";
 import { encode } from "gpt-3-encoder";
 import { ROUTES } from "../routes";
-import { chatOpenaiEmbeddings } from "../chatOpenaiEmbeddings";
+import { chatOpenaiEmbeddings } from "../../chatOpenaiEmbeddings";
 import { assertUnreachable } from "../../utils/assertUnreachable";
 import { escapeHtml } from "../../utils/escapeHtml";
 
@@ -508,7 +508,7 @@ export const configureVectorSearchRoute = (
           const words = transcript.match(/\S+/g)?.length ?? 0;
           const tokens = encode(transcript);
 
-          if (result.type === "error:chat") {
+          if (result.type === "error:NoCategoryFound") {
             const { metadata } = result;
             sendHtml(
               noCategoryFound({
@@ -607,7 +607,7 @@ export const configureVectorSearchRoute = (
           const words = transcript.match(/\S+/g)?.length ?? 0;
           const tokens = encode(transcript);
 
-          if (result.type === "error:chat") {
+          if (result.type === "error:NoCategoryFound") {
             const { metadata } = result;
             sendHtml(
               noCategoryFound({

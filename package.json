@@ -40,7 +40,7 @@
     "start": "ts-node ./src/app/index.ts",
     "populate-pinecone": "ts-node ./src/scripts/langchain/populateOpenAiPineconeStore.ts",
     "prepare": "husky install",
-    "benchmark": "ts-node ./benchmark"
+    "benchmark": "ts-node ./src/benchmark"
   },
   "author": "",
   "license": "ISC"

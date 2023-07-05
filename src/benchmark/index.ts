@@ -5,6 +5,7 @@ import { getGoogleProductCategoriesTaxonomy } from "../googleProducts";
 import { Queue, Vertices } from "../utils/tree";
 import { assertUnreachable } from "../utils/assertUnreachable";
 import { ADA_002_EMBEDDING_MODEL } from "../openai";
+import { escapeCsvCell } from "../utils/escapeCsv";
 
 const RESOURCE_DIR = "resources";
 const GOLDEN_SET_BENCHMARK = "google_category_label_set_ad_3_5.csv";
@@ -120,6 +121,7 @@ type Schema = {
   chatModel: string;
   openaiResponse: { prompt: string; response: string }[];
   gpc: string | null;
+  previousGpc: string;
   k: number;
   topKWithScore: { category: string; score: number }[];
   humanGpc: string;
@@ -134,11 +136,14 @@ const HEADER = [
   "html",
   "embedding_model",
   "chat_model",
-  // "openai_response",
+  "openai_response",
+  "human_gpc",
+  "previous_gpc",
   "gpc",
   "k",
-  "top_k_withScore",
-  "human_gpc",
+  "top_k_scores",
+  "avg_of_top_k_scores",
+  "top_k",
   "gpc_quality",
   "html_quality",
   "previous_qpc_quality",
@@ -153,25 +158,33 @@ const toRow = ({
   embeddingModel,
   chatModel,
   openaiResponse,
+  humanGpc,
+  previousGpc,
   gpc,
   k,
   topKWithScore,
-  humanGpc,
   gpcQuality,
   htmlQuality,
   previousGpcQuality,
   change,
 }: Schema) =>
   [
-    url,
-    html,
+    escapeCsvCell(url),
+    escapeCsvCell(html),
     embeddingModel,
     chatModel,
-    // openaiResponse.map(({prompt, response}) => `"prompt: ${prompt} \n\nresponse: ${response}"`).join(""),
-    gpc === null ? "None" : gpc,
+    escapeCsvCell(
+      openaiResponse.map(({ prompt, response }) => `"prompt: ${prompt} \n\nresponse: ${response}"`).join("\n")
+    ),
+    escapeCsvCell(humanGpc),
+    escapeCsvCell(previousGpc),
+    escapeCsvCell(gpc === null ? "None" : gpc),
     k.toString(),
-    topKWithScore.map(({ category, score }) => `score: ${score}; category: ${category}`).join(".  "),
-    humanGpc,
+    escapeCsvCell(topKWithScore.map(({ category: _, score }) => score).join("\n")),
+    escapeCsvCell(
+      (topKWithScore.reduce((sum, { category: _, score }) => sum + score, 0) / topKWithScore.length).toString()
+    ),
+    escapeCsvCell(topKWithScore.map(({ category }) => category).join("\n")),
     gpcQuality,
     htmlQuality,
     previousGpcQuality,
@@ -196,6 +209,7 @@ const createRow = (
     embeddingModel: embedding.model,
     chatModel: embedding.chatModel,
     openaiResponse: embedding.transcript.toList(),
+    previousGpc: previous.gpc,
     k: embedding.k,
     topKWithScore: embedding.topKWithScore,
     humanGpc: previous.humanGpc,
@@ -259,7 +273,6 @@ const testId = new Date().getTime();
   for await (const result of parser) {
     const previous = parsePrevious(result);
 
-    console.log("previous row", previous);
     try {
       const { type, categories, metadata } = await chatOpenaiEmbeddings(nodes, previous.html, { k: 5 });
 

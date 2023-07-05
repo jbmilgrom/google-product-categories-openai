@@ -2,6 +2,7 @@ import { makeQueue, Queue, Vertices, find, Vertex } from "./utils/tree";
 import { openAiSelectProductCategory } from "./openai";
 import { googleProductCategoriesSimilaritySearch } from "./app/langchain/pinecone";
 import { toPath, toLine } from "./googleProducts";
+import { timeoutPromise } from "./utils/timeoutPromise";
 
 type Chat = { prompt: string; response: string };
 type SimilaritySearch = { k: number; top: Array<{ category: string; score: number }> };
@@ -54,13 +55,16 @@ export const chatOpenaiEmbeddings = async (
   const {
     productCategories,
     metadata: { prompt, response },
-  } = await openAiSelectProductCategory(
-    topCategories.map(({ category }) => category),
-    webPageMetaData,
-    {
-      model,
-      temperature,
-    }
+  } = await timeoutPromise(
+    openAiSelectProductCategory(
+      topCategories.map(({ category }) => category),
+      webPageMetaData,
+      {
+        model,
+        temperature,
+      }
+    ),
+    { errorMessage: "OpenAI chat timed out", milliseconds: 5000 /* 5 seconds */ }
   );
 
   transcript.enqueue({ prompt, response });

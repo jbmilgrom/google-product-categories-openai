@@ -141,7 +141,7 @@ const toRow = ({
   htmlQuality,
   previousGpcQuality,
   change,
-}: Schema) => {
+}: Schema): ReadonlyArray<string> => {
   const topKScores = topKWithScore.map(({ score }) => score);
   return [
     escapeCsvCell(url),
@@ -162,8 +162,8 @@ const toRow = ({
     escapeCsvCell(topKWithScore.map(({ category }) => category).join("\n")),
     previousGpcQuality,
     gpcQuality === null ? "None" : gpcQuality,
-    change,
-  ] as const;
+    change.toString(),
+  ];
 };
 
 const createRow = (
@@ -226,6 +226,14 @@ const createRow = (
   });
 };
 
+/**
+ * *******************
+ *
+ * Script Starts Here.
+ *
+ * *******************
+ */
+
 const testId = new Date().getTime();
 
 (async () => {
@@ -238,12 +246,16 @@ const testId = new Date().getTime();
     return;
   }
 
-  const parser = readCSV(`${__dirname}/${RESOURCE_DIR}/tester.csv`);
+  const parser = readCSV(`${__dirname}/${RESOURCE_DIR}/${GOLDEN_SET_BENCHMARK}`);
 
   const writer = fs.createWriteStream(`${__dirname}/${RESOURCE_DIR}/test_${testId}.csv`);
 
-  writer.write(HEADER.join(", "));
-  writer.write("\n");
+  const writeRow = (row: ReadonlyArray<string>): void => {
+    writer.write(row.join(", "));
+    writer.write("\n");
+  };
+
+  writeRow(HEADER);
 
   for await (const result of parser) {
     const previous = parsePrevious(result);
@@ -255,50 +267,50 @@ const testId = new Date().getTime();
       switch (type) {
         case "success": {
           console.log("Success. Writing Row.");
-          const row = createRow(
-            { url: previous.url, htmlMetadata: previous.html },
-            {
-              gpc: previous.gpc,
-              humanGpc: previous.gpcResult,
-              gpcQuality: previous.gpcQuality,
-              htmlQuality: previous.htmlContent,
-            },
-            {
-              gpc: categories,
-              model: ADA_002_EMBEDDING_MODEL,
-              chatModel: metadata.model,
-              k: metadata.similaritySearch.k,
-              topKWithScore: metadata.similaritySearch.top,
-              transcript: metadata.transcript,
-            }
-          );
 
-          writer.write(row.join(","));
-          writer.write("\n");
+          writeRow(
+            createRow(
+              { url: previous.url, htmlMetadata: previous.html },
+              {
+                gpc: previous.gpc,
+                humanGpc: previous.gpcResult,
+                gpcQuality: previous.gpcQuality,
+                htmlQuality: previous.htmlContent,
+              },
+              {
+                gpc: categories,
+                model: ADA_002_EMBEDDING_MODEL,
+                chatModel: metadata.model,
+                k: metadata.similaritySearch.k,
+                topKWithScore: metadata.similaritySearch.top,
+                transcript: metadata.transcript,
+              }
+            )
+          );
           continue;
         }
         case "error:NoCategoryFound": {
           console.log("No Category Found. Writing Row.");
-          const row = createRow(
-            { url: previous.url, htmlMetadata: previous.html },
-            {
-              gpc: previous.gpc,
-              humanGpc: previous.gpcResult,
-              gpcQuality: previous.gpcQuality,
-              htmlQuality: previous.htmlContent,
-            },
-            {
-              gpc: null,
-              model: ADA_002_EMBEDDING_MODEL,
-              chatModel: metadata.model,
-              k: metadata.similaritySearch.k,
-              topKWithScore: metadata.similaritySearch.top,
-              transcript: metadata.transcript,
-            }
-          );
 
-          writer.write(row.join(","));
-          writer.write("\n");
+          writeRow(
+            createRow(
+              { url: previous.url, htmlMetadata: previous.html },
+              {
+                gpc: previous.gpc,
+                humanGpc: previous.gpcResult,
+                gpcQuality: previous.gpcQuality,
+                htmlQuality: previous.htmlContent,
+              },
+              {
+                gpc: null,
+                model: ADA_002_EMBEDDING_MODEL,
+                chatModel: metadata.model,
+                k: metadata.similaritySearch.k,
+                topKWithScore: metadata.similaritySearch.top,
+                transcript: metadata.transcript,
+              }
+            )
+          );
           continue;
         }
         default:

@@ -6,6 +6,7 @@ import { Queue, Vertices } from "../utils/tree";
 import { assertUnreachable } from "../utils/assertUnreachable";
 import { ADA_002_EMBEDDING_MODEL } from "../openai";
 import { escapeCsvCell } from "../utils/escapeCsv";
+import { avg, range } from "../utils/numby";
 
 const RESOURCE_DIR = "resources";
 const GOLDEN_SET_BENCHMARK = "google_category_label_set_ad_3_5.csv";
@@ -18,37 +19,9 @@ const readCSV = (filePath: string): Parser => {
   );
 };
 
-const COLUMNS = [
-  "url",
-  "openai_response",
-  "gpc",
-  "sim",
-  "gcc",
-  "sim",
-  "html",
-  "version",
-  "gpc_result",
-  "gcc_result",
-  "gpc_quality",
-  "gcc_quality",
-  "html content",
-  "Comment",
-] as const;
-const KEEP = ["url", "html", "gpc_result", "gpc_quality", "html content"] as const;
-const KEEP_COLUMNS = KEEP.reduce((res, name) => {
-  const index = COLUMNS.findIndex((n) => n === name);
-  if (index < 0) {
-    throw new Error("KEEP list should reference names in COLUMNS");
-  }
-  return { ...res, name: index };
-}, {} as { [key in (typeof KEEP)[number]]: number });
-
-console.log("Keeping:", KEEP_COLUMNS);
-
 type Accuracy = "accurate" | "inaccurate";
 type Precision = "correct" | "relevant" | "irrelevant";
 type HumanAuditNeeded = "Needs a Human Audit";
-type NoCategoryFound = "NoCategoryFound";
 
 type PreviousModelSchema = {
   url: string;
@@ -83,20 +56,20 @@ const parsePrevious = ([
   htmlContent,
   comment,
 ]: [
-  PreviousModelSchema["url"],
-  PreviousModelSchema["openaiResponse"],
-  PreviousModelSchema["gpc"],
-  PreviousModelSchema["gpcSim"],
-  PreviousModelSchema["gcc"],
-  PreviousModelSchema["gccSim"],
-  PreviousModelSchema["html"],
-  PreviousModelSchema["version"],
-  PreviousModelSchema["gpcResult"],
-  PreviousModelSchema["gccResult"],
-  PreviousModelSchema["gpcQuality"],
-  PreviousModelSchema["gccQuality"],
-  PreviousModelSchema["htmlContent"],
-  PreviousModelSchema["comment"]
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string,
+  string
 ]): PreviousModelSchema => ({
   url,
   openaiResponse,
@@ -108,9 +81,9 @@ const parsePrevious = ([
   version,
   gpcResult,
   gccResult,
-  gpcQuality,
-  gccQuality,
-  htmlContent,
+  gpcQuality: gpcQuality.trim() as Precision,
+  gccQuality: gccQuality.trim() as Precision,
+  htmlContent: htmlContent.trim() as Accuracy,
   comment,
 });
 
@@ -125,7 +98,7 @@ type Schema = {
   k: number;
   topKWithScore: { category: string; score: number }[];
   humanGpc: string;
-  gpcQuality: Precision | NoCategoryFound | HumanAuditNeeded;
+  gpcQuality: Precision | HumanAuditNeeded | null;
   htmlQuality: Accuracy;
   previousGpcQuality: Precision;
   change: 1 | 0 | -1 | HumanAuditNeeded;
@@ -134,6 +107,7 @@ type Schema = {
 const HEADER = [
   "url",
   "html",
+  "html_quality",
   "embedding_model",
   "chat_model",
   "openai_response",
@@ -143,10 +117,10 @@ const HEADER = [
   "k",
   "top_k_scores",
   "avg_of_top_k_scores",
+  "range_of_top_k_scores",
   "top_k",
-  "gpc_quality",
-  "html_quality",
   "previous_qpc_quality",
+  "gpc_quality",
   "change",
 ] as const;
 
@@ -167,10 +141,12 @@ const toRow = ({
   htmlQuality,
   previousGpcQuality,
   change,
-}: Schema) =>
-  [
+}: Schema) => {
+  const topKScores = topKWithScore.map(({ score }) => score);
+  return [
     escapeCsvCell(url),
     escapeCsvCell(html),
+    htmlQuality,
     embeddingModel,
     chatModel,
     escapeCsvCell(
@@ -180,16 +156,15 @@ const toRow = ({
     escapeCsvCell(previousGpc),
     escapeCsvCell(gpc === null ? "None" : gpc),
     k.toString(),
-    escapeCsvCell(topKWithScore.map(({ category: _, score }) => score).join("\n")),
-    escapeCsvCell(
-      (topKWithScore.reduce((sum, { category: _, score }) => sum + score, 0) / topKWithScore.length).toString()
-    ),
+    escapeCsvCell(topKScores.join("\n")),
+    escapeCsvCell(avg(topKScores).toString()),
+    escapeCsvCell(range(topKScores).toString()),
     escapeCsvCell(topKWithScore.map(({ category }) => category).join("\n")),
-    gpcQuality,
-    htmlQuality,
     previousGpcQuality,
+    gpcQuality === null ? "None" : gpcQuality,
     change,
   ] as const;
+};
 
 const createRow = (
   { htmlMetadata, url }: { htmlMetadata: string; url: string },
@@ -221,8 +196,8 @@ const createRow = (
     return toRow({
       ...base,
       gpc: null,
-      gpcQuality: "NoCategoryFound",
-      change: -1,
+      gpcQuality: null,
+      change: previous.gpcQuality === "irrelevant" ? 1 : -1,
     });
   }
 
@@ -274,10 +249,12 @@ const testId = new Date().getTime();
     const previous = parsePrevious(result);
 
     try {
+      console.log(`Benchmarking ${previous.url}`);
       const { type, categories, metadata } = await chatOpenaiEmbeddings(nodes, previous.html, { k: 5 });
 
       switch (type) {
         case "success": {
+          console.log("Success. Writing Row.");
           const row = createRow(
             { url: previous.url, htmlMetadata: previous.html },
             {
@@ -301,6 +278,7 @@ const testId = new Date().getTime();
           continue;
         }
         case "error:NoCategoryFound": {
+          console.log("No Category Found. Writing Row.");
           const row = createRow(
             { url: previous.url, htmlMetadata: previous.html },
             {

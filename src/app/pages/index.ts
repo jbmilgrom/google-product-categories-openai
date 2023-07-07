@@ -2,110 +2,81 @@ import { Express } from "express";
 import { isValidHttpUrl } from "../../utils/isValidHttpUrl";
 import { CHAT_AND_COMPlETION_MODELS, inList, listSupportedModels } from "../../openai";
 import {
-  cookieTrailTemplate,
   errorTemplate,
-  formTemplate,
   homeTemplate,
   htmlTemplate,
-  kFormTemplate,
-  openAiTemplate,
   resultsHeaderTemplate,
   scrapedMetaTagsTemplate,
-  modelFormTemplate,
-  sourceFormTemplate,
   resultsHeaderTemplateText,
+  graphTraversalForm,
+  noCategoryFound,
+  errorPurgingPath,
+  categoryResult,
+  vectorSearchForm,
 } from "../templates";
 import { getMetaTags } from "../crawl";
 import { Vertices } from "../../utils/tree";
 import { getGoogleProductCategoriesTaxonomy } from "../../googleProducts";
 import { chatOpenaiGraphTraversal } from "../../chatOpenaiGraphTraversal";
 import { encode } from "gpt-3-encoder";
-import { ROUTES } from "../routes";
 import { chatOpenaiEmbeddings } from "../../chatOpenaiEmbeddings";
 import { assertUnreachable } from "../../utils/assertUnreachable";
 import { escapeHtml } from "../../utils/escapeHtml";
 
-const noCategoryFound = ({
-  model,
-  temperature,
-  tokens,
-  words,
-  transcript,
-}: {
-  model: string;
-  temperature: number;
-  tokens: number;
-  words: number;
-  transcript: { prompt: string; response: string }[];
-}) => /* html */ `
-  <h1>No Product Category Found</h1>
-  <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
-  ${openAiTemplate({
-    model,
-    temperature,
-    tokens,
-    words,
-    transcript,
-  })}
-`;
+type Source = "url" | "text";
 
-const categoryResult = ({
-  model,
-  temperature,
-  tokens,
-  words,
-  transcript,
-  queryParamDelimiter,
-  categories,
+const renderGraphTraversalFormOrError = async ({
+  route,
+  source,
 }: {
-  model: string;
-  temperature: number;
-  tokens: number;
-  words: number;
-  transcript: { prompt: string; response: string }[];
-  categories: string[];
-  queryParamDelimiter: string;
-}) => /* html */ `
-  <h1>Result (Google Product Category)</h1>
-  <div>
-    ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories, { delimiter: queryParamDelimiter })}
-  </div>
-  ${openAiTemplate({
-    model,
-    temperature,
-    tokens,
-    words,
-    transcript,
-  })}
-`;
+  route: string;
+  source: Source;
+}): Promise<string> => {
+  let models: string[];
+  try {
+    models = await listSupportedModels();
+  } catch (e) {
+    console.log(e);
+    return errorTemplate("Failed to fetch OpenAI models. Try again.");
+  }
 
-const errorPurgingPath = ({
-  model,
-  temperature,
-  tokens,
-  words,
-  transcript,
-  categories,
-}: {
-  model: string;
-  temperature: number;
-  tokens: number;
-  words: number;
-  transcript: { prompt: string; response: string }[];
-  categories: string[];
-}): string => /*html*/ `
-  <h1>Error Purging Product Categories</h1>
-  <div>Purged path: "${categories.join(" > ")}"</div>
-  ${openAiTemplate({
-    model,
-    temperature,
-    tokens,
-    words,
-    transcript,
-  })}
-`;
+  return graphTraversalForm({ models, route, source });
+};
 
-const parseSource = (source?: string): "url" | "text" => {
+const renderVectorSearchFormOrError = async ({ route, source }: { route: string; source: Source }): Promise<string> => {
+  let models: string[];
+  try {
+    models = await listSupportedModels();
+  } catch (e) {
+    console.log(e);
+    return errorTemplate("Failed to fetch OpenAI models. Try again.");
+  }
+
+  return vectorSearchForm({ source, models, route });
+};
+
+const getProductCategoriesOrRenderError = async <T extends object>(
+  getResult: (nodes: Vertices<string>) => Promise<T>
+): Promise<T | string> => {
+  let nodes: Vertices<string>;
+  try {
+    console.log("parsing google product categories into tree...");
+    nodes = await getGoogleProductCategoriesTaxonomy();
+  } catch (e) {
+    console.log("error", e);
+    return errorTemplate("Error fetching Google Product Categories. Try again.");
+  }
+
+  try {
+    console.log("chating openai...");
+    return await getResult(nodes);
+  } catch (e) {
+    console.log("error", e);
+    return errorTemplate("OpenAI Error. Try again.");
+  }
+};
+
+const parseSource = (source?: string): Source => {
   const defaultSource = "url";
   if (!source) {
     return defaultSource;
@@ -118,6 +89,18 @@ const parseSource = (source?: string): "url" | "text" => {
     default:
       return defaultSource;
   }
+};
+
+const analyzeTranscript = (
+  transcipt: Array<{ prompt: string; response: string }>
+): { transcript: string; words: number; tokens: number[] } => {
+  const formatted = transcipt.map(({ prompt, response }) => `${prompt} ${response}`).join(" ");
+
+  return {
+    transcript: formatted,
+    words: formatted.match(/\S+/g)?.length ?? 0,
+    tokens: encode(formatted),
+  } as const;
 };
 
 export const configureGraphTraversalRoute = (
@@ -150,24 +133,8 @@ export const configureGraphTraversalRoute = (
            *  (ii) url entered in /url is invalid --> show the form
            */
           if (!isValidHttpUrl(url)) {
-            let models: string[];
-            try {
-              models = await listSupportedModels();
-            } catch (e) {
-              console.log(e);
-              sendHtml(errorTemplate("Failed to fetch OpenAI models. Try again."));
-              return;
-            }
-
-            sendHtml(
-              htmlTemplate(
-                homeTemplate(
-                  /* html */
-                  `<h1>Find the Google Product Categories</h1>
-          ${formTemplate(route, sourceFormTemplate(parseSource(source), route) + modelFormTemplate(models))}`
-                )
-              )
-            );
+            const formOrError = await renderGraphTraversalFormOrError({ route, source: "url" });
+            sendHtml(formOrError);
             return;
           }
 
@@ -196,39 +163,23 @@ export const configureGraphTraversalRoute = (
 
           writeHtml(scrapedMetaTagsTemplate(metaTags));
 
-          let nodes: Vertices<string>;
-          try {
-            console.log("parsing google product categories into tree...");
-            nodes = await getGoogleProductCategoriesTaxonomy();
-          } catch (e) {
-            console.log("error", e);
-            sendHtml(errorTemplate("Error fetching Google Product Categories. Try again."));
-            return;
-          }
-
-          let result: Awaited<ReturnType<typeof chatOpenaiGraphTraversal>>;
-          try {
-            console.log("chating openai...");
-            result = await chatOpenaiGraphTraversal(nodes, metaTags, {
+          const result = await getProductCategoriesOrRenderError((nodes) =>
+            chatOpenaiGraphTraversal(nodes, metaTags, {
               retries: 1,
               model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
-            });
-          } catch (e) {
-            console.log("error", e);
-            sendHtml(errorTemplate("OpenAI Error. Try again."));
+            })
+          );
+
+          if (typeof result === "string") {
+            sendHtml(result);
             return;
           }
 
-          const transcript = result.metadata.transcript
-            .toList()
-            .map(({ prompt, response }) => `${prompt} ${response}`)
-            .join(" ");
+          const { metadata } = result;
 
-          const words = transcript.match(/\S+/g)?.length ?? 0;
-          const tokens = encode(transcript);
+          const { words, tokens } = analyzeTranscript(metadata.transcript.toList());
 
           if (result.type === "error:chat") {
-            const { metadata } = result;
             sendHtml(
               noCategoryFound({
                 model: metadata.model,
@@ -242,7 +193,7 @@ export const configureGraphTraversalRoute = (
           }
 
           if (result.type === "error:purge") {
-            const { categories, metadata } = result;
+            const { categories } = result;
             sendHtml(
               errorPurgingPath({
                 model: metadata.model,
@@ -256,7 +207,7 @@ export const configureGraphTraversalRoute = (
             return;
           }
 
-          const { categories, metadata } = result;
+          const { categories } = result;
           sendHtml(
             categoryResult({
               model: metadata.model,
@@ -277,24 +228,8 @@ export const configureGraphTraversalRoute = (
            *  (ii) url entered in /url is invalid --> show the form
            */
           if (!text) {
-            let models: string[];
-            try {
-              models = await listSupportedModels();
-            } catch (e) {
-              console.log(e);
-              sendHtml(errorTemplate("Failed to fetch OpenAI models. Try again."));
-              return;
-            }
-
-            sendHtml(
-              htmlTemplate(
-                homeTemplate(
-                  /* html */
-                  `<h1>Find the Google Product Categories</h1>
-          ${formTemplate(route, sourceFormTemplate(parseSource(source), route) + modelFormTemplate(models))}`
-                )
-              )
-            );
+            const formOrError = await renderGraphTraversalFormOrError({ route, source: "text" });
+            sendHtml(formOrError);
             return;
           }
 
@@ -302,39 +237,23 @@ export const configureGraphTraversalRoute = (
 
           writeHtml(htmlTemplate(homeTemplate(resultsHeaderTemplateText(escapeHtml(text)))));
 
-          let nodes: Vertices<string>;
-          try {
-            console.log("parsing google product categories into tree...");
-            nodes = await getGoogleProductCategoriesTaxonomy();
-          } catch (e) {
-            console.log("error", e);
-            sendHtml(errorTemplate("Error fetching Google Product Categories. Try again."));
-            return;
-          }
-
-          let result: Awaited<ReturnType<typeof chatOpenaiGraphTraversal>>;
-          try {
-            console.log("chating openai...");
-            result = await chatOpenaiGraphTraversal(nodes, text, {
+          const result = await getProductCategoriesOrRenderError((nodes) =>
+            chatOpenaiGraphTraversal(nodes, text, {
               retries: 1,
               model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
-            });
-          } catch (e) {
-            console.log("error", e);
-            sendHtml(errorTemplate("OpenAI Error. Try again."));
+            })
+          );
+
+          if (typeof result === "string") {
+            sendHtml(result);
             return;
           }
 
-          const transcript = result.metadata.transcript
-            .toList()
-            .map(({ prompt, response }) => `${prompt} ${response}`)
-            .join(" ");
+          const { metadata } = result;
 
-          const words = transcript.match(/\S+/g)?.length ?? 0;
-          const tokens = encode(transcript);
+          const { words, tokens } = analyzeTranscript(metadata.transcript.toList());
 
           if (result.type === "error:chat") {
-            const { metadata } = result;
             sendHtml(
               noCategoryFound({
                 model: metadata.model,
@@ -362,7 +281,7 @@ export const configureGraphTraversalRoute = (
             return;
           }
 
-          const { categories, metadata } = result;
+          const { categories } = result;
           sendHtml(
             categoryResult({
               model: metadata.model,
@@ -448,29 +367,8 @@ export const configureVectorSearchRoute = (
            *  (ii) url entered in /url is invalid --> show the form
            */
           if (!isValidHttpUrl(url)) {
-            let models: string[];
-            try {
-              models = await listSupportedModels();
-            } catch (e) {
-              console.log(e);
-              sendHtml(errorTemplate("Failed to fetch OpenAI models. Try again."));
-              return;
-            }
-
-            sendHtml(
-              htmlTemplate(
-                homeTemplate(/* html */ `
-                <header>
-                  <h1>Find the Google Product Categories</h1>
-                  <p>The Google Product Categories Taxonomy <a href="https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/scripts/langchain/populateOpenAiPineconeStore.ts">has been embedded</a> in a vector space using OpenAI's <a href="https://openai.com/blog/new-and-improved-embedding-model">embedding API</a> and stored in a <a href="https://www.pinecone.io/">Pinecone</a> index.</p>
-                </header>
-                ${formTemplate(
-                  route,
-                  sourceFormTemplate(source, route) + modelFormTemplate(models) + kFormTemplate(10)
-                )}
-              `)
-              )
-            );
+            const formOrError = await renderVectorSearchFormOrError({ route, source: "url" });
+            sendHtml(formOrError);
             return;
           }
 
@@ -501,39 +399,23 @@ export const configureVectorSearchRoute = (
 
           writeHtml(scrapedMetaTagsTemplate(metaTags));
 
-          let nodes: Vertices<string>;
-          try {
-            console.log("parsing google product categories into tree...");
-            nodes = await getGoogleProductCategoriesTaxonomy();
-          } catch (e) {
-            console.log("error", e);
-            sendHtml(errorTemplate("Error fetching Google Product Categories. Try again."));
-            return;
-          }
-
-          let result: Awaited<ReturnType<typeof chatOpenaiEmbeddings>>;
-          try {
-            console.log("chating openai...");
-            result = await chatOpenaiEmbeddings(nodes, metaTags, {
+          const result = await getProductCategoriesOrRenderError((nodes) =>
+            chatOpenaiEmbeddings(nodes, metaTags, {
               k: Number.isInteger(kNumber) ? kNumber : undefined,
               model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
-            });
-          } catch (e) {
-            console.log("error", e);
-            sendHtml(errorTemplate("OpenAI Error. Try again."));
+            })
+          );
+
+          if (typeof result === "string") {
+            sendHtml(result);
             return;
           }
 
-          const transcript = result.metadata.transcript
-            .toList()
-            .map(({ prompt, response }) => `${prompt} ${response}`)
-            .join(" ");
+          const { metadata } = result;
 
-          const words = transcript.match(/\S+/g)?.length ?? 0;
-          const tokens = encode(transcript);
+          const { words, tokens } = analyzeTranscript(metadata.transcript.toList());
 
           if (result.type === "error:NoCategoryFound") {
-            const { metadata } = result;
             sendHtml(
               noCategoryFound({
                 model: metadata.model,
@@ -546,7 +428,7 @@ export const configureVectorSearchRoute = (
             return;
           }
 
-          const { categories, metadata } = result;
+          const { categories } = result;
           sendHtml(
             categoryResult({
               model: metadata.model,
@@ -568,30 +450,8 @@ export const configureVectorSearchRoute = (
            *  (ii) text entered in /url is invalid --> show the form
            */
           if (!text) {
-            let models: string[];
-            try {
-              models = await listSupportedModels();
-            } catch (e) {
-              console.log(e);
-              sendHtml(errorTemplate("Failed to fetch OpenAI models. Try again."));
-              return;
-            }
-
-            sendHtml(
-              htmlTemplate(
-                homeTemplate(/* html */ `
-                <header>
-                  <h1>Find the Google Product Categories</h1>
-                  <p>The Google Product Categories Taxonomy <a href="https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/scripts/langchain/populateOpenAiPineconeStore.ts">has been embedded</a> in a vector space using OpenAI's <a href="https://openai.com/blog/new-and-improved-embedding-model">embedding API</a> and stored in a <a href="https://www.pinecone.io/">Pinecone</a> index.</p>
-                </header>
-                ${formTemplate(
-                  route,
-                  sourceFormTemplate(source, route) + modelFormTemplate(models) + kFormTemplate(10)
-                )}
-              `)
-              )
-            );
-            return;
+            const formOrError = await renderVectorSearchFormOrError({ route, source: "text" });
+            sendHtml(formOrError);
           }
 
           const kNumber = parseInt(k);
@@ -600,39 +460,23 @@ export const configureVectorSearchRoute = (
 
           writeHtml(htmlTemplate(homeTemplate(resultsHeaderTemplateText(escapeHtml(text)))));
 
-          let nodes: Vertices<string>;
-          try {
-            console.log("parsing google product categories into tree...");
-            nodes = await getGoogleProductCategoriesTaxonomy();
-          } catch (e) {
-            console.log("error", e);
-            sendHtml(errorTemplate("Error fetching Google Product Categories. Try again."));
-            return;
-          }
-
-          let result: Awaited<ReturnType<typeof chatOpenaiEmbeddings>>;
-          try {
-            console.log("chating openai...");
-            result = await chatOpenaiEmbeddings(nodes, text, {
+          const result = await getProductCategoriesOrRenderError((nodes) =>
+            chatOpenaiEmbeddings(nodes, text, {
               k: Number.isInteger(kNumber) ? kNumber : undefined,
               model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
-            });
-          } catch (e) {
-            console.log("error", e);
-            sendHtml(errorTemplate("OpenAI Error. Try again."));
+            })
+          );
+
+          if (typeof result === "string") {
+            sendHtml(result);
             return;
           }
 
-          const transcript = result.metadata.transcript
-            .toList()
-            .map(({ prompt, response }) => `${prompt} ${response}`)
-            .join(" ");
+          const { metadata } = result;
 
-          const words = transcript.match(/\S+/g)?.length ?? 0;
-          const tokens = encode(transcript);
+          const { words, tokens } = analyzeTranscript(metadata.transcript.toList());
 
           if (result.type === "error:NoCategoryFound") {
-            const { metadata } = result;
             sendHtml(
               noCategoryFound({
                 model: metadata.model,
@@ -645,7 +489,7 @@ export const configureVectorSearchRoute = (
             return;
           }
 
-          const { categories, metadata } = result;
+          const { categories } = result;
           sendHtml(
             categoryResult({
               model: metadata.model,

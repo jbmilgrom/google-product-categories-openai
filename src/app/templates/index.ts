@@ -1,6 +1,7 @@
 import { assertUnreachable } from "../../utils/assertUnreachable";
 import { escapeHtml } from "../../utils/escapeHtml";
 import { makeQueryParams } from "../../utils/makeQueyParams";
+import { ROUTES } from "../routes";
 
 type Chat = { prompt: string; response: string };
 
@@ -279,3 +280,118 @@ export const openAiTemplate = ({
       `
   }
 `;
+
+export const noCategoryFound = ({
+  model,
+  temperature,
+  tokens,
+  words,
+  transcript,
+}: {
+  model: string;
+  temperature: number;
+  tokens: number;
+  words: number;
+  transcript: { prompt: string; response: string }[];
+}) => /* html */ `
+  <h1>No Product Category Found</h1>
+  <p>Did the URL not include a reference to a product? If so, this is the answer we want! If not, was the scraped metadata off? Please slack @jmilgrom with what you found. Thank you!</p>
+  ${openAiTemplate({
+    model,
+    temperature,
+    tokens,
+    words,
+    transcript,
+  })}
+`;
+
+export const categoryResult = ({
+  model,
+  temperature,
+  tokens,
+  words,
+  transcript,
+  queryParamDelimiter,
+  categories,
+}: {
+  model: string;
+  temperature: number;
+  tokens: number;
+  words: number;
+  transcript: { prompt: string; response: string }[];
+  categories: string[];
+  queryParamDelimiter: string;
+}) => /* html */ `
+  <h1>Result (Google Product Category)</h1>
+  <div>
+    ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories, { delimiter: queryParamDelimiter })}
+  </div>
+  ${openAiTemplate({
+    model,
+    temperature,
+    tokens,
+    words,
+    transcript,
+  })}
+`;
+
+export const errorPurgingPath = ({
+  model,
+  temperature,
+  tokens,
+  words,
+  transcript,
+  categories,
+}: {
+  model: string;
+  temperature: number;
+  tokens: number;
+  words: number;
+  transcript: { prompt: string; response: string }[];
+  categories: string[];
+}): string => /*html*/ `
+  <h1>Error Purging Product Categories</h1>
+  <div>Purged path: "${categories.join(" > ")}"</div>
+  ${openAiTemplate({
+    model,
+    temperature,
+    tokens,
+    words,
+    transcript,
+  })}
+`;
+
+export const graphTraversalForm = ({
+  route,
+  models,
+  source,
+}: {
+  route: string;
+  models: string[];
+  source: "url" | "text";
+}): string =>
+  htmlTemplate(
+    homeTemplate(/* html */ `
+    <h1>Find the Google Product Categories</h1>
+    ${formTemplate(route, sourceFormTemplate(source, route) + modelFormTemplate(models))}
+  `)
+  );
+
+export const vectorSearchForm = ({
+  route,
+  models,
+  source,
+}: {
+  route: string;
+  models: string[];
+  source: "url" | "text";
+}): string =>
+  htmlTemplate(
+    homeTemplate(/* html */ `
+  <header>
+    <h1>Find the Google Product Categories</h1>
+    <p>The Google Product Categories Taxonomy <a href="https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/scripts/langchain/populateOpenAiPineconeStore.ts">has been embedded</a> in a vector space using OpenAI's <a href="https://openai.com/blog/new-and-improved-embedding-model">embedding API</a> and stored in a <a href="https://www.pinecone.io/">Pinecone</a> index.</p>
+  </header>
+  ${formTemplate(route, sourceFormTemplate(source, route) + modelFormTemplate(models) + kFormTemplate(10))}
+`)
+  );

@@ -112,10 +112,10 @@ export const configureGraphTraversalRoute = (
     .get(async (req, res) => {
       res.set("Content-Type", "text/html");
 
-      const url = (req.query.url as string) ?? null;
-      const model = (req.query.model as string) ?? null;
-      const source = parseSource((req.query.source as string) ?? null);
-      const text = (req.query.text as string) ?? "";
+      const url = (req.query.url as string | null | null) ?? undefined;
+      const model = (req.query.model as string | null) ?? "";
+      const source = parseSource((req.query.source as string | null) ?? undefined);
+      const text = (req.query.text as string | null) ?? "";
 
       const writeHtml = (html: string): void => {
         res.write(Buffer.from(html));
@@ -132,7 +132,7 @@ export const configureGraphTraversalRoute = (
            *  (i) user's first time through /url and "url" is empty --> show the form
            *  (ii) url entered in /url is invalid --> show the form
            */
-          if (!isValidHttpUrl(url)) {
+          if (!(url && isValidHttpUrl(url))) {
             const formOrError = await renderGraphTraversalFormOrError({ route, source: "url" });
             sendHtml(formOrError);
             return;
@@ -345,11 +345,11 @@ export const configureVectorSearchRoute = (
     .get(async (req, res) => {
       res.set("Content-Type", "text/html");
 
-      const url = (req.query.url as string) ?? null;
-      const model = (req.query.model as string) ?? null;
-      const k = (req.query.k as string) ?? null;
-      const source = parseSource((req.query.source as string) ?? null);
-      const text = (req.query.text as string) ?? null;
+      const url = (req.query.url as string | null) ?? null;
+      const model = (req.query.model as string | null) ?? "";
+      const k = (req.query.k as string | null) ?? "";
+      const source = parseSource((req.query.source as string | null) ?? undefined);
+      const text = (req.query.text as string | null) ?? null;
 
       const writeHtml = (html: string): void => {
         res.write(Buffer.from(html));
@@ -366,7 +366,7 @@ export const configureVectorSearchRoute = (
            *  (i) user's first time through /url and "url" is empty --> show the form
            *  (ii) url entered in /url is invalid --> show the form
            */
-          if (!isValidHttpUrl(url)) {
+          if (!(url && isValidHttpUrl(url))) {
             const formOrError = await renderVectorSearchFormOrError({ route, source: "url" });
             sendHtml(formOrError);
             return;
@@ -452,6 +452,7 @@ export const configureVectorSearchRoute = (
           if (!text) {
             const formOrError = await renderVectorSearchFormOrError({ route, source: "text" });
             sendHtml(formOrError);
+            return;
           }
 
           const kNumber = parseInt(k);

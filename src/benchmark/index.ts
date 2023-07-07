@@ -264,28 +264,32 @@ const testId = new Date().getTime();
       console.log(`Benchmarking ${previous.url}`);
       const { type, categories, metadata } = await chatOpenaiEmbeddings(nodes, previous.html, { k: 5 });
 
+      const subjectMetadata = {
+        url: previous.url,
+        htmlMetadata: previous.html,
+      } as const;
+      const previousMetadata = {
+        gpc: previous.gpc,
+        humanGpc: previous.gpcResult,
+        gpcQuality: previous.gpcQuality,
+        htmlQuality: previous.htmlContent,
+      } as const;
+      const resultMetadata = {
+        model: ADA_002_EMBEDDING_MODEL,
+        chatModel: metadata.model,
+        k: metadata.similaritySearch.k,
+        topKWithScore: metadata.similaritySearch.top,
+        transcript: metadata.transcript,
+      } as const;
+
       switch (type) {
         case "success": {
           console.log("Success. Writing Row.");
-
           writeRow(
-            createRow(
-              { url: previous.url, htmlMetadata: previous.html },
-              {
-                gpc: previous.gpc,
-                humanGpc: previous.gpcResult,
-                gpcQuality: previous.gpcQuality,
-                htmlQuality: previous.htmlContent,
-              },
-              {
-                gpc: categories,
-                model: ADA_002_EMBEDDING_MODEL,
-                chatModel: metadata.model,
-                k: metadata.similaritySearch.k,
-                topKWithScore: metadata.similaritySearch.top,
-                transcript: metadata.transcript,
-              }
-            )
+            createRow(subjectMetadata, previousMetadata, {
+              ...resultMetadata,
+              gpc: categories,
+            })
           );
           continue;
         }
@@ -293,23 +297,10 @@ const testId = new Date().getTime();
           console.log("No Category Found. Writing Row.");
 
           writeRow(
-            createRow(
-              { url: previous.url, htmlMetadata: previous.html },
-              {
-                gpc: previous.gpc,
-                humanGpc: previous.gpcResult,
-                gpcQuality: previous.gpcQuality,
-                htmlQuality: previous.htmlContent,
-              },
-              {
-                gpc: null,
-                model: ADA_002_EMBEDDING_MODEL,
-                chatModel: metadata.model,
-                k: metadata.similaritySearch.k,
-                topKWithScore: metadata.similaritySearch.top,
-                transcript: metadata.transcript,
-              }
-            )
+            createRow(subjectMetadata, previousMetadata, {
+              ...resultMetadata,
+              gpc: null,
+            })
           );
           continue;
         }

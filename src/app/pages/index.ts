@@ -115,7 +115,7 @@ export const configureGraphTraversalRoute = (
       const url = (req.query.url as string | null) ?? undefined;
       const model = (req.query.model as string | null) ?? "";
       const source = parseSource((req.query.source as string | null) ?? undefined);
-      const text = (req.query.text as string | null) ?? "";
+      const text = (req.query.text as string | null) ?? null;
 
       const writeHtml = (html: string): void => {
         res.write(Buffer.from(html));

@@ -192,8 +192,9 @@ export const configureGraphTraversalRoute = (
             return;
           }
 
+          const { categories } = result;
+
           if (result.type === "error:purge") {
-            const { categories } = result;
             sendHtml(
               errorPurgingPath({
                 model: metadata.model,
@@ -207,7 +208,6 @@ export const configureGraphTraversalRoute = (
             return;
           }
 
-          const { categories } = result;
           sendHtml(
             categoryResult({
               model: metadata.model,
@@ -266,8 +266,9 @@ export const configureGraphTraversalRoute = (
             return;
           }
 
+          const { categories } = result;
+
           if (result.type === "error:purge") {
-            const { categories, metadata } = result;
             sendHtml(
               errorPurgingPath({
                 model: metadata.model,
@@ -281,7 +282,6 @@ export const configureGraphTraversalRoute = (
             return;
           }
 
-          const { categories } = result;
           sendHtml(
             categoryResult({
               model: metadata.model,

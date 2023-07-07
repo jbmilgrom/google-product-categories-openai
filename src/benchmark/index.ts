@@ -5,7 +5,7 @@ import { getGoogleProductCategoriesTaxonomy } from "../googleProducts";
 import { Vertices } from "../utils/tree";
 import { assertUnreachable } from "../utils/assertUnreachable";
 import { ADA_002_EMBEDDING_MODEL } from "../openai";
-import { HEADER, createRow, parsePrevious } from "./schema";
+import { HEADER, createRowFromPrevious, parsePrevious } from "./schema";
 
 const RESOURCE_DIR = "resources";
 const GOLDEN_SET_BENCHMARK = "google_category_label_set_ad_3_5.csv";
@@ -33,7 +33,6 @@ const testId = new Date().getTime();
   const parser = readCSV(`${__dirname}/${RESOURCE_DIR}/${GOLDEN_SET_BENCHMARK}`);
 
   const writer = fs.createWriteStream(`${__dirname}/${RESOURCE_DIR}/test_${testId}.csv`);
-
   const writeRow = (row: ReadonlyArray<string>): void => {
     writer.write(row.join(", "));
     writer.write("\n");
@@ -70,7 +69,7 @@ const testId = new Date().getTime();
         case "success": {
           console.log("Success. Writing Row.");
           writeRow(
-            createRow(subjectMetadata, previousMetadata, {
+            createRowFromPrevious(subjectMetadata, previousMetadata, {
               ...resultMetadata,
               gpc: categories,
             })
@@ -81,7 +80,7 @@ const testId = new Date().getTime();
           console.log("No Category Found. Writing Row.");
 
           writeRow(
-            createRow(subjectMetadata, previousMetadata, {
+            createRowFromPrevious(subjectMetadata, previousMetadata, {
               ...resultMetadata,
               gpc: null,
             })

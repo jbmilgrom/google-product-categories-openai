@@ -149,7 +149,7 @@ export const toRow = ({
   ];
 };
 
-export const createRow = (
+export const createRowFromPrevious = (
   { htmlMetadata, url }: { htmlMetadata: string; url: string },
   previous: { gpc: string; humanGpc: string; gpcQuality: Precision; htmlQuality: Accuracy },
   embedding: {

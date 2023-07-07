@@ -79,6 +79,32 @@ const categoryResult = ({
   })}
 `;
 
+const errorPurgingPath = ({
+  model,
+  temperature,
+  tokens,
+  words,
+  transcript,
+  categories,
+}: {
+  model: string;
+  temperature: number;
+  tokens: number;
+  words: number;
+  transcript: { prompt: string; response: string }[];
+  categories: string[];
+}): string => /*html*/ `
+  <h1>Error Purging Product Categories</h1>
+  <div>Purged path: "${categories.join(" > ")}"</div>
+  ${openAiTemplate({
+    model,
+    temperature,
+    tokens,
+    words,
+    transcript,
+  })}
+`;
+
 const parseSource = (source?: string): "url" | "text" => {
   const defaultSource = "url";
   if (!source) {
@@ -217,17 +243,16 @@ export const configureGraphTraversalRoute = (
 
           if (result.type === "error:purge") {
             const { categories, metadata } = result;
-            sendHtml(/*html*/ `
-          <h1>Error Purging Product Categories</h1>
-          <div>Purged path: "${categories.toList().join(" > ")}"</div>
-          ${openAiTemplate({
-            model: metadata.model,
-            temperature: metadata.temperature,
-            tokens: tokens.length,
-            words,
-            transcript: metadata.transcript.toList(),
-          })}
-        `);
+            sendHtml(
+              errorPurgingPath({
+                model: metadata.model,
+                temperature: metadata.temperature,
+                tokens: tokens.length,
+                words,
+                transcript: metadata.transcript.toList(),
+                categories: categories.toList(),
+              })
+            );
             return;
           }
 
@@ -324,17 +349,16 @@ export const configureGraphTraversalRoute = (
 
           if (result.type === "error:purge") {
             const { categories, metadata } = result;
-            sendHtml(/*html*/ `
-          <h1>Error Purging Product Categories</h1>
-          <div>Purged path: "${categories.toList().join(" > ")}"</div>
-          ${openAiTemplate({
-            model: metadata.model,
-            temperature: metadata.temperature,
-            tokens: tokens.length,
-            words,
-            transcript: metadata.transcript.toList(),
-          })}
-        `);
+            sendHtml(
+              errorPurgingPath({
+                model: metadata.model,
+                temperature: metadata.temperature,
+                tokens: tokens.length,
+                words,
+                transcript: metadata.transcript.toList(),
+                categories: categories.toList(),
+              })
+            );
             return;
           }
 

@@ -1,5 +1,4 @@
-export const isValidHttpUrl = (s?: string): boolean => {
-  if (!s) return false;
+export const isValidHttpUrl = (s: string): boolean => {
   try {
     const url = new URL(s);
     return url.protocol === "http:" || url.protocol === "https:";

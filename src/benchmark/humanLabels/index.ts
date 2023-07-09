@@ -20,6 +20,8 @@ type Labels = {
 
 const labels: Labels = JSON.parse(fs.readFileSync(`${__dirname}/${LABELS_FILE_NAME}`, "utf-8"));
 
+const numUrlsBefore = Object.keys(labels).length;
+
 const args = minimist(process.argv.slice(2));
 
 const source = args.source;
@@ -82,5 +84,11 @@ if ([urlIndex, gpcIndex, gpcQualityIndex].some((v) => v === -1)) {
   }
 
   console.log("Done");
+
+  const numUrlsAfter = Object.keys(labels).length;
+
+  console.log(`Number of keys before run: ${numUrlsBefore}`);
+  console.log(`Number of keys after run: ${numUrlsAfter}`);
+
   fs.writeFileSync(`${__dirname}/${LABELS_FILE_NAME}`, JSON.stringify(labels));
 })();

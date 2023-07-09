@@ -41,7 +41,8 @@
     "populate-pinecone": "ts-node ./src/scripts/langchain/populateOpenAiPineconeStore.ts",
     "prepare": "husky install",
     "benchmark": "ts-node ./src/benchmark",
-    "human-labels": "ts-node ./src/benchmark/humanLabels"
+    "human-labels": "ts-node ./src/benchmark/humanLabels",
+    "prettier-labels": "npx prettier ./src/benchmark/humanLabels/labels.json --write"
   },
   "author": "",
   "license": "ISC"

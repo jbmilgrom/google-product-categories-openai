@@ -36,12 +36,14 @@ const parser = readCSV(source);
 const urlIndex = HEADER.indexOf("url");
 const gpcIndex = HEADER.indexOf("gpc");
 const gpcQualityIndex = HEADER.indexOf("gpc_quality");
+const humanGpcIndex = HEADER.indexOf("human_gpc");
 
-const parseBenchmark = (row: Row): { url: string; gpc: string | null; gpcQuality: Precision | null } => {
-  const [url, gpc, gpcQuality] = [
+const parseBenchmark = (row: Row) => {
+  const [url, gpc, gpcQuality, humanGpc] = [
     parseString(row[urlIndex]),
     parseString(row[gpcIndex]),
     parsePrecision(row[gpcQualityIndex]),
+    parseString(row[humanGpcIndex]),
   ];
   if (url === null) {
     throw new Error("Url is undefined.");
@@ -50,6 +52,7 @@ const parseBenchmark = (row: Row): { url: string; gpc: string | null; gpcQuality
     url,
     gpc,
     gpcQuality,
+    humanGpc,
   } as const;
 };
 
@@ -65,11 +68,11 @@ if ([urlIndex, gpcIndex, gpcQualityIndex].some((v) => v === -1)) {
       continue; // skip header
     }
     console.log(`Parsing row ${i}`);
-    const { url, gpc, gpcQuality } = parseBenchmark(result);
+    const { url, gpc, gpcQuality, humanGpc } = parseBenchmark(result);
     i++;
 
-    if (gpc === null) {
-      console.log(`gpc is null for ${url}`);
+    if (humanGpc === null) {
+      console.log(`humanGpc is null for ${url}`);
       continue;
     }
     if (gpcQuality === null) {
@@ -78,9 +81,9 @@ if ([urlIndex, gpcIndex, gpcQualityIndex].some((v) => v === -1)) {
     }
 
     labels[url] = labels[url] ?? {};
-    const precision = new Set(labels[url][gpc] ?? []);
+    const precision = new Set(labels[url][humanGpc] ?? []);
     precision.add(gpcQuality);
-    labels[url][gpc] = Array.from(precision);
+    labels[url][humanGpc] = Array.from(precision);
   }
 
   console.log("Done");

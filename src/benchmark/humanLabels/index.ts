@@ -9,7 +9,7 @@ const LABELS_FILE_NAME = "labels.json";
 const readCSV = (filePath: string): Parser => {
   return fs.createReadStream(filePath).pipe(
     parse({
-      /* CSV options */
+      // relax_quotes: true
     })
   );
 };
@@ -25,6 +25,7 @@ const args = minimist(process.argv.slice(2));
 const source = args.source;
 
 if (typeof source !== "string" || !source.length) {
+  console.log(`source=${source}`);
   throw new Error("Set --source to indicate the source csv path");
 }
 

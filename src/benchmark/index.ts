@@ -6,9 +6,7 @@ import { Vertices } from "../utils/tree";
 import { assertUnreachable } from "../utils/assertUnreachable";
 import { ADA_002_EMBEDDING_MODEL } from "../openai";
 import { HEADER, createRowFromPrevious, parsePrevious } from "./schema";
-
-const RESOURCE_DIR = "resources";
-const GOLDEN_SET_BENCHMARK = "google_category_label_set_ad_3_5.csv";
+import { GOLDEN_SET_BENCHMARK, RESOURCE_DIR } from "./constants";
 
 const readCSV = (filePath: string): Parser => {
   return fs.createReadStream(filePath).pipe(

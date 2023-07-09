@@ -1,9 +1,9 @@
 import { escapeCsvCell } from "../utils/escapeCsv";
 import { avg, range } from "../utils/numby";
 import { Queue } from "../utils/tree";
+import { Precision } from "./constants";
 
 type Accuracy = "accurate" | "inaccurate";
-type Precision = "correct" | "relevant" | "irrelevant";
 type HumanAuditNeeded = "Needs a Human Audit";
 
 type PreviousModelSchema = {
@@ -21,6 +21,25 @@ type PreviousModelSchema = {
   gccQuality: Precision;
   htmlContent: Accuracy;
   comment: string;
+};
+
+export const parsePrecision = (x?: string): Precision | null => {
+  const formatted = x?.trim().toLowerCase();
+  switch (formatted) {
+    case "correct":
+    case "relevant":
+    case "irrelevant":
+      return formatted;
+    default:
+      return null;
+  }
+};
+
+export const parseString = (x?: string): string | null => {
+  if (x?.length) {
+    return x;
+  }
+  return null;
 };
 
 export const parsePrevious = ([
@@ -107,7 +126,7 @@ export const HEADER = [
   "change",
 ] as const;
 
-type Row = ReturnType<typeof toRow>;
+export type Row = ReturnType<typeof toRow>;
 
 export const toRow = ({
   url,

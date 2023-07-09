@@ -87,8 +87,6 @@ if ([urlIndex, gpcIndex, gpcQualityIndex].some((v) => v === -1)) {
     labels[url][humanGpc] = Array.from(precision);
   }
 
-  console.log("Done");
-
   const numUrlsAfter = Object.keys(labels).length;
 
   console.log(`Number of keys before run: ${numUrlsBefore}`);
@@ -96,4 +94,5 @@ if ([urlIndex, gpcIndex, gpcQualityIndex].some((v) => v === -1)) {
 
   fs.writeFileSync(`${__dirname}/${LABELS_FILE_NAME}`, JSON.stringify(labels));
   exec("npm run prettier-labels");
+  console.log("Done");
 })();

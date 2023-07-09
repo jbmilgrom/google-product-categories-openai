@@ -3,6 +3,7 @@ import fs from "fs";
 import { Precision } from "../constants";
 import minimist from "minimist";
 import { HEADER, Row, parsePrecision, parseString } from "../schema";
+import { exec } from "child_process";
 
 const LABELS_FILE_NAME = "labels.json";
 
@@ -94,4 +95,5 @@ if ([urlIndex, gpcIndex, gpcQualityIndex].some((v) => v === -1)) {
   console.log(`Number of keys after run: ${numUrlsAfter}`);
 
   fs.writeFileSync(`${__dirname}/${LABELS_FILE_NAME}`, JSON.stringify(labels));
+  exec("npm run prettier-labels");
 })();

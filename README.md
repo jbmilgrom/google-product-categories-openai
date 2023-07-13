@@ -238,8 +238,8 @@ as does "Art & Entertainment" until presented with the subcategories
 OpenAI recognizes its mistake before reaching a leaf node and correctly responds with `"None of the Above"` in either case.
 
 [^0]: And perhaps even impossible given token limits per prompts - I haven't even tried .
-[^1]: For example, a [t-shirt](https://google-product-categories.herokuapp.com/url?url=https%3A%2F%2Fthisisthegreat.com%2Fcollections%2Fthe-great-man%2Fproducts%2Fthe-mens-pocket-tee-heather-grey&model=default).
-[^2]: For example, a [news site](https://google-product-categories.herokuapp.com/url?url=https%3A%2F%2Fespn.com&model=default).
+[^1]: For example, a [t-shirt](https://google-product-categories.herokuapp.com/url/graph-traversal?url=https%3A%2F%2Fthisisthegreat.com%2Fcollections%2Fthe-great-man%2Fproducts%2Fthe-mens-pocket-tee-heather-grey&model=default).
+[^2]: For example, a [news site](https://google-product-categories.herokuapp.com/url/graph-traversal?url=https%3A%2F%2Fespn.com&model=default).
 [^3]: This [prompt generator](https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/openai/index.ts#L89) comforms to the [chat-completion API](https://github.com/openai/openai-node/blob/master/api.ts#L31) of OpenAI's NodeJS client. Notice how a final `{role: "assistant", ...}` object is, in a sense, left off of the end of the prompt array, since the underlying LLM plays the role of "assistant" and should fill-in this value as its response. It leverages the <a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/#few-shot">"few shot"</a> technique to encourage a consistent response format.
 [^4]: By slicing off a space-delimited prefix.
 [^5]: A garbage-collected, single-threaded, runtime with native async support via an event-loop on top of a CPU/Memory model with an intermediating OS, etc., etc. Please for the love of god, don't go away traditional programming model, you are so much fun!

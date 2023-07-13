@@ -208,7 +208,7 @@ and so on and so forth.
 
 ## Leaf Node Granularity Discourages Misclassification
 
-In the GPC taxonomy, each child is a true [subcategory](https://en.wikipedia.org/wiki/Subcategory) of its parent. The farther down the tree, the more specific the set of subcategories. As a result, the semantic distance between the metadata and any incorrect choice increase dramatically at the next level, comprised entirely of more specific examples of the previous choice. An [input of https://espn.com](http://localhost:3003/url?model=default&url=https%3A%2F%2Fespn.com), for example, commonly results in the path `"Sporting Goods"` > `"Athletics"` > `"None of the Above"`, where OpenAI responds with "None of the Above" at level 3, or `"Arts & Entertainment"` > `"None of the Above"`, where OpenAI responds with `"None of the Above"` at level 2, for the scraped metadata:
+In the GPC taxonomy, each child is a true [subcategory](https://en.wikipedia.org/wiki/Subcategory) of its parent. The farther down the tree, the more specific the set of subcategories. As a result, the semantic distance between the metadata and any incorrect choice increase dramatically at the next level, comprised entirely of more specific examples of the previous choice. An [input of https://espn.com](https://google-product-categories.herokuapp.com/url/graph-traversal?model=default&url=https%3A%2F%2Fespn.com), for example, commonly results in the path `"Sporting Goods"` > `"Athletics"` > `"None of the Above"`, where OpenAI responds with "None of the Above" at level 3, or `"Arts & Entertainment"` > `"None of the Above"`, where OpenAI responds with `"None of the Above"` at level 2, for the scraped metadata:
 
 ```html
 <meta

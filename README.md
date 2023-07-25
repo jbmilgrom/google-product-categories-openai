@@ -208,7 +208,7 @@ and so on and so forth.
 
 ## Leaf Node Granularity Discourages Misclassification
 
-In the GPC taxonomy, each child is a true [subcategory](https://en.wikipedia.org/wiki/Subcategory) of its parent. The farther down the tree, the more specific the set of subcategories. As a result, the semantic distance between the metadata and any incorrect choice increase dramatically at the next level, comprised entirely of more specific examples of the previous choice. An [input of https://espn.com](http://localhost:3003/url?model=default&url=https%3A%2F%2Fespn.com), for example, commonly results in the path `"Sporting Goods"` > `"Athletics"` > `"None of the Above"`, where OpenAI responds with "None of the Above" at level 3, or `"Arts & Entertainment"` > `"None of the Above"`, where OpenAI responds with `"None of the Above"` at level 2, for the scraped metadata:
+In the GPC taxonomy, each child is a true [subcategory](https://en.wikipedia.org/wiki/Subcategory) of its parent. The farther down the tree, the more specific the set of subcategories. As a result, the semantic distance between the metadata and any incorrect choice increase dramatically at the next level, comprised entirely of more specific examples of the previous choice. An [input of https://espn.com](https://google-product-categories.herokuapp.com/url/graph-traversal?model=default&url=https%3A%2F%2Fespn.com), for example, commonly results in the path `"Sporting Goods"` > `"Athletics"` > `"None of the Above"`, where OpenAI responds with "None of the Above" at level 3, or `"Arts & Entertainment"` > `"None of the Above"`, where OpenAI responds with `"None of the Above"` at level 2, for the scraped metadata:
 
 ```html
 <meta
@@ -238,8 +238,8 @@ as does "Art & Entertainment" until presented with the subcategories
 OpenAI recognizes its mistake before reaching a leaf node and correctly responds with `"None of the Above"` in either case.
 
 [^0]: And perhaps even impossible given token limits per prompts - I haven't even tried .
-[^1]: For example, a [t-shirt](https://google-product-categories.herokuapp.com/url?url=https%3A%2F%2Fthisisthegreat.com%2Fcollections%2Fthe-great-man%2Fproducts%2Fthe-mens-pocket-tee-heather-grey&model=default).
-[^2]: For example, a [news site](https://google-product-categories.herokuapp.com/url?url=https%3A%2F%2Fespn.com&model=default).
+[^1]: For example, a [t-shirt](https://google-product-categories.herokuapp.com/url/graph-traversal?url=https%3A%2F%2Fthisisthegreat.com%2Fcollections%2Fthe-great-man%2Fproducts%2Fthe-mens-pocket-tee-heather-grey&model=default).
+[^2]: For example, a [news site](https://google-product-categories.herokuapp.com/url/graph-traversal?url=https%3A%2F%2Fespn.com&model=default).
 [^3]: This [prompt generator](https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/openai/index.ts#L89) comforms to the [chat-completion API](https://github.com/openai/openai-node/blob/master/api.ts#L31) of OpenAI's NodeJS client. Notice how a final `{role: "assistant", ...}` object is, in a sense, left off of the end of the prompt array, since the underlying LLM plays the role of "assistant" and should fill-in this value as its response. It leverages the <a href="https://lilianweng.github.io/posts/2023-03-15-prompt-engineering/#few-shot">"few shot"</a> technique to encourage a consistent response format.
 [^4]: By slicing off a space-delimited prefix.
 [^5]: A garbage-collected, single-threaded, runtime with native async support via an event-loop on top of a CPU/Memory model with an intermediating OS, etc., etc. Please for the love of god, don't go away traditional programming model, you are so much fun!

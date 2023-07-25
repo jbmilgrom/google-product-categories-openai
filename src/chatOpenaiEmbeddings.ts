@@ -1,7 +1,7 @@
-import { makeQueue, Queue, Vertices, find, Vertex } from "./utils/tree";
+import { makeQueue, Queue, Vertices, find } from "./utils/tree";
 import { openAiSelectProductCategory } from "./openai";
-import { googleProductCategoriesSimilaritySearch } from "./app/langchain/pinecone";
-import { toPath, toLine } from "./googleProducts";
+import { googleProductCategoriesSimilaritySearch } from "./app/langchain";
+import { toPath } from "./googleProducts";
 import { timeoutPromise } from "./utils/timeoutPromise";
 
 type Chat = { prompt: string; response: string };

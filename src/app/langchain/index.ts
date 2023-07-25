@@ -6,15 +6,24 @@ import { Embeddings } from "langchain/dist/embeddings/base";
 import { Document } from "langchain/document";
 import { VectorStore } from "langchain/dist/vectorstores/base";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
-import { openAiEmbedder } from "./openai";
+import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { ADA_002_EMBEDDING_MODEL } from "../../openai";
 
 dotenv.config();
 
-const { PINECONE_INDEX_NAME_OPEN_AI_ADA_002 } = process.env;
+const { PINECONE_INDEX_NAME_OPEN_AI_ADA_002, OPENAI_API_KEY } = process.env;
 
 if (PINECONE_INDEX_NAME_OPEN_AI_ADA_002 === undefined) {
   throw new Error("PINECONE_INDEX_NAME_OPEN_AI_ADA_002 is undefined.");
 }
+if (OPENAI_API_KEY === undefined) {
+  throw new Error("OPENAI_API_KEY is undefined.");
+}
+
+const openAiEmbedder = new OpenAIEmbeddings({
+  openAIApiKey: OPENAI_API_KEY,
+  modelName: ADA_002_EMBEDDING_MODEL,
+});
 
 const getPineconeGoogleProductCategoriesIndex = async (): Promise<VectorOperationsApi> => {
   const pineconeClient = await initializePineconeClient();

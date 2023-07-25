@@ -76,14 +76,10 @@ if ([urlIndex, gpcIndex, gpcQualityIndex].some((v) => v === -1)) {
       console.log(`humanGpc is null for ${url}`);
       continue;
     }
-    if (gpcQuality === null) {
-      console.log(`gpcQuality is null for ${url}`);
-      continue;
-    }
 
     labels[url] = labels[url] ?? {};
     const precision = new Set(labels[url][humanGpc] ?? []);
-    precision.add(gpcQuality);
+    precision.add("correct");
     labels[url][humanGpc] = Array.from(precision);
   }
 

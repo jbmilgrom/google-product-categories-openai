@@ -1,19 +1,19 @@
 {
   "https://www.nike.com/retail?cp=21302281865_brs_": {
     "Apparel & Accessories > Shoes": ["relevant"],
-    "Apparel & Accessories": ["relevant"]
+    "Apparel & Accessories": ["relevant", "correct"]
   },
   "https://www.nike.com/retail?cp=33041827836_brs_": {
     "Apparel & Accessories > Shoes": ["relevant"],
-    "Apparel & Accessories": ["relevant"]
+    "Apparel & Accessories": ["relevant", "correct"]
   },
   "https://www.nike.com/retail?cp=52250476739_brs_": {
     "Apparel & Accessories > Shoes": ["relevant"],
-    "Apparel & Accessories": ["relevant"]
+    "Apparel & Accessories": ["relevant", "correct"]
   },
   "https://www.nike.com/retail?cp=83432818507_brs_": {
     "Apparel & Accessories > Shoes": ["relevant"],
-    "Apparel & Accessories": ["relevant"]
+    "Apparel & Accessories": ["relevant", "correct"]
   },
   "https://www.platoscloset.com/locations/orange-ct": { "Apparel & Accessories > Clothing": ["correct"] },
   "https://www.prettylittlething.com/new-in.html?utm_source=snapchat&utm_medium=display&utm_campaign=UK_Content_PR_Conversion&utm_content=ENGAGED_ZOENAHABWE": {
@@ -193,7 +193,7 @@
   },
   "https://app.becas-santander.com/en/program/santander-scholarships-santander-universities-ipad-pro-prize-draw?utm_source=snapchat&utm_medium=Paid_Social&utm_campaign=UK_2023Giveaway2_Unidays_BludBrothers": {
     "Electronics > Computers > Tablet Computers": ["irrelevant"],
-    "N/A": ["irrelevant"]
+    "N/A": ["irrelevant", "correct"]
   },
   "https://aql.echo-mart.com/index/detail.html?sno=MTAwNDIxNzA5Mg==&coll_id=1003014800&csupzptywhwjywc=&from=snapchat&utm_content=09a966a7-7685-404b-ba2d-eac2be1c7202&adset_id=7960d915-3e0e-4082-851b-643e29a78b55&ad_id=39381aed-a70a-4f51-b263-0fc16de7f123&opt_id=32371&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004217092": {
     "Health & Beauty > Personal Care > Cosmetics > Skin Care": ["correct"]
@@ -240,7 +240,7 @@
   "https://dhabayadesigners.com/category/VDDbjx": { "Apparel & Accessories > Clothing > Dresses": ["correct"] },
   "https://drsloungeclinic.com/%D8%AC%D9%84%D8%B3%D8%A9-%D8%B1%D9%8A%D8%AC%D9%86%D9%8A%D8%B1%D8%A7-%D9%84%D8%B9%D9%84%D8%A7%D8%AC-%D8%AA%D8%B3%D8%A7%D9%82%D8%B7-%D8%A7%D9%84%D8%B4%D8%B9%D8%B1/p1928535781": {
     "Health & Beauty > Personal Care > Hair Care > Hair Loss Treatments": ["relevant"],
-    "Health & Beauty > Health Care": ["relevant"]
+    "Health & Beauty > Health Care": ["relevant", "correct"]
   },
   "https://dsnka.com/index/detail.html?sno=MTAwNDIyNTI0Mg==&coll_id=999952601&cskpspnjwwqywc=?from=snapchat&utm_content=681dc8ff-fca8-4e00-a006-f2e43488fff9&adset_id=d2c38a85-710c-44dd-8f52-3637ca41bde8&ad_id=d06ea751-ee5b-400c-b90b-719af4d09332&opt_id=632417&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1004225242-6.2": {
     "Apparel & Accessories > Jewelry > Watches": ["correct"]
@@ -430,11 +430,11 @@
   "https://productshop.smirnoff.com/link/1680122758454d9418868/835c000b-d95a-7196-9476-f9ec60693b98?&campaign_name=AMJ%20Smirnoff%20Lemonade&campaign_id=6b8f21da-8fc0-4867-bb0b-d77858a48d14&adset_name=AMJ%20Smirnoff%20Lemonade&adset_id=ef573dff-c682-4dd3-ac1f-223a72570a12&ad_id=839bf6ff-8727-4538-ae90-7bad3df75d67&site_source_name=snapchat&creative_name=Lemonade%20Squeeze&creative_headline=Bold%20Flavor%20For%20The%20People": {
     "Food, Beverages & Tobacco > Beverages > Fruit Flavored Drinks": ["relevant"],
     "Food, Beverages & Tobacco > Beverages > Alcoholic Beverages > Liquor & Spirits > Vodka": ["relevant"],
-    "Food, Beverages & Tobacco > Beverages > Alcoholic Beverages": ["relevant"]
+    "Food, Beverages & Tobacco > Beverages > Alcoholic Beverages": ["relevant", "correct"]
   },
   "https://www.nike.com/t/dri-fit-rise-365-mens-short-sleeve-running-top-rPq09C/CZ9184-100?cp=33917037363_soc_": {
     "Apparel & Accessories > Clothing > Activewear": ["relevant"],
-    "Apparel & Accessories > Clothing > Shirts & Tops": ["relevant"]
+    "Apparel & Accessories > Clothing > Shirts & Tops": ["relevant", "correct"]
   },
   "https://www.vibevice.com/": {
     "Apparel & Accessories > Jewelry": ["correct"],
@@ -454,37 +454,38 @@
   },
   "https://shop.covergirl.com/1678396122512f2cb1dc1/95805197-64ed-2a9b-dd26-e43dd5035ab5?&campaign_name=%5BCOVERGIRL_MikMak_Covergirl%20Lash%20Blast%20Volume%20FY23%20Q4%20_O-3YJ1Q_Retailer_Traffic_4%2F3-6%2F30%5D%20MK~us_AR~ZEN_MB~covrgrl_CN~Lash%20Blast%20Volume%20Snapchat%20Traffic_CP~TBD_CI~P2BCW4W_OB~TRAFF_PH~CONSID_BT~AUCTION&campaign_id=553cd201-f9d1-4df7-990c-d9528c5604f7&adset_name=%5BRTG%2FLAL%20%2B%20W16-49_2P_Automatic%5DAS~SNAP_LG~EN_TG~RTG_TS~F1849_SA~RTGLAL&adset_id=d0903aaa-d8cb-4d41-ac64-20fc58628321&ad_id=b5a897e1-9695-4299-bafa-a31d2a87ce5a&site_source_name=snapchat&creative_name=%5BAmerica%20Up%20to%2010x%20Volume%20Gif_Gif_9x16_Product_3%2F1-3%2F31%5D&creative_headline=15%20Years%20of%20Lash%20Blast%20Volume%21": {
     "Apparel & Accessories": ["irrelevant"],
-    "Health & Beauty > Personal Care > Cosmetics > Makeup > Eye Makeup > Mascara": ["irrelevant"]
+    "Health & Beauty > Personal Care > Cosmetics > Makeup > Eye Makeup > Mascara": ["irrelevant", "correct"]
   },
   "https://shop.covergirl.com/1678813034102cf62fdf6/4fe347ca-5491-a459-f634-30c380ebc38c?&campaign_name=%5BCovergirl_MikMak_USH%20Covergirl%20Clean%20Fresh%20Serums%20FY23%20Q4_O-3YJ1K_Retailer_Awareness%20Snap%20Ads_4%2F3-%206%2F30%5DMK~us_AR~ZEN_MB~covrgrl_CN~Clean%20Fresh%20Serums%20Snapchat%20Awareness_CP~TBD_CI~P2BCD7W_OB~AWA_PH~AWA_BT~AUCTION&campaign_id=eddf58b5-2521-49ba-8a83-487cdeb47a9a&adset_name=%5BUSH%20ODC%20Audience%20%2B%20W18-49_2P_Automatic%5DAS~SNAP_LG~ES_TG~CUST_TS~F1849_SA~USH%20ODC&adset_id=a3de2ed3-ea54-4284-a920-d4eb82748a35&ad_id=12b9d881-a8ac-497f-82e4-839bd7257eea&site_source_name=snapchat&creative_name=%5BSpanish%20Serum%206s_Video_9x16_Product_2%2F21-%203%2F31%5D&creative_headline=COVERGIRL%20Color%20Correcting%20Serum": {
     "Apparel & Accessories": ["irrelevant"],
-    "Health & Beauty > Personal Care > Cosmetics > Makeup > Face Makeup > Face Primer": ["irrelevant"]
+    "Health & Beauty > Personal Care > Cosmetics > Makeup > Face Makeup > Face Primer": ["irrelevant", "correct"]
   },
   "https://alarabisa.com/category/qQbNGZ?utm_source=snapchat.ads&utm_campaign=man%20shoppers&utm_medium=abdullah_abdulrahman": {
     "Apparel & Accessories > Clothing Accessories > Scarves & Shawls": ["relevant"],
     "Arts & Entertainment > Hobbies & Creative Arts > Arts & Crafts > Art & Crafting Materials > Textiles > Printable Fabric": [
-      "relevant"
+      "relevant",
+      "correct"
     ]
   },
   "https://www.peacocktv.com/dr/based-on-a-true-story?cid=2306orgboatspkpdsocial94056&utm_campaign=2306orgboats&utm_source=pk_snp_snp&utm_medium=pd_social_prostar_vidskp&utm_term=e12e7658-1a2a-42c4-a21a-51f2e5c91284_na&utm_content=382fda8b-5844-4209-9c0f-cdad0d958841": {
     "Arts & Entertainment": ["relevant"],
-    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant"]
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant", "correct"]
   },
   "https://www.peacocktv.com/dr/bupkis?cid=2305orgbupkispkpdsocial89813&utm_campaign=2305orgbupkis&utm_source=pk_snp_snp&utm_medium=pd_social_custret_imgstc&utm_term=b6514a51-f5e5-406c-85a9-63d83ee6ea10_na&utm_content=e7130f37-8441-4f5e-b8b7-914a26875d59": {
     "Media": ["relevant"],
-    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant"]
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant", "correct"]
   },
   "https://www.peacocktv.com/dr/bupkis?cid=2305orgbupkispkpdsocial90512&utm_campaign=2305orgbupkis&utm_source=pk_snp_snp&utm_medium=pd_social_prostar_vidskp&utm_term=96748286-e953-4692-bdbd-7300628ee6cc_na&utm_content=70bc9744-293b-4db6-8eda-3c6c34fcdd48": {
     "Arts & Entertainment": ["relevant"],
-    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant"]
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant", "correct"]
   },
   "https://www.peacocktv.com?cid=2301evgretsptspkpdsocial83510&utm_campaign=2301evgretspts&utm_source=pk_snp_snp&utm_medium=pd_social_custret_vidskp&utm_term=6ff90c85-9014-4cdd-8afd-240d16857f26_na&utm_content=75ef1bfe-ad15-401a-a129-9224f8d92852": {
     "Media": ["relevant"],
-    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant"]
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant", "correct"]
   },
   "https://www.peacocktv.com?cid=2301evgwinsptspkpdsocial85959&utm_campaign=2301evgwinspts&utm_source=pk_snp_snp&utm_medium=pd_social_custret_vidskp&utm_term=8077647b-d9e1-4901-8890-e3839ec00d37_na&utm_content=610333db-a3fd-4715-9b0b-7b62415e77df": {
     "Media": ["relevant"],
-    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant"]
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant", "correct"]
   },
   "https://ad.doubleclick.net/ddm/clk/558813081;368223057;k": {
     "Apparel & Accessories": ["relevant"],
@@ -496,27 +497,27 @@
   },
   "https://shop.anabolichealth.com/pages/black-ginger-root?WickedSource=Snapchat&WickedID=91f08781-6d58-45e6-9311-f0934d5b22a3&utm_source=snapchat&utm_campaign=Retarget&utm_content=Black%20Ginger%20-%20Franco%20Music&utm_medium=ppc&utm_term=Swiped-up%20on%20an%20image%20or%20a%20video%20ad%20in%20a%20specific%20campaign%20Free-book-2%20-%20Lead%20Gen%20%E2%80%93%20Campaign%20-%20Signup%20Conversion": {
     "Food, Beverages & Tobacco > Food Items > Seasonings & Spices > Herbs & Spices": ["irrelevant"],
-    "Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements": ["irrelevant"]
+    "Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements": ["irrelevant", "correct"]
   },
   "https://ad.doubleclick.net/ddm/trackclk/N1558827.2710601SNAPINC./B27507629.360111672;dc_trk_aid=550854189;dc_trk_cid=168982814;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=": {
     "Food, Beverages & Tobacco > Tobacco Products > Vaporizers & Electronic Cigarettes": ["relevant"],
-    "Health & Beauty > Health Care": ["relevant"]
+    "Health & Beauty > Health Care": ["relevant", "correct"]
   },
   "https://ad.doubleclick.net/ddm/trackclk/N2998.3958809PMPRECISIONSNAPCHAT/B29067224.354048989;dc_trk_aid=546150319;dc_trk_cid=190790348;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=": {
     "Electronics > Networking > Bridges & Routers > Wireless Routers": ["relevant"],
-    "Electronics > Communications": ["relevant"]
+    "Electronics > Communications": ["relevant", "correct"]
   },
   "https://www.betcity.nl/sportsbook#event/1018755980?utm_source=snapchat&utm_campaign=788adf09-0836-44f4-8543-cb833352e8aa&utm_content=a2f7c9db-2899-4638-835b-afc30e140c11&utm_medium=cpm": {
     "Sporting Goods > Athletics > Soccer": ["irrelevant"],
-    "Arts & Entertainment > Hobbies & Creative Arts": ["irrelevant"]
+    "Arts & Entertainment > Hobbies & Creative Arts": ["irrelevant", "correct"]
   },
   "https://www.betcity.nl/sportsbook#event/1019168717?utm_source=snapchat&utm_campaign=788adf09-0836-44f4-8543-cb833352e8aa&utm_content=a436ca8a-371e-48ac-b670-4d263bd1034e&utm_medium=cpm": {
     "Sporting Goods > Athletics > Soccer": ["irrelevant"],
-    "Arts & Entertainment > Hobbies & Creative Arts": ["irrelevant"]
+    "Arts & Entertainment > Hobbies & Creative Arts": ["irrelevant", "correct"]
   },
   "https://www.betcity.nl/sportsbook#event/1018748808?utm_source=snapchat&utm_campaign=788adf09-0836-44f4-8543-cb833352e8aa&utm_content=89fce1f5-ebd5-4ec5-8996-f0c926763378&utm_medium=cpm": {
     "Sporting Goods > Athletics > Soccer": ["irrelevant"],
-    "Arts & Entertainment > Hobbies & Creative Arts": ["irrelevant"]
+    "Arts & Entertainment > Hobbies & Creative Arts": ["irrelevant", "correct"]
   },
   "https://www.audible.ca/pd/Breakthrough-Podcast/B0BWSJRXZ4?ipRedirectOverride=true&overrideBaseCountry=true&language=en_CA&source_code=CANPP30DTRIAL70605232306R9": {
     "Media > Music & Sound Recordings > Spoken Word & Field Recordings": ["correct"],
@@ -544,27 +545,27 @@
   },
   "https://www.bbc.co.uk/iplayer/episodes/p0f9bhkg/rain-dogs?at_mid=Dd5kDBhaEj&at_campaign=AOPS_May1_RainDogs&at_medium=social&at_campaign_type=paid&at_ptr_name=snapchat&at_format=snap_ad&at_product=iplayer&at_brand=p0f9bhkg&at_audience_id=WF&at_objective=awareness&at_bbc_team=BBC": {
     "Media > DVDs & Videos > Film & Television DVDs": ["relevant"],
-    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant"]
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant", "correct"]
   },
   "https://www.paramountplus.com/?cbscidmt=pinkladies/?ftag=PPM-07-10bfb5g": {
     "Arts & Entertainment": ["relevant"],
-    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant"]
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant", "correct"]
   },
   "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099513134489&_x_bg_adid=1133934&_x_ads_creative_id=779db190-77c5-4074-a9a1-07bb0db3b0f5&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=25ab364a-bf8e-4205-b127-16c6feaa999c&_x_ns_source=snapchat&_x_ads_id=5d5646e8-ed73-458a-b67c-11402e8e6152": {
     "Software": ["irrelevant"],
-    "Apparel & Accessories": ["irrelevant"]
+    "Apparel & Accessories": ["irrelevant", "correct"]
   },
   "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099516332380&_x_bg_adid=1105963&_x_ads_creative_id=308c0f5d-b56f-4b2b-9a11-d965f58bd9c6&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=a6b13573-c226-4a85-a2ad-0799ee44d477&_x_ns_source=snapchat&_x_ads_id=9a7b9e71-4752-42d9-8f05-cd8f00a7974c": {
     "Software": ["irrelevant"],
-    "Apparel & Accessories": ["irrelevant"]
+    "Apparel & Accessories": ["irrelevant", "correct"]
   },
   "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=8&_p_jump_id=799&_x_vst_scene=adg&locale_override=211~en~USD&xid=100101&_x_bg_adid=1131779&_x_ads_creative_id=ba0c5671-825c-4d50-9509-5483cd1a4c08&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=25566596-bf8a-40b3-b4ff-9fd11b998d21&_x_ns_source=snapchat&_x_ads_id=33ebc82a-2fbc-4e8e-968d-96410373f29f": {
     "Software": ["irrelevant"],
-    "Apparel & Accessories": ["irrelevant"]
+    "Apparel & Accessories": ["irrelevant", "correct"]
   },
   "https://www.peacocktv.com/summer-of-peacock?voucher%5B%5D=SUMMEROFPEACOCK&cid=2301pfsalwsonpkpdsocial92212&utm_campaign=2301pfsalwson&utm_source=pk_snp_snp&utm_medium=pd_social_prostar_vidskp&utm_term=98ba6c4a-2d3b-4f74-a53a-6c4d945ce616_na&utm_content=fe465c0e-6444-4683-99b7-0bc7cb1b5ef9": {
     "Media": ["relevant"],
-    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant"]
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant", "correct"]
   },
   "https://skyx.sky.at/neu-diesen-monat?DCMP=snt-snapchat-na-editorial_fiction-monthly_highlights_fiction": {
     "Media": ["relevant"],
@@ -580,15 +581,15 @@
   },
   "https://shop.anabolichealth.com/products/pine-pollen-powder?utm_source=snapchat&utm_campaign=Retarget&utm_content=Pine%20Pollen%20-%20Wac&utm_medium=ppc&utm_term=Swiped-up%20on%20an%20image%20or%20a%20video%20ad%20in%20a%20specific%20campaign%20Free-book-2%20-%20Lead%20Gen%20%E2%80%93%20Campaign%20-%20Signup%20Conversion": {
     "Health & Beauty": ["relevant"],
-    "Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements": ["relevant"]
+    "Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements": ["relevant", "correct"]
   },
   "https://www.bbc.co.uk/programmes/m001m01q?at_mid=P9lxEPWTDT&at_campaign=Single_IKAB_PostTXSnapAdSustain&at_medium=social&at_campaign_type=paid&at_ptr_name=snapchat&at_format=snap_ad&at_product=iplayer&at_audience_id=SO&at_objective=consumption&at_bbc_team=BBC": {
     "Arts & Entertainment": ["relevant"],
-    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant"]
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["relevant", "correct"]
   },
   "https://www.nfbio.dk/film/boogeyman-0?utm_source=snapchat": {
     "Media": ["relevant"],
-    "Arts & Entertainment ": ["relevant"]
+    "Arts & Entertainment ": ["relevant", "correct"]
   },
   "https://www.universalorlando.com/web/en/us/plan-your-visit/theme-park-first-time-guide?__source=uor..pous..cuo..pdsm..ssn..dr..atpe..satpi..satip..cuors..ctpk..pdt..tpth..ofr..nbrd..len..20230504.:..1727_off23B2G3": {
     "Arts & Entertainment": ["correct"],
@@ -665,7 +666,7 @@
   },
   "https://fagmobler.no/rom/soverommet/senger/kontinentalseng/HGG900?utm_source=snapchat&utm_medium=social&utm_campaign=always_on&utm_content=juni_odeltind": {
     "Furniture": ["relevant"],
-    "Furniture > Beds & Accessories > Mattresses": ["relevant"]
+    "Furniture > Beds & Accessories > Mattresses": ["relevant", "correct"]
   },
   "https://beagileksa.com/": { "Health & Beauty > Health Care > Fitness & Nutrition": ["correct"] },
   "https://moofunee.com/index/detail.html?sno=MTAwNDA4NjkxMQ==&coll_id=999951257&cstpzpsijgrybc=&from=snapchat&utm_content=f8210da2-19c8-4edd-b8ad-ff491f6dc64b&adset_id=a256f83b-ef4e-4ad4-9926-e1d8fd42bccd&ad_id=af494aa7-f245-420b-bdff-a81afa20f759&opt_id=32205&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=&1004086911-2023/5/15": {
@@ -682,7 +683,7 @@
   },
   "https://www.nike.com/retail?cp=93408860741_brs_": {
     "Apparel & Accessories > Shoes": ["relevant"],
-    "Apparel & Accessories": ["relevant"]
+    "Apparel & Accessories": ["relevant", "correct"]
   },
   "https://ad.doubleclick.net/ddm/clk/558813072;368223048;k": {
     "Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne": ["correct"]
@@ -721,5 +722,1161 @@
   "https://forms.gle/stCLXCi4tSbVU9m37": { "Health & Beauty > Health Care > Fitness & Nutrition": ["correct"] },
   "https://www.marusfritrafikk.no/bli-veivokter/?utm_source=snapchat&utm_medium=taktisk&utm_campaign=veivokter": {
     "Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Safety & Security": ["correct"]
-  }
+  },
+  "https://sin8.senro.shop/product/bqzee3j9jg?i=lihqr600bm&custom=7": {
+    "Home & Garden > Decor > Throw Pillows": ["correct"]
+  },
+  "https://alq.vviocne.com/index/detail.html?sno=MTAwNDI1NzE3MQ==&coll_id=1001888269&csspnpsywhbyjyc=?from=snapchat&utm_content=9b094fc3-86d5-4c68-835e-dc770bb1f89b&adset_id=23a69ddb-d27d-4eec-b650-a2f1e231711a&ad_id=46b14f0d-57f7-4820-be9e-2b3f757d67d0&opt_id=632417&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1004257171-6.5": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://mobilestation.me/shop/category/offers-152": { "N/A": ["correct"] },
+  "https://coquitline.org/en-us/?utm_source=snapchat&utm_medium=smokers&utm_campaign=quitlinefy23&utm_content=realripoff_18-1": {
+    "Health & Beauty > Health Care": ["correct"]
+  },
+  "https://style.fabletics.com/dmg/8D8FAA?utm_source=snapchat&utm_campaign=36ca84d5-890c-4743-9d0d-b109d7e383fa&utm_content=bf54dca1-fcd6-4905-9623-e296d80a4558&utm_medium=paid_social_media&utm_term=1d605c8f-e8ac-43de-a2be-5b304865f6a5": {
+    "Apparel & Accessories > Clothing > Activewear": ["correct"]
+  },
+  "https://get.goodchop.com/freebacon100?c=BFL100&utm_source=snapchat&utm_medium=cpm&utm_campaign=svl_snap_usa_tof_abo_conv_lc_bau-PROSP-7%2F0&utm_term=969a1d02-478d-4067-8d82-bbc90afcc344&utm_content=svl_snap_usa_tof_prosp-broad-free-bacon_us_auto_conv-7-opt-window": {
+    "Food, Beverages & Tobacco > Food Items > Meat, Seafood & Eggs": ["correct"]
+  },
+  "https://runawaythelabel.com/collections/new-arrivals?utm_source=Snapchat&utm_campaign=camp&utm_content=cre&utm_medium=paid_social&utm_term=Automatic_LAL_90DayPurchase": {
+    "Apparel & Accessories > Clothing > Dresses": ["correct"]
+  },
+  "https://www.luminouslady.co/products/lowback-strapless-bra-sp-01a?utm_source=RL%20-%20The%20Low%20Back%20Strapless%20-%20Product%20Testing%20%2301a%20-%20%2415.97%2006%2F03&utm_content=The%20Low%20Back%20Strapless%20Ad3%20-%20orgads%20-%2074K": {
+    "Apparel & Accessories > Clothing > Underwear & Socks > Bras": ["correct"]
+  },
+  "https://get.everyplate.com/firstmedia149?utm_source=snapchat~firstmedia&utm_medium=cpa&utm_campaign=native_firstmediasnapchat_642020&c=149SOYUMMY&utm_content=d088d89b-9b14-4d48-9205-c72edc12c98b": {
+    "Food, Beverages & Tobacco > Food Items > Prepared Foods > Prepared Meals & EntrÃ©es": ["correct"]
+  },
+  "https://get.everyplate.com/firstmedia149?utm_source=snapchat~firstmedia&utm_medium=cpa&utm_campaign=native_firstmediasnapchat_642020&c=149SOYUMMY&utm_content=d3506119-eabe-4f16-90ed-3d8aef212bb2": {
+    "Food, Beverages & Tobacco > Food Items > Prepared Foods > Prepared Meals & EntrÃ©es": ["correct"]
+  },
+  "https://hamalhi.com/fr-ch/products/baby-beach-tent-kids-outdoor-camping-easy-fold-up-waterproof-up-sun-awning-tent-uv-protecting": {
+    "Baby & Toddler > Baby Toys & Activity Equipment": ["correct"]
+  },
+  "https://aql.echo-mart.com/index/detail.html?sno=MTAwNDIxMjE3NA==&coll_id=1003014800&csupzpnywghbbfc=&from=snapchat&utm_content=62c650cc-0597-40fe-8b81-f392d5cc1b45&adset_id=c232c8b8-d25e-429d-8d52-bcc9593b616e&ad_id=41f193ae-e539-4a3a-94e9-fd7f650fcf47&opt_id=632875&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004212174-2.04-": {
+    "Health & Beauty > Personal Care > Shaving & Grooming > Hair Removal ": ["correct"]
+  },
+  "https://aql.echo-mart.com/index/detail.html?sno=MTAwNDIxMTk4Mw==&coll_id=1003014800&csupzpnywghbbfc=?utm_source=ad&utm_medium=purchase&from=snapchat&opt_id=632107&utm_content=fa114f8a-3665-4395-8441-6eedf93fd874&adset_id=cdcf27e5-559a-4e0b-8a05-f00922af8610&ad_id=a0cc141b-d89e-4719-acbb-4e2924c151e9&creative=1&utm__medium=purchase&from=snapchat&utm_campaign=1004211983-5.31-": {
+    "Health & Beauty > Personal Care > Shaving & Grooming > Hair Removal ": ["correct"]
+  },
+  "https://elegantcotton-sa.com/product-category/%d8%b1%d8%ac%d8%a7%d9%84%d9%8a/%d8%b3%d8%b1%d8%a7%d9%88%d9%8a%d9%84?utm_source=snapchat&utm_medium=social&utm_campaign=summer+offers&utm_content=25052023_SummerOffers_Broad_2750Men_Single_underwear_SerwalR": {
+    "Apparel & Accessories > Clothing > Pants": ["correct"]
+  },
+  "https://iebonshop.com/index/detail.html?sno=MTAwNDIwMzA0MA==&coll_id=1001960881&csnptssywgrqwyc=?utm_source=ad&utm_medium=purchase&from=snapchat&opt_id=632107&utm_content=ac102cf1-b9a0-48ee-8999-87ba8a11d835&adset_id=7ffb4080-6313-4d19-bfd9-6fcbf3294e62&ad_id=09a9262f-fa9c-46ae-b964-7032ed100a74&creative=1&utm__medium=purchase&from=snapchat&utm_campaign=1004203040-5.31-": {
+    "Home & Garden > Lawn & Garden > Watering & Irrigation > Sprinklers & Sprinkler Heads": ["correct"]
+  },
+  "https://cocojoujou.com/": { "Apparel & Accessories > Clothing > Baby & Toddler Clothing": ["correct"] },
+  "https://ads.rtrtrack.com/8e1dbf44-46b2-40c2-bf9c-92e46faf8d72?campaign_name=DE_verliebt&campaign_id=7ec6cc3b-db4f-4211-97db-1c4de36f2356&adset_name=DE_verliebt_vid_ios_all&adset_id=bdf44bc3-44ca-4c88-8680-9a7e1f694838&creative_name=DE_verliebt_vid_android_all_3&ad_id=6ce8bc96-6f94-457a-89b3-0bed1290ee90&creative_headline=Treffen%20Sie%20Singles%20in%20ihrer%20N%C3%A4he%21": {
+    "Mature": ["correct"]
+  },
+  "https://www.hellofresh.com/plans?c=SOYUMMYSNAP16-018&mealsize=4-2&dm=meals&dm_gifts=gifts&utm_source=snapchat_firstmedia&utm_medium=cpc&utm_campaign=hf_nat_soyummy_pro_snapchat&vs_campaign_id=2e052229-2acd-41f6-a47d-8a80b90602a0&utm_content=a5f51741-9eb2-4711-8220-4452da59f82b": {
+    "Food, Beverages & Tobacco > Food Items > Prepared Foods > Prepared Appetizers & Side Dishes": ["correct"]
+  },
+  "https://aql.echo-mart.com/index/detail.html?sno=MTAwNDIwODA4OA==&coll_id=1003014800&csuptptjwjbgfc=?from=snapchat&utm_content=676f214c-3043-4454-b9d9-d3b70102458c&adset_id=bc5f3079-943f-47dc-ac70-0effa38206be&ad_id=7b6a74e6-75be-4719-bf91-252f7658817f&opt_id=632238&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1004208088-531": {
+    "Health & Beauty > Personal Care > Cosmetics > Skin Care ": ["correct"]
+  },
+  "https://aql.echo-mart.com/index/detail.html?sno=MTAwNDIxMzI4Nw==&coll_id=1003014800&csuptptjwjbgfc=?from=snapchat&utm_content=c1d6c1d3-e3ee-4848-905f-eaf7260a4eaa&adset_id=d12a4acf-3b5e-4f57-a573-a26791a22467&ad_id=585bf482-06ec-4009-8198-c534ccc81f3c&opt_id=631165&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1004213287-5.31": {
+    "Health & Beauty > Personal Care > Cosmetics > Skin Care": ["correct"]
+  },
+  "https://qar.iebonshop.com/index/detail.html?sno=MTAwNDIxMjk2Nw==&coll_id=1002427306&csspupoywhyhyyc=&from=snapchat&utm_content=e85fdc44-9fb1-46b0-8f78-135bec1c35bb&adset_id=52b2cdb5-e1e0-41c0-b611-508d9d2a6f41&ad_id=560a0f66-cc66-47d8-b093-f795a23e02c9&opt_id=631119&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004212967-4.14-": {
+    "Apparel & Accessories > Costumes & Accessories > Masks": ["correct"]
+  },
+  "https://shop1.lavisure.com/products/heart-necklace?utm_source=snapchat&utm_campaign=Hrtn%20m1-r4%20-%20ATC%20Bid%20Test%201&utm_term=ATC%20%2F%20Broad%20WFS%2018-34%20F%20%2F%20a1&utm_content=Hrtn%20m1-r4-3%20-%2050%20et": {
+    "Apparel & Accessories > Jewelry > Charms & Pendants": ["correct"]
+  },
+  "https://alfouadbeaute.shop/mash?utm_source=snapchat&utm_campaign=mashad-lait%20-alfouad-7DAY-COST6-ads1&utm_content=ads1": {
+    "Apparel & Accessories > Clothing > Underwear & Socks > Shapewear": ["correct"]
+  },
+  "https://eiocmm.com/index/detail.html?sno=MTAwNDIzNjIxNQ==&coll_id=999950951&cstpspsywhwqgic=?from=snapchat&utm_content=fb8d2bc0-190c-4d79-9402-a912b07c0960&adset_id=750ac62a-3450-4ea6-9e33-6b3744211919&ad_id=900e415b-44fc-4196-bcc1-2f20a5db8791&opt_id=632238&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1004236215-6.2": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://echo-mart.com/index/detail.html?sno=MTAwNDIwMTU0OA==&coll_id=1001961013&csuptptjwjbgfc=&from=snapchat&utm_content=312c8eb1-1d7d-4cbc-9ae9-3ecef66bc9a0&adset_id=3206e439-919a-43b1-9ea2-f6ba455e1431&ad_id=08199ba2-59c3-4eee-a5c7-1b92ba8320c5&opt_id=32371&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004201548": {
+    "Health & Beauty > Personal Care > Cosmetics > Skin Care > Facial Cleansers": ["correct"]
+  },
+  "https://kwt.echo-mart.com/index/detail.html?sno=MTAwNDIxNDM1OA==&coll_id=1003014811&csuptptjwjbgfc=&from=snapchat&utm_content=c9c493ea-3798-4fa2-9d10-1cf6aafaefab&adset_id=2c822943-61cf-467a-9486-04de20861a9b&ad_id=c44deafe-c2c9-4a88-ba38-7d6a4a063e88&opt_id=631119&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004214358-4.14-": {
+    "Health & Beauty > Personal Care > Cosmetics > Skin Care > Lip Balms & Treatments": ["correct"]
+  },
+  "https://alq.hazzysmall.com/index/detail.html?sno=MTAwNDEzNDkxMw==&coll_id=1003965966&csupzpsywyjjygc=&from=snapchat&utm_content=5541c3b6-1c44-46d3-8b85-42ea5d798663&adset_id=75f4b09f-6882-49bb-94f7-6f32df231e19&ad_id=808c903c-4672-4e5e-b3a0-7261d3021842&opt_id=32705&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004134913-5.31-3": {
+    "Health & Beauty > Personal Care > Hair Care > Shampoo & Conditioner > Shampoo": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N1325401.3926179SNAPCHATAU/B29546747.368800245;dc_trk_aid=559498381;dc_trk_cid=188620329;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=;dc_tdv=1": {
+    "Health & Beauty > Health Care > Fitness & Nutrition": ["correct"]
+  },
+  "https://kwt.xeresi.com/index/detail.html?sno=MTAwNDIxNjQyOA==&coll_id=1002583888&csspnpsywhbhhbc=&from=snapchat&utm_content=4f16bbe5-430d-49de-b64f-820a9b89b01e&adset_id=b16521a8-0ed8-4c45-937f-6e6b7b3a67d3&ad_id=14a40aaf-0190-47ae-a23e-2ade7f03cefb&opt_id=632875&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004216428-2.04-": {
+    "Apparel & Accessories > Clothing > Activewear": ["correct"]
+  },
+  "https://www.mardilla.com/products/full-support-non-slip-convertible-bandeau-bra-buy-2-free-shipping": {
+    "Apparel & Accessories > Clothing > Underwear & Socks > Bras": ["correct"]
+  },
+  "https://linktr.ee/violena.ae": { "Jewelry > Watch Accessories > Watch Winders": ["correct"] },
+  "https://alq.iebonshop.com/index/detail.html?sno=MTAwNDIzMTAyNA%3D%3D&coll_id=1002157181&from=snapchat&utm_content=a2ac92d7-fa76-4136-913a-00261db4d0a8&adset_id=72ce2cfa-55e5-415f-b72d-33d428a0447b&ad_id=6ccc32dc-e479-47ef-83a2-6e2c288a9eac&opt_id=632926&utm_source=snapchat&utm_medium=purchase&from=snapchat&utm_campaign=1004231024-5.25-": {
+    "Health & Beauty > Personal Care > Hair Care > Hair Color": ["correct"]
+  },
+  "https://lego.2k.com/drive/de-DE/buy/?utm_source=snapchat&utm_medium=paid&utm_campaign=LGO-ART-ACQ-PCO-DEU_SP-SNP-YYY-YYY-TTA-AGT-NUA-YYY-YY&release=lego-2k-drive--standard-edition&platform=playstation-5&medium=digital&region=germany": {
+    "Software > Video Game Software": ["correct"]
+  },
+  "https://www.pihhp.com/products/wireless-wifi-camera-security-camera-yqkm?st=": {
+    "Cameras & Optics > Cameras > Video Cameras": ["correct"]
+  },
+  "https://bikeelectro.com/products/k26-folding-mountain-city-e-bike-500w": {
+    "Sporting Goods > Outdoor Recreation > Cycling > Bicycles": ["correct"]
+  },
+  "https://eiocmm.com/index/detail.html?sno=MTAwNDIyMDA3MQ%3D%3D&coll_id=999950951&cstpsptjwwwjrc=&from=snapchat&utm_content=243e0fb2-c418-4ead-be08-b6ec7566d880&adset_id=8933eace-a86c-4eaf-8307-b3b0c9a6c3d4&ad_id=61e7fe14-c0b5-4b5d-bf70-70600aff7778&opt_id=632926&utm_source=snapchat&utm_medium=purchase&from=snapchat&utm_campaign=1004220071-5.25-": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://www.nike.com/w/the-lifestyle-collection-8s4nv?cp=81071465157_soc_": {
+    "Apparel & Accessories > Clothing > Activewear ": ["correct"]
+  },
+  "https://www.radiolaab.com/straightouttabangrak": {
+    "Media > Music & Sound Recordings > Digital Music Downloads": ["correct"]
+  },
+  "https://www.icemountainwater.com/shopping/where-to-buy/?ps-open&utm_source=social&utm_medium=snapchat&utm_campaign=_q2soccer06_q22023&uni_track=social_snapchat__q2soccer06_q22023": {
+    "Food, Beverages & Tobacco > Beverages > Water > Distilled Water": ["correct"]
+  },
+  "https://bounce.ae/?utm_source=snapchat&utm_campaign=DUBAI%20-%20Video%20Views&utm_content=May%202023%20-%20DXB": {
+    "Sporting Goods > Exercise & Fitness > Cardio": ["correct"]
+  },
+  "https://drslounge.sa/categories/473190/white-cross?utm_source=sn&utm_campaign=WcVid&utm_id=tr": {
+    "Apparel & Accessories > Clothing > Uniforms": ["correct"]
+  },
+  "https://summerofjoy.electronicbeats.net/?mtm_campaign=Z-MA_2023_de-dtag-gbmmcm_summer-of-youth-poland&mtm_source=Snapchat&mtm_medium=Video_15&mtm_content=Interview_Fallenka&mtm_group=GenZ&mtm_placement=feed": {
+    "Media > Music & Sound Recordings > Digital Music Downloads": ["correct"]
+  },
+  "https://bibsworld.com/da-dk/collections/infinity?utm_source=snapchat&utm_medium=cpc&utm_campaign=infinity-2nd": {
+    "Baby & Toddler > Baby Health > Pacifiers & Teethers": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N1381746.3837336SNAPCHAT/B29678603.363704439;dc_trk_aid=554600116;dc_trk_cid=189203569;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=": {
+    "N/A": ["correct"]
+  },
+  "https://hotpack.bh/products/hotpack-powder-free-vinyl-gloves-large-100-pieces-x-10-packts?variant=35867024359586&utm_source=Snapchat&utm_medium=Single+Image&utm_campaign=Snapchat_limited_Offer&utm_id=Limited+Time+Offer+Gloves": {
+    "Health & Beauty > Health Care > First Aid ": ["correct"]
+  },
+  "https://coolinastore.com/collections/knives?snc_id=fa333021-007e-419f-b219-290d9cb5eed2&h_ad_id=39b66fc9-d5cf-4ffe-a238-ae3482d128b9&utm_source=snapchat&utm_campaign=7980a0b4-d628-49f2-a862-b368a3c3339e&utm_content=fa333021-007e-419f-b219-290d9cb5eed2": {
+    "Home & Garden > Kitchen & Dining > Kitchen Tools & Utensils > Kitchen Knives": ["correct"]
+  },
+  "https://aringbuy.com/index/detail.html?sno=MTAwNDI3NjM0Mg==&coll_id=1003295513&cstpspsywhywfjc=&from=snapchat&utm_content=fb4aef86-0e07-4d1d-8944-f55fa976f265&adset_id=60d19dac-481a-49b8-acb5-1634c44dfc0d&ad_id=62d137bd-78c4-4f57-bc3d-78c6b6dc5ada&opt_id=4292&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://productshop.captainmorgan.com/link/168479000155077a6dd42/f5719c37-f57b-da00-ea27-d8f159976d9b?&campaign_name=AMJ%2023%20Vitacoco%20-%20Combined%20NAT%203&campaign_id=11be0930-0e98-461f-a953-cb42d195cc17&adset_name=Combined%20NAT&adset_id=198c8702-d4ec-471f-abed-44ae17ee1196&ad_id=5aabd58c-eeca-45b5-a15b-5acf7d78eac5&site_source_name=snapchat&creative_name=CM%20%E2%80%93%20AMJ%2023%20OSR%20%E2%80%93%20VITA%20COCO%20%E2%80%93%20STRAWBERRY%20DAIQUIRI%20TEXT&creative_headline=Try%20Vita%20Coco%20Spiked%20w%2F%20Captain": {
+    "Food, Beverages & Tobacco > Beverages > Alcoholic Beverages": ["correct"]
+  },
+  "https://linktr.ee/aderealgadgets": { "Electronics": ["correct"] },
+  "https://docs.google.com/forms/d/e/1FAIpQLSf2PLdpJDXollUgw3UvN-qsqncUb9EE9t7xPwupG5WmQ925vA/viewform": {
+    "Health & Beauty > Health Care ": ["correct"]
+  },
+  "https://linktr.ee/mass202": { "N/A": ["correct"] },
+  "https://flavart.sumupstore.com/produits": { "Home & Garden > Decor > Wallpaper": ["correct"] },
+  "https://app.adjust.com/31yjzjb": { "N/A": ["correct"] },
+  "https://tv.apple.com/gb/show/prehistoric-planet/umc.cmc.4lh4bmztauvkooqz400akxav?itscg=MC_40000&itsct=atvp_brand_omd&mttnagencyid=a5e&mttnsiteid=143238&mttncc=GB&mttn3pid=Snapchat&mttnsubad=03409565": {
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N6580.1919761SNAPCHAT.COM/B29910031.367253834;dc_trk_aid=558312432;dc_trk_cid=192606675;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua": {
+    "Electronics > Communications > Telephony > Mobile Phones > Unlocked Mobile Phones": ["correct"]
+  },
+  "https://sites.google.com/view/english-diploma/home": { "N/A": ["correct"] },
+  "https://forbusiness.snapchat.com/advertising/why-snapchat-ads?_sid=PAID&utm_source=snapchat&utm_medium=paidb2b&utm_campaign=us_en_snapchat_lal_spend&utm_term=static_valueprop_sprint1a&utm_content=whysnapchatads": {
+    "Business & Industrial > Advertising & Marketing": ["correct"]
+  },
+  "https://royal.everestsoftjo.com/kareem-june.html": { "Health & Beauty > Health Care": ["correct"] },
+  "https://explorepawaters.com/?utm_medium=story&utm_source=snapchat&utm_campaign=fbc_anglers&utm_content=adventure&utm_term=millennial": {
+    "N/A": ["correct"]
+  },
+  "https://docs.google.com/forms/d/e/1FAIpQLScuQz01OdBebu4qvwFXAg4twyUzfhmgdYPj_ZN13wbc5FiLDg/viewform": {
+    "Health & Beauty > Personal Care > Oral Care ": ["correct"]
+  },
+  "https://blissim.fr/box-securise-ta-box-makeup?utm_source=snapchat&utm_medium=darkpost&utm_campaign=FR%20-%20SNAP%20-%20BOX%20-%20ACQUISITION&utm_content=Box%20139%20-%20Single%20ad%20-%20Statique%20-%20Offre%20box%20100%25%20Makeup": {
+    "Health & Beauty > Personal Care > Cosmetics > Makeup > Face Makeup": ["correct"]
+  },
+  "https://housedripdoctor.com/collections/slides/products/slides": { "Apparel & Accessories > Shoes": ["correct"] },
+  "https://aringbuy.com/index/detail.html?sno=MTAwNDI3ODMyMA==&coll_id=1003295513&cstpsptbwwirhc=&from=snapchat&utm_content=cb5a8b97-5be3-4443-a69d-b684dda22c1c&adset_id=53af4415-2390-4458-be81-1101f193bd44&ad_id=b46ff2b9-f78b-412a-9f6b-defc9f12097e&opt_id=4292&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://blissim.fr/box?utm_source=snapchat&utm_medium=darkpost&utm_campaign=FR%20-%20SNAP%20-%20BOX%20-%20ACQUISITION&utm_content=Box%20140%20-%20Single%20ad%20-%20Statique%20-%20Choose%20produits%20Caudalie": {
+    "Health & Beauty > Personal Care > Cosmetics > Makeup > Face Makeup": ["correct"]
+  },
+  "https://funlearningstore.com/collections/new-products/products/eid-surprise-cards-scratch-off-stickers-20-cards": {
+    "Arts & Entertainment > Party & Celebration > Party Supplies": ["correct"]
+  },
+  "https://iebonshop.com/index/detail.html?sno=MTAwNDIxNjcyNg==&coll_id=1001960881&csupzpoyyghiwc=?from=snapchat&utm_content=14532e26-97b9-40ee-9a7d-bb3ed1b2e17c&adset_id=4b05d905-f727-46ec-bcb2-16e63d0852f4&ad_id=b9894953-7bf3-4947-9b53-6809399978dd&opt_id=631165&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1004216726-6.1": {
+    "Apparel & Accessories > Clothing Accessories > Hair Accessories > Wigs": ["correct"]
+  },
+  "https://www.kerastase.dk/blond-absolu-serie?utm_source=snapchat&utm_medium=awareness&utm_campaign=blond_absolu_q2_2023&utm_term=2": {
+    "Health & Beauty > Personal Care > Hair Care > Shampoo & Conditioner": ["correct"]
+  },
+  "https://fulfillud.com/index/detail.html?sno=MTAwNDI0NjU5Mw==&coll_id=999950542&cszpsptywwfwrrc=?from=snapchat&utm_content=7953a644-2edf-4464-bb6a-f4271b194242&adset_id=78f54539-d483-4935-8698-469d314bd1da&ad_id=ffb41d28-7da9-4574-a9ed-e88a8d3cbab7&opt_id=632238&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1004246593-6.3": {
+    "Apparel & Accessories > Handbags, Wallets & Cases > Handbags": ["correct"]
+  },
+  "https://alq.iebonshop.com/index/detail.html?sno=MTAwNDIxMDk5Mg==&coll_id=1002157181&csopuptywgfjhrc=?from=snapchat&utm_content=53b13f0e-12ff-4b83-b8f3-61bc0d3860a0&adset_id=7d4879dc-26a2-48ac-b423-8aebde860ece&ad_id=57c28d96-c477-4533-b48e-0d44a37b8a97&opt_id=631165&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1004210992-5.31": {
+    "Health & Beauty > Personal Care > Shaving & Grooming > Electric Razors": ["correct"]
+  },
+  "https://jarsbeauty.com/ar/%D8%B5%D8%A7%D8%A8%D9%88%D9%86%D8%A9-%D9%81%D9%8A%D8%AA%D8%A7%D9%85%D9%8A%D9%86-%D8%B3%D9%8A-%D9%84%D9%84%D8%A8%D8%B4%D8%B1%D8%A9-%D8%A7%D9%84%D8%AF%D9%87%D9%86%D9%8A%D8%A9/p211656915": {
+    "Health & Beauty > Personal Care > Cosmetics > Bath & Body > Liquid Hand Soap": ["correct"]
+  },
+  "https://www.nike.com/it/w/leggings-esclusivi-3fb0v?cp=59761600137_brs_": {
+    "Apparel & Accessories > Clothing > Activewear": ["correct"]
+  },
+  "https://cleanearfrance.fr/discount/SNAPCHAT10?redirect=%2Fproducts%2Fcoton-tige-intelligent-cleanear": {
+    "Health & Beauty > Health Care > Hearing Aids": ["correct"]
+  },
+  "https://aql.echo-mart.com/index/detail.html?sno=MTAwNDI1NTMxNQ==&coll_id=1003014800&csuptpnywghfhfc=&from=snapchat&utm_content=997ef73c-11a6-4e69-901c-b1fbf7574bd6&adset_id=a00b189d-050a-4a5a-a37f-19478255a175&ad_id=cacd1ee2-5eaf-4c2b-8acf-ca9069a7eeac&opt_id=32371&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004255315": {
+    "Health & Beauty > Health Care": ["correct"]
+  },
+  "https://eyewa.com/sa-ar/30sundays-elements-collection.html?promo_name=b1_hero&utm_source=snapchat&utm_campaign=EW-07062023-snap-ksa-all-branding-platformburst-all-30SundaysXmony-hb&utm_content=EW-07062023-snap-ksa-all-branding-platformburst-all-30SundaysXmony-hb-open-ar-women-impression-sg-SnapAds-terratones-NA-video-swipeup-pf-B1": {
+    "Apparel & Accessories > Clothing Accessories > Sunglasses": ["correct"]
+  },
+  "https://bit.ly/3qkbBQp": { "Electronics > Electronics Accessories": ["correct"] },
+  "https://4free.club/products/ktaaah-copy": { "Cameras & Optics > Cameras > Video Cameras": ["correct"] },
+  "https://servedby.flashtalking.com/click/2/187673;6638333;50126;211;0/?ft_width=1&ft_height=1&url=34144298": {
+    "Health & Beauty > Personal Care > Feminine Sanitary Supplies": ["correct"]
+  },
+  "https://echo-mart.com/index/detail.html?sno=MTAwNDI1NDE2MA==&coll_id=1001961013&cslpspzbyyhbbc=&from=snapchat&utm_content=28357f96-7233-4e4b-9f72-57dfc219e42d&adset_id=53722b3e-a8f0-4d04-a9a4-e65d0868db28&ad_id=8dccfa02-66e6-4e18-ab22-1e49f12c25d7&opt_id=632927&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004254160-4.14-": {
+    "Home & Garden > Pool & Spa > Swimming Pools": ["correct"]
+  },
+  "https://echo-mart.com/index/detail.html?sno=MTAwNDI2Mjg5Nw==&coll_id=1001961013&cslpspzbyyhbbc=?from=snapchat&utm_content=c3d07746-4e30-4704-b3ee-e74033b22352&adset_id=5c630b5a-1554-4334-b6b6-83f8047d3dd4&ad_id=8211d72b-f15b-46e7-899c-5957cbd4471e&opt_id=632417&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1004262897-6.6": {
+    "Home & Garden > Pool & Spa > Swimming Pools": ["correct"]
+  },
+  "https://echo-mart.com/index/detail.html?sno=MTAwNDE3Nzk2Mg==&coll_id=1001961013&csopopsbbhhywc=&from=snapchat&utm_content=de8e7ec9-1c44-49d2-894d-ddc1c3978639&adset_id=181377a1-fb62-48e5-a16e-c5d4129a9e53&ad_id=539e673d-25a4-4abf-b67b-26ff2fc4a8d3&opt_id=632927&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004177962-4.14-": {
+    "Animals & Pet Supplies > Pet Supplies > Dog Supplies": ["correct"]
+  },
+  "https://thesimpleflirt.com/click.php?key=3778l2c0cl3v7vkehc69&t1=4856&t2=7": { "Mature": ["correct"] },
+  "https://lagonna.com/?utm_source=snapchat&utm_campaign=New%20Customers&utm_content=Everything50%25imagegreen": {
+    "Apparel & Accessories > Clothing": ["correct"]
+  },
+  "https://www.leadgenerationsolution.co/victoria-travels/": { "N/A": ["correct"] },
+  "https://eiocmm.com/index/detail.html?sno=MTAwMzM3MDU1MA==&coll_id=999950951&cstpspsywbqffrc=?utm_source=ad&utm_medium=purchase&from=snapchat&opt_id=632107&utm_content=0cb8c22a-0011-4c3d-8512-a03efb5723d2&adset_id=98453d99-9265-43c3-917e-3c2385634954&ad_id=1b89b722-890a-47f9-91b7-bffdde027074&creative=3&utm__medium=purchase&from=snapchat&utm_campaign=1003370550-2.16-": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://buysohi.com/collections/ethnic?utm_source=Snapchat&utm_medium=CPM&utm_campaign=VID_Ethnic%20Jewellery_50%25OFF_23May_23_NA_NA": {
+    "Apparel & Accessories > Jewelry": ["correct"]
+  },
+  "https://docs.google.com/forms/d/e/1FAIpQLScguMAHSJi-dDalfH6wwPtPOwYeFsCGdGeC9zk3sbkGh891ow/viewform": {
+    "Health & Beauty > Personal Care > Oral Care ": ["correct"]
+  },
+  "https://eenager.com/index/detail.html?sno=MTAwNDIzODQxNA==&coll_id=1001772322&cstpzpsywhbiwhc=&from=snapchat&utm_content=5f47e550-4064-4d5c-813c-0d64724ad0ce&adset_id=179e1932-5c17-486d-8478-dfbff38bf12e&ad_id=8aae5a3f-3ea5-4e41-bfbf-befca8286a18&opt_id=32705&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004238414-6.8-1": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://snsa.woerasn.com/index/detail.html?sno=MTAwNDI1MzYxNw==&coll_id=1004080149&cstpspsywggrbhc=&from=snapchat&utm_content=6c0ec414-8d35-4369-9623-bb029af875bc&adset_id=707a84dc-0d8d-4031-ac09-45debf8f1780&ad_id=a3aed029-b045-4cb6-b22d-49e951b5e0cf&opt_id=632927&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004253617-4.14-": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://docs.google.com/forms/d/e/1FAIpQLSdaJIx_GvHmDUuwpSGZpycY4kJT1_75j6e-Fv83pmJckfnjJA/viewform": {
+    "Health & Beauty > Personal Care > Oral Care ": ["correct"]
+  },
+  "https://elfaleh.sa/?utm_source=snapchat&utm_campaign=%20Conv%20l%20RE%20l%20WIN%206%20l%20MY%20l%20BOFU": {
+    "Apparel & Accessories > Clothing > Activewear": ["correct"]
+  },
+  "https://www.factor75.com/plans?c=SNAPYUMMY40&mealsize=1-8&c_comms=PERCENT&vs_campaign_id=1a2ac0d6-3966-49e2-b882-781747a49fa8&utm_content=bd815311-f4c4-4c0a-a69b-482e55b735f5&utm_source=snapchat~firstmedia": {
+    "Food, Beverages & Tobacco > Food Items > Prepared Foods": ["correct"]
+  },
+  "https://kingemarket.easy-orders.net/products/mbshrh-altbl-w-sanah-ays-krym-alkhrbaeyh": {
+    "Home & Garden > Kitchen & Dining > Kitchen Appliances > Food Grinders & Mills": ["correct"]
+  },
+  "https://istcurology.com/main/": { "Health & Beauty > Health Care": ["correct"] },
+  "https://ewbuchs.ch/karriere/lehrstellen-2/?utm_campaign=lernendenkampagne24&utm_source=snapchat&utm_medium=paid_social": {
+    "N/A": ["correct"]
+  },
+  "https://linktr.ee/a.labelz": {
+    "Electronics > Print, Copy, Scan & Fax > Printer, Copier & Fax Machine Accessories": ["correct"]
+  },
+  "https://firepitxb.com/firepit-2/p697887083": { "Home & Garden > Lighting > Lamps": ["correct"] },
+  "https://alalamei.com/%D8%B4%D8%B1%D9%83%D8%A9-%D8%B9%D8%B2%D9%84-%D8%AE%D8%B2%D8%A7%D9%86%D8%A7%D8%AA-%D8%A8%D8%A7%D9%84%D8%AE%D8%B1%D8%AC/": {
+    "Hardware > Plumbing > Water Dispensing & Filtration > Water Dispensers": ["correct"]
+  },
+  "https://go.teach.org/tools-sc/?utm_source=snapchat&utm_campaign=we_need_teachers_sc&utm_content=CC-Cold-Conversions-General%20Targeting%20SC&medium=cpc": {
+    "N/A": ["correct"]
+  },
+  "https://ashkalstore.com/Nanosocks_veryimportant_lp1": {
+    "Apparel & Accessories > Clothing > Underwear & Socks ": ["correct"]
+  },
+  "https://go.teach.org/tools-co/?utm_source=snapchat&utm_campaign=we_need_teachers_ct&utm_content=CC-Cold-Conversions-%20General%20Targeting%20CT&medium=cpc": {
+    "N/A": ["correct"]
+  },
+  "https://aringbuy.com/index/detail.html?sno=MTAwNDI4NzExNA==&coll_id=1003295513&csnpupoifyfwbc=&from=snapchat&utm_content=123fe24b-44ad-4fdd-9361-f9537eff226e&adset_id=8a918b78-5a76-42af-bb7d-8211580d6f6c&ad_id=eefe068f-2acd-4d1a-8fd5-7dbe2d083df0&opt_id=4292&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=": {
+    "Vehicles & Parts > Vehicle Parts & Accessories": ["correct"]
+  },
+  "https://carestylesa.com/ar/%D8%B9%D8%AF%D8%B3%D8%A7%D8%AA-%D8%A7%D8%AF%D9%8A%D8%B1%D8%A7/p147451979": {
+    "Health & Beauty > Personal Care > Vision Care > Contact Lenses": ["correct"]
+  },
+  "https://jobs.hydro.com/job/Industrimekaniker/900294901/": { "N/A": ["correct"] },
+  "https://echo-mart.com/index/detail.html?sno=MTAwNDI1NTE3OQ==&coll_id=1001961013&cszptptywhbyqrc=&from=snapchat&utm_content=475ee71f-78c1-4cf1-af98-9ec0b7d31009&adset_id=37173d7e-1e5a-43a5-a69a-8979fec48d06&ad_id=a561245f-b5e4-4708-a0d1-b1b49b1b0b27&opt_id=89&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004255179--g/0605": {
+    "Luggage & Bags > Backpacks": ["correct"]
+  },
+  "https://echo-mart.com/index/detail.html?sno=MTAwNDE4Mjg1Ng==&coll_id=1001961013&cslptpzywywgwbc=&from=snapchat&utm_content=c79690fc-759e-4c50-ba08-aadaffb575d0&adset_id=1a36efb9-082a-4ef7-a682-3835f489f00e&ad_id=2d398266-9fa5-4e54-bb6b-a9ef8ff34a6d&opt_id=32371&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004182856": {
+    "Baby & Toddler > Baby Health": ["correct"]
+  },
+  "https://www.apple.com/de/ios/health/?cid=wwa-de-soc-iphn-prvy5-socl-snap-skvf-usst-cpv-ios-mul-mtat-bhv-hafen-hltlp-ftr-dede-warm-video-916ar-15s-multi-prvcy-na-na-na-na-na-03454019": {
+    "Electronics > Communications > Telephony > Mobile Phones ": ["correct"]
+  },
+  "https://ewacsa.com/products/%D8%A8%D8%A7%D9%83%D8%AC-%D8%B3%D8%AA-%D8%A7%D9%84%D8%A8%D9%8A%D8%AA": {
+    "Home & Garden > Household Supplies > Household Cleaning Supplies > Household Cleaning Products > All-Purpose Cleaners": [
+      "correct"
+    ]
+  },
+  "https://www.apple.com/de/ios/health/?cid=wwa-de-soc-iphn-prvy5-socl-snap-skvf-usst-cpv-and-mul-mtat-bhv-hafen-hltlp-ftr-dede-warm-video-916ar-15s-multi-prvcy-na-na-na-na-na-03454015": {
+    "Electronics > Communications > Telephony > Mobile Phones ": ["correct"]
+  },
+  "https://flyer.faayida.com?postId=6435a71c3abce80f6d7bd01c": { "Food, Beverages & Tobacco": ["correct"] },
+  "https://calgarymassageschool.com/": { "N/A": ["correct"] },
+  "https://www.kerastase-usa.com/collections/elixir-ultime/lhuile-original-hair-oil.html?utm_source=snapchat&utm_medium=social_post_paid&utm_content=ker_haca_elixir_display_cv&utm_campaign=ker_haca_elixir_friendsfamily_soshop": {
+    "Health & Beauty > Personal Care > Hair Care > Hair Styling Products": ["correct"]
+  },
+  "https://www.homecentre.com/sa/en/search/?q=Wallace%3Abadge.title.en%3ABest%20Price%3AallCategories%3Ababyandkids&utm_source=snapchat&utm_campaign=assembly-ksa-en-homecentre-prospecting-offline-snapchat-topsnap-based-awareness-thematic-product-bed-Wallace-modular-till-9-jun-2023&utm_medium=cpc": {
+    "N/A": ["correct"]
+  },
+  "https://www.monsterenergy.com/en-us/mma/the-monsters-of-ufc/?utm_source=snapchat&utm_medium=paidsocial&utm_campaign=greenUFC2023&utm_adgroup=&utm_content=Brand_Monsters_of_UFC_15s&utm_objective=reach&utm_region=northamerica&utm_date=june2023utm_influencer=": {
+    "Sporting Goods > Athletics > Boxing & Martial Arts": ["correct"]
+  },
+  "https://www.hughwhitehonda.net/?utm_source=bravura&utm_medium=snapchat&utm_campaign=may23": {
+    "Vehicles & Parts": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/clk/558561186;367669033;x": {
+    "Health & Beauty > Personal Care > Cosmetics > Makeup": ["correct"]
+  },
+  "https://www.gucci.com/us/en/ca/men/ready-to-wear-for-men-c-men-readytowear?utm_source=snapchat_us&utm_medium=display_social&utm_campaign=GQ_AHerosJourney_JalenRamsey-2023-Feb-Mar&utm_content=Video_Stories-Multi-NA-Celebrity-RTW_NFL_MEN-GQ_HerosJourney": {
+    "Apparel & Accessories > Clothing": ["correct"]
+  },
+  "https://www.oakley.com/fr-fr/category/lunettes-de-soleil/lifestyle?cid=ZE-SPT_230516-LIFESTYLEPRIZM_SnapChat_VideoLinkAd_KM-15s-1080x1920": {
+    "Apparel & Accessories > Clothing Accessories > Sunglasses": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N725892.3018754SNAP/B30064916.368616647;dc_trk_aid=559670976;dc_trk_cid=193049734;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=;dc_tdv=1": {
+    "Apparel & Accessories > Jewelry": ["correct"]
+  },
+  "https://www.vancleefarpels.com/sa/en/collections/jewelry/alhambra.html?utm_source=snapchat&utm_campaign=A-VCAHQ-SA-PROL-JEWX-ALHAMBRA-FY24-ALHAMBRA--ALHAMBRA_MDE-SNP-IN-TRAFFIC-STO&utm_content=A-SNP-IN-TRAFFIC-STO-RT-AUC-LXA--LAL_CRM-SA-EN-&utm_term=A-STOR-VCA455-STORY3&utm_medium=SOC": {
+    "Apparel & Accessories > Jewelry": ["correct"]
+  },
+  "https://us.jimmychoo.com/en/women/shoes/sneakers/?geoip=geoip#&utm_source=snapchat&utm_medium=paidsocial&utm_campaign=PaidTrainers23_Static_US": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://www.dickssportinggoods.com/s/footwear-release-calendar?camp=SNS:Snapchat:Paid:SoccerCleatLaunch-adidasXCrazyLight-2023:SingleVideo:Soccer:Conversions": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://www.kruidvat.nl/gezond-intiem/vitaminen-supplementen/beauty/c/30267?&utm_source=Snapchat_KV_Health_ongoing&utm_campaign=KV_Health_ongoing&utm_medium=paid_social&utm_content=Beauty_wk17&utm_id=17945": {
+    "Health & Beauty > Health Care > Fitness & Nutrition > Vitamins & Supplements": ["correct"]
+  },
+  "https://www.sephora.com/beauty/black-owned-beauty-brands?om_mmc=paid_social_Snap_RTG&utm_source=f89efbc0-aa73-451d-8bb6-88ec53b06542&utm_campaign=d8553caf-7d57-4366-b553-85c5332cf69c&utm_content=00e78491-faf7-479a-ba0d-81d597d54331": {
+    "Health & Beauty > Personal Care > Cosmetics": ["correct"]
+  },
+  "https://www.sephora.com/happening/home": { "Health & Beauty > Personal Care > Cosmetics": ["correct"] },
+  "https://www.chanel.com/de/parfum/bleu-de-chanel/?utm_source=snapchat&utm_medium=sma&utm_campaign=fb_fr_bleudechanel_2023_1h&utm_term=video_60&utm_content=interview-film_shadow-and-light": {
+    "Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne": ["correct"]
+  },
+  "https://www.montblanc.com/ar-sa/%D8%A7%D9%83%D8%AA%D8%B4%D9%81/%D8%A7%D9%84%D9%85%D9%8A%D8%B2%D8%A7%D8%AA/%D8%B1%D9%88%D8%AD-%D8%A7%D9%84%D9%85%D9%83%D8%AA%D8%A8%D8%A7%D8%AA---%D9%84%D9%86%D8%AF%D9%86?utm_source=snapchat&utm_campaign=A-MTBHQ-SA-BRST-LEA-MULTIPLE_COLLECTIONS-FY24-LIBRARY_SPIRIT_LDN--FFC-SNP-AW-VIDEO_VIEWS-STO&utm_content=A-SNP-AW-VIDEO_VIEWS-STO-PR-AUC-LXA--LAL_PPS_CLT_SF_ON-SA-AR-LAL_WVCRM&utm_term=A-STORVID-143277-STO2_15S_&utm_medium=SOC": {
+    "Luggage & Bags": ["correct"]
+  },
+  "https://www.montblanc.com/en-ae/bags-leather-goods/collections/meisterst%C3%BCck-selection-soft/?utm_source=snapchat&utm_medium=SOC&utm_campaign=A-MTBHQ-AE-BRST-LEA-MULTIPLE_COLLECTIONS-FY24-LIBRARY_SPIRIT_LDN--FFC&utm_content=A-SNP-IN-TRAFFIC_WEB-STO-PR-AUC-LXA--LAL_PPS_ON_SITE__LAL_WVCRM-AE-EN-FFAS-STORVID-143277-STO2_9S": {
+    "Luggage & Bags": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N1012032.4828937METAFACEBOOK/B29769214.365230160;dc_trk_aid=556294493;dc_trk_cid=190796732;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=": {
+    "N/A": ["correct"]
+  },
+  "https://www.citymarket.com/i/ways-to-shop?cid=soc.pai.snap_ecomm_20230524_b:all": { "N/A": ["correct"] },
+  "https://kwt.xeresi.com/index/detail.html?sno=MTAwMzkzNzM2OQ==&coll_id=1002583888&cssptpsywggjqfc=?from=snapchat&utm_content=41698ec3-fd45-4a13-b402-e85e95784801&adset_id=0651c38b-b8a6-4921-9f7a-725e5ae28cf1&ad_id=b19d019a-7c4f-4706-bdc8-13b8f72ffd3c&opt_id=631165&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1003937369-4.22": {
+    "Apparel & Accessories > Clothing > Pants": ["correct"]
+  },
+  "https://docs.google.com/forms/d/e/1FAIpQLSeQ9bA-IXExpLVyqMXimpl5nO0qrJll46TTz7arf2334-Cy0A/viewform?usp=sf_link": {
+    "Health & Beauty > Personal Care > Oral Care ": ["correct"]
+  },
+  "https://www.exxon.com/en/find-station/?utm_medium=paidsocial&utm_source=snap&utm_campaign=us_fue_ret_sde_sde-evergrn_na_product_aw&utm_content=u_exxon_hvy-dty-lkalk_sv_copy-a_na_heavyduty_nat": {
+    "N/A": ["correct"]
+  },
+  "https://www.exxon.com/en/find-station/?utm_medium=paidsocial&utm_source=snap&utm_campaign=us_fue_ret_sde_sde-evergrn_na_product_aw&utm_content=u_mobil_hvy-dty-hva_sv_copy-b_na_heavyduty_nat": {
+    "N/A": ["correct"]
+  },
+  "https://www.exxon.com/en/find-station/?utm_medium=paidsocial&utm_source=snap&utm_campaign=us_fue_ret_ssp_ssp-evrgrn_na_product_aw&utm_content=u_mobil_pnt-rds_sv_v3_na_pointradius_nat": {
+    "N/A": ["correct"]
+  },
+  "https://www.gentex.com/careers/production-jobs-sp?utm_source=Snap&utm_medium=PaidSocial&utm_campaign=HRSpanish": {
+    "N/A": ["correct"]
+  },
+  "https://echo-mart.com/index/detail.html?sno=MTAwNDI3MDQ2MA==&coll_id=1001961013&csaptpsywwfbwyc=&from=snapchat&utm_content=a6c97d17-4737-4007-b7f3-6f9c0793d8b6&adset_id=7aae474c-c519-4637-b3eb-9d5293265d62&ad_id=998226f6-a874-47d0-bac6-ed2d6cc2be7e&opt_id=632875&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004270460-2.04-": {
+    "Health & Beauty > Health Care > Supports & Braces": ["correct"]
+  },
+  "https://kitronic-store.com/ar/%D9%82%D9%84%D9%85-%D8%B1%D8%B3%D9%85-3D-%D9%84%D9%84%D8%A3%D8%B7%D9%81%D8%A7%D9%84-%D9%85%D9%86-%D8%B3%D8%A7%D9%86%D8%A8%D8%A7%D9%83/p1384184207?utm_source=snapchat&utm_campaign=Acquisit_Kitronic_SNP_Conversion_Acquisition&utm_content=Acquisit_Kitronic_loc-SA_lan-ALL_Interest-Parents_Education-Books&utm_medium=psoc&Utm_term=Acquisit_Kitronic_VID_3D-Pen-v12_20230105": {
+    "Toys & Games": ["correct"]
+  },
+  "https://bxalq.echo-mart.com/index/detail.html?sno=MTAwNDI1OTA5OQ==&coll_id=1004081142&csapnptihqhjqc=&from=snapchat&utm_content=a2432076-29a3-44d2-9f73-8887d88dce45&adset_id=8c672f69-b894-4d0c-ab56-7eac018c371c&ad_id=5675cec4-8b2c-48df-b150-6f3458238b9c&opt_id=631119&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004259099-4.14-": {
+    "Health & Beauty > Health Care": ["correct"]
+  },
+  "https://aql.echo-mart.com/index/detail.html?sno=MTAwNDI4NjA5NA==&coll_id=1003014800&csnpkpzijbgijc=?from=snapchat&utm_content=980d72cc-bdc5-42d2-b7d0-772ba0ccb420&adset_id=01180da2-7f1a-4393-bdfa-8038b1c17a96&ad_id=b73a82b2-9d21-480a-a42b-38feb2640527&opt_id=631165&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=-1004286094-6.8": {
+    "Hardware > Building Consumables > Hardware Glue & Adhesives": ["correct"]
+  },
+  "https://we-conect.softgarden.io/job/31962772?l=de": { "N/A": ["correct"] },
+  "https://oosauos.com/index/detail.html?sno=MTAwNDI1NTEwMg==&coll_id=1000473895&csapnptihqhjqc=&from=snapchat&utm_content=2ad160f2-3c2f-4bb9-9475-dbaf5a2b634e&adset_id=cfa7c372-13fa-4c16-8a70-cdc399ed98be&ad_id=f1a2afec-c45c-4517-ba41-b35fb89f967a&opt_id=32523&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004255102-": {
+    "Health & Beauty > Health Care": ["correct"]
+  },
+  "https://azzrk1.com/testhhhhhh?utm_source=snap&utm_medium=MALE18.50broad&utm_campaign=conv10.5&utm_term=E3": {
+    "N/A": ["correct"]
+  },
+  "https://wovahnr.com/index/detail.html?sno=MTAwMjI0OTQxMQ==&coll_id=999948712&cstpsptjwbqqfc=&from=snapchat&utm_content=958d9af3-486e-47f3-bc76-bc0431dd9d59&adset_id=30f12fe2-02f6-47da-8e1b-60cad49fca6d&ad_id=0eaddf56-4020-445d-8b3a-ae1f27f9bcfd&opt_id=32205&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1002249395-6.18-": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://bbqar.bloema.com/index/detail.html?sno=MTAwNDIyOTE5OA==&coll_id=1003788399&csspzpoywgiyiyc=&from=snapchat&utm_content=8fcc232f-28c3-407a-acdc-6e7f811d68b3&adset_id=bcb59c29-9233-45d7-b48c-5a6ab26fc35c&ad_id=da7c04fd-e047-4541-ab79-3987723ad5d8&opt_id=632875&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004229198-2.04-": {
+    "Apparel & Accessories > Clothing > Underwear & Socks > Shapewea": ["correct"]
+  },
+  "https://iebonshop.com/index/detail.html?sno=MTAwNDIxNjMwMQ==&coll_id=1001960881&csnptpkyrrjjjc=&from=snapchat&utm_content=0b82141e-2607-41e8-b224-70c129279707&adset_id=15d88b01-a37d-4c41-9948-333d9ea19926&ad_id=20e82670-b017-415d-a1e1-db1a7d4c82e2&opt_id=10037&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004216301-6.1": {
+    "Health & Beauty > Personal Care > Sleeping Aids > Snoring & Sleep Apnea Aids": ["correct"]
+  },
+  "https://www.fraserhealth.ca/youthclinics": {
+    "Health & Beauty > Health Care > Medical Tests > Pregnancy Tests": ["correct"]
+  },
+  "https://sc.quizealot.com/?banner=781&utm_source=Pay_Snapchat&utm_medium=Pay_Snapchat_QuizChallenge&utm_campaign=a9b7f633-5f42-4ba1-aabc-e54a5892bbb4--Baidu06005_230529_SC_T1_Traffic_QuizChallenge_780%2F781%2F783&utm_term=a95c62f9-3454-4850-9145-aa166b50936c--Baidu06005_T1_230529_13%2Ball_max_781&utm_content=781_SM_0009_General_baidu02_0529": {
+    "N/A": ["correct"]
+  },
+  "https://dance-bit.com/?utm_source=snapchat_int&cohort=db_intro_fast&lang=en&campaign_name=Dancebit_WEB_FlowIntroFast_US_SNAP_03.06.2023&adset_name=US_WEB_Health%26Fitness%20Interests_FlowIntroFast_SNAP_25%2B_03.06.23&adset_id=cfe5094c-70bf-4590-8a29-f87b97d14ca5&campaign_id=643fc9a7-b2d1-40b3-b279-bc58afa10122&ad_name=3_Dancebit_1303_m_fantasy_ww_16s_9x16_MMr.mp4&ad_id=b9cd6a8c-abc4-4856-ae1b-a57ecfe77641": {
+    "Sporting Goods > Exercise & Fitness": ["correct"]
+  },
+  "https://uoasny.com/index/detail.html?sno=MTAwNDIwODYzMg==&coll_id=1000539729&csaptpsyqqfrhc=&from=snapchat&utm_content=c9183ef5-ca83-4b1f-b697-2f0282dc3188&adset_id=097429ba-551f-4b1f-83a6-7022f0dd6cf3&ad_id=5b6517f3-e67e-4d35-9a1c-975b03006cb5&opt_id=632454&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004208632-2.13-": {
+    "Apparel & Accessories > Clothing Accessories > Leg Warmers": ["correct"]
+  },
+  "https://uoasny.com/index/detail.html?sno=MTAwNDIwODYzMg==&coll_id=1000539729&csaptpsyqqfrhc=&from=snapchat&utm_content=c9183ef5-ca83-4b1f-b697-2f0282dc3188&adset_id=097429ba-551f-4b1f-83a6-7022f0dd6cf3&ad_id=6867184e-621e-44b3-8aaa-69209d86b635&opt_id=632454&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004208632-2.13-": {
+    "Apparel & Accessories > Clothing Accessories > Leg Warmers": ["correct"]
+  },
+  "https://noolli.com/ar/category/mQdKVb": {
+    "Apparel & Accessories > Clothing Accessories > Gloves & Mittens": ["correct"]
+  },
+  "https://bbalq.zamarea.com/index/detail.html?sno=MTAwNDIwODc3Mg==&coll_id=1003243282&cskpzspyrfhjqc=&from=snapchat&utm_content=a2e30f84-ba97-402a-b2c1-836aa0deb4f5&adset_id=108b309c-9c43-4e37-a16a-57e4bde41253&ad_id=6062b714-21a2-4194-88d5-5186067f27f3&opt_id=632454&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004208772-2.13-": {
+    "Apparel & Accessories > Jewelry > Rings": ["correct"]
+  },
+  "https://thesimpleromance.com/click.php?key=ey8fv9oxszzg74wj1ma2&t1=4701&t2=71": { "Mature": ["correct"] },
+  "https://ksbl.ch/zbew?utm_source=digital&utm_medium=snapchat_900x1600&utm_campaign=positionierung_zentren_2023": {
+    "Health & Beauty > Health Care": ["correct"]
+  },
+  "https://alq.voozero.com/index/detail.html?sno=MTAwNDE4NDU3OQ==&coll_id=1003956113&csopopsijygbwc=&from=snapchat&utm_content=0786f1a3-c92b-4ce8-9013-41bd21ab4cc6&adset_id=2d3be3cd-5c4a-4bc8-8734-a66cc8a0e346&ad_id=72374f32-d752-41fd-ad86-365c355c7f7d&opt_id=32939&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=2022-1004184579-A111": {
+    "Home & Garden > Household Supplies > Pest Control > Repellents > Household Insect Repellents": ["correct"]
+  },
+  "https://linktr.ee/sinjarsa": { "Food, Beverages & Tobacco > Food Items > Meat, Seafood & Eggs > Meat": ["correct"] },
+  "https://karazlinen.com/ar-sa/brands/lilysilk.html?utm_source=snapchat&utm_medium=cpc&utm_campaign=ksa_founding_day_offer&utm_content=without_coupon": {
+    "Home & Garden > Linens & Bedding > Bedding": ["correct"]
+  },
+  "https://www.planbonestep.com/where-to-buy-plan-b/?utm_id=pbos_us_snapchat_86&utm_source=snap&utm_medium=social&utm_campaign=2023mlt_usa_q2_reach_aw_sc_auc_fchc_plan-b_social_snapads-young-mill&utm_content=accesswtb-10_socvid_retailer-store-visitors_inmrkt_f_ntl_reach_aw_sc_newsf_snapads-young-mill": {
+    "Health & Beauty > Health Care ": ["correct"]
+  },
+  "https://ontime-global.com/product/gas-saver/?utm_source=gas-saver-T-1&utm_medium=gas-saver-T-1&utm_campaign=gas-saver-T-1": {
+    "Vehicles & Parts > Vehicle Parts & Accessories > Motor Vehicle Parts > Motor Vehicle Fuel Systems": ["correct"]
+  },
+  "https://bit.ly/43NaIz9": {
+    "Health & Beauty > Personal Care > Cosmetics > Cosmetic Tools > Skin Care Tools": ["correct"]
+  },
+  "https://www.grubhub.com/?utm_source=snapchat&utm_medium=social_paid&utm_campaign=brand_adhoc_reliabilitytest": {
+    "Food, Beverages & Tobacco > Food Items": ["correct"]
+  },
+  "https://www.ticketmaster.com/atlanta-united-fc-tickets/artist/2213124?home_away=home": { "N/A": ["correct"] },
+  "https://www.ticketmaster.com/maluma-don-juan-tour-cedar-park-texas-09-29-2023/event/3A005EB3CBD667BA?CAMEFROM=CFC_CMN_SOCIAL_SNAPCHAT_MALUMA": {
+    "N/A": ["correct"]
+  },
+  "https://ar.ford.mynaghi.com/promotions/102394/1": {
+    "Vehicles & Parts > Vehicles > Motor Vehicles > Cars, Trucks & Van": ["correct"]
+  },
+  "https://althurayaa.com/service/%d8%b4%d8%b1%d9%83%d8%a9-%d8%aa%d9%86%d8%b8%d9%8a%d9%81-%d9%85%d9%83%d9%8a%d9%81%d8%a7%d8%aa-%d8%a8%d8%a7%d9%84%d8%af%d9%85%d8%a7%d9%85/": {
+    "Home & Garden > Household Appliance Accessories > Air Conditioner Accessories": ["correct"]
+  },
+  "https://56f3be.myshopify.com/products/female-%D8%B3%D8%A8%D8%B1%D8%A7%D9%8A-%D9%86%D8%A7%D9%86%D9%88-%D9%85%D8%B2%D9%8A%D9%84-%D8%A7%D9%84%D8%AE%D8%AF%D9%88%D8%B4": {
+    "Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Maintenance, Care & Decor > Vehicle Paint": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/clk/558698173;368033247;x": { "N/A": ["correct"] },
+  "https://study.anu.edu.au/domestic-postgraduate?utm_campaign=domestic_pg_2023_closer_to_your_calling&utm_medium=social&utm_source=snapchat&utm_content=theme_1_meaningful_change_static_1080x1920&utm_term=early_mid_career_intent": {
+    "N/A": ["correct"]
+  },
+  "https://www.plannedparenthood.org/health-center/pennsylvania/philadelphia/19107/the-elizabeth-blackwell-health-center-tm-at-locust-street-3361-91460?utm_source=snap&utm_medium=display&utm_campaign=ppsp-t-lc": {
+    "Health & Beauty > Health Care ": ["correct"]
+  },
+  "https://boutiq.ma/products/mhfth-tnthym-almyzany-o-edar-nfkatk-alyomy-that-jod-aaaly-spksat1v10": {
+    "Apparel & Accessories > Handbags, Wallets & Cases": ["correct"]
+  },
+  "https://za.oosauos.com/index/detail.html?sno=MTAwMzI3Mzc0MA==&coll_id=1001911259&csopopsywwghwqc=&from=snapchat&utm_content=fda8ef32-58b7-4a48-9a0f-ada4a7836fb2&adset_id=93b1873d-ebf7-41ef-975d-233620c53d92&ad_id=8d85aa0e-7338-4437-9329-687f356f8fef&opt_id=32999&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1003273740-": {
+    "N/A": ["correct"]
+  },
+  "https://order.wendys.com/location-selection?utm_source=snapchat": {
+    "Business & Industrial > Food Service": ["correct"]
+  },
+  "https://www.plannedparenthood.org/planned-parenthood-pacific-southwest/campaigns/stds?utm_source=PPPSW_Snap_June&utm_medium=Snap_STI_June&utm_campaign=PPPSW_Snap_June&utm_id=PPPSW_Snap_June": {
+    "Health & Beauty > Health Care ": ["correct"]
+  },
+  "https://jacks.nl/promoties/casino-welkomstbonus?btag=654836_63C50C297DE34F4C986631BA33421B7D&utm_source=snapchat&utm_campaign=FC_JACKS_SLOT-GAMES_CONVERSIONS_NEW&utm_content=LEGACYOFDEAD_PAYDAYPROMO_V2": {
+    "N/A": ["correct"]
+  },
+  "https://gryr.no/?utm_campaign=TINE%20Gryr_gryr_Portef%C3%B8lje%202023&utm_source=snapchat&utm_medium=paid_social&utm_term=gryr&utm_content=havredrikk%20naturell": {
+    "Food, Beverages & Tobacco > Food Items": ["correct"]
+  },
+  "https://bit.ly/3IQlewK": {
+    "Food, Beverages & Tobacco > Food Items > Fruits & Vegetables > Fresh & Frozen Fruits": ["correct"]
+  },
+  "https://www.plannedparenthood.org/about-us/newsroom/campaigns/your-care-our-priority?utm_source=Snapchat&utm_medium=SC&utm_campaign=CK.PPFA.RSSP23.MF.SC.ENG.LX.WV.FE.18_35.SC.Static.CanI": {
+    "Health & Beauty > Health Care ": ["correct"]
+  },
+  "https://gigaboks.no/nyheter/godedeals": { "Food, Beverages & Tobacco": ["correct"] },
+  "https://fanlink.to/olareign-moanep": { "Media > Music & Sound Recordings > Digital Music Downloads": ["correct"] },
+  "https://commatechs.com/ar/%D9%85%D9%85%D8%B3%D8%AD%D8%A9-%D8%A3%D8%B1%D8%B6%D9%8A%D8%A7%D8%AA-%D8%A7%D9%84%D8%B0%D9%83%D9%8A%D8%A9-%D9%85%D8%B9-%D8%AF%D9%84%D9%88-%D9%8A%D8%B9%D9%85%D9%84-%D8%A8%D9%86%D8%B8%D8%A7%D9%85-%D8%A7%D9%84%D8%AA%D8%AC%D9%81%D9%8A%D9%81-%D9%88%D8%A7%D9%84%D8%AA%D9%86%D8%B8%D9%8A%D9%81-%D9%88%D8%A7%D9%84%D8%B9%D8%B5%D8%B1-%D8%A7%D9%84%D8%A3%D8%AA%D9%88%D9%85%D8%A7%D8%AA%D9%8A%D9%83/p1730397912?utm_source=snap&utm_medium=mmsa7a": {
+    "Home & Garden > Household Supplies > Household Cleaning Supplies > Mops": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N7537.4197373SNAPCHATCARAT-ME0/B29103568.355827398;dc_trk_aid=546971060;dc_trk_cid=184469897;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=": {
+    "Vehicles & Parts > Vehicles > Motor Vehicles > Cars, Trucks & Vans": ["correct"]
+  },
+  "https://www.ayanstyles.com/aebacad-aemkagkc": { "N/A": ["correct"] },
+  "https://abayatalamsa.com/": { "Apparel & Accessories > Clothing": ["correct"] },
+  "https://heylink.me/Miemar_sa/": { "Business & Industrial": ["correct"] },
+  "https://kamshehs.com/products/earpho": {
+    "Electronics > Audio > Audio Components > Headphones & Headsets > Headphones": ["correct"]
+  },
+  "https://kwt.yyozern.com/index/detail.html?sno=MTAwMzI0ODI3OA==&coll_id=1001888811&csapnpsjwyffbc=&from=snapchat&utm_content=2fff5452-a048-4038-bc03-f0d513e8b713&adset_id=909bf13e-6dc3-44e4-8557-8ef90b4ce969&ad_id=b4412c22-f407-41b6-957b-433b462042c9&opt_id=32523&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1003248278-2023.1.29-": {
+    "Health & Beauty > Health Care > First Aid > Medical Tape & Bandages": ["correct"]
+  },
+  "https://clinic.novomed.com/snapchat-plastic/": { "N/A": ["correct"] },
+  "https://www.target.com/c/tone-texture/-/N-an4pr?ref=tgt_soc_pd&afid=SNAP_br&fndsrc=tmntga&sfid=a064R000013nK8pQAE&racct=0014R000038f9PEQAY": {
+    "Health & Beauty > Personal Care > Cosmetics > Skin Care > Lotion & Moisturizer": ["correct"]
+  },
+  "https://fordeal.onelink.me/BrfK?af_dp=fordeal%3A%2F%2Fcategory%2F171008820%3Ff%3Dp_sn.o_wanzi.g_normal.c_minzuxf-nwwg-37602213-130-bfbx-im-222-edbx-wcv-sn-swi-w-sa-all-wc-cop.b_5.t_20230607-113100.v_1%26sf%3D13%26wa_id%3D8618026275833%26wa_num%3D2&af_web_dp=https%3A%2F%2Fwww.islamicapparel.net%2Fcategory%2F171008820%3Ff%3Dp_sn.o_wanzi.g_normal.c_minzuxf-nwwg-37602213-130-bfbx-im-222-edbx-wcv-sn-swi-w-sa-all-wc-cop.b_5.t_20230607-113100.v_1%26sf%3D13%26wa_id%3D8618026275833%26wa_num%3D2&af_r=https%3A%2F%2Fwww.islamicapparel.net%2Fcategory%2F171008820%3Ff%3Dp_sn.o_wanzi.g_normal.c_minzuxf-nwwg-37602213-130-bfbx-im-222-edbx-wcv-sn-swi-w-sa-all-wc-cop.b_5.t_20230607-113100.v_1%26sf%3D13%26wa_id%3D8618026275833%26wa_num%3D2%26install_banner%3Dappsflyer&pid=p_sn&is_retargeting=true&deep_link_value=fordeal%3A%2F%2Fcategory%2F171008820%3Ff%3Dp_sn.o_wanzi.g_normal.c_minzuxf-nwwg-37602213-130-bfbx-im-222-edbx-wcv-sn-swi-w-sa-all-wc-cop.b_5.t_20230607-113100.v_1%26sf%3D13%26wa_id%3D8618026275833%26wa_num%3D2": {
+    "Apparel & Accessories > Clothing > Dresses": ["correct"]
+  },
+  "https://alriyfalnajdiu.com/products/Savings-package?utm_source=%D8%AD%D9%85%D9%84%D8%A9%20%D8%AF%D9%88%D9%84%20%D8%A7%D9%84%D8%AE%D9%84%D9%8A%D8%AC%20%D8%A8%D9%83%D8%AC%202%2025%2F5%2F2023&utm_campaign=%D9%82%D8%B7%D8%B1&utm_content=%D8%A8%D9%83%D8%AC%203%20%20%D8%A7%D8%A8%D9%88%20%D9%81%D9%87%D8%AF%20%D9%88%D8%A7%D8%A8%D9%86%D9%87": {
+    "Food, Beverages & Tobacco > Food Items > Condiments & Sauces > Honey": ["correct"]
+  },
+  "https://echo-mart.com/index/detail.html?sno=MTAwNDE3NTc5Nw==&coll_id=1001961013&csnpzpoywgfjgrc=&from=snapchat&utm_content=28e05f38-c3ff-4c1d-b4d8-cde8b1ae21fa&adset_id=752f2497-c90f-4af3-b50f-b52086709381&ad_id=af6310c8-4fb3-4961-88c4-97aaa96ca53e&opt_id=632728&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004175797-2.25-": {
+    "Home & Garden > Linens & Bedding > Bedding > Duvet Covers": ["correct"]
+  },
+  "https://gulfshopi.com/products/si-%D8%B3%D8%A7%D8%A6%D9%84-%D8%A5%D8%B5%D9%84%D8%A7%D8%AD-%D9%81%D8%B1%D8%A7%D8%BA%D8%A7%D8%AA-%D8%A7%D9%84%D8%A8%D9%84%D8%A7%D8%B7-%D8%A7%D9%84%D8%A3%D8%B5%D9%84%D9%8A%D8%B9%D8%A8%D9%88%D8%A9-%D9%88%D8%A7%D9%84%D8%AB%D8%A7%D9%86%D9%8A%D8%A9-%D9%85%D8%AC%D8%A7%D9%86%D8%A7%D9%8B-%D8%A7%D9%84%D9%83%D9%85%D9%8A%D8%A9-%D8%AA%D9%83%D9%81%D9%8A-3-%D8%BA%D8%B1%D9%81": {
+    "Home & Garden": ["correct"]
+  },
+  "https://linktr.ee/cleanoven": { "N/A": ["correct"] },
+  "https://www.nike.com/w/zion-williamson-xqqm?cp=27705762365_soc_": { "Apparel & Accessories > Shoes": ["correct"] },
+  "https://aql.echo-mart.com/index/detail.html?sno=MTAwNDIxMDM5Ng%3D%3D&coll_id=1003014800&csnpzsoywwwyqwc=&from=snapchat&utm_content=266dc67b-3c30-4eb0-ab90-61ae3c9bc084&adset_id=1891a7b5-bae1-4832-84d9-32ea049eef79&ad_id=45d08fa1-f271-46c6-9973-3594445dfc1c&opt_id=632926&utm_source=snapchat&utm_medium=purchase&from=snapchat&utm_campaign=1004210396-5.25-": {
+    "Office Supplies > Desk Pads & Blotters": ["correct"]
+  },
+  "https://echo-mart.com/index/detail.html?sno=MTAwNDE2MDU2MQ==&coll_id=1001961013&csapnptywywbqjc=&from=snapchat&utm_content=00411efa-538c-41c0-9093-e49803e0e31b&adset_id=0f05251f-00d0-47ba-a8fb-017424b64386&ad_id=5cb9bf1c-2274-4958-ba9e-86c56af14082&opt_id=32371&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004160561": {
+    "Health & Beauty > Personal Care": ["correct"]
+  },
+  "https://iebonshop.com/index/detail.html?sno=MTAwNDE3MzM4MQ==&coll_id=1001960881&csnpzpoywgfjgrc=&from=snapchat&utm_content=5d6ae0e9-b606-45e2-b682-b224f900a680&adset_id=42caa849-6ed9-4022-82f0-1f4c82415d47&ad_id=00a5af71-05d5-4fb1-a17e-44a278a92206&opt_id=32523&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004173381-2023.05.25-": {
+    "Home & Garden > Linens & Bedding > Bedding > Quilts & Comforters": ["correct"]
+  },
+  "https://iebonshop.com/index/detail.html?sno=MTAwNDIxMDYwNw==&coll_id=1001960881&csnpzpoywgfjgrc=&from=snapchat&utm_content=d215d8f4-4ddc-4cbd-85f6-e9082fa1e49a&adset_id=ed807f0a-39aa-47cc-ba8e-8e13beab2f72&ad_id=bdce5b40-2bed-4ad2-8e09-ff0823fbfc5e&opt_id=89&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004210607--g/0531": {
+    "Home & Garden > Linens & Bedding > Bedding > Quilts & Comforters": ["correct"]
+  },
+  "https://www.getty.edu/visit/center/?utm_source=snapchat&utm_campaign=Get%20Inspired%20%28Center%20%26%20Villa%29%20%7C%203%2F13-6%2F30%2F2023&utm_content=103e1517-ae35-411f-944d-50c94a254d3a": {
+    "N/A": ["correct"]
+  },
+  "https://coffeesouq1.com/%D8%B9%D8%B1%D8%B6-%D8%A7%D9%84%D9%85%D9%84%D9%83%D8%A9-g64-%D8%A7%D9%84%D8%A7%D9%81%D8%B6%D9%84-%D8%B9%D9%84%D9%89-%D8%A7%D9%84%D8%A7%D8%B7%D9%84%D8%A7%D9%82/p841750012": {
+    "Home & Garden > Kitchen & Dining > Kitchen Appliance Accessories > Coffee Maker & Espresso Machine Accessories": [
+      "correct"
+    ]
+  },
+  "https://itsnotagameillinois.com/es/motorcycleawareness/?utm_source=snapchat&utm_medium=cpc&utm_campaign=motorcycle_awareness&utm_content=es": {
+    "N/A": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N1381746.3837336SNAPCHAT/B29720238.365033083;dc_trk_aid=556133882;dc_trk_cid=189736775;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=": {
+    "Arts & Entertainment > Hobbies & Creative Arts": ["correct"]
+  },
+  "https://dr-lobna.com": { "Health & Beauty > Health Care ": ["correct"] },
+  "https://www.underarmour.ca/fr-ca/c/shoes-slip-on-sneakers/?cid=SM_SPK_CA_5155_TNGU7YT8CF": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://giftqassim.com/%D8%AA%D9%86%D8%B3%D9%8A%D9%82-%D8%B4%D9%88%D9%83%D9%84%D8%A7%D8%AA%D9%87-%D8%A8%D8%B3%D8%AA%D8%A7%D9%86%D9%8A-%D9%85%D8%B9-%D8%A8%D8%A7%D9%82%D9%87-%D9%88%D8%B1%D8%AF-%D8%A7%D9%84%D9%88%D8%B1%D8%AF%D9%8A-%D8%AA%D8%BA%D9%8A%D9%84%D9%81-%D8%AB%D9%84%D8%AC%D9%8A/p1773403605?utm_source=snap&utm_medium=all13.50%2B&utm_campaign=conversion30.5&utm_content=7": {
+    "Food, Beverages & Tobacco > Food Items > Candy & Chocolate": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N1381746.3837336SNAPCHAT/B29720238.366581832;dc_trk_aid=557457866;dc_trk_cid=189736775;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=;dc_tdv=1": {
+    "N/A": ["correct"]
+  },
+  "https://www.betcity.nl/sportsbook#event/1018748797?utm_source=snapchat&utm_campaign=788adf09-0836-44f4-8543-cb833352e8aa&utm_content=23851418-08d9-44ce-ab35-1bbe63d07ba6&utm_medium=cpm": {
+    "Arts & Entertainment > Hobbies & Creative Arts": ["correct"]
+  },
+  "https://www.betcity.nl/sportsbook#event/1018757200?utm_source=snapchat&utm_campaign=788adf09-0836-44f4-8543-cb833352e8aa&utm_content=e6d3b67b-fd0e-479a-a29f-e17e4fc6bbbf&utm_medium=cpm": {
+    "Arts & Entertainment > Hobbies & Creative Arts": ["correct"]
+  },
+  "https://www.betcity.nl/sportsbook#event/1019689028?utm_source=snapchat&utm_campaign=788adf09-0836-44f4-8543-cb833352e8aa&utm_content=766cb94a-9776-4f77-b8f2-316f5dd79834&utm_medium=cpm": {
+    "Arts & Entertainment > Hobbies & Creative Arts": ["correct"]
+  },
+  "https://linktr.ee/palestinemc?utm_source=snapchat&utm_medium=All.21.50&utm_campaign=Awareness.6.3&utm_term=ad.6": {
+    "Health & Beauty > Health Care > Medical Tests": ["correct"]
+  },
+  "https://uoasny.com/index/detail.html?sno=MTAwMzEwNDYwMA==&coll_id=1000539729&csaptpsyqqfrhc=&from=snapchat&utm_content=f01ee4cc-4eec-4709-abd8-2dddfe440e56&adset_id=df4a606b-0dfa-4058-b9e7-bc5f303fe4e4&ad_id=db91743b-e1ec-4c38-bc50-3ccb508d6020&opt_id=631119&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1003104600-11.22-": {
+    "Apparel & Accessories > Clothing Accessories > Leg Warmers": ["correct"]
+  },
+  "https://trkn.us/click/process/partner=749;c=14859;p=23137678;idfa=;cid=;redirect=": { "N/A": ["correct"] },
+  "https://australian-bodycare.de/products/face-serum?utm_source=snap-ppc&utm_campaign=snap-all": {
+    "Health & Beauty > Personal Care > Cosmetics > Skin Care ": ["correct"]
+  },
+  "https://ksa.puregymarabia.com/en-gb/gyms/riyadh-al-nasim-woman/?utm_source=trax&utm_medium=static&utm_campaign=td_alnasim_woman_launch_2023&utm_content=phase2_en": {
+    "Sporting Goods > Exercise & Fitness > Cardio": ["correct"]
+  },
+  "https://honertun.com/index/detail.html?sno=MTAwNDI2NjE0OQ==&coll_id=999950506&csupspnywgqffqc=&from=snapchat&utm_content=9e274bce-6313-43b9-9423-523661e4ca1f&adset_id=e980b0e7-6e12-492d-a8c0-97983a52b6a0&ad_id=2e5039e6-459d-4b71-a129-bce65cb5dcef&opt_id=32628&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004266149-6.07-": {
+    "Health & Beauty > Personal Care > Cosmetics > Makeup > Face Makeup > Foundations & Concealers": ["correct"]
+  },
+  "https://digital.magrabi.com.sa/ksa-refractive?utm_source=SnapChat&utm_medium=Conversions&utm_campaign=KSA_Refractive_Eastern_Western_Riyadh_AlMadinah_AlKharj&utm_content=001-refractive-ksa-SN-static-08-03-23": {
+    "Health & Beauty > Personal Care > Vision Care ": ["correct"]
+  },
+  "https://almaeali.co/%D8%B4%D9%88%D8%B2-%D8%A7%D9%8A%D8%B1%D9%81%D9%88%D8%B1%D8%B3/p755449551?utm_source=snap&utm_medium=Awareness_1st_%2828-5%29&utm_campaign=Saudi+Arabia%2C+All+genders+and+23-48&utm_term=6&utm_content=%D8%A3%D8%B6%D9%81+%D9%86%D9%88%D8%B9+%D9%85%D9%86+%D8%A7%D9%84%D8%A3%D9%86%D8%A7%D9%82%D8%A9+%D9%88%D8%A7%D9%84%D9%81%D8%AE%D8%A7%D9%85%D8%A9+%D9%84%D9%85%D8%B8%D9%87%D8%B1%D9%83": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://blivmaler.nu/uddannelser/bygningsmaler/?utm_source=snapchat&utm_medium=video&utm_campaign=ca6690": {
+    "N/A": ["correct"]
+  },
+  "https://www.adobe.com/fr/acrobat/free-trial-download.html?sdid=HQZ6X39N&mv=social&mv2=paidsoc&ad_id=6e4b1c45-4af8-45a2-9d9a-36fa3281a119&adset_id=f21d9f8c-a962-4a8c-98f8-866d840f6d6b&campaign_id=577b2a97-78aa-4859-b7ba-4857492f51c5&as_source=Snapchat": {
+    "Software > Computer Software > Office Application Software": ["correct"]
+  },
+  "https://careers.silverfernfarms.com/future-talent": { "N/A": ["correct"] },
+  "https://www.burlington.com/store-locator/?utm_source=snapchat&utm_medium=social&utm_campaign=q22023-valuebased&utm_content=spanish-ih-sc-sv": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.ysl.com/search?cgid=new-arrivals-women-summer-23-online-campaign-JP&utm_source=snapchat&utm_campaign=summer23_wrtw_phase3&utm_medium=paidsocial&utm_content=awareness_mobile": {
+    "Apparel & Accessories > Handbags, Wallets & Cases > Handbags": ["correct"]
+  },
+  "https://alq.aringbuy.com/index/detail.html?sno=MTAwNDE3ODM5NA==&coll_id=1004070056&csnpzpoywgfjgrc=&from=snapchat&utm_content=276b11bc-eabf-4a4f-84d1-6109a655fb8c&adset_id=7e7561ac-7766-4411-bebc-97a7c6c3d1c9&ad_id=7b85550c-f79c-4576-bf6e-992a45d10460&opt_id=4292&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=": {
+    "Home & Garden > Linens & Bedding > Bedding > Quilts & Comforters": ["correct"]
+  },
+  "https://www.crunch.com/join?club=la-mirada&utm_source=SW_Paid&utm_campaign=bacfc0db-e7ba-4e81-be5e-03fcba9b59a5&utm_content=ff9ee367-6c39-48d6-a8a0-8dbd3137b8b8&Campaign+medium=snapchat&Ad+Set=cf5700d7-d1d5-4ef2-a8b7-323dfa87609c": {
+    "Sporting Goods > Exercise & Fitness > Cardio": ["correct"]
+  },
+  "https://hl-tourism.com/": { "N/A": ["correct"] },
+  "https://ad.doubleclick.net/ddm/trackclk/N8667.2581805SNAPCHAT.COM/B29595287.367238890;dc_trk_aid=553205175;dc_trk_cid=125211120;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=;dc_tdv=1": {
+    "Electronics > Communications": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N8305.3018754SNAP/B29060039.365456747;dc_trk_aid=556606537;dc_trk_cid=190894271;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=": {
+    "N/A": ["correct"]
+  },
+  "https://barbussexcelium.fr": { "Health & Beauty > Personal Care > Hair Care > Hair Loss Treatments": ["correct"] },
+  "https://larnosa.com/ar/%D8%B3%D8%A7%D8%B9%D9%87-%D9%8A%D8%AF-%D9%86%D8%B3%D8%A7%D8%A6%D9%8A%D9%87-%D8%B3%D8%AA%D8%A7%D9%86%D9%84%D8%B3-%D8%B3%D8%AA%D9%8A%D9%84/p869722970?utm_source=snapchat.23may&utm_medium=awareness&utm_campaign=silver.gold.text": {
+    "Apparel & Accessories > Jewelry > Watches": ["correct"]
+  },
+  "https://betterdeals.live/dream-singles-date-v2/?campaign_name=Dream_single_1&campaign_id=1&adset_name=1&adset_id=1&creative_name=1&creative_headline=1&ad_id=2&cpid=364cbb0b-cef2-416b-8ad7-d2008394cb04&pid=bf143f2a-a0b7-4f2a-8596-abb04081f2a6": {
+    "Mature": ["correct"]
+  },
+  "https://espanol.generationwild.com/?utm_source=snapchat&utm_medium=parents&utm_campaign=goco23_span&utm_content=pigeon": {
+    "N/A": ["correct"]
+  },
+  "https://www.comviq.se/bredband/mobilt-bredband?utm_source=snapchat&utm_medium=social&utm_campaign=mbb-2023&utm_content=act": {
+    "Electronics > Communications": ["correct"]
+  },
+  "https://gheendigital.com/design/p2008659773": { "N/A": ["correct"] },
+  "https://gentooshop.com/arabic_sa/goui-2xhero-20-2xhero-10-package-iphone-type-c-micro-classic-cables-small-bag-offer-og1456.html/?utm_source=snapchat&utm_campaign=SnapchatAds&utm_medium=Snap2023_Majed_Alotaibi_OG1456_4xHeroCablesBag_KSA8": {
+    "Electronics > Electronics Accessories > Power > Power Adapters & Chargers": ["correct"]
+  },
+  "https://www.campdp.com/products/backless-cut-out-twisted-side-pocket-2-in-1-barre-ballet-dance-dress?st=&variant=cca994e1-81aa-4737-83dc-99789ac83dee": {
+    "Apparel & Accessories > Clothing > Activewear": ["correct"]
+  },
+  "https://www.americaneagle.ae/en/american-eagle/shop-ae-x-noor-stars/?utm_source=snapchat&utm_campaign=AO_UAE_snapchat_prospecting_all_all_n_ATC_Nov22&utm_content=AO_UAE_snapchat_prospecting_all_all_n_ATC_Nov22&utm_medium=cpc": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://gentooshop.com/arabic_kwt/sbs-bt-speaker-wired-headset-bt-tws-package-os186.html/?utm_source=snapchat&utm_campaign=SnapchatAds&utm_medium=Snap2023_Mathkar_OS186_SpeakerHeadsetTWS_KW10": {
+    "Electronics > Audio > Audio Components > Headphones & Headsets > Headphones": ["correct"]
+  },
+  "https://gentooshop.com/arabic_br/brands/zendure.html/?utm_source=snapchat&utm_campaign=SnapchatAds&utm_medium=Snap2023_Majed_Alotaibi_Zendure_BR6": {
+    "Electronics > Electronics Accessories > Power > Power Adapters & Chargers": ["correct"]
+  },
+  "https://www.bcpsdo.com/products/go-braless-seamless-cake-cover": {
+    "Apparel & Accessories > Clothing > Underwear & Socks > Bra Accessories > Breast Petals & Concealers": ["correct"]
+  },
+  "https://www.lucerneclinic.ch/miradry/?utm_source=snapchat&utm_campaign=4cb7a1a4-3cec-4a8d-bb31-cf8d511cf95e&utm_content=886f445b-dfc6-4f92-a784-9a537a1aa8f0": {
+    "Health & Beauty > Health Care ": ["correct"]
+  },
+  "https://www.wingstop.com/menu/chicken-sandwich/new-chicken-sandwich?utm_source=snapchat&utm_medium=social&utm_content=1p_chksand_saladposer_195ec3ec-f3eb-432c-aad4-ef3724a98fa5&utm_campaign=vvmlightlapsed_f65fe8c0-c4be-4214-b43e-f4c1af43a971&utm_marketing_tactic=perf": {
+    "Food, Beverages & Tobacco > Food Items ": ["correct"]
+  },
+  "https://www.woodlandsprings-apts.com/": { "N/A": ["correct"] },
+  "https://www.cesar.com/dog-friendly?utm_medium=social-paid&utm_source=snapchat&utm_campaign=purpose&utm_content=reachcubicle": {
+    "Animals & Pet Supplies > Pet Supplies": ["correct"]
+  },
+  "https://www.listhue.com/products/snatched-bodysuit-shapewear-lbsn0607": {
+    "Apparel & Accessories > Clothing": ["correct"]
+  },
+  "https://www.moonric.com/collections/kaftan-dresses?utm_source=230606-Kaftan-SA%2BUAE%2BQA%2BKW%20%E7%9A%84%E5%89%AF%E6%9C%AC&utm_campaign=0606-SA%2FUAE%2FQA%2FKW-W-25%2B-family%2Fhousehold%2Fpets&utm_content=258140": {
+    "Apparel & Accessories > Clothing > Dresses": ["correct"]
+  },
+  "https://www.vipmvrs.com/products/men-s-everyday-performance-leisure-pants?st=": {
+    "Apparel & Accessories > Clothing > Pants": ["correct"]
+  },
+  "https://www.timeatea.com/products/dermax%E2%84%A2-pro-max-psoriasis-treatment-spray?st=": {
+    "Apparel & Accessories > Clothing > Underwear & Socks ": ["correct"]
+  },
+  "https://www.acemaking.com/products/sculpting-corset-swimsuits?st=": {
+    "Apparel & Accessories > Clothing > Underwear & Socks > Bras": ["correct"]
+  },
+  "https://www.whalegrass.com/products/reusable-lift-up-invisible-bra-tape-%F0%9F%94%A5buy-5-get-3-free-%F0%9F%94%A5-hh6j?st=": {
+    "Apparel & Accessories > Clothing > Underwear & Socks > Bras": ["correct"]
+  },
+  "https://ar.newbella.com/products/men-casual-daily-solid-sneakers?utm_source=snapchat&utm_campaign=arsnapads-20230521men-SA3382-singleWH-sunny&utm_content=arsnapads-20230521men-SA3382-singleWH-sunny&utm=yangcff2d833-d1ca-41a1-8752-65fbaf69fcc6": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://promotions.betfair.com/prs/sports-acq-uk-bau-betbuilder-b10g40-10fs-sbk-generic?utm_source=276&utm_campaign=126967&utm_content=5460815&utm_medium=Social&utm_ad=673011&rfr=891219011&rfr=892032": {
+    "Arts & Entertainment > Hobbies & Creative Arts": ["correct"]
+  },
+  "https://www.campdp.com/products/%F0%9F%93%B8%F0%9F%93%B8mini-wifi-camera-1080p-hd-night-vision-included?st=": {
+    "Cameras & Optics": ["correct"]
+  },
+  "https://gentooshop.com/arabic_kwt/nano-products.html/?utm_source=snapchat&utm_campaign=SnapchatAds&utm_medium=Snap2023_Mathkar_NanoLine_KW": {
+    "Electronics": ["correct"]
+  },
+  "https://gentooshop.com/arabic_om/goui-2x-bolt-package-hero-10-spot-viper-classic-iphone-micro-type-c-soft-bag-offer-og1768.html/?utm_source=snapchat&utm_campaign=SnapchatAds&utm_medium=Snap2023_Mathkar_OG1768_Hero2xBoltViperSpotCables_OM3": {
+    "Electronics > Electronics Accessories > Power > Power Adapters & Chargers": ["correct"]
+  },
+  "https://gentooshop.com/arabic_qt/goui-mbala-wall-charger-power-bank-8000-qi.html/?utm_source=snapchat&utm_campaign=SnapchatAds&utm_medium=Snap2023_Bo_Ghaith_Mbala_QT": {
+    "Electronics > Electronics Accessories > Power > Power Adapters & Chargers": ["correct"]
+  },
+  "https://gentooshop.com/arabic_uae/goui-3x-econ-20-2x-prime-10-package-hero-10-viper-spot-iphone-type-c-micro-classic-cables-soft-bag-offer-og1618.html/?utm_source=snapchat&utm_campaign=SnapchatAds&utm_medium=Snap2023_Sager_OG1618_EconPrimeHeroViperSpotCables_UAE": {
+    "Electronics > Electronics Accessories > Power > Power Adapters & Chargers": ["correct"]
+  },
+  "https://www.liyepro.com/products/reusable-self-adhesive-eyelashes-pin?st=": {
+    "Health & Beauty > Personal Care > Cosmetics > Cosmetic Tools > Makeup Tools > False Eyelash Accessories": [
+      "correct"
+    ]
+  },
+  "https://www.izilbeauty.com/ar/sale?utm_source=snapchat&utm_campaign=sc-remarketing-may23-conversions-purchase-ksa-ar&utm_content=sc-remarketing-purchase-fathers_day-single_image-d4-ksa-ar&utm_medium=psoc": {
+    "Health & Beauty > Personal Care > Cosmetics > Skin Care": ["correct"]
+  },
+  "https://www.poapinc.com/products/best-sale%F0%9F%94%A5%F0%9F%98%8D-cy5p-i1zw-gaol-0e0e-zh6q-6l5n?st=": {
+    "Health & Beauty > Personal Care > Cosmetics > Skin Care": ["correct"]
+  },
+  "https://gentooshop.com/arabic_kwt/goui-o-clock-digital-clock-wireless-charger-speaker.html/?utm_source=snapchat&utm_campaign=SnapchatAds&utm_medium=Snap2023_Abdullah_OClock_KW": {
+    "Home & Garden > Decor > Clocks": ["correct"]
+  },
+  "https://hain.myshoplaza.com/products/%F0%9F%92%A550-off-summer-sale-%F0%9F%A7%B9-flexi-mop?st=&variant=9ef04cec-7463-4ec6-bca9-8eb1ee3ab4b1": {
+    "Home & Garden > Household Supplies > Household Cleaning Supplies > Mops": ["correct"]
+  },
+  "https://www.suny.edu/communitycollege/?utm_source=snapchat&utm_medium=paid&utm_campaign=finger-lakes_cc&utm_marketing_tactic=finger-lakes_cc_interest&utm_content=video_cc_general_elijah-1-d": {
+    "N/A": ["correct"]
+  },
+  "https://www.suny.edu/communitycollege/?utm_source=snapchat&utm_medium=paid&utm_campaign=midhudson_cc&utm_marketing_tactic=orange_cc_interest&utm_content=static_cc_start_orange_3-a": {
+    "N/A": ["correct"]
+  },
+  "https://www.suny.edu/communitycollege/?utm_source=snapchat&utm_medium=paid&utm_campaign=midhudson_cc&utm_marketing_tactic=rockland_cc_interest&utm_content=static_cc_start_rockland_b": {
+    "N/A": ["correct"]
+  },
+  "https://www.suny.edu/communitycollege/?utm_source=snapchat&utm_medium=paid&utm_campaign=midhudson_cc&utm_marketing_tactic=rockland_cc_interest&utm_content=video_cc_general_elijah-1-d": {
+    "N/A": ["correct"]
+  },
+  "https://www.suny.edu/communitycollege/adult/?utm_source=snapchat&utm_medium=paid&utm_campaign=southern-tier_cc&utm_marketing_tactic=broome_cc_interest&utm_content=static_cc_general_65cost-a": {
+    "N/A": ["correct"]
+  },
+  "https://www.planetfitness.com/gyms/?utm_campaign=social&utm_source=snapchat&utm_medium=social&utm_term=adults18to49&utm_content=hangingaround": {
+    "Sporting Goods > Exercise & Fitness": ["correct"]
+  },
+  "https://www.planetfitness.com/gyms/syosset-ny": { "Sporting Goods > Exercise & Fitness": ["correct"] },
+  "https://www.planetfitness.com/promos/new-york-city-blackcard": {
+    "Sporting Goods > Exercise & Fitness": ["correct"]
+  },
+  "https://www.gohvf.com/products/peek-a-boo-elephant-plush-toy?st=": {
+    "Toys & Games > Toys > Dolls, Playsets & Toy Figures > Stuffed Animals": ["correct"]
+  },
+  "https://www.alisweet.com/products/anti-scratch-polish-nano-cleaner-t9ys?st=": {
+    "Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Maintenance, Care & Decor > Vehicle Paint": ["correct"]
+  },
+  "https://www.beedac.com/products/%F0%9F%94%A5last-day-49-off%F0%9F%94%A5-3-in-1-ceramic-car-coating-spray-q7ae-wryx-kyty-6cm2-wgcd?st=": {
+    "Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Maintenance, Care & Decor > Vehicle Paint": ["correct"]
+  },
+  "https://ksa.puregymarabia.com/en-gb/gyms/riyadh-al-rabwah-man/?utm_source=snapchat&utm_medium=static&utm_campaign=td_alrabwah_man_launch_2023&utm_content=phase3_en": {
+    "Sporting Goods > Exercise & Fitness > Cardio": ["correct"]
+  },
+  "https://echo-mart.com/index/detail.html?sno=MTAwNDE4Mzk4OQ==&coll_id=1001961013&csnpupoywgggrgc=&from=snapchat&utm_content=4963305f-a6d6-4a43-ab2c-86daba778d81&adset_id=5b137b27-3a7c-48dd-94b7-92ca8b4532f7&ad_id=b174f4f7-481d-4d49-ae84-c486cce566be&opt_id=631119&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1004183989-4.14-": {
+    "Vehicles & Parts > Vehicle Parts & Accessories > Vehicle Safety & Security": ["correct"]
+  },
+  "https://aljawdahclinics.com/alaa/": { "Health & Beauty > Health Care > Oral Care": ["correct"] },
+  "https://www.adobe.com/no/acrobat/free-trial-download.html?sdid=HQZ6X39N&mv=social&mv2=paidsoc&ad_id=3b7af4dc-bc51-41ef-b300-044bc2cc6b00&adset_id=84a48427-02e3-401e-a2d0-38f9e91202f2&campaign_id=8eb7bca6-4142-49d9-a47d-4f430b852d4a&as_source=Snapchat": {
+    "Software > Computer Software > Office Application Software": ["correct"]
+  },
+  "https://energie-conseil.co/Offres_energies/?utm_source=snapchat&utm_campaign=39176b89-63b3-4d65-ba82-d47d2f8250ef&utm_content=39b4d7e1-0d3b-44e8-88e9-4be75aa17eec&utm_medium=paidsocial": {
+    "N/A": ["correct"]
+  },
+  "https://www.liberty.edu/fci/student/index.html?fcode=F00114&tfn=8772989618&utm_source=snapchat&utm_medium=paid&utm_campaign=luo_recruit_Down%20Funnel%3A%20Not%20FCI%27d&utm_content=Current%20Students%3A%20Not%20FCI%27d_2466775%20LUO%20FCI%20-%20Blue%20Fade%20-%20Female%20Grad%201&aud_id=snap_f20851d9-1244-4d97-b9a1-e95b157ac352": {
+    "N/A": ["correct"]
+  },
+  "https://www.sunitafe.edu.au/courses/short?utm_campaign=suniTAFE_Short_course_Hospitality&utm_source=Snapchat&utm_medium=social&utm_content=Image": {
+    "N/A": ["correct"]
+  },
+  "https://www.gogo.nl/?utm_source=snapchat&utm_medium=social%2Bpaid&utm_campaign=see": { "N/A": ["correct"] },
+  "https://linktr.ee/paplos?utm_source=optimizeapp&utm_medium=snapchat&utm_campaign=2907c463-48c9-4588-8a1c-ceda5a60df00": {
+    "N/A": ["correct"]
+  },
+  "https://docs.google.com/forms/d/e/1FAIpQLSdBv4T8QG-W3VtO_DgORyN-pF7LTFOZnRr7ndLJdnXwDheSkg/viewform?usp=sf_link": {
+    "Health & Beauty": ["correct"]
+  },
+  "https://med.rossu.edu/?utm_source=snapchat&utm_campaign=RUSM_MD_Snapchat_US-CAN_Social_Lead_Priority_0_BRB_0_0_0&utm_medium=paidsocial&vc=006364&ad_set_name=RUSM_Match%20Day_Priority&utm_campaign_id=032dc5a5-0a01-42ad-879d-cf5bfed00fd4&creative_id=RUSM_Match%20Day_04&ad_id=0d1196c3-4379-4a0d-b2ce-d0cbedd6570f": {
+    "N/A": ["correct"]
+  },
+  "https://linktr.ee/etoiledemer_restaurant": { "N/A": ["correct"] },
+  "https://www.yuppitravel.com/dest/forms/ar/destination.php?Bodrum": { "N/A": ["correct"] },
+  "https://appointments.majestyhospital.com/safwa?source=snlipo3": { "Health & Beauty": ["correct"] },
+  "https://ad.doubleclick.net/ddm/trackclk/N5295.2656606SNAPCHAT/B29561932.368158106;dc_trk_aid=559211028;dc_trk_cid=189560845;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=;dc_tdv=1": {
+    "N/A": ["correct"]
+  },
+  "https://kampanje.mercedes-benz.no/teamingebrigtsen?utm_campaign=MB%20Person_Range_Sponsorat&utm_source=snapchat&utm_medium=paid_social&utm_term=Range&utm_content=_V2": {
+    "Vehicles & Parts > Vehicles > Motor Vehicles > Cars, Trucks & Vans": ["correct"]
+  },
+  "https://www.eedclinic.com/gastric-balloon-capsule/": { "Health & Beauty > Health Care": ["correct"] },
+  "https://gulfsoqi.com/products/makyn-hlak": {
+    "Health & Beauty > Personal Care > Shaving & Grooming > Electric Razors": ["correct"]
+  },
+  "https://www.montefiore.org/joseph?utm_source=TMG_Snapchat&utm_medium=Social&utm_campaign=Joseph_Heart_NYCDMA&utm_term=HeartHealth&utm_content=Joseph_CopyA_Animation": {
+    "Health & Beauty > Health Care ": ["correct"]
+  },
+  "https://admissions.iupui.edu/campaigns/student-awareness/midwest/index.html?utm_campaign=student-awareness-fall23&utm_medium=social&utm_source=snapchat&utm_content=iupui%7Cfa23%7Cbraw%7Csoc%7Csnap%7Cpd%7Cxx%7Cctacl%7Cresu%7Cresus%7Cindvp2%7Cxx%7Cstpr%7Coost%7Coos2%7Cxx%7Ccst%7Cxx%7Csocvid%7C0047%7C317": {
+    "N/A": ["correct"]
+  },
+  "https://linktr.ee/alramha.equestrian.academ": { "N/A": ["correct"] },
+  "https://australian-bodycare.no/products/femigel": { "Health & Beauty > Personal Care": ["correct"] },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099512213258&_x_bg_adid=1143828&_x_ads_creative_id=1a06cc07-1935-4e37-b3f0-d725d8bacff8&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=4fca5bf8-b9dd-4d56-9fbb-7f4077d9e1fd&_x_ns_source=snapchat&_x_ads_id=63c18fb1-1cd0-474e-aad8-374c0b678f85": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099514350561&_x_bg_adid=1103357&_x_ads_creative_id=fc1f8cc4-a7f1-4a82-8406-e8827b344cf8&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=f21ef882-c101-4317-b2d8-096468ee2acd&_x_ns_source=snapchat&_x_ads_id=3185d4d2-fc05-45c3-9b1a-f701e26f1cd4": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099516407346&_x_bg_adid=1137776&_x_ads_creative_id=ab00f129-2448-4ad9-b4c0-fbce9f3d27de&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=5c1f68ba-8d0d-4b05-974f-656885e819dd&_x_ns_source=snapchat&_x_ads_id=f4a0a2b6-df2a-4dd6-8a7c-cb6dca7e6afa": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099512411685&_x_bg_adid=1130137&_x_ads_creative_id=49f11afc-e75c-49ef-8ebe-3aff9a8fd72a&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=ea099967-a8f4-471a-9bf0-17a7ad721888&_x_ns_source=snapchat&_x_ads_id=7f36eb1e-0d80-4d77-86ff-5665c6a79cf9": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099512416306&_x_bg_adid=1122197&_x_ads_creative_id=b5bfa4a4-83aa-41b7-8a99-8a0a8c3c8248&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=e0e74518-5b5f-4694-be37-e80584216cae&_x_ns_source=snapchat&_x_ads_id=684d5a18-938c-4cd6-a362-9af59f8106f6": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099512416306&_x_bg_adid=1144635&_x_ads_creative_id=d7c83aba-2907-4a9c-85b1-d319ec2cbf68&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=50d28d9f-1146-49f9-bd9f-98a3e88e7418&_x_ns_source=snapchat&_x_ads_id=7d97e407-a14c-484e-a26b-565000d7f15c": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099512617767&_x_bg_adid=1122296&_x_ads_creative_id=fed5e002-4ca3-4489-ae2f-95b12246dcac&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=a4339c60-c21d-447b-83b5-9a1722db2a14&_x_ns_source=snapchat&_x_ads_id=85c42b12-16e7-487a-9696-c7ec044450b8": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099512921567&_x_bg_adid=1129308&_x_ads_creative_id=8d5d72d4-f482-4a87-964a-2c1f4f63efb0&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=0a3d3eff-0542-4f44-a525-884d55d7d560&_x_ns_source=snapchat&_x_ads_id=879fce6d-8300-45a5-aa2e-fbe909841cf4": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099514359670&_x_bg_adid=1134274&_x_ads_creative_id=8967b7a4-0311-4930-98d0-8f7ed1969800&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=44424f41-ba49-42ba-afec-bdec9c1a1d22&_x_ns_source=snapchat&_x_ads_id=7d457805-465a-44ed-941c-767579572c45": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099514417313&_x_bg_adid=1137662&_x_ads_creative_id=88683869-5594-4ec1-a808-6b59ad9e4551&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=772ab851-1912-40f2-902e-6d52fe41bfee&_x_ns_source=snapchat&_x_ads_id=a92f2c5b-132a-4f75-89ee-d2b047dc25f9": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099514655545&_x_bg_adid=1131863&_x_ads_creative_id=510533cb-a5ca-4d5d-bc66-066ce0bc7539&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=c291a1de-96b4-4b62-a722-364dd440b899&_x_ns_source=snapchat&_x_ads_id=13b16060-f49a-424b-af13-100a716e0500": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099514812062&_x_bg_adid=1130257&_x_ads_creative_id=70de31f9-d6f3-44a2-867d-8c3c9cc15f2d&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=379f42d8-eac2-44df-b0f9-61ed91b29761&_x_ns_source=snapchat&_x_ads_id=5d2e2cb9-ec98-474d-be94-cf9b9e4e8c6b": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099515552494&_x_bg_adid=1137486&_x_ads_creative_id=1c24c1cf-eb5b-4734-9d9f-a6647a447ad2&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=2c5e4ba6-bf39-4ee5-b7b7-9362c4b4a36b&_x_ns_source=snapchat&_x_ads_id=1e480f64-f902-4622-b1b8-283f157b0674": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099515569244&_x_bg_adid=1126046&_x_ads_creative_id=ae53e023-2df2-4269-bdb4-0876de4886e2&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=b07fc458-e167-40c9-8ee7-472407c5da65&_x_ns_source=snapchat&_x_ads_id=e93c640b-e729-4b8f-986f-761d7eb63dbd": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099515569244&_x_bg_adid=1137487&_x_ads_creative_id=94fa964c-805a-4739-ad6a-0557b048ff9a&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=2726ab69-aeac-4dd0-809d-c86cba58aaad&_x_ns_source=snapchat&_x_ads_id=be160225-e1c7-4bb8-9755-d8d9490ea155": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099515671056&_x_bg_adid=1145769&_x_ads_creative_id=fe47a3b6-96a8-4a2e-a606-e52b20df3de8&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=7ae23dd4-3522-4909-b3f3-5b09d27b680a&_x_ns_source=snapchat&_x_ads_id=387dc0cd-e230-44c4-8b8c-fe0377ead7fb": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099516332380&_x_bg_adid=1129741&_x_ads_creative_id=6a50e034-3f1a-4f56-9e71-bcbde4d9b5ef&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=2ecda3ce-9fd5-4dd9-977e-4945d8d037c6&_x_ns_source=snapchat&_x_ads_id=dd67299f-3013-42a6-a3d3-d4772d135c09": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099516382285&_x_bg_adid=1132254&_x_ads_creative_id=151bc8e2-04fd-4a2b-a4b0-54b7eb43980d&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=a93a4c1f-42e7-4310-ba74-2e15aaad535e&_x_ns_source=snapchat&_x_ads_id=b1edf3ef-bdd9-44f4-bfb2-9baba8bb2a0b": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099516434052&_x_bg_adid=1143978&_x_ads_creative_id=0528836c-5f2c-49e3-a68f-d6432d80cecc&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=097eb27c-3d1c-4063-a251-46635369c7c5&_x_ns_source=snapchat&_x_ads_id=fbf864ed-a63f-4d0f-b139-ae7fb3bd13ab": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=6017592186051160&_x_bg_adid=1108744&_x_ads_creative_id=12096dc2-82bb-4336-8595-e4b6c5a4bcca&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=e122670a-f1f1-4015-a651-986ef9e4d148&_x_ns_source=snapchat&_x_ads_id=f2ad499a-f66c-42b6-9b93-8662234d74b1": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=6017592186083055&_x_bg_adid=1129851&_x_ads_creative_id=516619ab-d56c-4ab0-96fe-c28213e3f1e6&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=bb93b4ad-7452-41d2-af73-4559cfefc5ca&_x_ns_source=snapchat&_x_ads_id=e0e3b537-e505-46e8-907e-6395ecd072be": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=8&_p_jump_id=799&_x_vst_scene=adg&locale_override=211~en~USD&xid=100101&_x_bg_adid=1129526&_x_ads_creative_id=7bcbd1fc-89ee-41b6-b2e8-e0d735844a7d&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=0d8c7828-aceb-4f4f-8bf7-56f4e52bd439&_x_ns_source=snapchat&_x_ads_id=030d6fdb-27d1-4f9c-9710-96181d1752a6": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=8&_p_jump_id=799&_x_vst_scene=adg&locale_override=211~en~USD&xid=100101&_x_bg_adid=1130096&_x_ads_creative_id=218dc8cc-d896-47ab-a8b0-fd1cf521b983&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=ec6dc197-d01c-459c-9bbd-550812ac5357&_x_ns_source=snapchat&_x_ads_id=7b8e4ed0-b739-4053-89be-3cbc76c49dde": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=8&_p_jump_id=799&_x_vst_scene=adg&locale_override=211~en~USD&xid=100101&_x_bg_adid=1131821&_x_ads_creative_id=638e4061-3e88-4c5c-a4f0-dd8f54a46de9&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=9073696b-2b2d-4de9-a2b4-b83ef32e14eb&_x_ns_source=snapchat&_x_ads_id=f1b8abeb-331f-4e47-ad73-35a61a731f5c": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099514003045&_x_bg_adid=1126106&_x_ads_creative_id=10311de3-6f43-4f85-a0ee-4c538a407aac&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=226a3c77-3355-4735-a916-c89adaf90ec2&_x_ns_source=snapchat&_x_ads_id=37678aff-792a-4540-9506-01f8a306c5f7": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099514532147&_x_bg_adid=1122233&_x_ads_creative_id=99cab011-5467-4429-a9ea-d7a9bc7576a3&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=06e3ac67-f59d-4ec9-8563-f526f9b01487&_x_ns_source=snapchat&_x_ads_id=2acf39dc-4348-4a1b-92c3-76c2532771de": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099515569244&_x_bg_adid=1129801&_x_ads_creative_id=86f41066-464c-4e69-8443-cdafce9edfbe&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=c9986928-c651-4ce7-a9e0-29ed60581486&_x_ns_source=snapchat&_x_ads_id=cd9dc7c5-5adb-47a3-9ca2-1b243ed6b7f8": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099516379705&_x_bg_adid=1145356&_x_ads_creative_id=c6da3d8b-3df9-475f-a56d-a97e9bd69f65&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=e17b17ce-4a6e-451e-bc38-45a8cecdc6c9&_x_ns_source=snapchat&_x_ads_id=e8ac8ae0-9dcd-4c91-9752-95a7a51728e3": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099513134489&_x_bg_adid=1133911&_x_ads_creative_id=eb90839a-2c78-44c0-9310-215199c0cff3&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=2679abdd-a855-45d4-9c04-deb69cc5a803&_x_ns_source=snapchat&_x_ads_id=767d6688-d797-4ed7-bafb-26e89669f148": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099514532147&_x_bg_adid=1130304&_x_ads_creative_id=6af4edc7-4994-4656-8a39-ed2820480056&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=06ea5b7c-e2e3-42c7-9ead-dea51211fdad&_x_ns_source=snapchat&_x_ads_id=ec0dc2a2-5d0e-4ebf-a6a2-f712dbd772a6": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=8&_p_jump_id=799&_x_vst_scene=adg&locale_override=211~en~USD&xid=100101&_x_bg_adid=1137832&_x_ads_creative_id=af31faa6-83b2-4aa0-9679-e9e4252464dc&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=7e34afc1-7d76-4a42-9ddf-79a14cce7416&_x_ns_source=snapchat&_x_ads_id=90a36f77-0a45-491b-a164-4bf20a62cab6": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=1&_p_jump_id=725&_x_vst_scene=adg&locale_override=211~en~USD&goods_id=601099512306850&_x_bg_adid=1109772&_x_ads_creative_id=a167f8b3-0ed9-4215-abb8-f860ea2bd91f&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=98470b69-714a-405e-a2a5-ed04ef3d244f&_x_ns_source=snapchat&_x_ads_id=7a5b0cc2-b5a2-44b8-bf3e-7a460d45df2b": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://www.temu.com/kuiper/un1.html?subj=feed-un&_bg_fs=1&_p_mat1_type=8&_p_jump_id=799&_x_vst_scene=adg&locale_override=211~en~USD&xid=100101&_x_bg_adid=1129985&_x_ads_creative_id=203ca475-dad7-4404-b58a-1990ee4b7a2c&_p_rfs=1&_x_ads_channel=snapchat&_x_ads_set=b3770dac-789b-43c8-ac21-112a37e3e558&_x_ns_source=snapchat&_x_ads_id=68706a25-65a8-4a00-ab06-227661d46b21": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://giftqassim.com/%D8%AA%D9%86%D8%B3%D9%8A%D9%82-%D9%83%D9%8A%D8%B3-%D8%B4%D9%88%D9%83%D9%84%D8%A7%D8%AA%D9%87-%D8%A8%D8%A7%D8%AA%D8%B4%D9%8A-%D9%85%D8%B9-%D8%A7%D9%84%D9%88%D8%B1%D8%AF-%D8%A7%D9%84%D9%88%D8%B1%D8%AF%D9%8A-%D9%88-%D8%A7%D9%84%D8%AC%D8%A8%D8%B3%D9%88%D9%86/p172522193?utm_source=snap&utm_medium=3+all13.50%2B&utm_campaign=conversion30.5&utm_content=2": {
+    "Food, Beverages & Tobacco > Food Items > Candy & Chocolate": ["correct"]
+  },
+  "https://ticknetmx.com/event.php?id=30": { "N/A": ["correct"] },
+  "https://hayala.co/WaXPnW?utm_source=aff&utm_campaign=eVVu2&utm_medium=re-snap-purchase-hill-5k-329": {
+    "Food, Beverages & Tobacco > Food Items > Seasonings & Spices > Herbs & Spices": ["correct"]
+  },
+  "https://gemini.pl/marka/cerave?utm_source=sc_lpl&utm_medium=svp&utm_campaign=lpl_pl_cer_ac_bodycare-jun-2023-pl&utm_content=snap-video1-gemini": {
+    "Health & Beauty > Personal Care > Cosmetics > Skin Care > Lotion & Moisturizer": ["correct"]
+  },
+  "https://www.roosevelt.edu/academics/programs?utm_campaign=nurture&utm_source=enroll360_cultivate&utm_medium=snapchat&utm_content=learn3": {
+    "N/A": ["correct"]
+  },
+  "https://seasons-trips.com/m006/?utm_source=snapchat&utm_campaign=006%20%7C%20New%20Creative%20%26%20Land%20%7C%20WP%20%7C%20MK%20%7C%20Conv.%20%7C%2026%20May-Travel%20Enthu%20%7C%20Group%202%20%7C%20%2B26&utm_content=V2": {
+    "N/A": ["correct"]
+  },
+  "https://haraer.com/?utm_source=snapchat&utm_campaign=C030_04%2F23_Purchase_Ramadan&utm_content=%D8%AE%D8%B5%D9%88%D9%85%D8%A7%D8%AA%20%D8%A7%D9%84%D8%B9%D9%8A%D8%AF%20%D8%AD%D8%AA%D9%89%20%2570%20%D9%84%D8%A7%20%D8%AA%D9%81%D9%88%D8%AA%D9%8A%D9%87%D8%A7": {
+    "Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing": ["correct"]
+  },
+  "https://fortis.edu/campuses/tennessee/cookeville/snapchat/cookeville-medtech.html?campaignCode=harmelin-media-Snapchat&utm_source=Snapchat&utm_agency=Harmelin&utm_location=Cookeville&utm_campaign=9b1088de-fdae-4718-8b08-a08b981640e3&utm_program=MedTech&utm_medium=Video": {
+    "N/A": ["correct"]
+  },
+  "https://alriyfalnajdiu.com/products/The-Royal-native-Package-VIP?utm_source=snapchat&utm_campaign=%D8%AA%D8%AD%D9%88%D9%8A%D9%84%D8%A7%D8%AA%20%D8%A8%D9%83%D8%AC%202%2020%2F5%2F2023%20%D8%AD%D9%85%D9%84%D8%A9%20%D8%A7%D9%84%D8%B5%D9%8A%D9%81%20%D8%A7%D9%84%D9%81%D9%8A%D8%AF%D9%8A%D9%88%D9%87%D8%A7%D8%AA%20%D8%A7%D9%84%D8%AC%D8%AF%D9%8A%D8%AF%D8%A9%20&utm_content=%D8%A8%D9%83%D8%AC%202%20%D9%86%D8%B1%D8%A7%D9%87%D9%86%20%D8%A7%D9%86%20%D9%87%D8%B0%D8%A7%D8%A7%20%D8%A7%D9%84%D8%B9%D8%B1%D8%B6%20%D8%A7%D9%82%D9%88%D9%89%20%D8%B9%D8%B1%D8%B6": {
+    "Food, Beverages & Tobacco > Food Items > Condiments & Sauces > Honey": ["correct"]
+  },
+  "https://goo.gl/maps/nbyY5B4tKJC6z6W68": { "Food, Beverages & Tobacco > Food Items": ["correct"] },
+  "https://birhiswah.org.sa/p/8266?utm_source=snap&utm_medium=39+yteem": { "N/A": ["correct"] },
+  "https://la3eb.com/ar-sa/pre-built-pcs-c-605?utm_source=social_paid&utm_medium=snapchat&utm_campaign=snp-gaming_pc-generic-web-na-acq-broad-shop-order-sa-ar&utm_content=pc_prebuilt_vid": {
+    "Electronics > Computers > Desktop Computers": ["correct"]
+  },
+  "https://nayashin.com/ar/%D8%AD%D8%B0%D8%A7%D8%A1-%D8%B4%D8%B1%D9%82%D9%8A-%D9%85%D8%B7%D8%B1%D8%B2/p1080302601?utm_source=Snapchat&utm_campaign=Nayashin%20-%20After%20Ramadan&utm_content=ba-118&utm_medium=Single%20Image%20": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://zamilac.com/residential/ar/shop?utm_source=Snapchat&utm_medium=Ads&utm_campaign=AlZamil-Snapchat-Awareness-May23": {
+    "Hardware > Heating, Ventilation & Air Conditioning": ["correct"]
+  },
+  "https://www.nytimes.com/2023/04/26/magazine/wedding-pictures-photoshop-ethics.html?UTM=NYTI_AUC_ADAXXXX_COUSA_SC_SO_WTCP_XXXXXXXXXX_REGIS_00XXXXXXX_1PCD_XXXX_GENREGISCKREM_X18PL_COUSA_XWXEN_SNAPOA_MEPH_0X_EN_MP_WVCIN08": {
+    "N/A": ["correct"]
+  },
+  "https://gently-sa.com": {
+    "Arts & Entertainment > Hobbies & Creative Arts > Arts & Crafts > Art & Crafting Materials > Textiles > Fabric": [
+      "correct"
+    ]
+  },
+  "https://apply.hippolyte-recrutement.fr/?id_type=TvImwN0Q&custom_field_onboard_source=SNC&custom_field_search_id=acfc7f83-9322-450f-96d8-af746bfd98d1&custom_field_candidat_trade=Aide+menagere+a+domicile": {
+    "N/A": ["correct"]
+  },
+  "https://eriurung.com/index/detail.html?sno=MTAwMDc4MDA4Mg==&coll_id=999950475&from=snapchat&utm_content=f08559b0-195c-4a6b-9de6-4d86150d2804&adset_id=73f88af5-7bc2-49d0-94a4-b4ad8b86bebf&ad_id=92cffcfd-ab9b-42e7-bad6-0d96f13beabf&opt_id=631119&utm_source=ad&utm_medium=purchase&from=snapchat&utm_campaign=1000780082-12.7-": {
+    "Apparel & Accessories > Clothing > Shirts & Tops": ["correct"]
+  },
+  "https://www.ysl.com/en-au/search?cgid=new-arrivals-women-summer-23-online-campaign&utm_source=snapchat&utm_campaign=summer23_wrtw_phase3&utm_medium=paidsocial&utm_content=awareness_mobile": {
+    "Apparel & Accessories > Handbags, Wallets & Cases > Handbags": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N5738.1919761SNAPCHAT.COM/B29665577.363809343;dc_trk_aid=554528719;dc_trk_cid=189627726;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=": {
+    "Vehicles & Parts > Vehicles > Motor Vehicles > Cars, Trucks & Vans": ["correct"]
+  },
+  "https://anaf-live.com/ch-webinar-reg/?utm_source=Snapchat&utm_medium=Conversion_KSA&utm_campaign=China_Webinar&utm_id=2&utm_term=Broad&utm_content=China-3": {
+    "N/A": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N2998.3958809PMPRECISIONSNAPCHAT/B29647597.366388966;dc_trk_aid=557651968;dc_trk_cid=191680565;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=;dc_tdv=1": {
+    "N/A": ["correct"]
+  },
+  "https://hewouldlovefirst.com/discount/SNAP25?redirect=%2Fcollections%2Fsnap": {
+    "Apparel & Accessories": ["correct"]
+  },
+  "https://bit.ly/44PLFM8": { "Arts & Entertainment > Hobbies & Creative Arts": ["correct"] },
+  "https://bs.serving-sys.com/Serving/adServer.bs?cn=trd&pli=1079246980&gdpr=$[GDPR]&gdpr_consent=$[GDPR_CONSENT_68]&us_privacy=$[US_PRIVACY]&adid=1090462109&ord=[timestamp]": {
+    "Baby & Toddler": ["correct"]
+  },
+  "https://bs.serving-sys.com/Serving/adServer.bs?cn=bisi&pli=1079040854&us_privacy=$%7BUS_PRIVACY%7D&adid=1089928336&ord=~.~TIMESTAMP~.~": {
+    "Health & Beauty > Personal Care": ["correct"]
+  },
+  "https://www.plannedparenthood.org/learn/stds-hiv-safer-sex/hiv-aids/prep?utm_source=snapchat&utm_medium=social&utm_campaign=hivServices_bucks_snap_eng": {
+    "Health & Beauty > Health Care ": ["correct"]
+  },
+  "https://qc21.online/products/on-cloud-5-fuse-frost?utm_source=snapchat&utm_campaign=WEEKEND+campaign&utm_content=%D8%AF%D9%88%D9%84%20": {
+    "Apparel & Accessories > Shoes": ["correct"]
+  },
+  "https://baladalkhair.org/product-305/?utm_source=Paid&utm_medium=Snapchat&utm_campaign=HelpingGaza": {
+    "N/A": ["correct"]
+  },
+  "https://duunitori.fi/tyopaikat/tyo/kanta-hameen-hyvinvointialue-kesatyo-sairaanhoitaja-ja-lahihoitaja-perusterveydenhuolto-ja-erikoissairaanhoito-sdsuu-16317456?utm_source=snapchat&utm_medium=cpc&utm_campaign=smartly&utm_content=kesatyokampanja": {
+    "N/A": ["correct"]
+  },
+  "https://www.delijn.be/nl/content/reisinfo/ontdek-de-app/?utm_id=dlfcece0": { "N/A": ["correct"] },
+  "https://go.kooth.com/geel?utm_source=Kooth%20Brand%20Snap%20%28UK%29%20-%2013%20-%2025%20&utm_campaign=United%20Kingdom%20-%20AREAS&utm_content=JuneAshro1%20%28SNAP%29": {
+    "N/A": ["correct"]
+  },
+  "https://proudtobematc.com/?utm_source=snapchat&utm_medium=paid_social&utm_campaign=visionpoint_matc_awar&utm_content=general-enrollment-snap-ads": {
+    "N/A": ["correct"]
+  },
+  "https://daremtnan.com/%D8%B9%D8%A8%D8%A7%D9%8A%D8%A9-%D8%B3%D9%88%D8%AF%D8%A7%D8%A1-%D8%A8%D8%A3%D9%83%D9%85%D8%A7%D9%85-%D8%A7%D9%84%D8%B4%D9%8A%D9%81%D9%88%D9%86-%D8%A7%D9%84%D9%88%D8%B1%D8%AF%D9%8A/p1893071385": {
+    "Apparel & Accessories > Clothing > Traditional & Ceremonial Clothing": ["correct"]
+  },
+  "https://kampanjer.snabbare.com/valkomstbonus-sport-500/?aff=117488": { "N/A": ["correct"] },
+  "https://tafeqld.edu.au/course/18/18451/certificate-iv-in-cyber-security?utm_source=tafeqld&utm_medium=snapchat&utm_campaign=sem2": {
+    "N/A": ["correct"]
+  },
+  "https://youtu.be/WQiDgWnqYyo": { "Media > Music & Sound Recordings > Digital Music Downloads": ["correct"] },
+  "https://ad.doubleclick.net/ddm/trackclk/N1072504.2581805SNAPCHAT.COM/B29941085.367083166;dc_trk_aid=557946968;dc_trk_cid=191818576;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=;dc_tdv=1": {
+    "Health & Beauty > Personal Care > Hair Care > Hair Styling Products": ["correct"]
+  },
+  "https://famous-twin-drm.com/snap/?utm=15290_1_4_647da991b2e93": { "N/A": ["correct"] },
+  "https://www.wingstop.com/order/action/delivery?utm_source=snapchat&utm_medium=social&utm_content=lal_general_intenseranch_901fb4ab-a4c8-4d4f-9bf5-0758e46e6517&utm_campaign=vvmnevers_b71ea1bf-b175-4f4a-8b20-2c89b4b1e456&utm_marketing_tactic=perf": {
+    "Food, Beverages & Tobacco > Food Items ": ["correct"]
+  },
+  "https://linktr.ee/swect": { "Electronics": ["correct"] },
+  "https://www.auk.edu.kw/admissions-financial-aid/forms/admissions-inquiry-form?utm_source=snapchat&utm_medium=SC&utm_campaign=Fallrecruitment2023": {
+    "N/A": ["correct"]
+  },
+  "https://enjoy-stores.com/product/1_534_Back-Massager-Stretcher-b?utm_source=Snapchat&utm_campaign=Con%20no%201%20Oman&adsAccount=1&snap=true&c=OM&medium=conv": {
+    "Health & Beauty > Personal Care > Massage & Relaxation > Massagers > Electric Massagers": ["correct"]
+  },
+  "https://youtu.be/7S8ZTF47knY": { "Media > Music & Sound Recordings > Digital Music Downloads": ["correct"] },
+  "https://eie.no/prospekt/?brd=76230018": { "N/A": ["correct"] },
+  "https://admissions.carleton.ca/programs/information-technology/?utm_campaign=aber_fed_recruitment&utm_source=snapchat&utm_medium=cpm&utm_term=lookalikes": {
+    "N/A": ["correct"]
+  },
+  "https://forms.gle/9ndJUbzfxNWv64Qb6": { "N/A": ["correct"] },
+  "https://livingstone.edu/admissions-financial-aid/?utm_campaign=fast&utm_source=enroll360_apply&utm_medium=snapchat&utm_content=visit": {
+    "N/A": ["correct"]
+  },
+  "https://bumble.com/?utm_source=SNAPCHAT&utm_medium=Video-10s&utm_campaign=Bumble_H&M&utm_content=PUN-MAY-F-Millennial": {
+    "Mature": ["correct"]
+  },
+  "https://bumble.com/?utm_source=Snapchat&utm_medium=Video-30s&utm_campaign=Bumble_IND_Regional&utm_content=CHE-F-GenZ": {
+    "Mature": ["correct"]
+  },
+  "https://bumble.com/?utm_source=Snapchat&utm_medium=Video-47s&utm_campaign=Bumble_IND_Regional&utm_content=DEL-F-GenZ-INFLCR-Aryaki": {
+    "Mature": ["correct"]
+  },
+  "https://flygresor.se": { "N/A": ["correct"] },
+  "https://forms.gle/6hk7kfqdX6pR4rsd6": { "N/A": ["correct"] },
+  "https://www.fitnyc.edu/academics/academic-divisions/ccps/?utm_source=snapchat&utm_medium=social&utm_campaign=fit-adult-learners_Traffic_Summer-23&utm_content=newyor_no_crlo&utm_term=sta__-1-13": {
+    "N/A": ["correct"]
+  },
+  "https://www.fitnyc.edu/academics/academic-divisions/ccps/?utm_source=snapchat&utm_medium=social&utm_campaign=fit-adult-learners_Traffic_Summer-23&utm_content=prista_cr_re&utm_term=sta__-1-13": {
+    "N/A": ["correct"]
+  },
+  "https://au.reachout.com/articles/having-sex-for-the-first-time?utm_source=snapchat&utm_campaign=Youth_Acquisition&utm_medium=ad_static&utm_content=1317-sex-b": {
+    "N/A": ["correct"]
+  },
+  "https://aql.echo-mart.com/index/detail.html?sno=MTAwNDIyMjM4NA%3D%3D&coll_id=1003014800&csnpupoygwfwhc=&from=snapchat&utm_content=36ef8a48-d987-4007-9b24-b32ffec17881&adset_id=a30d513e-35af-4795-a649-26125a33359a&ad_id=07d2c1d9-8c45-4042-a863-09bed68ab937&opt_id=632926&utm_source=snapchat&utm_medium=purchase&from=snapchat&utm_campaign=1004222384-5.25-": {
+    "Electronics": ["correct"]
+  },
+  "https://betfirst.dhnet.be?utm_source=snapchat&utm_medium=cpc&utm_campaign=BossData_Smartly_BetFIRST_SPORTS_CONVERSIONS_REM_FR": {
+    "N/A": ["correct"]
+  },
+  "https://tcnj.edu?utm_source=snapchat&utm_medium=social&utm_campaign=TCNJUndergrad_Awareness_2023&utm_content=nj_post_nomo&utm_term=vid_hiac_ca-06-Y2": {
+    "N/A": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/clk/539723532;356447814;q": { "N/A": ["correct"] },
+  "https://buhmann.de/?utm_source=snapchat&utm_campaign=Dr.%20Buhmann%20Akademie%20LIFETIME%202023&utm_content=Lektion%2021%20Lifetime": {
+    "N/A": ["correct"]
+  },
+  "https://csx.credit-suisse.com/de/konto-karte/csx/csx-young.html?aa_cmp=socm_pbch_ch_2022_csx_csx-young_own_na_sc_na_na_na_csx_na_Friends-0CHF-VO_30895": {
+    "N/A": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N5762.2581805SNAPCHAT.COM/B29938154.366833465;dc_trk_aid=557810102;dc_trk_cid=191688553;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=;dc_tdv=1": {
+    "Business & Industrial > Finance & Insurance": ["correct"]
+  },
+  "https://www.universalstudioshollywood.com/web/en/us/things-to-do/lands/super-nintendo-world?__source=ush..psoc..csh..pdsm..sfbig..awr..atpe..salsg..satip..cuors..cnin..vnof..noff..onof..brd..len..20230316.:..271": {
+    "Arts & Entertainment ": ["correct"]
+  },
+  "https://www.livenation.com/artist/K8vZ917GJC0/black-veil-brides-events?c=ps_National_Snapchat_BlackVeilBrides&VV_05302023": {
+    "N/A": ["correct"]
+  },
+  "https://reeqalnahl.com/products/mountain-sidr-honey-3": {
+    "Food, Beverages & Tobacco > Food Items > Condiments & Sauces > Honey": ["correct"]
+  },
+  "https://www.redbull.com/fr-fr/meilleurs-souvenirs-festival-concours?utm_source=Snapchat&utm_medium=social&utm_campaign=08709_V3_P_2023_FRA_CARTFEST_TOTDIGOTH_R2023%2F82249_R2023%2F82250&utm_content=commercialAds": {
+    "N/A": ["correct"]
+  },
+  "https://mooyah.com/locations/plano-tx-avenue-k-172/?utm_source=Ad+Accountability&utm_medium=Snapchat&utm_campaign=Happy+Hour+Shakes": {
+    "Business & Industrial > Food Service": ["correct"]
+  },
+  "https://linktr.ee/almanaberschool": { "N/A": ["correct"] },
+  "https://buy.rawaabi.com/sweat-5/?utm_source=%D8%AA%D8%B9%D8%B1%D9%82%20%D8%B3%D8%B9%D9%88%D8%AF%D9%8A%D8%A9%20&utm_campaign=Copy%20of%20Copy%20of%20Copy%20of%20%D8%AC%D9%85%D9%8A%D8%B9%20%D8%AA%D8%B9%D8%B1%D9%82&utm_content=%D9%85%D8%B3%D8%AA%D8%BA%D8%B1%D8%A8": {
+    "Health & Beauty > Personal Care > Deodorant & Anti-Perspirant > Deodorant": ["correct"]
+  },
+  "https://book.medicalglamor.com/offers/offer.html#!/-NLbGXUqEul6HmMex8XN/snap": {
+    "Health & Beauty > Personal Care": ["correct"]
+  },
+  "https://www.ivytech.edu/locations/terre-haute?utm_source=snapchat&utm_medium=display&utm_campaign=terrehaute-snapchat-learn+2023ay&utm_content=campus+terrehaute": {
+    "N/A": ["correct"]
+  },
+  "https://itgetsbetter.org/glossary/intersectionality/?utm_source=snapchat&utm_medium=paidsocial&utm_campaign=glossary&utm_content=13-30&utm_term=intersectionality&aid=snapchat_paidsocial": {
+    "N/A": ["correct"]
+  },
+  "https://www.navy.com/careers?activity=1278741": { "N/A": ["correct"] },
+  "https://linktr.ee/nawadir3rodh": {
+    "Electronics > Communications > Telephony > Mobile Phone Accessories > Mobile Phone Camera Accessories": ["correct"]
+  },
+  "https://forms.gle/KKKfAgxwWdUwpo728": { "Health & Beauty > Personal Care > Oral Care > Dental Floss": ["correct"] },
+  "https://hegetsus.com/en/be-childlike?utm_campaign=HGU-FY23-Winter&utm_source=snapchat&utm_medium=paidsocial&utm_term=801bba7e-a34a-4d7a-a0d9-d3a7064cd97d&utm_content=Kids1_6sec": {
+    "N/A": ["correct"]
+  },
+  "https://duunitori.fi/tyopaikat/tyo/if-vahinkovakuutus-kesatyontekijoita-sdsuu-16122841?utm_source=snapchat&utm_medium=cpc&utm_campaign=smartly&utm_content=kesatyokampanja": {
+    "N/A": ["correct"]
+  },
+  "https://dhnursing.org/nurse-residency-program-virtual-information-sessions/": { "N/A": ["correct"] },
+  "https://go-care.se/jobb/sommar-moelndal-2023?utm_source=snapchat&utm_campaign=sommar23&utm_content=molndal_TV1&medium=paid": {
+    "N/A": ["correct"]
+  },
+  "https://www.peacocktv.com/stream-movies/knock-at-the-cabin?cid=2301evgflmspkpdsocial84883&utm_campaign=2301evgflms&utm_source=pk_snp_snp&utm_medium=pd_social_prostar_vidskp&utm_term=860c793d-b7a6-478b-990e-d075f59f16c2_na&utm_content=9c0e40b8-e816-440e-a314-ff93257738c5": {
+    "Media > DVDs & Videos > Film & Television Digital Downloads": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N144601.4197373SNAPCHATCARAT-ME/B29944118.366945842;dc_trk_aid=557927009;dc_trk_cid=191795404;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=;dc_tdv=1": {
+    "N/A": ["correct"]
+  },
+  "https://linktr.ee/aqarii": { "Business & Industrial > Finance & Insurance": ["correct"] },
+  "https://broochco.com/%D8%AA%D8%B9%D9%84%D9%8A%D9%82%D8%A9-%D8%B0%D9%87%D8%A8-%D8%AA%D8%B5%D9%85%D9%8A%D9%85-%D8%A7%D9%84%D9%85%D8%A7%D8%B3-%D8%B9%D9%8A%D8%A7%D8%B1-18-%D9%88%D8%B2%D9%86-2620-%D8%AC%D8%B1%D8%A7%D9%85-%D8%AA%D9%82%D8%B1%D9%8A%D8%A8%D8%A7/p1422926427?utm_source=snap&utm_medium=female25.50%2B&utm_campaign=traffic27.5&utm_content=22": {
+    "Apparel & Accessories > Jewelry > Necklaces": ["correct"]
+  },
+  "https://travelwyoming.com/places-to-go/destinations/national-parks-monuments/?utm_source=snapchat&utm_medium=social&utm_campaign=5330_wot_Snapchat_summer2023_0323_discovery_awareness_US_&utm_content=awareness_wotgeneral_nationalparks__": {
+    "N/A": ["correct"]
+  },
+  "https://careers.moes.com/jobs?utm_source=INSPYR&utm_campaign=Pensacola&utm_content=Hiring": { "N/A": ["correct"] },
+  "https://betfirstcasino.be/sinscrire/?utm_source=snapchat&utm_medium=cpc&utm_campaign=BossData_Smartly_BetFIRST_CASINO_CONVERSIONS_FR": {
+    "N/A": ["correct"]
+  },
+  "https://global.memphis.edu/?utm_source=snapchat&utm_medium=social&utm_campaign=5456_umem_Snapchat_global_traffic&utm_content=bigcorneroffice": {
+    "N/A": ["correct"]
+  },
+  "https://bigfuture.collegeboard.org/communities-events/real-talk?excmpid=oc489-st-38-m7707-snap": {
+    "N/A": ["correct"]
+  },
+  "https://icangotocollege.com/?utm_source=misfit_snapchat&utm_medium=video&utm_campaign=ICAN_FY_2022%2F2023&utm_content=NTL_YMCE": {
+    "N/A": ["correct"]
+  },
+  "https://dasher.doordash.com/en-us?utm_source=Kepler-Snap&utm_medium=Snap_Acquisition&utm_campaign=dx_us_ps_sp_sc_acq_d635xx_11111_%2BDASH_ACQ_XXXXXXX_COUSA_SC_SO_WTCP_AUSTINXXXX&utm_kepler=GENPR_00XXXXXXX_XXSC_XXXX_BROADXXXXXXXX_XXXXX_DM635_XXXXX_SNAPOA&utm_term=44e8d9bc-580d-4977-b977-1464a684ffdd&utm_content=GENPR_00XXXXXXX_XXSC_XXXX_BROADXXXXXXXX_XXXXX_DM511_XXXXX_SNAPOA_BP1A_RS_EN_MP_AISVIDE%2Brs": {
+    "N/A": ["correct"]
+  },
+  "https://duunitori.fi/tyopaikat/tyo/kela-asiakaspalvelijoita-ja-etuuskasittelijoita-kesatoihin-sdsuu-16257954?utm_source=snapchat&utm_medium=cpc&utm_campaign=smartly&utm_content=kesatyokampanja": {
+    "N/A": ["correct"]
+  },
+  "https://www.betcity.nl/promoties/wedstrijd-van-de-week?utm_source=snapchat&utm_campaign=788adf09-0836-44f4-8543-cb833352e8aa&utm_content=f063ce01-ca59-454e-a5bf-aa36757eb590&utm_medium=cpm": {
+    "Arts & Entertainment > Hobbies & Creative Arts": ["correct"]
+  },
+  "https://www.betcity.nl/promoties/wedstrijd-van-de-week?utm_source=snapchat&utm_campaign=788adf09-0836-44f4-8543-cb833352e8aa&utm_content=fa223a36-7d9e-4810-b7dd-35ac8302b7c4&utm_medium=cpm": {
+    "Arts & Entertainment > Hobbies & Creative Arts": ["correct"]
+  },
+  "https://bold.org/applicants/?utm_source=snapchat&utm_campaign=%5BTEST%5D%20-%20%5BAUTO%5D%20-%20%5B14-17%5D%20-%20Simple%20Structure%20-%20Students&utm_content=10142022%20-%20bold.org&medium=cpc": {
+    "N/A": ["correct"]
+  },
+  "https://www.ticketmaster.com/bryson-tiller-tickets/artist/2171167": { "N/A": ["correct"] },
+  "https://duunitori.fi/tyopaikat/tyo/neste-join-us-as-summer-trainee-sdsuu-16126263?utm_source=snapchat&utm_medium=cpc&utm_campaign=smartly&utm_content=kesatyokampanja": {
+    "N/A": ["correct"]
+  },
+  "https://flights.flyadeal.com/en/flights-to-sharm-el-sheikh": { "N/A": ["correct"] },
+  "https://familydoctor.org/teens-and-stress-who-has-time-for-it/?adfree=true": { "N/A": ["correct"] },
+  "https://www.hk.dk/blivmedlem/akasse/?utm_source=snapchat&utm_medium=paid-social&utm_campaign=hk_uge-1-52-2023_always-on_p18-25": {
+    "N/A": ["correct"]
+  },
+  "https://ad.doubleclick.net/ddm/trackclk/N1020165.1919761SNAPCHAT.COM/B29422339.362868602;dc_trk_aid=554068864;dc_trk_cid=189356472;dc_lat=;dc_rdid=;tag_for_child_directed_treatment=;tfua=;ltd=": {
+    "Business & Industrial > Finance & Insurance": ["correct"]
+  },
+  "https://aegaller.com/perfume/?fairy_name=AG1&bc=NzcxMTY2Mjc5&po=ytyghbnj3&info=eyJpbWFnZXMiOlsiaW1hZ2UxMjQzNDM0MzQ0MzMzMzQzMzQzNDM0MzQzNDM0MzMzMzMzMzMzMzMzMyIsImltYWdlMjQzNDM0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NDQ0NCJdLCJwcmljZSI6eyJwcmljZSI6MzQsImRpc2NvdW50IjoyMH19": {
+    "Health & Beauty > Personal Care > Cosmetics > Perfume & Cologne": ["correct"]
+  },
+  "https://academics.tcnj.edu?utm_source=snapchat&utm_medium=social&utm_campaign=TCNJUndergrad_Awareness_2023&utm_content=njnypa_post_re&utm_term=sta_re_2-a-D3": {
+    "N/A": ["correct"]
+  },
+  "https://go-care.se/jobb/sommar-svenljunga-2023?utm_source=Snapchat&utm_campaign=Sommar23&utm_content=Svenljunga_TV1&medium=paid": {
+    "N/A": ["correct"]
+  },
+  "https://kebchi.fr/parrainer-un-orphelin/": { "N/A": ["correct"] },
+  "https://dsmc.store/ar/oNEWWp": { "Health & Beauty > Health Care": ["correct"] },
+  "https://www.ewu.edu/apply/admitted/": { "N/A": ["correct"] }
 }

@@ -9,11 +9,14 @@ import {
 } from "./constants";
 import { chatOpenai, chatOpenaiWithFunction, instructOpenai } from "./client";
 
-export const generateFunctionCallPrompt = (choices: string[], metaTags: string): ChatCompletionRequestMessage[] => [
+export const generateFunctionCallPrompt = (
+  choices: string[],
+  metaTags: string,
+  { example }: { example: string }
+): ChatCompletionRequestMessage[] => [
   {
     role: "system",
-    content:
-      'Respond with the choice that best applies e.g. "Apparel & Accessories > Clothing > Shirts & Tops" or "None of the Above"',
+    content: `Respond with the choice that best applies e.g. "${example}" or "None of the Above"`,
   },
   {
     role: "user",
@@ -38,9 +41,11 @@ export const generateChatPrompt = (choices: string[], metaTags: string): ChatCom
     role: "user",
     content: `
     Question: Which product category best describes the metadata?
+
     metadata:
       <meta name="description" content="The Men’s Pocket Tee. is the latest fit in your lineup of essentials. This supersoft, washed-and-worn basic fits&nbsp;generously through the body with a&nbsp;pocket detail&nbsp;that naturally torques like your favorite vintage tee. Handcrafted locally in L.A., this tee is designed to get (even) more character with age&nbsp;and&nbsp;wear. 50% P">
       <meta property="og:title" content="The Men's Pocket Tee. -- Heather Grey">
+
     choices: 
       1) Apparel & Accessories > Clothing > Pants,
       2) Apparel & Accessories > Clothing > Underwear & Socks > Undershirts
@@ -54,8 +59,10 @@ export const generateChatPrompt = (choices: string[], metaTags: string): ChatCom
     role: "user",
     content: `
     Question: Which product category best describes the metadata?
+
     metadata:
     ${metaTags}
+
     choices: \n\t${choices.map((choice, i) => `${i + 1}) ${choice}`).join("\n\t")}
   `,
   },
@@ -105,14 +112,15 @@ export const openAiSelectProductCategory = async (
   }
 
   if (inList(FUNCTION_CALL_MODELS, model)) {
-    const messages = generateFunctionCallPrompt(choices, metaTags);
+    const example = "Apparel & Accessories > Clothing > Shirts & Tops";
+    const messages = generateFunctionCallPrompt(choices, metaTags, { example });
     const response =
       (await chatOpenaiWithFunction(messages, {
         model,
         temperature,
-        example: "Apparel & Accessories > Clothing > Shirts & Tops",
+        example,
       })) ?? "";
-    console.log("response", response);
+
     try {
       const json = JSON.parse(response) as { category?: string };
       return {

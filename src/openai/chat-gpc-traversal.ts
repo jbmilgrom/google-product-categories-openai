@@ -70,10 +70,14 @@ export const generateChatPrompt = (choices: string[], metaTags: string): ChatCom
   },
 ];
 
-export const generateFunctionCallPrompt = (choices: string[], metaTags: string): ChatCompletionRequestMessage[] => [
+export const generateFunctionCallPrompt = (
+  choices: string[],
+  metaTags: string,
+  { example }: { example: string }
+): ChatCompletionRequestMessage[] => [
   {
     role: "system",
-    content: 'Respond with the choice that best applies e.g. "Apparel & Accessories"',
+    content: `Respond with the choice that best applies e.g. "${example}" or "None of the Above"`,
   },
   {
     role: "user",
@@ -177,9 +181,9 @@ export const openAiSelectCategoryFromChoices = async (
   }
 
   if (inList(FUNCTION_CALL_MODELS, model)) {
-    const messages = generateFunctionCallPrompt(choices, metaTags);
-    const response =
-      (await chatOpenaiWithFunction(messages, { model, temperature, example: "Apparel & Accessories" })) ?? "";
+    const example = "Apparel & Accessories";
+    const messages = generateFunctionCallPrompt(choices, metaTags, { example });
+    const response = (await chatOpenaiWithFunction(messages, { model, temperature, example })) ?? "";
     console.log("response", response);
     try {
       const json = JSON.parse(response) as { category?: string };

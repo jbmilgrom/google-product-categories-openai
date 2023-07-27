@@ -63,7 +63,7 @@ export const chatOpenaiWithFunction = async (
     example = "Apparel & Accessories",
   }: { model?: FunctionCallModel; temperature?: number; example?: string } = {}
 ): Promise<string | undefined> => {
-  console.log(`Calling Chat Completion API with model: "${model}", temperature: ${temperature}`);
+  console.log(`Calling Chat Completion with Functions API with model: "${model}", temperature: ${temperature}`);
   const completion = await openai.createChatCompletion({
     model,
     messages,
@@ -88,7 +88,13 @@ export const chatOpenaiWithFunction = async (
 
   console.log("OpenAI chatOpenaiWithFunction Response", completion.data.choices);
 
-  return completion.data.choices[0].message?.function_call?.arguments;
+  const choice = completion.data.choices[0];
+
+  // if (choice.finish_reason === "stop") {
+  //   return `"category": ${choice.message?.content}`;
+  // }
+
+  return choice.message?.function_call?.arguments;
 };
 
 export const listSupportedModels = async (): Promise<string[]> => {

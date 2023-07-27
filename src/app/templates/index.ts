@@ -196,15 +196,15 @@ export const sourceFormTemplate = (source: "url" | "text", path: string) => {
 
 const renderModelOption = (model: string): string => {
   if (inList(FUNCTION_CALL_MODELS, model)) {
-    return /*html*/ `Chat Model with Function Calling`;
+    return "Chat Model with Function Calling";
   }
   if (inList(CHAT_COMPLETION_MODELS, model)) {
-    return /*html*/ `Chat Model`;
+    return "Chat Model";
   }
   if (inList(INSTRUCTION_MODELS, model)) {
-    return /*html*/ `Instruction Model`;
+    return "Instruction Model";
   }
-  return /*html*/ `${model}`;
+  return model;
 };
 
 export const modelFormTemplate = (aiModels: string[]): string => {

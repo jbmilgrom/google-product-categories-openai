@@ -3,6 +3,7 @@ import { openAiSelectProductCategory } from "./openai";
 import { googleProductCategoriesSimilaritySearch } from "./app/langchain";
 import { toPath } from "./googleProducts";
 import { timeoutPromise } from "./utils/timeoutPromise";
+import { DEFAULT_MODEL, DEFAULT_TEMP } from "./openai/constants";
 
 type Chat = { prompt: string; response: string };
 type SimilaritySearch = { k: number; top: Array<{ category: string; score: number }> };
@@ -23,7 +24,11 @@ type Result =
 export const chatOpenaiEmbeddings = async (
   productTaxonomy: Vertices<string>,
   webPageMetaData: string,
-  { k = 10, model = "gpt-3.5-turbo", temperature = 0.6 }: { k?: number; model?: string; temperature?: number } = {}
+  {
+    k = 10,
+    model = DEFAULT_MODEL,
+    temperature = DEFAULT_TEMP,
+  }: { k?: number; model?: string; temperature?: number } = {}
 ): Promise<Result> => {
   const transcript = makeQueue<Chat>();
 

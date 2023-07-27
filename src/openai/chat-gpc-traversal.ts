@@ -1,6 +1,13 @@
 import { ChatCompletionRequestMessage } from "openai";
-import { CHAT_AND_COMPlETION_MODELS, CHAT_COMPLETION_MODELS, INSTRUCTION_MODELS, inList } from "./constants";
-import { chatOpenai, instructOpenai } from "./client";
+import {
+  CHAT_AND_COMPlETION_MODELS,
+  CHAT_COMPLETION_MODELS,
+  DEFAULT_MODEL,
+  FUNCTION_CALL_MODELS,
+  INSTRUCTION_MODELS,
+  inList,
+} from "./constants";
+import { chatOpenai, chatOpenaiWithFunction, instructOpenai } from "./client";
 
 export const generateInstructivePrompt = (choices: string[], metaTags: string) => `
   Select a category from the following list 
@@ -50,6 +57,28 @@ export const generateChatPrompt = (choices: string[], metaTags: string): ChatCom
   `,
   },
   { role: "assistant", content: "9) Kitchen & Dining" },
+  {
+    role: "user",
+    content: `
+    Question: Which product category best describes the metadata?
+
+    metadata:
+    ${metaTags}
+
+    choices: \n\t${choices.map((choice, i) => `${i + 1}) ${choice}`).join("\n\t")}
+  `,
+  },
+];
+
+export const generateFunctionCallPrompt = (
+  choices: string[],
+  metaTags: string,
+  { example }: { example: string }
+): ChatCompletionRequestMessage[] => [
+  {
+    role: "system",
+    content: `Respond with the choice that best applies e.g. "${example}" or "None of the Above"`,
+  },
   {
     role: "user",
     content: `
@@ -120,10 +149,13 @@ export const generateCategorizationAuditChatPrompt = (
   },
 ];
 
+const formatMessagesPrompt = (messages: ChatCompletionRequestMessage[]): string =>
+  messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");
+
 export const openAiSelectCategoryFromChoices = async (
   choices: string[],
   metaTags: string,
-  { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
+  { model = DEFAULT_MODEL, temperature }: { model?: string; temperature?: number }
 ): Promise<{ category: string; metadata: { prompt: string; response: string } }> => {
   if (inList(INSTRUCTION_MODELS, model)) {
     const prompt = generateInstructivePrompt(choices, metaTags);
@@ -142,10 +174,35 @@ export const openAiSelectCategoryFromChoices = async (
     return {
       category: response.trim().split(" ").slice(1).join(" "),
       metadata: {
-        prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
+        prompt: formatMessagesPrompt(messages),
         response,
       },
     };
+  }
+
+  if (inList(FUNCTION_CALL_MODELS, model)) {
+    const example = "Apparel & Accessories";
+    const messages = generateFunctionCallPrompt(choices, metaTags, { example });
+    const response = (await chatOpenaiWithFunction(messages, { model, temperature, example })) ?? "";
+    console.log("response", response);
+
+    const metadata = {
+      prompt: formatMessagesPrompt(messages),
+      response,
+    };
+
+    try {
+      const json = JSON.parse(response) as { category?: string };
+      return {
+        category: json.category ?? "",
+        metadata,
+      };
+    } catch (e) {
+      return {
+        category: "None",
+        metadata,
+      };
+    }
   }
 
   throw new Error(`Select one of these models {${CHAT_AND_COMPlETION_MODELS.join(", ")}}`);
@@ -154,7 +211,7 @@ export const openAiSelectCategoryFromChoices = async (
 export const openAiAssessStateOfDeadend = async (
   subjectMetatags: string,
   { parent, children }: { parent: string; children: string[] }, // state
-  { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number } // model config
+  { model = DEFAULT_MODEL, temperature }: { model?: string; temperature?: number } // model config
 ): Promise<{ state: State; metadata: { prompt: string; response: string } }> => {
   console.log("Asking OpenAI for help with deadend.");
   if (inList(INSTRUCTION_MODELS, model)) {

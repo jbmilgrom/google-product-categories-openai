@@ -114,29 +114,24 @@ export const openAiSelectProductCategory = async (
   if (inList(FUNCTION_CALL_MODELS, model)) {
     const example = "Apparel & Accessories > Clothing > Shirts & Tops";
     const messages = generateFunctionCallPrompt(choices, metaTags, { example });
-    const response =
-      (await chatOpenaiWithFunction(messages, {
-        model,
-        temperature,
-        example,
-      })) ?? "";
+    const response = (await chatOpenaiWithFunction(messages, { model, temperature, example })) ?? "";
+    console.log("response", response);
+
+    const metadata = {
+      prompt: formatMessagesPrompt(messages),
+      response,
+    };
 
     try {
       const json = JSON.parse(response) as { category?: string };
       return {
         productCategories: json.category ?? "",
-        metadata: {
-          prompt: formatMessagesPrompt(messages),
-          response,
-        },
+        metadata,
       };
     } catch (e) {
       return {
         productCategories: "None",
-        metadata: {
-          prompt: formatMessagesPrompt(messages),
-          response,
-        },
+        metadata,
       };
     }
   }

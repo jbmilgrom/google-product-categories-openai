@@ -185,22 +185,22 @@ export const openAiSelectCategoryFromChoices = async (
     const messages = generateFunctionCallPrompt(choices, metaTags, { example });
     const response = (await chatOpenaiWithFunction(messages, { model, temperature, example })) ?? "";
     console.log("response", response);
+
+    const metadata = {
+      prompt: formatMessagesPrompt(messages),
+      response,
+    };
+
     try {
       const json = JSON.parse(response) as { category?: string };
       return {
         category: json.category ?? "",
-        metadata: {
-          prompt: formatMessagesPrompt(messages),
-          response,
-        },
+        metadata,
       };
     } catch (e) {
       return {
         category: "None",
-        metadata: {
-          prompt: formatMessagesPrompt(messages),
-          response,
-        },
+        metadata,
       };
     }
   }

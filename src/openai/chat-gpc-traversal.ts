@@ -1,5 +1,11 @@
 import { ChatCompletionRequestMessage } from "openai";
-import { CHAT_AND_COMPlETION_MODELS, CHAT_COMPLETION_MODELS, INSTRUCTION_MODELS, inList } from "./constants";
+import {
+  CHAT_AND_COMPlETION_MODELS,
+  CHAT_COMPLETION_MODELS,
+  DEFAULT_MODEL,
+  INSTRUCTION_MODELS,
+  inList,
+} from "./constants";
 import { chatOpenai, instructOpenai } from "./client";
 
 export const generateInstructivePrompt = (choices: string[], metaTags: string) => `
@@ -123,7 +129,7 @@ export const generateCategorizationAuditChatPrompt = (
 export const openAiSelectCategoryFromChoices = async (
   choices: string[],
   metaTags: string,
-  { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number }
+  { model = DEFAULT_MODEL, temperature }: { model?: string; temperature?: number }
 ): Promise<{ category: string; metadata: { prompt: string; response: string } }> => {
   if (inList(INSTRUCTION_MODELS, model)) {
     const prompt = generateInstructivePrompt(choices, metaTags);
@@ -154,7 +160,7 @@ export const openAiSelectCategoryFromChoices = async (
 export const openAiAssessStateOfDeadend = async (
   subjectMetatags: string,
   { parent, children }: { parent: string; children: string[] }, // state
-  { model = "gpt-3.5-turbo", temperature }: { model?: string; temperature?: number } // model config
+  { model = DEFAULT_MODEL, temperature }: { model?: string; temperature?: number } // model config
 ): Promise<{ state: State; metadata: { prompt: string; response: string } }> => {
   console.log("Asking OpenAI for help with deadend.");
   if (inList(INSTRUCTION_MODELS, model)) {

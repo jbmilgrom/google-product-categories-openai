@@ -17,8 +17,12 @@ export const CHAT_COMPLETION_MODELS = [
   "gpt-4-0314",
   "gpt-4-32k",
   "gpt-4-32k-0314",
+  "gpt-4-0613",
+  "gpt-4-32k-0613",
   "gpt-3.5-turbo",
   "gpt-3.5-turbo-0301",
+  "gpt-3.5-turbo-0613",
+  "gpt-3.5-turbo-16k",
 ] as const;
 export type ChatCompletionModel = (typeof CHAT_COMPLETION_MODELS)[number];
 export const INSTRUCTION_MODELS = [
@@ -35,3 +39,6 @@ export const chatOrCompletionModel = new Set(CHAT_AND_COMPlETION_MODELS);
 export function inList<T extends string>(list: Readonly<T[]>, s: string): s is T {
   return list.includes(s as T);
 }
+
+export const DEFAULT_TEMP = 0.0;
+export const DEFAULT_MODEL = "gpt-3.5-turbo";

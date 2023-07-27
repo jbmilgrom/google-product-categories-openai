@@ -1,31 +1,19 @@
 import { ChatCompletionRequestMessage } from "openai";
-import { CHAT_AND_COMPlETION_MODELS, CHAT_COMPLETION_MODELS, INSTRUCTION_MODELS, inList } from "./constants";
+import {
+  CHAT_AND_COMPlETION_MODELS,
+  CHAT_COMPLETION_MODELS,
+  DEFAULT_MODEL,
+  INSTRUCTION_MODELS,
+  inList,
+} from "./constants";
 import { chatOpenai, instructOpenai } from "./client";
 
 export const generateChatPrompt = (choices: string[], metaTags: string): ChatCompletionRequestMessage[] => [
   {
     role: "system",
     content:
-      'You may select one of the choices that best apply. Respond with "None of the Above" if none are relevant.',
+      'Respond with the choice that best applies e.g. "Apparel & Accessories > Clothing > Shirts & Tops" or "None of the Above"',
   },
-  {
-    role: "user",
-    content: `
-    Question: Which product category best describes the metadata?
-
-    metadata:
-      <meta name="description" content="The Men’s Pocket Tee. is the latest fit in your lineup of essentials. This supersoft, washed-and-worn basic fits&nbsp;generously through the body with a&nbsp;pocket detail&nbsp;that naturally torques like your favorite vintage tee. Handcrafted locally in L.A., this tee is designed to get (even) more character with age&nbsp;and&nbsp;wear. 50% P">
-      <meta property="og:title" content="The Men's Pocket Tee. -- Heather Grey">
-
-    choices: 
-      1) Apparel & Accessories > Clothing > Pants,
-      2) Apparel & Accessories > Clothing > Underwear & Socks > Undershirts
-      3) Apparel & Accessories > Clothing > Activewear
-      4) Apparel & Accessories > Clothing > Shirts & Tops
-      5) Apparel & Accessories > Clothing > Activewear > American Football Pants
-  `,
-  },
-  { role: "assistant", content: "4) Apparel & Accessories > Clothing > Shirts & Tops" },
   {
     role: "user",
     content: `
@@ -54,7 +42,7 @@ export const generateInstructivePrompt = (choices: string[], metaTags: string) =
 export const openAiSelectProductCategory = async (
   choices: string[],
   metaTags: string,
-  { model = "gpt-3.5-turbo", temperature }: { k?: number; model?: string; temperature?: number }
+  { model = DEFAULT_MODEL, temperature }: { k?: number; model?: string; temperature?: number }
 ): Promise<{ productCategories: string; metadata: { prompt: string; response: string } }> => {
   if (inList(INSTRUCTION_MODELS, model)) {
     const prompt = generateInstructivePrompt(choices, metaTags);
@@ -70,13 +58,24 @@ export const openAiSelectProductCategory = async (
     const messages = generateChatPrompt(choices, metaTags);
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
     console.log("response", response);
-    return {
-      productCategories: response.trim().split(" ").slice(1).join(" "),
-      metadata: {
-        prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
-        response,
-      },
-    };
+    try {
+      const json = JSON.parse(response) as { category?: string };
+      return {
+        productCategories: json.category ?? "",
+        metadata: {
+          prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
+          response,
+        },
+      };
+    } catch (e) {
+      return {
+        productCategories: "None",
+        metadata: {
+          prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
+          response,
+        },
+      };
+    }
   }
 
   throw new Error(`Select one of these models {${CHAT_AND_COMPlETION_MODELS.join(", ")}}`);

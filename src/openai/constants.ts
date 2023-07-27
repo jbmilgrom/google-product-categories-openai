@@ -17,11 +17,9 @@ export const CHAT_COMPLETION_MODELS = [
   "gpt-4-0314",
   "gpt-4-32k",
   "gpt-4-32k-0314",
-  "gpt-4-0613",
   "gpt-4-32k-0613",
   "gpt-3.5-turbo",
   "gpt-3.5-turbo-0301",
-  "gpt-3.5-turbo-0613",
   "gpt-3.5-turbo-16k",
 ] as const;
 export type ChatCompletionModel = (typeof CHAT_COMPLETION_MODELS)[number];
@@ -33,7 +31,13 @@ export const INSTRUCTION_MODELS = [
   "text-ada-001",
 ] as const;
 export type CompletionModel = (typeof INSTRUCTION_MODELS)[number];
-export const CHAT_AND_COMPlETION_MODELS = [...CHAT_COMPLETION_MODELS, ...INSTRUCTION_MODELS] as const;
+export const FUNCTION_CALL_MODELS = ["gpt-3.5-turbo-0613", "gpt-4-0613"] as const;
+export type FunctionCallModel = (typeof FUNCTION_CALL_MODELS)[number];
+export const CHAT_AND_COMPlETION_MODELS = [
+  ...CHAT_COMPLETION_MODELS,
+  ...INSTRUCTION_MODELS,
+  ...FUNCTION_CALL_MODELS,
+] as const;
 export type ChatOrCompletionModel = (typeof CHAT_AND_COMPlETION_MODELS)[number];
 export const chatOrCompletionModel = new Set(CHAT_AND_COMPlETION_MODELS);
 export function inList<T extends string>(list: Readonly<T[]>, s: string): s is T {

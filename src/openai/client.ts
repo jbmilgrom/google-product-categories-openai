@@ -5,6 +5,7 @@ import {
   CompletionModel,
   DEFAULT_MODEL,
   DEFAULT_TEMP,
+  FunctionCallModel,
   chatOrCompletionModel,
 } from "./constants";
 import * as dotenv from "dotenv";
@@ -24,7 +25,7 @@ const openai = new OpenAIApi(configuration);
 
 export const instructOpenai = async (
   prompt: string,
-  { model = "text-davinci-003", temperature = 0.6 }: { model?: CompletionModel; temperature?: number } = {}
+  { model = "text-davinci-003", temperature = DEFAULT_TEMP }: { model?: CompletionModel; temperature?: number } = {}
 ): Promise<string | undefined> => {
   console.log(`Calling Completion API with model: "${model}", temperature: ${temperature}`);
   const completion = await openai.createCompletion({
@@ -33,12 +34,34 @@ export const instructOpenai = async (
     temperature,
   });
 
+  console.log("OpenAI instructOpenai Response", completion.data.choices);
+
   return completion.data.choices[0].text;
 };
 
 export const chatOpenai = async (
   messages: ChatCompletionRequestMessage[],
-  { model = DEFAULT_MODEL, temperature = DEFAULT_TEMP }: { model?: ChatCompletionModel; temperature?: number } = {}
+  { model = "gpt-3.5-turbo", temperature = DEFAULT_TEMP }: { model?: ChatCompletionModel; temperature?: number } = {}
+): Promise<string | undefined> => {
+  console.log(`Calling Chat Completion API with model: "${model}", temperature: ${temperature}`);
+  const completion = await openai.createChatCompletion({
+    model,
+    messages,
+    temperature,
+  });
+
+  console.log("OpenAI chatOpenai Response", completion.data.choices);
+
+  return completion.data.choices[0].message?.content;
+};
+
+export const chatOpenaiWithFunction = async (
+  messages: ChatCompletionRequestMessage[],
+  {
+    model = "gpt-3.5-turbo-0613",
+    temperature = DEFAULT_TEMP,
+    example = "Apparel & Accessories",
+  }: { model?: FunctionCallModel; temperature?: number; example?: string } = {}
 ): Promise<string | undefined> => {
   console.log(`Calling Chat Completion API with model: "${model}", temperature: ${temperature}`);
   const completion = await openai.createChatCompletion({
@@ -54,7 +77,7 @@ export const chatOpenai = async (
           properties: {
             category: {
               type: "string",
-              description: "The product category e.g. Apparel & Accessories > Clothing > Shirts & Tops",
+              description: `The product category e.g. ${example}`,
             },
           },
           required: ["category"],
@@ -63,7 +86,8 @@ export const chatOpenai = async (
     ],
   });
 
-  console.log("what is happening", completion.data.choices);
+  console.log("OpenAI chatOpenaiWithFunction Response", completion.data.choices);
+
   return completion.data.choices[0].message?.function_call?.arguments;
 };
 

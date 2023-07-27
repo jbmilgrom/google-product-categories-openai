@@ -3,10 +3,11 @@ import {
   CHAT_AND_COMPlETION_MODELS,
   CHAT_COMPLETION_MODELS,
   DEFAULT_MODEL,
+  FUNCTION_CALL_MODELS,
   INSTRUCTION_MODELS,
   inList,
 } from "./constants";
-import { chatOpenai, instructOpenai } from "./client";
+import { chatOpenai, chatOpenaiWithFunction, instructOpenai } from "./client";
 
 export const generateInstructivePrompt = (choices: string[], metaTags: string) => `
   Select a category from the following list 
@@ -56,6 +57,24 @@ export const generateChatPrompt = (choices: string[], metaTags: string): ChatCom
   `,
   },
   { role: "assistant", content: "9) Kitchen & Dining" },
+  {
+    role: "user",
+    content: `
+    Question: Which product category best describes the metadata?
+
+    metadata:
+    ${metaTags}
+
+    choices: \n\t${choices.map((choice, i) => `${i + 1}) ${choice}`).join("\n\t")}
+  `,
+  },
+];
+
+export const generateFunctionCallPrompt = (choices: string[], metaTags: string): ChatCompletionRequestMessage[] => [
+  {
+    role: "system",
+    content: 'Respond with the choice that best applies e.g. "Apparel & Accessories"',
+  },
   {
     role: "user",
     content: `
@@ -126,6 +145,9 @@ export const generateCategorizationAuditChatPrompt = (
   },
 ];
 
+const formatMessagesPrompt = (messages: ChatCompletionRequestMessage[]): string =>
+  messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");
+
 export const openAiSelectCategoryFromChoices = async (
   choices: string[],
   metaTags: string,
@@ -148,10 +170,35 @@ export const openAiSelectCategoryFromChoices = async (
     return {
       category: response.trim().split(" ").slice(1).join(" "),
       metadata: {
-        prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
+        prompt: formatMessagesPrompt(messages),
         response,
       },
     };
+  }
+
+  if (inList(FUNCTION_CALL_MODELS, model)) {
+    const messages = generateFunctionCallPrompt(choices, metaTags);
+    const response =
+      (await chatOpenaiWithFunction(messages, { model, temperature, example: "Apparel & Accessories" })) ?? "";
+    console.log("response", response);
+    try {
+      const json = JSON.parse(response) as { category?: string };
+      return {
+        category: json.category ?? "",
+        metadata: {
+          prompt: formatMessagesPrompt(messages),
+          response,
+        },
+      };
+    } catch (e) {
+      return {
+        category: "None",
+        metadata: {
+          prompt: formatMessagesPrompt(messages),
+          response,
+        },
+      };
+    }
   }
 
   throw new Error(`Select one of these models {${CHAT_AND_COMPlETION_MODELS.join(", ")}}`);

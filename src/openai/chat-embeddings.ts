@@ -3,12 +3,13 @@ import {
   CHAT_AND_COMPlETION_MODELS,
   CHAT_COMPLETION_MODELS,
   DEFAULT_MODEL,
+  FUNCTION_CALL_MODELS,
   INSTRUCTION_MODELS,
   inList,
 } from "./constants";
-import { chatOpenai, instructOpenai } from "./client";
+import { chatOpenai, chatOpenaiWithFunction, instructOpenai } from "./client";
 
-export const generateChatPrompt = (choices: string[], metaTags: string): ChatCompletionRequestMessage[] => [
+export const generateFunctionCallPrompt = (choices: string[], metaTags: string): ChatCompletionRequestMessage[] => [
   {
     role: "system",
     content:
@@ -27,6 +28,39 @@ export const generateChatPrompt = (choices: string[], metaTags: string): ChatCom
   },
 ];
 
+export const generateChatPrompt = (choices: string[], metaTags: string): ChatCompletionRequestMessage[] => [
+  {
+    role: "system",
+    content:
+      'You may select one of the choices that best apply. Respond with "None of the Above" if none are relevant.',
+  },
+  {
+    role: "user",
+    content: `
+    Question: Which product category best describes the metadata?
+    metadata:
+      <meta name="description" content="The Men’s Pocket Tee. is the latest fit in your lineup of essentials. This supersoft, washed-and-worn basic fits&nbsp;generously through the body with a&nbsp;pocket detail&nbsp;that naturally torques like your favorite vintage tee. Handcrafted locally in L.A., this tee is designed to get (even) more character with age&nbsp;and&nbsp;wear. 50% P">
+      <meta property="og:title" content="The Men's Pocket Tee. -- Heather Grey">
+    choices: 
+      1) Apparel & Accessories > Clothing > Pants,
+      2) Apparel & Accessories > Clothing > Underwear & Socks > Undershirts
+      3) Apparel & Accessories > Clothing > Activewear
+      4) Apparel & Accessories > Clothing > Shirts & Tops
+      5) Apparel & Accessories > Clothing > Activewear > American Football Pants
+  `,
+  },
+  { role: "assistant", content: "4) Apparel & Accessories > Clothing > Shirts & Tops" },
+  {
+    role: "user",
+    content: `
+    Question: Which product category best describes the metadata?
+    metadata:
+    ${metaTags}
+    choices: \n\t${choices.map((choice, i) => `${i + 1}) ${choice}`).join("\n\t")}
+  `,
+  },
+];
+
 export const generateInstructivePrompt = (choices: string[], metaTags: string) => `
   Select a category from the following list 
           
@@ -38,6 +72,9 @@ export const generateInstructivePrompt = (choices: string[], metaTags: string) =
 
   Respond only with the selected category or an empty response if none are relevant.
   `;
+
+const formatMessagesPrompt = (messages: ChatCompletionRequestMessage[]): string =>
+  messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");
 
 export const openAiSelectProductCategory = async (
   choices: string[],
@@ -58,12 +95,30 @@ export const openAiSelectProductCategory = async (
     const messages = generateChatPrompt(choices, metaTags);
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
     console.log("response", response);
+    return {
+      productCategories: response.trim().split(" ").slice(1).join(" "),
+      metadata: {
+        prompt: formatMessagesPrompt(messages),
+        response,
+      },
+    };
+  }
+
+  if (inList(FUNCTION_CALL_MODELS, model)) {
+    const messages = generateFunctionCallPrompt(choices, metaTags);
+    const response =
+      (await chatOpenaiWithFunction(messages, {
+        model,
+        temperature,
+        example: "Apparel & Accessories > Clothing > Shirts & Tops",
+      })) ?? "";
+    console.log("response", response);
     try {
       const json = JSON.parse(response) as { category?: string };
       return {
         productCategories: json.category ?? "",
         metadata: {
-          prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
+          prompt: formatMessagesPrompt(messages),
           response,
         },
       };
@@ -71,7 +126,7 @@ export const openAiSelectProductCategory = async (
       return {
         productCategories: "None",
         metadata: {
-          prompt: messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n"),
+          prompt: formatMessagesPrompt(messages),
           response,
         },
       };

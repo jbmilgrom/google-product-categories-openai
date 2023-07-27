@@ -1,6 +1,7 @@
 import { makeQueue, Vertices, Queue, find, getValues, makeStack, purge } from "./utils/tree";
 import { Correct, Incorrect, openAiAssessStateOfDeadend, openAiSelectCategoryFromChoices } from "./openai";
 import { assertUnreachable } from "./utils/assertUnreachable";
+import { DEFAULT_MODEL, DEFAULT_TEMP } from "./openai/constants";
 
 type Chat = { prompt: string; response: string };
 type ChatMetadata = { transcript: Queue<Chat>; model: string; temperature: number };
@@ -23,8 +24,8 @@ export const chatOpenaiGraphTraversal = async (
   webPageMetaData: string,
   {
     retries = 0,
-    model = "gpt-3.5-turbo",
-    temperature = 0.6,
+    model = DEFAULT_MODEL,
+    temperature = DEFAULT_TEMP,
   }: { retries?: number; model?: string; temperature?: number } = {}
 ): Promise<Result> => {
   const transcript = makeQueue<Chat>();

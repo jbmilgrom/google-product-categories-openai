@@ -1,3 +1,5 @@
+import { inList } from "../../openai";
+import { CHAT_COMPLETION_MODELS, FUNCTION_CALL_MODELS, INSTRUCTION_MODELS } from "../../openai/constants";
 import { assertUnreachable } from "../../utils/assertUnreachable";
 import { escapeHtml } from "../../utils/escapeHtml";
 import { makeQueryParams } from "../../utils/makeQueyParams";
@@ -192,6 +194,19 @@ export const sourceFormTemplate = (source: "url" | "text", path: string) => {
   }
 };
 
+const renderModelOption = (model: string): string => {
+  if (inList(FUNCTION_CALL_MODELS, model)) {
+    return /*html*/ `Chat Model with Function Calling`;
+  }
+  if (inList(CHAT_COMPLETION_MODELS, model)) {
+    return /*html*/ `Chat Model`;
+  }
+  if (inList(INSTRUCTION_MODELS, model)) {
+    return /*html*/ `Instruction Model`;
+  }
+  return /*html*/ `${model}`;
+};
+
 export const modelFormTemplate = (aiModels: string[]): string => {
   return /*html*/ `
     <label class="model-label" for="ai-models">OpenAI Model</label>
@@ -201,7 +216,7 @@ export const modelFormTemplate = (aiModels: string[]): string => {
         .map(
           (name) =>
             /*html*/
-            `<option>${name}</option>`
+            `<option value=${name}>${renderModelOption(name)}</option>`
         )
         .join("")}
     </datalist>

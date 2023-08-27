@@ -1,4 +1,4 @@
-import { ChatCompletionRequestMessage, Configuration, OpenAIApi } from "openai";
+import OpenAI from "openai";
 import {
   ChatCompletionModel,
   ChatOrCompletionModel,
@@ -18,45 +18,44 @@ if (OPENAI_API_KEY === undefined) {
   throw new Error("OPENAI_API_KEY is undefined.");
 }
 
-const configuration = new Configuration({
+const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
 });
-const openai = new OpenAIApi(configuration);
 
 export const instructOpenai = async (
   prompt: string,
   { model = "text-davinci-003", temperature = DEFAULT_TEMP }: { model?: CompletionModel; temperature?: number } = {}
 ): Promise<string | undefined> => {
   console.log(`Calling Completion API with model: "${model}", temperature: ${temperature}`);
-  const completion = await openai.createCompletion({
+  const completion = await openai.completions.create({
     model,
     prompt,
     temperature,
   });
 
-  console.log("OpenAI instructOpenai Response", completion.data.choices);
+  console.log("OpenAI instructOpenai Response", completion.choices);
 
-  return completion.data.choices[0].text;
+  return completion.choices[0].text;
 };
 
 export const chatOpenai = async (
-  messages: ChatCompletionRequestMessage[],
+  messages: OpenAI.Chat.CreateChatCompletionRequestMessage[],
   { model = "gpt-3.5-turbo", temperature = DEFAULT_TEMP }: { model?: ChatCompletionModel; temperature?: number } = {}
-): Promise<string | undefined> => {
+): Promise<string | null> => {
   console.log(`Calling Chat Completion API with model: "${model}", temperature: ${temperature}`);
-  const completion = await openai.createChatCompletion({
+  const completion = await openai.chat.completions.create({
     model,
     messages,
     temperature,
   });
 
-  console.log("OpenAI chatOpenai Response", completion.data.choices);
+  console.log("OpenAI chatOpenai Response", completion.choices);
 
-  return completion.data.choices[0].message?.content;
+  return completion.choices[0].message?.content;
 };
 
 export const chatOpenaiWithFunction = async (
-  messages: ChatCompletionRequestMessage[],
+  messages: OpenAI.Chat.CreateChatCompletionRequestMessage[],
   {
     model = "gpt-3.5-turbo-0613",
     temperature = DEFAULT_TEMP,
@@ -64,7 +63,7 @@ export const chatOpenaiWithFunction = async (
   }: { model?: FunctionCallModel; temperature?: number; example?: string } = {}
 ): Promise<string | undefined> => {
   console.log(`Calling Chat Completion with Functions API with model: "${model}", temperature: ${temperature}`);
-  const completion = await openai.createChatCompletion({
+  const completion = await openai.chat.completions.create({
     model,
     messages,
     temperature,
@@ -86,9 +85,9 @@ export const chatOpenaiWithFunction = async (
     ],
   });
 
-  console.log("OpenAI chatOpenaiWithFunction Response", completion.data.choices);
+  console.log("OpenAI chatOpenaiWithFunction Response", completion.choices);
 
-  const choice = completion.data.choices[0];
+  const choice = completion.choices[0];
 
   // if (choice.finish_reason === "stop") {
   //   return `"category": ${choice.message?.content}`;
@@ -98,9 +97,7 @@ export const chatOpenaiWithFunction = async (
 };
 
 export const listSupportedModels = async (): Promise<string[]> => {
-  const models = await openai.listModels();
+  const models = await openai.models.list();
 
-  return models.data.data
-    .map((model) => model.id)
-    .filter((id) => chatOrCompletionModel.has(id as ChatOrCompletionModel));
+  return models.data.map((model) => model.id).filter((id) => chatOrCompletionModel.has(id as ChatOrCompletionModel));
 };

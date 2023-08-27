@@ -1,4 +1,4 @@
-import { ChatCompletionRequestMessage } from "openai";
+import OpenAI from "openai";
 import {
   CHAT_AND_COMPlETION_MODELS,
   CHAT_COMPLETION_MODELS,
@@ -13,7 +13,7 @@ export const generateFunctionCallPrompt = (
   choices: string[],
   metaTags: string,
   { example }: { example: string }
-): ChatCompletionRequestMessage[] => [
+): OpenAI.Chat.CreateChatCompletionRequestMessage[] => [
   {
     role: "system",
     content: `Respond with the choice that best applies e.g. "${example}" or "None of the Above"`,
@@ -31,7 +31,10 @@ export const generateFunctionCallPrompt = (
   },
 ];
 
-export const generateChatPrompt = (choices: string[], metaTags: string): ChatCompletionRequestMessage[] => [
+export const generateChatPrompt = (
+  choices: string[],
+  metaTags: string
+): OpenAI.Chat.CreateChatCompletionRequestMessage[] => [
   {
     role: "system",
     content:
@@ -80,7 +83,7 @@ export const generateInstructivePrompt = (choices: string[], metaTags: string) =
   Respond only with the selected category or an empty response if none are relevant.
   `;
 
-const formatMessagesPrompt = (messages: ChatCompletionRequestMessage[]): string =>
+const formatMessagesPrompt = (messages: OpenAI.Chat.CreateChatCompletionRequestMessage[]): string =>
   messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");
 
 export const openAiSelectProductCategory = async (

@@ -61,6 +61,10 @@ export const htmlTemplate = (children?: string): string => {
           border: 1px solid black;
         }
 
+        table {
+          empty-cells: show;
+        }
+
         td {
           padding: .5em 1em;
         }
@@ -352,8 +356,8 @@ export const topKTemplate = ({ top, k }: { k: number; top: { category: string; s
   <table>
     <thead>
       <tr>
-        <td>Order</td>
         <td>k</td>
+        <td>Cosine Similarity</td>
         <td>Category</td>
       </tr>
     </thead>

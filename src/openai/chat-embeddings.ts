@@ -1,28 +1,7 @@
 import OpenAI from "openai";
 import { CHAT_COMPLETION_MODELS, CHAT_MODELS, DEFAULT_MODEL, FUNCTION_CALL_MODELS, inList } from "./constants";
 import { chatOpenai, chatOpenaiWithFunction } from "./client";
-
-export const generateFunctionCallPrompt = (
-  choices: string[],
-  metaTags: string,
-  { example }: { example: string }
-): OpenAI.Chat.CreateChatCompletionRequestMessage[] => [
-  {
-    role: "system",
-    content: `Respond with the choice that best applies e.g. "${example}" or "None of the Above"`,
-  },
-  {
-    role: "user",
-    content: `
-    Question: Which product category best describes the metadata?
-
-    metadata:
-    ${metaTags}
-
-    choices: \n\t${choices.map((choice, i) => `${i + 1}) ${choice}`).join("\n\t")}
-  `,
-  },
-];
+import { CategoryFunction, generateFunctionCallPrompt, generateFunctions } from "./prompts";
 
 export const generateChatPrompt = (
   choices: string[],
@@ -64,6 +43,8 @@ export const generateChatPrompt = (
   },
 ];
 
+const EXAMPLE_FOR_FUNCTION_CALL = "Apparel & Accessories > Clothing > Shirts & Tops";
+
 const formatMessagesPrompt = (messages: OpenAI.Chat.CreateChatCompletionRequestMessage[]): string =>
   messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");
 
@@ -71,7 +52,10 @@ export const openAiSelectProductCategory = async (
   choices: string[],
   metaTags: string,
   { model = DEFAULT_MODEL, temperature }: { k?: number; model?: string; temperature?: number }
-): Promise<{ productCategories: string; metadata: { prompt: string; response: string } }> => {
+): Promise<{
+  productCategories: string;
+  metadata: { prompt: string; response: string; functions?: CategoryFunction };
+}> => {
   if (inList(CHAT_COMPLETION_MODELS, model)) {
     const messages = generateChatPrompt(choices, metaTags);
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
@@ -86,15 +70,16 @@ export const openAiSelectProductCategory = async (
   }
 
   if (inList(FUNCTION_CALL_MODELS, model)) {
-    const example = "Apparel & Accessories > Clothing > Shirts & Tops";
-    const messages = generateFunctionCallPrompt(choices, metaTags, { example });
-    const response = (await chatOpenaiWithFunction(messages, { model, temperature, example })) ?? "";
+    const messages = generateFunctionCallPrompt(choices, metaTags, { example: EXAMPLE_FOR_FUNCTION_CALL });
+    const functions = generateFunctions({ example: EXAMPLE_FOR_FUNCTION_CALL });
+    const response = (await chatOpenaiWithFunction(messages, { model, temperature, functions })) ?? "";
     console.log("response", response);
 
     const metadata = {
       prompt: formatMessagesPrompt(messages),
       response,
-    };
+      functions,
+    } as const;
 
     try {
       const json = JSON.parse(response) as { category?: string };

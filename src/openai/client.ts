@@ -42,30 +42,19 @@ export const chatOpenaiWithFunction = async (
   {
     model = "gpt-3.5-turbo-0613",
     temperature = DEFAULT_TEMP,
-    example = "Apparel & Accessories",
-  }: { model?: FunctionCallModel; temperature?: number; example?: string } = {}
+    functions = [],
+  }: {
+    model?: FunctionCallModel;
+    temperature?: number;
+    functions?: OpenAI.Chat.Completions.CompletionCreateParams.Function[];
+  } = {}
 ): Promise<string | undefined> => {
   console.log(`Calling Chat Completion with Functions API with model: "${model}", temperature: ${temperature}`);
   const completion = await openai.chat.completions.create({
     model,
     messages,
     temperature,
-    functions: [
-      {
-        name: "format_product_category",
-        description: "Format a product category.",
-        parameters: {
-          type: "object",
-          properties: {
-            category: {
-              type: "string",
-              description: `The product category e.g. ${example}`,
-            },
-          },
-          required: ["category"],
-        },
-      },
-    ],
+    functions,
   });
 
   console.log("OpenAI chatOpenaiWithFunction Response", completion.choices);

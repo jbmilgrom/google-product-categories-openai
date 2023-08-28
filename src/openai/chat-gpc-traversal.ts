@@ -8,6 +8,7 @@ import {
   inList,
 } from "./constants";
 import { chatOpenai, chatOpenaiWithFunction } from "./client";
+import { generateFunctionCallPrompt, generateFunctions } from "./prompts";
 
 export const generateInstructivePrompt = (choices: string[], metaTags: string) => `
   Select a category from the following list 
@@ -60,28 +61,6 @@ export const generateChatPrompt = (
   `,
   },
   { role: "assistant", content: "9) Kitchen & Dining" },
-  {
-    role: "user",
-    content: `
-    Question: Which product category best describes the metadata?
-
-    metadata:
-    ${metaTags}
-
-    choices: \n\t${choices.map((choice, i) => `${i + 1}) ${choice}`).join("\n\t")}
-  `,
-  },
-];
-
-export const generateFunctionCallPrompt = (
-  choices: string[],
-  metaTags: string,
-  { example }: { example: string }
-): OpenAI.Chat.CreateChatCompletionRequestMessage[] => [
-  {
-    role: "system",
-    content: `Respond with the choice that best applies e.g. "${example}" or "None of the Above"`,
-  },
   {
     role: "user",
     content: `
@@ -176,7 +155,8 @@ export const openAiSelectCategoryFromChoices = async (
   if (inList(FUNCTION_CALL_MODELS, model)) {
     const example = "Apparel & Accessories";
     const messages = generateFunctionCallPrompt(choices, metaTags, { example });
-    const response = (await chatOpenaiWithFunction(messages, { model, temperature, example })) ?? "";
+    const response =
+      (await chatOpenaiWithFunction(messages, { model, temperature, functions: generateFunctions({ example }) })) ?? "";
     console.log("response", response);
 
     const metadata = {

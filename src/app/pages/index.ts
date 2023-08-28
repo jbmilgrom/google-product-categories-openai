@@ -1,6 +1,6 @@
 import { Express } from "express";
 import { isValidHttpUrl } from "../../utils/isValidHttpUrl";
-import { CHAT_AND_COMPlETION_MODELS, inList, listSupportedModels } from "../../openai";
+import { inList, listSupportedModels } from "../../openai";
 import {
   errorTemplate,
   homeTemplate,
@@ -22,6 +22,7 @@ import { encode } from "gpt-3-encoder";
 import { chatOpenaiEmbeddings } from "../../chatOpenaiEmbeddings";
 import { assertUnreachable } from "../../utils/assertUnreachable";
 import { escapeHtml } from "../../utils/escapeHtml";
+import { CHAT_MODELS } from "../../openai/constants";
 
 type Source = "url" | "text";
 
@@ -166,7 +167,7 @@ export const configureGraphTraversalRoute = (
           const result = await getProductCategoriesOrRenderError((nodes) =>
             chatOpenaiGraphTraversal(nodes, metaTags, {
               retries: 1,
-              model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
+              model: inList(CHAT_MODELS, model) ? model : undefined,
             })
           );
 
@@ -240,7 +241,7 @@ export const configureGraphTraversalRoute = (
           const result = await getProductCategoriesOrRenderError((nodes) =>
             chatOpenaiGraphTraversal(nodes, text, {
               retries: 1,
-              model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
+              model: inList(CHAT_MODELS, model) ? model : undefined,
             })
           );
 
@@ -402,7 +403,7 @@ export const configureVectorSearchRoute = (
           const result = await getProductCategoriesOrRenderError((nodes) =>
             chatOpenaiEmbeddings(nodes, metaTags, {
               k: Number.isInteger(kNumber) ? kNumber : undefined,
-              model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
+              model: inList(CHAT_MODELS, model) ? model : undefined,
             })
           );
 
@@ -464,7 +465,7 @@ export const configureVectorSearchRoute = (
           const result = await getProductCategoriesOrRenderError((nodes) =>
             chatOpenaiEmbeddings(nodes, text, {
               k: Number.isInteger(kNumber) ? kNumber : undefined,
-              model: inList(CHAT_AND_COMPlETION_MODELS, model) ? model : undefined,
+              model: inList(CHAT_MODELS, model) ? model : undefined,
             })
           );
 

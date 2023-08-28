@@ -1,13 +1,6 @@
 import OpenAI from "openai";
-import {
-  CHAT_AND_COMPlETION_MODELS,
-  CHAT_COMPLETION_MODELS,
-  DEFAULT_MODEL,
-  FUNCTION_CALL_MODELS,
-  INSTRUCTION_MODELS,
-  inList,
-} from "./constants";
-import { chatOpenai, chatOpenaiWithFunction, instructOpenai } from "./client";
+import { CHAT_COMPLETION_MODELS, CHAT_MODELS, DEFAULT_MODEL, FUNCTION_CALL_MODELS, inList } from "./constants";
+import { chatOpenai, chatOpenaiWithFunction } from "./client";
 
 export const generateFunctionCallPrompt = (
   choices: string[],
@@ -71,18 +64,6 @@ export const generateChatPrompt = (
   },
 ];
 
-export const generateInstructivePrompt = (choices: string[], metaTags: string) => `
-  Select a category from the following list 
-          
-  ${choices.join(", ")}
-
-  that best describes the website represented by these meta tags
-
-  ${metaTags}
-
-  Respond only with the selected category or an empty response if none are relevant.
-  `;
-
 const formatMessagesPrompt = (messages: OpenAI.Chat.CreateChatCompletionRequestMessage[]): string =>
   messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");
 
@@ -91,16 +72,6 @@ export const openAiSelectProductCategory = async (
   metaTags: string,
   { model = DEFAULT_MODEL, temperature }: { k?: number; model?: string; temperature?: number }
 ): Promise<{ productCategories: string; metadata: { prompt: string; response: string } }> => {
-  if (inList(INSTRUCTION_MODELS, model)) {
-    const prompt = generateInstructivePrompt(choices, metaTags);
-    const response = (await instructOpenai(prompt, { model, temperature })) ?? "";
-    console.log("category", response);
-    return {
-      productCategories: response.trim(),
-      metadata: { prompt, response },
-    };
-  }
-
   if (inList(CHAT_COMPLETION_MODELS, model)) {
     const messages = generateChatPrompt(choices, metaTags);
     const response = (await chatOpenai(messages, { model, temperature })) ?? "";
@@ -139,5 +110,5 @@ export const openAiSelectProductCategory = async (
     }
   }
 
-  throw new Error(`Select one of these models {${CHAT_AND_COMPlETION_MODELS.join(", ")}}`);
+  throw new Error(`Select one of these models {${CHAT_MODELS.join(", ")}}`);
 };

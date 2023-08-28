@@ -33,13 +33,9 @@ export const INSTRUCTION_MODELS = [
 export type CompletionModel = (typeof INSTRUCTION_MODELS)[number];
 export const FUNCTION_CALL_MODELS = ["gpt-3.5-turbo-0613", "gpt-4-0613"] as const;
 export type FunctionCallModel = (typeof FUNCTION_CALL_MODELS)[number];
-export const CHAT_AND_COMPlETION_MODELS = [
-  ...CHAT_COMPLETION_MODELS,
-  ...INSTRUCTION_MODELS,
-  ...FUNCTION_CALL_MODELS,
-] as const;
-export type ChatOrCompletionModel = (typeof CHAT_AND_COMPlETION_MODELS)[number];
-export const chatOrCompletionModel = new Set(CHAT_AND_COMPlETION_MODELS);
+export const CHAT_MODELS = [...CHAT_COMPLETION_MODELS, ...FUNCTION_CALL_MODELS];
+export type ChatModel = (typeof CHAT_MODELS)[number];
+export const ChatModels = new Set(CHAT_MODELS);
 export function inList<T extends string>(list: Readonly<T[]>, s: string): s is T {
   return list.includes(s as T);
 }

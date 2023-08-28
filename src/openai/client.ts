@@ -1,12 +1,11 @@
 import OpenAI from "openai";
 import {
   ChatCompletionModel,
-  ChatOrCompletionModel,
-  CompletionModel,
+  ChatModel,
   DEFAULT_MODEL,
   DEFAULT_TEMP,
   FunctionCallModel,
-  chatOrCompletionModel,
+  ChatModels,
 } from "./constants";
 import * as dotenv from "dotenv";
 
@@ -22,25 +21,9 @@ const openai = new OpenAI({
   apiKey: OPENAI_API_KEY,
 });
 
-export const instructOpenai = async (
-  prompt: string,
-  { model = "text-davinci-003", temperature = DEFAULT_TEMP }: { model?: CompletionModel; temperature?: number } = {}
-): Promise<string | undefined> => {
-  console.log(`Calling Completion API with model: "${model}", temperature: ${temperature}`);
-  const completion = await openai.completions.create({
-    model,
-    prompt,
-    temperature,
-  });
-
-  console.log("OpenAI instructOpenai Response", completion.choices);
-
-  return completion.choices[0].text;
-};
-
 export const chatOpenai = async (
   messages: OpenAI.Chat.CreateChatCompletionRequestMessage[],
-  { model = "gpt-3.5-turbo", temperature = DEFAULT_TEMP }: { model?: ChatCompletionModel; temperature?: number } = {}
+  { model = DEFAULT_MODEL, temperature = DEFAULT_TEMP }: { model?: ChatCompletionModel; temperature?: number } = {}
 ): Promise<string | null> => {
   console.log(`Calling Chat Completion API with model: "${model}", temperature: ${temperature}`);
   const completion = await openai.chat.completions.create({
@@ -99,5 +82,5 @@ export const chatOpenaiWithFunction = async (
 export const listSupportedModels = async (): Promise<string[]> => {
   const models = await openai.models.list();
 
-  return models.data.map((model) => model.id).filter((id) => chatOrCompletionModel.has(id as ChatOrCompletionModel));
+  return models.data.map((model) => model.id).filter((id) => ChatModels.has(id as ChatModel));
 };

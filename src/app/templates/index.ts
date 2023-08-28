@@ -352,15 +352,17 @@ export const topKTemplate = ({ top, k }: { k: number; top: { category: string; s
   <table>
     <thead>
       <tr>
-        <td>Top k=${k}</td>
+        <td>Order</td>
+        <td>k</td>
         <td>Category</td>
       </tr>
     </thead>
     <tbody>
     ${top
       .map(
-        ({ category, score }) => /*html*/ `
+        ({ category, score }, i) => /*html*/ `
       <tr>
+        <td>${i + 1}</td>
         <td>${score}</td>
         <td>${category}</td>
       </tr>

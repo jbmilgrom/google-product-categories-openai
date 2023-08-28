@@ -11,18 +11,21 @@ import {
   graphTraversalForm,
   noCategoryFound,
   errorPurgingPath,
-  categoryResult,
+  categoryResultWithChatTemplate,
   vectorSearchForm,
+  categoryResult,
+  topKTemplate,
 } from "../templates";
 import { getMetaTags } from "../crawl";
 import { Vertices } from "../../utils/tree";
 import { getGoogleProductCategoriesTaxonomy } from "../../googleProducts";
 import { chatOpenaiGraphTraversal } from "../../chatOpenaiGraphTraversal";
 import { encode } from "gpt-3-encoder";
-import { chatOpenaiEmbeddings } from "../../chatOpenaiEmbeddings";
+import { chatOpenaiEmbeddings, similaritySearch } from "../../chatOpenaiEmbeddings";
 import { assertUnreachable } from "../../utils/assertUnreachable";
 import { escapeHtml } from "../../utils/escapeHtml";
 import { CHAT_MODELS } from "../../openai/constants";
+import { textSpanEnd } from "typescript";
 
 type Source = "url" | "text";
 
@@ -210,7 +213,7 @@ export const configureGraphTraversalRoute = (
           }
 
           sendHtml(
-            categoryResult({
+            categoryResultWithChatTemplate({
               model: metadata.model,
               temperature: metadata.temperature,
               tokens: tokens.length,
@@ -284,7 +287,7 @@ export const configureGraphTraversalRoute = (
           }
 
           sendHtml(
-            categoryResult({
+            categoryResultWithChatTemplate({
               model: metadata.model,
               temperature: metadata.temperature,
               tokens: tokens.length,
@@ -400,9 +403,36 @@ export const configureVectorSearchRoute = (
 
           writeHtml(scrapedMetaTagsTemplate(metaTags));
 
+          const search = await getProductCategoriesOrRenderError((nodes) =>
+            similaritySearch(nodes, metaTags, { k: Number.isInteger(kNumber) ? kNumber : undefined })
+          );
+
+          if (typeof search === "string") {
+            sendHtml(search);
+            return;
+          }
+          if (search.type === "error:NoCategoryFound") {
+            sendHtml(/*html*/ `
+            <h1>No Product Category Found</h1>
+            <p>Unable to parse found category string for k = 1</p>
+            `);
+            return;
+          }
+
+          writeHtml(topKTemplate({ top: search.metadata.top, k: search.metadata.k }));
+
+          if (search.type === "success") {
+            sendHtml(
+              categoryResult({
+                categories: search.categories.toList(),
+                queryParamDelimiter,
+              })
+            );
+            return;
+          }
+
           const result = await getProductCategoriesOrRenderError((nodes) =>
-            chatOpenaiEmbeddings(nodes, metaTags, {
-              k: Number.isInteger(kNumber) ? kNumber : undefined,
+            chatOpenaiEmbeddings(nodes, metaTags, search.metadata.top, {
               model: inList(CHAT_MODELS, model) ? model : undefined,
             })
           );
@@ -431,7 +461,7 @@ export const configureVectorSearchRoute = (
 
           const { categories } = result;
           sendHtml(
-            categoryResult({
+            categoryResultWithChatTemplate({
               model: metadata.model,
               temperature: metadata.temperature,
               tokens: tokens.length,
@@ -462,12 +492,44 @@ export const configureVectorSearchRoute = (
 
           writeHtml(htmlTemplate(homeTemplate(resultsHeaderTemplateText(escapeHtml(text)))));
 
+          const search = await getProductCategoriesOrRenderError((nodes) =>
+            similaritySearch(nodes, text, { k: Number.isInteger(kNumber) ? kNumber : undefined })
+          );
+
+          if (typeof search === "string") {
+            sendHtml(search);
+            return;
+          }
+          if (search.type === "error:NoCategoryFound") {
+            sendHtml(/*html*/ `
+            <h1>No Product Category Found</h1>
+            <p>Unable to parse found category string for k = 1</p>
+            `);
+            return;
+          }
+
+          writeHtml(topKTemplate({ top: search.metadata.top, k: search.metadata.k }));
+
+          if (search.type === "success") {
+            sendHtml(
+              categoryResult({
+                categories: search.categories.toList(),
+                queryParamDelimiter,
+              })
+            );
+            return;
+          }
+
           const result = await getProductCategoriesOrRenderError((nodes) =>
-            chatOpenaiEmbeddings(nodes, text, {
-              k: Number.isInteger(kNumber) ? kNumber : undefined,
+            chatOpenaiEmbeddings(nodes, text, search.metadata.top, {
               model: inList(CHAT_MODELS, model) ? model : undefined,
             })
           );
+
+          if (typeof result === "string") {
+            sendHtml(result);
+            return;
+          }
 
           if (typeof result === "string") {
             sendHtml(result);
@@ -493,7 +555,7 @@ export const configureVectorSearchRoute = (
 
           const { categories } = result;
           sendHtml(
-            categoryResult({
+            categoryResultWithChatTemplate({
               model: metadata.model,
               temperature: metadata.temperature,
               tokens: tokens.length,

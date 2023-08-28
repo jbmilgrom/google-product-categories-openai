@@ -57,6 +57,18 @@ export const htmlTemplate = (children?: string): string => {
           width: max(80vw, 400px);
         }
 
+        table, th, td {
+          border: 1px solid black;
+        }
+
+        td {
+          padding: .5em 1em;
+        }
+
+        thead {
+          font-weight: bold;
+        }
+
         form.url-form {
           display: grid;
           grid-template-columns: repeat(7, 1fr);
@@ -274,15 +286,26 @@ export const openAiTemplate = ({
   tokens: number;
   transcript: Chat[];
 }) => /*html*/ `
-  <h1>OpenAI</h1>
-  <h2>Model</h2>
-  <p>${model}</p>
-  <h2>Temperature</h2>
-  <p>${temperature}</p>
-  <h2>Words Used</h2>
-  <p>${words}</p>
-  <h2>Tokens Used</h2>
-  <p>${tokens}</p>
+  <h1>OpenAI Log</h1>
+  <h2>Stats</h2>
+  <table>
+    <thead>
+      <tr>
+        <td>Model</td>
+        <td>Temperature</td>
+        <td>Words</td>
+        <td>Tokens</td>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>${model}</td>
+        <td>${temperature}</td>
+        <td>${words}</td>
+        <td>${tokens}</td>
+      </tr>
+    </tbody>
+  </table>
   ${
     transcript.length
       ? /*html*/ `
@@ -320,7 +343,44 @@ export const noCategoryFound = ({
   })}
 `;
 
+export const topKTemplate = ({ top, k }: { k: number; top: { category: string; score: number }[] }) => `
+  <h1>k-Nearest Neighbor Search</h1>
+  <table>
+    <thead>
+      <tr>
+        <td>Top k=${k}</td>
+        <td>Category</td>
+      </tr>
+    </thead>
+    <tbody>
+    ${top
+      .map(
+        ({ category, score }) => /*html*/ `
+      <tr>
+        <td>${score}</td>
+        <td>${category}</td>
+      </tr>
+  `
+      )
+      .join("")}
+    </tbody>
+  </table>
+`;
+
 export const categoryResult = ({
+  queryParamDelimiter,
+  categories,
+}: {
+  categories: string[];
+  queryParamDelimiter: string;
+}) => /* html */ `
+<h1>Result</h1>
+<div>
+  ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories, { delimiter: queryParamDelimiter })}
+</div>
+`;
+
+export const categoryResultWithChatTemplate = ({
   model,
   temperature,
   tokens,
@@ -337,10 +397,7 @@ export const categoryResult = ({
   categories: string[];
   queryParamDelimiter: string;
 }) => /* html */ `
-  <h1>Result (Google Product Category)</h1>
-  <div>
-    ${cookieTrailTemplate(ROUTES.TRAVERSE.url, categories, { delimiter: queryParamDelimiter })}
-  </div>
+  ${categoryResult({ categories, queryParamDelimiter })}
   ${openAiTemplate({
     model,
     temperature,

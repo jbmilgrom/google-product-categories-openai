@@ -70,7 +70,7 @@ export const htmlTemplate = (children?: string): string => {
         }
 
         hr {
-          margin-top: 1em;
+          margin-top: 2em;
         }
 
         form.url-form {

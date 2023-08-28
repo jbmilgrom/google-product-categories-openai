@@ -69,6 +69,10 @@ export const htmlTemplate = (children?: string): string => {
           font-weight: bold;
         }
 
+        hr {
+          margin-top: 1em;
+        }
+
         form.url-form {
           display: grid;
           grid-template-columns: repeat(7, 1fr);
@@ -286,7 +290,7 @@ export const openAiTemplate = ({
   tokens: number;
   transcript: Chat[];
 }) => /*html*/ `
-  <h1>OpenAI Log</h1>
+  <h1>OpenAI Chat Log</h1>
   <h2>Stats</h2>
   <table>
     <thead>
@@ -398,6 +402,7 @@ export const categoryResultWithChatTemplate = ({
   queryParamDelimiter: string;
 }) => /* html */ `
   ${categoryResult({ categories, queryParamDelimiter })}
+  <hr>
   ${openAiTemplate({
     model,
     temperature,

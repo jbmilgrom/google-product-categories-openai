@@ -179,9 +179,9 @@ export const templateTrascript = (transcript: Chat[]): string => {
   const template = ({ prompt, response }: Chat, index: number) => /*html*/ `
     <h3>Query #${index + 1}</h3>
     <h4>Prompt</h4>
-    <code><pre>${escapeHtml(prompt)}</pre><code>
+    <pre><code>${escapeHtml(prompt)}</code></pre>
     <h4>OpenAI</h4>
-    <code><pre>${response}</pre><code>
+    <pre><code>${response}</code></pre>
   `;
   return transcript.map(template).join("");
 };

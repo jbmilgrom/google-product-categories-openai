@@ -13,9 +13,7 @@ export const htmlTemplate = (children?: string): string => {
     <head>
       <style>
         body {
-          padding-left: 1em;
-          padding-top: 1em;
-          padding-bottom: 4em;
+          padding: 1em 1em 4em 1em;
           color: #353740;
         }
 
@@ -42,6 +40,13 @@ export const htmlTemplate = (children?: string): string => {
         footer a:hover {
           color: #353740;
         }
+
+        pre {
+          overflow-x: auto;
+          border: 1px solid #ccc;      
+          padding: 1em;  
+        }
+
 
         header {
           margin-bottom: 2em;

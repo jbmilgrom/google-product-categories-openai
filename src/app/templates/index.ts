@@ -146,7 +146,7 @@ export const homeTemplate = (children?: string): string => {
 export const footerTemplate = () => {
   return /*html*/ `
     <footer>
-      <p><a href="https://github.sc-corp.net/jmilgrom/google-product-types">Code</a> |  Powered by <a href="https://openai.com/product">OpenAI</a>.</p> 
+      <p><a href="https://github.com/jbmilgrom/google-product-categories-openai">Code</a> |  Powered by <a href="https://openai.com/product">OpenAI</a>.</p> 
     </footer>
   `;
 };
@@ -478,7 +478,7 @@ export const vectorSearchForm = ({
     homeTemplate(/* html */ `
   <header>
     <h1>Find the Google Product Categories</h1>
-    <p>The Google Product Categories Taxonomy <a href="https://github.sc-corp.net/jmilgrom/google-product-types/blob/main/src/scripts/langchain/populateOpenAiPineconeStore.ts">has been embedded</a> in a vector space using OpenAI's <a href="https://openai.com/blog/new-and-improved-embedding-model">embedding API</a> and stored in a <a href="https://www.pinecone.io/">Pinecone</a> index.</p>
+    <p>The Google Product Categories Taxonomy <a href="https://github.com/jbmilgrom/google-product-categories-openai/blob/main/src/scripts/langchain/populateOpenAiPineconeStore.ts">has been embedded</a> in a vector space using OpenAI's <a href="https://openai.com/blog/new-and-improved-embedding-model">embedding API</a> and stored in a <a href="https://www.pinecone.io/">Pinecone</a> index.</p>
   </header>
   ${formTemplate(route, sourceFormTemplate(source, route) + modelFormTemplate(models) + kFormTemplate(10))}
 `)

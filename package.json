@@ -7,7 +7,8 @@
     "node": "18.x"
   },
   "dependencies": {
-    "@pinecone-database/pinecone": "^0.1.6",
+    "@langchain/pinecone": "^0.1.2",
+    "@pinecone-database/pinecone": "^4.0.0",
     "@types/express": "^4.17.17",
     "@types/jsdom": "^21.1.2",
     "@types/minimist": "^1.2.2",
@@ -20,10 +21,10 @@
     "express": "^4.18.2",
     "gpt-3-encoder": "^1.1.4",
     "jsdom": "^21.1.2",
-    "langchain": "^0.0.135",
+    "langchain": "^0.3.5",
     "minimist": "^1.2.8",
     "node-html-parser": "^6.1.6",
-    "openai": "^4.3.0",
+    "openai": "^4.71.1",
     "peggy": "^3.0.2",
     "ts-node": "^10.9.1",
     "typescript": "^5.2.2"
@@ -42,7 +43,8 @@
     "prepare": "husky install",
     "benchmark": "ts-node ./src/benchmark",
     "human-labels": "ts-node ./src/benchmark/humanLabels",
-    "prettier-labels": "npx prettier ./src/benchmark/humanLabels/labels.json --write"
+    "prettier-labels": "npx prettier ./src/benchmark/humanLabels/labels.json --write",
+    "deploy": "tsc && git add -A . && git commit -m \"deploy\" && git push heroku main"
   },
   "author": "",
   "license": "ISC"

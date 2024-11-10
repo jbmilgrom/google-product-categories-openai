@@ -23,7 +23,7 @@ export const generateFunctionCallPrompt = (
   choices: string[],
   metaTags: string,
   { example }: { example: string }
-): OpenAI.Chat.CreateChatCompletionRequestMessage[] => [
+): OpenAI.Chat.ChatCompletionMessageParam[] => [
   {
     role: "system",
     content: `Respond with the choice that best applies e.g. "${example}" or "None of the Above"`,

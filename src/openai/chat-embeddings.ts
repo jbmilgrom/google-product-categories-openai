@@ -3,10 +3,7 @@ import { CHAT_COMPLETION_MODELS, CHAT_MODELS, DEFAULT_MODEL, FUNCTION_CALL_MODEL
 import { chatOpenai, chatOpenaiWithFunction } from "./client";
 import { CategoryFunction, generateFunctionCallPrompt, generateFunctions } from "./prompts";
 
-export const generateChatPrompt = (
-  choices: string[],
-  metaTags: string
-): OpenAI.Chat.CreateChatCompletionRequestMessage[] => [
+export const generateChatPrompt = (choices: string[], metaTags: string): OpenAI.Chat.ChatCompletionMessageParam[] => [
   {
     role: "system",
     content:
@@ -45,7 +42,7 @@ export const generateChatPrompt = (
 
 const EXAMPLE_FOR_FUNCTION_CALL = "Apparel & Accessories > Clothing > Shirts & Tops";
 
-const formatMessagesPrompt = (messages: OpenAI.Chat.CreateChatCompletionRequestMessage[]): string =>
+const formatMessagesPrompt = (messages: OpenAI.Chat.ChatCompletionMessageParam[]): string =>
   messages.map(({ role, content }) => `${role}: ${content}`).join("\n\n");
 
 export const openAiSelectProductCategory = async (

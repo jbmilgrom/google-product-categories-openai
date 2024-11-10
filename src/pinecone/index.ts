@@ -1,23 +1,16 @@
-import { PineconeClient } from "@pinecone-database/pinecone";
-import { VectorOperationsApi } from "@pinecone-database/pinecone/dist/pinecone-generated-ts-fetch";
+import { Index, Pinecone } from "@pinecone-database/pinecone";
 import * as dotenv from "dotenv";
 
 dotenv.config();
 
-const { PINECONE_ENVIRONMENT, PINECONE_API_KEY } = process.env;
+const { PINECONE_API_KEY } = process.env;
 
-if (PINECONE_ENVIRONMENT === undefined) {
-  throw new Error("PINECONE_ENVIRONMENT is undefined.");
-}
 if (PINECONE_API_KEY === undefined) {
   throw new Error("Pinecone API_KEY is undefined.");
 }
 
-export const initializePineconeClient = async (): Promise<PineconeClient> => {
-  const pinecone = new PineconeClient();
-
-  await pinecone.init({
-    environment: PINECONE_ENVIRONMENT,
+export const initializePineconeClient = async (): Promise<Pinecone> => {
+  const pinecone = new Pinecone({
     apiKey: PINECONE_API_KEY,
   });
 
@@ -25,14 +18,22 @@ export const initializePineconeClient = async (): Promise<PineconeClient> => {
 };
 
 export const getOrCreatePineconeIndex = async (
-  pinecone: PineconeClient,
+  pinecone: Pinecone,
   { name, dimension }: { name: string; dimension: number }
-): Promise<VectorOperationsApi> => {
+): Promise<Index> => {
   const indexes = await pinecone.listIndexes();
 
-  if (!indexes.includes(name)) {
-    pinecone.createIndex({
-      createRequest: { name, dimension },
+  if (!indexes.indexes?.some((index) => index.name === name)) {
+    await pinecone.createIndex({
+      name,
+      dimension,
+      spec: {
+        serverless: {
+          cloud: "aws",
+          // free plan supports this region
+          region: "us-east-1",
+        },
+      },
     });
   }
 

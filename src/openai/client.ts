@@ -8,6 +8,7 @@ import {
   ChatModels,
 } from "./constants";
 import * as dotenv from "dotenv";
+import { ChatCompletionCreateParams, ChatCompletionMessageParam } from "openai/resources/chat/completions";
 
 dotenv.config();
 
@@ -22,7 +23,7 @@ const openai = new OpenAI({
 });
 
 export const chatOpenai = async (
-  messages: OpenAI.Chat.CreateChatCompletionRequestMessage[],
+  messages: ChatCompletionMessageParam[],
   { model = DEFAULT_MODEL, temperature = DEFAULT_TEMP }: { model?: ChatCompletionModel; temperature?: number } = {}
 ): Promise<string | null> => {
   console.log(`Calling Chat Completion API with model: "${model}", temperature: ${temperature}`);
@@ -38,7 +39,7 @@ export const chatOpenai = async (
 };
 
 export const chatOpenaiWithFunction = async (
-  messages: OpenAI.Chat.CreateChatCompletionRequestMessage[],
+  messages: ChatCompletionMessageParam[],
   {
     model = "gpt-3.5-turbo-0613",
     temperature = DEFAULT_TEMP,
@@ -46,7 +47,7 @@ export const chatOpenaiWithFunction = async (
   }: {
     model?: FunctionCallModel;
     temperature?: number;
-    functions?: OpenAI.Chat.Completions.CompletionCreateParams.Function[];
+    functions?: Array<ChatCompletionCreateParams.Function>;
   } = {}
 ): Promise<string | undefined> => {
   console.log(`Calling Chat Completion with Functions API with model: "${model}", temperature: ${temperature}`);

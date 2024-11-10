@@ -1,8 +1,8 @@
 import * as dotenv from "dotenv";
 import { getOrCreatePineconeIndex, initializePineconeClient } from "../../pinecone";
-import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { Document } from "langchain/document";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { PineconeStore } from "@langchain/pinecone";
 import { GOOGLE_PRODUCT_TYPES_URL, makeGoogleProductTypeTextLineIterator } from "../../googleProducts";
 import { ADA_002_EMBEDDING_MODEL, OPEN_AI_TEXT_EMBEDDING_ADA_002_DIMENSION } from "../../openai";
 
@@ -39,8 +39,6 @@ const loadGoogleProductCategories = async (): Promise<Document[]> => {
     console.log("Initializing Pinecone.");
 
     const pineconeClient = await initializePineconeClient();
-
-    console.log("Generating (sometimes) and retrieving Pinecone index.");
 
     const pineconeIndex = await getOrCreatePineconeIndex(pineconeClient, {
       name: PINECONE_INDEX_NAME_OPEN_AI_ADA_002,

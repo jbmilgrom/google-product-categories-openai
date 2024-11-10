@@ -531,11 +531,6 @@ export const configureVectorSearchRoute = (
             return;
           }
 
-          if (typeof result === "string") {
-            sendHtml(result);
-            return;
-          }
-
           const { metadata } = result;
 
           const { words, tokens } = analyzeTranscript(metadata.transcript.toList());

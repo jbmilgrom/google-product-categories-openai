@@ -105,9 +105,9 @@ var __asyncValues =
 Object.defineProperty(exports, "__esModule", { value: true });
 const dotenv = __importStar(require("dotenv"));
 const pinecone_1 = require("../../pinecone");
-const pinecone_2 = require("langchain/vectorstores/pinecone");
 const document_1 = require("langchain/document");
-const openai_1 = require("langchain/embeddings/openai");
+const openai_1 = require("@langchain/openai");
+const pinecone_2 = require("@langchain/pinecone");
 const googleProducts_1 = require("../../googleProducts");
 const openai_2 = require("../../openai");
 dotenv.config();
@@ -158,7 +158,6 @@ const loadGoogleProductCategories = () =>
       const documents = yield loadGoogleProductCategories();
       console.log("Initializing Pinecone.");
       const pineconeClient = yield (0, pinecone_1.initializePineconeClient)();
-      console.log("Generating (sometimes) and retrieving Pinecone index.");
       const pineconeIndex = yield (0, pinecone_1.getOrCreatePineconeIndex)(pineconeClient, {
         name: PINECONE_INDEX_NAME_OPEN_AI_ADA_002,
         dimension: openai_2.OPEN_AI_TEXT_EMBEDDING_ADA_002_DIMENSION,

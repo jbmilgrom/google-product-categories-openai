@@ -497,10 +497,6 @@ const configureVectorSearchRoute = (app, { route, queryParamDelimiter }) => {
               sendHtml(result);
               return;
             }
-            if (typeof result === "string") {
-              sendHtml(result);
-              return;
-            }
             const { metadata } = result;
             const { words, tokens } = analyzeTranscript(metadata.transcript.toList());
             if (result.type === "error:NoCategoryFound") {

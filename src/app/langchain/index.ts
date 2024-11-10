@@ -1,12 +1,12 @@
 import * as dotenv from "dotenv";
 import { getOrCreatePineconeIndex, initializePineconeClient } from "../../pinecone";
 import { OPEN_AI_TEXT_EMBEDDING_ADA_002_DIMENSION } from "../../openai";
-import { VectorOperationsApi } from "@pinecone-database/pinecone/dist/pinecone-generated-ts-fetch";
-import { Embeddings } from "langchain/dist/embeddings/base";
-import { Document } from "langchain/document";
-import { VectorStore } from "langchain/dist/vectorstores/base";
-import { PineconeStore } from "langchain/vectorstores/pinecone";
-import { OpenAIEmbeddings } from "langchain/embeddings/openai";
+import { Embeddings } from "@langchain/core/embeddings";
+import { Document } from "@langchain/core/documents";
+import { VectorStore } from "@langchain/core/vectorstores";
+import { PineconeStore } from "@langchain/pinecone";
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { Index } from "@pinecone-database/pinecone";
 import { ADA_002_EMBEDDING_MODEL } from "../../openai";
 
 dotenv.config();
@@ -25,7 +25,7 @@ const openAiEmbedder = new OpenAIEmbeddings({
   modelName: ADA_002_EMBEDDING_MODEL,
 });
 
-const getPineconeGoogleProductCategoriesIndex = async (): Promise<VectorOperationsApi> => {
+const getPineconeGoogleProductCategoriesIndex = async (): Promise<Index> => {
   const pineconeClient = await initializePineconeClient();
 
   const pineconeIndex = await getOrCreatePineconeIndex(pineconeClient, {
@@ -45,7 +45,7 @@ const getPineconeGoogleProductCategoriesIndex = async (): Promise<VectorOperatio
  */
 const fromExistingIndex = async (
   embedder: Embeddings,
-  { pineconeIndex, namespace }: { pineconeIndex: VectorOperationsApi; namespace?: string }
+  { pineconeIndex, namespace }: { pineconeIndex: Index; namespace?: string }
 ): Promise<VectorStore> => {
   return PineconeStore.fromExistingIndex(embedder, { pineconeIndex, namespace });
 };

@@ -75,18 +75,13 @@ exports.getOrCreatePineconeIndex = exports.initializePineconeClient = void 0;
 const pinecone_1 = require("@pinecone-database/pinecone");
 const dotenv = __importStar(require("dotenv"));
 dotenv.config();
-const { PINECONE_ENVIRONMENT, PINECONE_API_KEY } = process.env;
-if (PINECONE_ENVIRONMENT === undefined) {
-  throw new Error("PINECONE_ENVIRONMENT is undefined.");
-}
+const { PINECONE_API_KEY } = process.env;
 if (PINECONE_API_KEY === undefined) {
   throw new Error("Pinecone API_KEY is undefined.");
 }
 const initializePineconeClient = () =>
   __awaiter(void 0, void 0, void 0, function* () {
-    const pinecone = new pinecone_1.PineconeClient();
-    yield pinecone.init({
-      environment: PINECONE_ENVIRONMENT,
+    const pinecone = new pinecone_1.Pinecone({
       apiKey: PINECONE_API_KEY,
     });
     return pinecone;
@@ -94,10 +89,19 @@ const initializePineconeClient = () =>
 exports.initializePineconeClient = initializePineconeClient;
 const getOrCreatePineconeIndex = (pinecone, { name, dimension }) =>
   __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const indexes = yield pinecone.listIndexes();
-    if (!indexes.includes(name)) {
-      pinecone.createIndex({
-        createRequest: { name, dimension },
+    if (!((_a = indexes.indexes) === null || _a === void 0 ? void 0 : _a.some((index) => index.name === name))) {
+      yield pinecone.createIndex({
+        name,
+        dimension,
+        spec: {
+          serverless: {
+            cloud: "aws",
+            // free plan supports this region
+            region: "us-east-1",
+          },
+        },
       });
     }
     return pinecone.Index(name);
